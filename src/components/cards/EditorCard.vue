@@ -2,8 +2,13 @@
 </script>
 <template>
   <v-card
-    max-width="600px"
+    max-width="800px"
+    class="fill-height"
   >
+    <QuillEditor
+      theme="snow"
+      toolbar="essential"
+    />
   </v-card>
 </template>
 
