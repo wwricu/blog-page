@@ -14,6 +14,26 @@ function printContent() {
     max-width="800px"
     class="mt-12"
   >
+    <v-container class="mt-n2 mb-n6">
+      <v-row>
+        <v-col cols="8">
+          <v-text-field
+            density="compact"
+            variant="underlined"
+            color="indigo"
+            label="Title"
+          ></v-text-field>
+        </v-col>
+        <v-col cols="4" class="align-self-end">
+          <v-select
+            density="compact"
+            variant="underlined"
+            color="indigo"
+            label="Category"
+          ></v-select>
+        </v-col>
+      </v-row>
+    </v-container>
     <QuillEditor
       class="ql-container"
       ref="quillEditor"
