@@ -11,7 +11,8 @@ function printContent() {
 </script>
 <template>
   <v-card
-    max-width="1000px"
+    max-width="800px"
+    class="mt-12"
   >
     <QuillEditor
       class="ql-container"
@@ -26,9 +27,7 @@ function printContent() {
 
 <style scoped>
 /deep/ .ql-container.ql-snow {
-  margin-top: -3rem;
-  padding-top: 3rem;
-  height: 100vh;
+  height: calc(100vh - 2.8rem - 48px);
 }
 /deep/ .ql-editor {
   overflow-y: scroll;

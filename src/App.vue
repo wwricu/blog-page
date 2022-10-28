@@ -1,9 +1,12 @@
 <template>
-  <v-app>
-    <v-main>
-      <router-view/>
-    </v-main>
-  </v-app>
+  <v-layout style="z-index: 0">
+    <v-app-bar density="compact"></v-app-bar>
+    <v-app>
+      <v-main>
+        <router-view/>
+      </v-main>
+    </v-app>
+  </v-layout>
 </template>
 
 <script lang="ts">
