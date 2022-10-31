@@ -1,7 +1,25 @@
 <script setup lang="ts">
 
-import {ref} from "vue";
+import {ref, getCurrentInstance} from "vue";
+import md5 from 'js-md5'
 
+const ctx = getCurrentInstance()!.appContext.config.globalProperties
+
+function login() {
+  ctx.$http.request({
+    method: 'PUT',
+    url: '/auth',
+    data: {
+      userName: loginForm.value[0].value,
+      pwdHash: md5(loginForm.value[1].value),
+    }
+  }).then((res: any) => {
+    if (res.status != null && res.status === 'success') {
+      alert('success')
+    }
+    console.log(JSON.stringify(res.data))
+  })
+}
 const loginForm = ref([
   {
     text: 'User Name',
@@ -32,13 +50,14 @@ const loginForm = ref([
     ]
   }
 ])
+
 </script>
 
 <template>
   <v-card
     max-width="400px"
     max-height="600px"
-    class="bg-grey-lighten-4"
+    class="bg-grey-lighten-4 mt-16"
   >
     <v-card-text>
       <v-text-field
@@ -60,6 +79,7 @@ const loginForm = ref([
       <v-btn
         density="compact"
         color="indigo"
+        @click="login()"
       >
         Login
       </v-btn>
