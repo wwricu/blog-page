@@ -1,9 +1,11 @@
 <script setup lang="ts">
 
 import {ref, getCurrentInstance} from "vue";
+import { useStore } from "@/stores/global";
 import md5 from 'js-md5'
 
 const ctx = getCurrentInstance()!.appContext.config.globalProperties
+const store = useStore();
 
 function login() {
   ctx.$http.request({
@@ -14,10 +16,11 @@ function login() {
       pwdHash: md5(loginForm.value[1].value),
     }
   }).then((res: any) => {
-    if (res.status != null && res.status === 'success') {
+    if (res.data.status === 'success') {
       alert('success')
+      store.sysUser = res.data.obj
+      console.log(JSON.stringify(store.sysUser))
     }
-    console.log(JSON.stringify(res.data))
   })
 }
 const loginForm = ref([
