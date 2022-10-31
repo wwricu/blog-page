@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.4",
+    "@types/js-md5": "^0.4.3",
     "@types/jsdom": "^20.0.0",
     "@types/node": "^16.11.56",
     "@types/webfontloader": "^1.0.0",
