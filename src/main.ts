@@ -12,7 +12,8 @@ loadFonts().then(r => console.log(r))
 
 const app = createApp(App)
 axios.defaults.method = 'POST'
-axios.defaults.baseURL = 'http://localhost:80'
+axios.defaults.baseURL = 'http://localhost:8888'
+axios.defaults.withCredentials = true
 app.config.globalProperties.$http = axios
 
 app.component('QuillEditor', QuillEditor)
