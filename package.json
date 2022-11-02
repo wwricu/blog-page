@@ -17,6 +17,7 @@
     "axios": "^1.1.3",
     "pinia": "^2.0.23",
     "roboto-fontface": "*",
+    "ts-md5": "^1.3.1",
     "vue": "^3.2.38",
     "vue-router": "^4.1.5",
     "vuetify": "^3.0.0-beta.0",

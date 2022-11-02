@@ -2,7 +2,7 @@
 
 import {ref, getCurrentInstance} from "vue";
 import { useStore } from "@/stores";
-import md5 from 'js-md5'
+import {Md5} from 'ts-md5/dist/esm/md5';
 
 const ctx = getCurrentInstance()!.appContext.config.globalProperties
 const store = useStore();
@@ -13,13 +13,13 @@ function login() {
     url: '/auth',
     data: {
       userName: loginForm.value[0].value,
-      pwdHash: md5(loginForm.value[1].value),
+      pwdHash: Md5.hashStr(loginForm.value[1].value),
     }
   }).then((res: any) => {
     if (res.data.status === 'success') {
       alert('success')
       store.sysUser = res.data.obj
-      console.log(JSON.stringify(store.sysUser))
+      console.log(JSON.stringify(Md5.hashStr(loginForm.value[1].value)))
     }
   })
 }
