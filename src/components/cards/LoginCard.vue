@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import {ref, getCurrentInstance} from "vue";
-import { useStore } from "@/stores/global";
+import { useStore } from "@/stores";
 import md5 from 'js-md5'
 
 const ctx = getCurrentInstance()!.appContext.config.globalProperties
