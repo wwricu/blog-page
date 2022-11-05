@@ -1,11 +1,17 @@
 <script setup lang="ts">
 import EditorCard from "@/components/cards/EditorCard.vue";
+import {submitBlog} from '@/global/apis'
+import {ref} from "vue";
 
+const subEditor = ref()
 const buttons = [
   {
     icon: 'mdi-cloud-upload',
     color: 'indigo',
     handle: () => {
+      submitBlog(subEditor.value.getEditorContents(),
+          () => {},
+          ()=>{})
     }
   },
   {
@@ -25,7 +31,7 @@ const buttons = [
 
 <template>
 <!--  <div id="background">-->
-  <editor-card class="mx-auto"/>
+  <editor-card ref="subEditor" class="mx-auto"/>
   <v-container id="icons">
     <v-row class="flex-column" no-gutters>
       <v-col
@@ -49,10 +55,7 @@ const buttons = [
 #icons {
   position: fixed;
   width: auto;
-  bottom: 0px;
-  right: 0px;
-}
-#background {
-  background-color: #2c3e50;
+  bottom: 0;
+  right: 0;
 }
 </style>
