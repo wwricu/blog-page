@@ -28,3 +28,19 @@ export const submitBlog = (data: any,
         failure(res)
     })
 }
+
+export const updateFolder = (data: any,
+                           success: Function,
+                           failure: Function) => {
+    myAxios.request({
+        method: 'PUT',
+        url: '/resource',
+        data: data
+    }).then((res: any) => {
+        if (res.data.status === 'success') {
+            success(res)
+            return
+        }
+        failure(res)
+    })
+}
