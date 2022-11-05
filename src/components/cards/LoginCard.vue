@@ -10,7 +10,7 @@ const store = useStore();
 function login() {
   ctx.$http.request({
     method: 'PUT',
-    url: '/auth',
+    url: 'http://localhost:8443/auth',
     data: {
       userName: loginForm.value[0].value,
       pwdHash: Md5.hashStr(loginForm.value[1].value),
