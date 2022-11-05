@@ -12,7 +12,6 @@ function printContent() {
 <template>
   <v-card
     max-width="800px"
-    class="mt-12"
   >
     <v-container class="mt-n2 mb-n6">
       <v-row>
