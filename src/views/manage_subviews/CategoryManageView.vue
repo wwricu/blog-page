@@ -18,7 +18,6 @@ function getCategories() {
   })
 }
 
-
 let newCategoryName = ref('')
 function newCategory() {
   ctx.$http.request({
@@ -63,6 +62,7 @@ function newCategory() {
       </v-col>
     </v-row>
   <category-card
+    class="mb-4"
     v-for="folder in folders"
     :key="folder.id"
     :folder="folder"
