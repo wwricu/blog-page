@@ -22,12 +22,12 @@ const router = createRouter({
         {
           path: 'editor',
           name: 'editor',
-          component: () => import('@/views/subviews/EditorView.vue')
+          component: () => import('@/views/manage_subviews/EditorView.vue')
         },
         {
           path: 'category',
           name: 'category',
-          component: () => import('@/views/subviews/CategoryManageView.vue'),
+          component: () => import('@/views/manage_subviews/CategoryManageView.vue'),
         },
       ]
     }
