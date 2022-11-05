@@ -28,7 +28,7 @@
 
 <script setup lang="ts">
 import {ref} from "vue";
-import {updateFolder} from "@/global/apis";
+import {putResource} from "@/global/apis";
 
 const renameDialog = ref(false)
 function switchDialog() {
@@ -45,7 +45,7 @@ const newName = ref()
 function updateCategory() {
   let data = props.folder
   data.title = newName.value
-  updateFolder(data, ()=>{}, ()=>{})
+  putResource(data, ()=>{}, ()=>{})
 }
 
 </script>

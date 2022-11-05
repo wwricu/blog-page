@@ -3,42 +3,42 @@ import {getCurrentInstance} from "vue";
 const ctx = getCurrentInstance()!.appContext.config.globalProperties
 
 const props = defineProps({
-  folder: {
+  category: {
     required: true
   }
 })
 
-function renameFolder() {
+function renameCategory() {
   alert('not implemented!')
 }
-function deleteFolder() {
+function deleteCategory() {
   ctx.$http.request({
     method: 'DELETE',
     url: 'http://localhost:8443/resource',
-    data: props.folder
+    data: props.category
   })
 }
 </script>
 
 <template>
   <v-card>
-    <v-card-title>{{folder.title}}</v-card-title>
+    <v-card-title>{{category.title}}</v-card-title>
     <v-card-text class="d-flex">
         <p class="text-grey-darken-2">Created Time: &ensp;</p>
-        <p>{{folder.createdTime}}</p>
+        <p>{{category.createdTime}}</p>
     </v-card-text>
     <v-divider/>
     <v-card-actions>
       <v-spacer/>
       <v-btn
         color="primary"
-        @click="renameFolder()"
+        @click="renameCategory()"
       >
         rename
       </v-btn>
       <v-btn
         color="error"
-        @click="deleteFolder"
+        @click="deleteCategory"
       >
         delete
       </v-btn>

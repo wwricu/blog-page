@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import EditorCard from "@/components/cards/EditorCard.vue";
-import {submitBlog} from '@/global/apis'
+import {postResource} from '@/global/apis'
 import {ref} from "vue";
 
 const subEditor = ref()
@@ -9,7 +9,7 @@ const buttons = [
     icon: 'mdi-cloud-upload',
     color: 'indigo',
     handle: () => {
-      submitBlog(subEditor.value.getEditorContents(),
+      postResource(subEditor.value.getEditorContents(),
           () => {},
           ()=>{})
     }

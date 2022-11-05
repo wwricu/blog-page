@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import {ref, onMounted} from "vue";
-import {getCategories} from "@/global/apis";
+import {getResource} from "@/global/apis";
 import {encode} from "js-base64";
 
 const quillEditor = ref()
 const content = ref("")
 
 onMounted(()=> {
-  getCategories((res: any)=>{
+  getResource((res: any)=>{
     categories.value = res.data.obj
   }, (res: any)=>{
     console.log(res)

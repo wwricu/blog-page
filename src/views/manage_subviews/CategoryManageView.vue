@@ -3,7 +3,7 @@ import {getCurrentInstance, ref, onMounted} from "vue";
 import CategoryCard from "@/components/cards/CategoryCard.vue";
 const ctx = getCurrentInstance()!.appContext.config.globalProperties
 
-let folders = ref()
+let categories = ref()
 onMounted(() => {
   getCategories()
 })
@@ -13,7 +13,7 @@ function getCategories() {
     url: 'http://localhost:8443/resource/subResources?url=',
   }).then((res: any) => {
     if (res.data.status === 'success') {
-      folders.value = res.data.obj
+      categories.value = res.data.obj
     }
   })
 }
@@ -63,9 +63,9 @@ function newCategory() {
     </v-row>
   <category-card
     class="mb-4"
-    v-for="folder in folders"
-    :key="folder.id"
-    :folder="folder"
+    v-for="category in categories"
+    :key="category.id"
+    :category="category"
   />
   </v-sheet>
 </template>

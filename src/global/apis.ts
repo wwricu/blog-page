@@ -1,6 +1,6 @@
 import myAxios from "@/global/axios";
 
-export const getCategories = (success: Function, failure: Function) => {
+export const getResource = (success: Function, failure: Function) => {
     myAxios.request({
         method: 'GET',
         url: '/resource/subResources?url=',
@@ -13,9 +13,9 @@ export const getCategories = (success: Function, failure: Function) => {
     })
 }
 
-export const submitBlog = (data: any,
-                           success: Function,
-                           failure: Function) => {
+export const postResource = (data: any,
+                             success: Function,
+                             failure: Function) => {
     myAxios.request({
         method: 'POST',
         url: '/resource',
@@ -29,9 +29,9 @@ export const submitBlog = (data: any,
     })
 }
 
-export const updateFolder = (data: any,
-                           success: Function,
-                           failure: Function) => {
+export const putResource = (data: any,
+                            success: Function,
+                            failure: Function) => {
     myAxios.request({
         method: 'PUT',
         url: '/resource',
