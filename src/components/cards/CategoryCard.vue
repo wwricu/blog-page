@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref, getCurrentInstance} from "vue";
+import {getCurrentInstance} from "vue";
 const ctx = getCurrentInstance()!.appContext.config.globalProperties
 
 const props = defineProps({
@@ -16,10 +16,6 @@ function deleteFolder() {
     method: 'DELETE',
     url: 'http://localhost:8443/resource',
     data: props.folder
-  }).then((res: any) => {
-    if (res.data.status === 'success') {
-      alert('success')
-    }
   })
 }
 </script>
@@ -27,6 +23,11 @@ function deleteFolder() {
 <template>
   <v-card>
     <v-card-title>{{folder.title}}</v-card-title>
+    <v-card-text class="d-flex">
+        <p class="text-grey-darken-2">Created Time: &ensp;</p>
+        <p>{{folder.createdTime}}</p>
+    </v-card-text>
+    <v-divider/>
     <v-card-actions>
       <v-spacer/>
       <v-btn
@@ -36,7 +37,7 @@ function deleteFolder() {
         rename
       </v-btn>
       <v-btn
-        color="primary"
+        color="error"
         @click="deleteFolder"
       >
         delete

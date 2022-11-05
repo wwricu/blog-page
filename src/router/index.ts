@@ -25,7 +25,14 @@ const router = createRouter({
     {
       path: '/manage',
       name: 'manage',
-      component: () => import('@/views/ManageView.vue')
+      component: () => import('@/views/ManageView.vue'),
+      children: [
+        {
+          path: 'category',
+          name: 'category',
+          component: () => import('@/views/subviews/CategoryManageView.vue'),
+        }
+      ]
     }
   ]
 })

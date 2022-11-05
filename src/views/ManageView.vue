@@ -22,6 +22,7 @@
       </v-list>
     </v-list>
   </v-navigation-drawer>
+  <router-view/>
 </template>
 
 <script lang="ts">
