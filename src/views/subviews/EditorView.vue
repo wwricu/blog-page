@@ -24,7 +24,7 @@ const buttons = [
 </script>
 
 <template>
-  <div id="background">
+<!--  <div id="background">-->
   <editor-card class="mx-auto"/>
   <v-container id="icons">
     <v-row class="flex-column" no-gutters>
@@ -42,7 +42,7 @@ const buttons = [
       </v-col>
     </v-row>
   </v-container>
-  </div>
+<!--  </div>-->
 </template>
 
 <style scoped>

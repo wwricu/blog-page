@@ -18,7 +18,9 @@
             :key="item.title"
             :prepend-icon="item.icon"
             :title="item.title"
-            :value="item.title"/>
+            :value="item.title"
+            @click="$router.push(item.link)"
+        />
       </v-list>
     </v-list>
   </v-navigation-drawer>
@@ -35,12 +37,12 @@ export default {
       {
         title: 'New Article',
         icon: 'mdi-pencil',
-        link: '/editor'
+        link: '/manage/editor'
       },
       {
         title: 'Manage Categories',
         icon: 'mdi-view-dashboard',
-        link: 'categories'
+        link: '/manage/category'
       },
     ]
   })
