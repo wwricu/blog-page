@@ -12,7 +12,7 @@ loadFonts().then(r => console.log(r))
 
 const app = createApp(App)
 axios.defaults.method = 'POST'
-axios.defaults.baseURL = 'http://localhost:8888'
+axios.defaults.baseURL = 'http://localhost:8443'
 axios.defaults.withCredentials = true
 app.config.globalProperties.$http = axios
 
