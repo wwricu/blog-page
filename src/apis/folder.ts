@@ -1,9 +1,9 @@
-import myAxios from "@/global/axios";
+import myAxios from "@/apis/axios";
 
-export const getResource = (success: Function, failure: Function) => {
+export const getSubFolders = (success: Function, failure: Function) => {
     myAxios.request({
         method: 'GET',
-        url: '/resource/subResources?url=',
+        url: '/folder?url=',
     }).then((res: any) => {
         if (res.data.status === 'success') {
             success(res)
@@ -13,12 +13,12 @@ export const getResource = (success: Function, failure: Function) => {
     })
 }
 
-export const postResource = (data: any,
-                             success: Function,
-                             failure: Function) => {
+export const putFolder = (data: any,
+                            success: Function,
+                            failure: Function) => {
     myAxios.request({
-        method: 'POST',
-        url: '/resource',
+        method: 'PUT',
+        url: '/folder',
         data: data
     }).then((res: any) => {
         if (res.data.status === 'success') {
@@ -29,12 +29,12 @@ export const postResource = (data: any,
     })
 }
 
-export const putResource = (data: any,
-                            success: Function,
-                            failure: Function) => {
+export const deleteFolder = (data: any,
+                          success: Function,
+                          failure: Function) => {
     myAxios.request({
-        method: 'PUT',
-        url: '/resource',
+        method: 'DELETE',
+        url: '/folder',
         data: data
     }).then((res: any) => {
         if (res.data.status === 'success') {

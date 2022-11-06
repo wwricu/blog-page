@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import {ref, onMounted} from "vue";
-import {getResource} from "@/global/apis";
+import {getSubFolders} from "@/apis/folder";
 import {encode} from "js-base64";
 
 const quillEditor = ref()
 const content = ref("")
 
 onMounted(()=> {
-  getResource((res: any)=>{
+  getSubFolders((res: any)=>{
     categories.value = res.data.obj
   }, (res: any)=>{
     console.log(res)
