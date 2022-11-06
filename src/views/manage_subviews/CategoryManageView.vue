@@ -2,35 +2,30 @@
 import {getCurrentInstance, ref, onMounted} from "vue";
 import CategoryCard from "@/components/cards/CategoryCard.vue";
 import RenameDialog from "@/components/dialogs/RenameDialog.vue";
-const ctx = getCurrentInstance()!.appContext.config.globalProperties
+import {getSubFolders, postFolder} from "@/apis/folder";
 
 let categories = ref()
 onMounted(() => {
   getCategories()
 })
 function getCategories() {
-  ctx.$http.request({
-    method: 'GET',
-    url: 'http://localhost:8443/resource/subResources?url=',
-  }).then((res: any) => {
-    if (res.data.status === 'success') {
-      categories.value = res.data.obj
-    }
-  })
+  getSubFolders((res: any)=>{
+    categories.value = res.data.obj
+  }, ()=>{})
 }
 
+const instance = getCurrentInstance();
 let newCategoryName = ref('')
 function newCategory() {
-  ctx.$http.request({
-    method: 'POST',
-    url: 'http://localhost:8443/resource',
-    data: {
-      title: newCategoryName.value,
-      parent: {
-        id: 1
-      }
+  postFolder({
+    title: newCategoryName.value,
+    parent: {
+      id: 1
     }
-  })
+  }, ()=>{
+    alert('success')
+    getCategories()
+  }, ()=>{})
 }
 
 const renameDialog = ref()
