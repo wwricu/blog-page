@@ -15,3 +15,17 @@ export const postContent = (data: any,
         failure(res)
     })
 }
+
+export const getAllBlog = (success: Function,
+                           failure: Function) => {
+    myAxios.request({
+        method: 'GET',
+        url: '/content',
+    }).then((res: any) => {
+        if (res.data.status === 'success') {
+            success(res)
+            return
+        }
+        failure(res)
+    })
+}

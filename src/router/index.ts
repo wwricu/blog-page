@@ -25,6 +25,11 @@ const router = createRouter({
           component: () => import('@/views/manage_subviews/EditorView.vue')
         },
         {
+          path: 'blog',
+          name: 'blog',
+          component: () => import('@/views/manage_subviews/BlogManageView.vue'),
+        },
+        {
           path: 'category',
           name: 'category',
           component: () => import('@/views/manage_subviews/CategoryManageView.vue'),

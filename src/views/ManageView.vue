@@ -42,6 +42,11 @@ export default {
         link: '/manage/editor'
       },
       {
+        title: 'Manage Blogs',
+        icon: 'mdi-pencil',
+        link: '/manage/blog'
+      },
+      {
         title: 'Manage Categories',
         icon: 'mdi-view-dashboard',
         link: '/manage/category'
