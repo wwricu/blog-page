@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {getCurrentInstance, ref} from "vue";
-const ctx = getCurrentInstance()!.appContext.config.globalProperties
+import {getCurrentInstance} from "vue";
+import {deleteFolder} from "@/apis/folder";
 
 const props = defineProps({
   category: {
@@ -12,12 +12,13 @@ const emit = defineEmits(['rename']);
 function renameCategory() {
   emit('rename', props.category)
 }
+
+const instance = getCurrentInstance();
 function deleteCategory() {
-  ctx.$http.request({
-    method: 'DELETE',
-    url: 'http://localhost:8443/resource',
-    data: props.category
-  })
+  deleteFolder(props.category, ()=>{
+    alert('deleted')
+    instance?.proxy?.$forceUpdate();
+  }, ()=>{})
 }
 </script>
 
@@ -39,7 +40,7 @@ function deleteCategory() {
       </v-btn>
       <v-btn
         color="error"
-        @click="deleteCategory"
+        @click="deleteCategory()"
       >
         delete
       </v-btn>
