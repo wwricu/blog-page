@@ -5,7 +5,7 @@ import CategoryCard from "@/components/cards/CategoryCard.vue";
 import RenameDialog from "@/components/dialogs/RenameDialog.vue";
 import {getSubFolders, postFolder} from "@/apis/folder";
 import BlogCard from "@/components/cards/BlogCard.vue";
-import {getAllBlog} from "@/apis/content";
+import {deleteContent, getAllBlog} from "@/apis/content";
 
 let blogs = ref()
 onMounted(() => {
@@ -17,7 +17,10 @@ function getBlogs() {
   }, ()=>{})
 }
 function deleteBlog(blog: any) {
-  alert(JSON.stringify(blog))
+  // alert(JSON.stringify(blog))
+  deleteContent(blog, ()=>{
+    blogs.value.splice(blogs.value.indexOf(blog), 1)
+  },()=>{})
 }
 
 </script>
