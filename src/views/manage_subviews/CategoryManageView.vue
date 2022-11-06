@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import {getCurrentInstance, ref, onMounted} from "vue";
+import {ref, onMounted} from "vue";
 import CategoryCard from "@/components/cards/CategoryCard.vue";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import RenameDialog from "@/components/dialogs/RenameDialog.vue";
 import {getSubFolders, postFolder} from "@/apis/folder";
 
@@ -14,7 +15,6 @@ function getCategories() {
   }, ()=>{})
 }
 
-const instance = getCurrentInstance();
 let newCategoryName = ref('')
 function newCategory() {
   postFolder({

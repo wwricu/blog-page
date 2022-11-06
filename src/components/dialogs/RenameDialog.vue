@@ -57,7 +57,7 @@ const props = defineProps({
 const newName = ref()
 function updateCategory() {
   // alert(JSON.stringify(newName.value))
-  let data = props.category
+  let data: any = props.category
   data.title = newName.value
   // rename category, id==0
   putFolder(data, ()=>{
