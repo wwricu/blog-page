@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {getCurrentInstance} from "vue";
+import {getCurrentInstance, ref} from "vue";
 const ctx = getCurrentInstance()!.appContext.config.globalProperties
 
 const props = defineProps({
@@ -8,8 +8,9 @@ const props = defineProps({
   }
 })
 
+const emit = defineEmits(['rename']);
 function renameCategory() {
-  alert('not implemented!')
+  emit('rename', props.category)
 }
 function deleteCategory() {
   ctx.$http.request({

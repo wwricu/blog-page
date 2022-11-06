@@ -1,21 +1,31 @@
 <template>
   <v-dialog
     v-model="renameDialog"
+    width="400"
   >
     <v-card>
       <v-card-title>
         Rename Category
       </v-card-title>
+      <v-text-field
+        class="mx-6 mb-n4"
+        label="Enter New Name"
+        variant="underlined"
+        color="primary"
+        v-model="newName"
+      />
       <v-card-actions>
         <v-spacer/>
         <v-btn
+          size="small"
           color="error"
           @click="renameDialog=false"
         >
           Cancel
         </v-btn>
         <v-btn
-          color="primary"
+            size="small"
+            color="primary"
           @click="updateCategory()"
         >
           Confirm
@@ -28,24 +38,35 @@
 
 <script setup lang="ts">
 import {ref} from "vue";
-import {putResource} from "@/global/apis";
+import {putResource} from '@/global/apis';
 
 const renameDialog = ref(false)
-function switchDialog() {
-  renameDialog.value = !renameDialog.value
-}
+
+defineExpose({
+  switchDialog() {
+    renameDialog.value = !renameDialog.value
+  }
+})
 
 const props = defineProps({
-  folder: {
+  category: {
     required: true
   }
 })
-const newName = ref()
 
+const newName = ref()
 function updateCategory() {
-  let data = props.folder
+  // alert(JSON.stringify(newName.value))
+  let data = props.category
   data.title = newName.value
-  putResource(data, ()=>{}, ()=>{})
+  // rename category, id==0
+  putResource(data, ()=>{
+    alert('success')
+    renameDialog.value = false
+  }, ()=>{
+    alert('failure')
+    renameDialog.value = false
+  })
 }
 
 </script>

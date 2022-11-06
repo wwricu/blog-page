@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {getCurrentInstance, ref, onMounted} from "vue";
 import CategoryCard from "@/components/cards/CategoryCard.vue";
+import RenameDialog from "@/components/dialogs/RenameDialog.vue";
 const ctx = getCurrentInstance()!.appContext.config.globalProperties
 
 let categories = ref()
@@ -32,6 +33,12 @@ function newCategory() {
   })
 }
 
+const renameDialog = ref()
+const categoryInstance = ref()
+const renameCategory = (category: any) => {
+  categoryInstance.value = category
+  renameDialog.value.switchDialog()
+}
 </script>
 
 <template>
@@ -39,6 +46,10 @@ function newCategory() {
     max-width="600"
     class="mx-auto pa-4"
   >
+    <rename-dialog
+      ref="renameDialog"
+      :category="categoryInstance"
+    />
     <v-row no-gutters>
       <v-col cols="8" class="align-self-end">
         <v-text-field
@@ -66,6 +77,7 @@ function newCategory() {
     v-for="category in categories"
     :key="category.id"
     :category="category"
+    @rename="renameCategory"
   />
   </v-sheet>
 </template>
