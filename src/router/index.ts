@@ -20,7 +20,7 @@ const router = createRouter({
       component: () => import('@/views/ManageView.vue'),
       children: [
         {
-          path: 'editor',
+          path: 'editor/:Id',
           name: 'editor',
           component: () => import('@/views/manage_subviews/EditorView.vue')
         },

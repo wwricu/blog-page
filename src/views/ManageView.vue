@@ -37,11 +37,6 @@ export default {
     group: null,
     manageNavigations: [
       {
-        title: 'New Article',
-        icon: 'mdi-pencil',
-        link: '/manage/editor'
-      },
-      {
         title: 'Manage Blogs',
         icon: 'mdi-pencil',
         link: '/manage/blog'
