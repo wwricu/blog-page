@@ -5,7 +5,8 @@ import CategoryCard from "@/components/cards/CategoryCard.vue";
 import RenameDialog from "@/components/dialogs/RenameDialog.vue";
 import {getSubFolders, postFolder} from "@/apis/folder";
 import BlogCard from "@/components/cards/BlogCard.vue";
-import {deleteContent, getAllBlog} from "@/apis/content";
+import {deleteContent, getAllBlog, postContent} from "@/apis/content";
+import RightBottomButtons from "@/components/buttons/RightBottomButtons.vue";
 
 let blogs = ref()
 onMounted(() => {
@@ -23,6 +24,16 @@ function deleteBlog(blog: any) {
   },()=>{})
 }
 
+const buttons = [
+  {
+    icon: 'mdi-pencil',
+    color: 'indigo',
+    handle: () => {
+      alert('not implemented')
+    }
+  },
+]
+
 </script>
 
 <template>
@@ -37,6 +48,9 @@ function deleteBlog(blog: any) {
         :category="blog"
         :blog="blog"
         @delete="deleteBlog(blog)"
+    />
+    <right-bottom-buttons
+      :buttons="buttons"
     />
   </v-sheet>
 </template>
