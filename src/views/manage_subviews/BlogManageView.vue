@@ -7,6 +7,7 @@ import {getSubFolders, postFolder} from "@/apis/folder";
 import BlogCard from "@/components/cards/BlogCard.vue";
 import {deleteContent, getAllBlog, postContent} from "@/apis/content";
 import RightBottomButtons from "@/components/buttons/RightBottomButtons.vue";
+import {useRouter} from "vue-router";
 
 let blogs = ref()
 onMounted(() => {
@@ -24,12 +25,22 @@ function deleteBlog(blog: any) {
   },()=>{})
 }
 
+const router = useRouter()
+function newDraft() {
+  postContent({
+    status: 'draft'
+  }, (res: any)=>{
+    alert('success')
+    router.push({path: `/manage/editor/${res.data.id}`})
+  }, ()=>{})
+}
+
 const buttons = [
   {
     icon: 'mdi-pencil',
     color: 'indigo',
     handle: () => {
-      alert('not implemented')
+      newDraft()
     }
   },
 ]
