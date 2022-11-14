@@ -15,7 +15,7 @@ onMounted(() => {
 })
 function getBlogs() {
   getAllBlog((res: any)=>{
-    blogs.value = res.data.obj
+    blogs.value = res.data
   }, ()=>{})
 }
 function deleteBlog(blog: any) {

@@ -26,7 +26,7 @@ const instance = getCurrentInstance();
     <v-card-title>{{blog.title}}</v-card-title>
     <v-card-text class="d-flex">
       <p class="text-grey-darken-2">Created Time: &ensp;</p>
-      <p>{{blog.createdTime}}</p>
+      <p>{{blog.created_time}}</p>
     </v-card-text>
     <v-divider/>
     <v-card-actions>
