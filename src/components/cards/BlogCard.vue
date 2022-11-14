@@ -1,13 +1,16 @@
 <script setup lang="ts">
 
+import {useRouter} from "vue-router";
+
 const props = defineProps({
   blog: {
     required: true
   }
 })
 
+const router = useRouter()
 function modifyBlog() {
-  alert('not implemented')
+  router.push({path: `/manage/editor/${props.blog.id}`})
 }
 
 const emit = defineEmits(['delete']);
