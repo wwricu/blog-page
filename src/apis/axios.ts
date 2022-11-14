@@ -11,8 +11,8 @@ myAxios.interceptors.response.use(
         if (res.data == null) {
             alert('no data returned')
         } else if (res.data.status !== 'success') {
-            console.log(res)
-            alert(res.data.message)
+            // console.log(res)
+            // alert(res.data.message)
         }
         return res;
     },

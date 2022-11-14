@@ -11,7 +11,7 @@ onMounted(() => {
 })
 function getCategories() {
   getSubFolders((res: any)=>{
-    categories.value = res.data.obj
+    categories.value = res.data
   }, ()=>{})
 }
 
@@ -19,9 +19,7 @@ let newCategoryName = ref('')
 function newCategory() {
   postFolder({
     title: newCategoryName.value,
-    parent: {
-      id: 1
-    }
+    parent_id: 1
   }, ()=>{
     alert('success')
     getCategories()

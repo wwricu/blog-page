@@ -3,13 +3,9 @@ import myAxios from "@/apis/axios";
 export const getSubFolders = (success: Function, failure: Function) => {
     myAxios.request({
         method: 'GET',
-        url: '/folder?url=',
+        url: '/folder?parent_id=1',
     }).then((res: any) => {
-        if (res.data.status === 'success') {
-            success(res)
-            return
-        }
-        failure(res)
+        success(res)
     })
 }
 
@@ -21,11 +17,7 @@ export const postFolder = (data: any,
         url: '/folder',
         data: data
     }).then((res: any) => {
-        if (res.data.status === 'success') {
-            success(res)
-            return
-        }
-        failure(res)
+        success(res)
     })
 }
 
