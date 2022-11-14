@@ -8,11 +8,7 @@ export const postContent = (data: any,
         url: '/content',
         data: data
     }).then((res: any) => {
-        if (res.data.status === 'success') {
-            success(res)
-            return
-        }
-        failure(res)
+        success(res)
     })
 }
 
@@ -22,11 +18,7 @@ export const getAllBlog = (success: Function,
         method: 'GET',
         url: '/content',
     }).then((res: any) => {
-        if (res.data.status === 'success') {
-            success(res)
-            return
-        }
-        failure(res)
+        success(res)
     })
 }
 
@@ -35,13 +27,8 @@ export const deleteContent = (data: any,
                               failure: Function) => {
     myAxios.request({
         method: 'DELETE',
-        url: '/content',
-        data: data
+        url: `/content/${data.id}`,
     }).then((res: any) => {
-        if (res.data.status === 'success') {
-            success(res)
-            return
-        }
-        failure(res)
+        success(res)
     })
 }
