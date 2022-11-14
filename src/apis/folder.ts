@@ -29,11 +29,8 @@ export const putFolder = (data: any,
         url: '/folder',
         data: data
     }).then((res: any) => {
-        if (res.data.status === 'success') {
-            success(res)
-            return
-        }
-        failure(res)
+        success(res)
+        // failure(res)
     })
 }
 
@@ -42,13 +39,8 @@ export const deleteFolder = (data: any,
                           failure: Function) => {
     myAxios.request({
         method: 'DELETE',
-        url: '/folder',
-        data: data
+        url: `/folder/${data.id}`,
     }).then((res: any) => {
-        if (res.data.status === 'success') {
-            success(res)
-            return
-        }
-        failure(res)
+        success(res)
     })
 }
