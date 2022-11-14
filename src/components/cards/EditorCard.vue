@@ -11,7 +11,7 @@ const content = ref("")
 onMounted(()=> {
   findContent()
   getSubFolders((res: any)=>{
-    categories.value = res.data.obj
+    categories.value = res.data
   }, (res: any)=>{
     console.log(res)
   })
@@ -34,6 +34,7 @@ function findContent() {
     id: route.params.id
   }, (res: any)=>{
     title.value = res.data.title
+    categorySelect.value.id = res.data.parent_id
     quillEditor.value.setContents(Base64.decode(res.data.content))
     // get category
   }, ()=>{})
