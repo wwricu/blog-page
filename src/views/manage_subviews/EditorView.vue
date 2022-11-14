@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import EditorCard from "@/components/cards/EditorCard.vue";
 import RightBottomButtons from "@/components/buttons/RightBottomButtons.vue"
-import {modifyContent, postContent} from '@/apis/content'
+import {deleteContent, modifyContent, postContent} from '@/apis/content'
 import {ref} from "vue";
+import {useRouter} from "vue-router";
 
+const router = useRouter()
 const subEditor = ref()
 const buttons = [
   {
@@ -28,6 +30,10 @@ const buttons = [
     icon: 'mdi-delete',
     color: 'error',
     handle: () => {
+      deleteContent(subEditor.value.getEditorContents(), ()=>{
+        alert('success')
+        router.push({path: '/manage/blog'})
+      }, ()=>{})
     }
   },
 ]

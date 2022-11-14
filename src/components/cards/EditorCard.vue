@@ -26,27 +26,36 @@ function findContent() {
   getContent({
     id: route.params.id
   }, (res: any)=>{
+    if (res.data.length === 0) return
     title.value = res.data[0].title
+    if (res.data[0].content !== null) {
+      quillEditor.value.setContents(Base64.decode(res.data[0].content))
+    }
+
     for (const cat of categories.value) {
       if (cat.id === res.data[0].parent_id) {
         categorySelect.value = cat
         break
       }
     }
-    quillEditor.value.setContents(Base64.decode(res.data[0].content))
     // get category
   }, ()=>{})
 }
 
 defineExpose({
   getEditorContents() {
-    return {
+    const data = {
       id: route.params.id,
       title: title.value,
       author_id: 1,
-      parent_id: categorySelect.value.id,
+      parent_id: 0,
       content: encode(quillEditor.value.getContents())
     }
+    if (categorySelect.value !== undefined
+        && categorySelect.value.id !== undefined) {
+      data.parent_id = categorySelect.value.id
+    }
+    return data
   }
 })
 
