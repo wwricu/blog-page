@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import {ref, onMounted} from "vue";
 import {getSubFolders} from "@/apis/folder";
-import {encode} from "js-base64";
+import {Base64, encode} from "js-base64";
+import {getContent} from "@/apis/content";
+import {useRoute} from "vue-router";
 
 const quillEditor = ref()
 const content = ref("")
 
 onMounted(()=> {
+  findContent()
   getSubFolders((res: any)=>{
     categories.value = res.data.obj
   }, (res: any)=>{
@@ -14,9 +17,27 @@ onMounted(()=> {
   })
 })
 
+defineProps({
+  id: {
+    type: Number,
+    required: true
+  }
+})
+
 const title = ref()
 const categories = ref()
 const categorySelect = ref()
+
+const route = useRoute()
+function findContent() {
+  getContent({
+    id: route.params.id
+  }, (res: any)=>{
+    title.value = res.data.title
+    quillEditor.value.setContents(Base64.decode(res.data.content))
+    // get category
+  }, ()=>{})
+}
 
 defineExpose({
   getEditorContents() {
