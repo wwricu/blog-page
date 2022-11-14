@@ -3,25 +3,18 @@
 import {ref, getCurrentInstance} from "vue";
 import { useStore } from "@/stores";
 import {Md5} from 'ts-md5/dist/esm/md5';
+import {loginApi} from '@/apis/user'
 
 const ctx = getCurrentInstance()!.appContext.config.globalProperties
 const store = useStore();
 
 function login() {
-  ctx.$http.request({
-    method: 'PUT',
-    url: 'http://localhost:8443/auth',
-    data: {
-      userName: loginForm.value[0].value,
-      pwdHash: Md5.hashStr(loginForm.value[1].value),
-    }
-  }).then((res: any) => {
-    if (res.data.status === 'success') {
-      alert('success')
-      store.sysUser = res.data.obj
-      console.log(JSON.stringify(Md5.hashStr(loginForm.value[1].value)))
-    }
-  })
+  loginApi({
+    username: loginForm.value[0].value,
+    password: Md5.hashStr(loginForm.value[1].value)
+  }, (res: any)=>{
+    localStorage.setItem('access_token', res.data.access_token)
+  }, ()=>{})
 }
 const loginForm = ref([
   {
