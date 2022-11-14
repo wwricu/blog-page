@@ -21,6 +21,8 @@ const loginForm = ref([
     text: 'User Name',
     value: '',
     counter: 12,
+    type: 'text',
+    icon: '',
     rules: [
       (v:String) => {
         return !!v || 'This field is required'
@@ -35,6 +37,8 @@ const loginForm = ref([
     text: 'Password',
     value: '',
     counter: 25,
+    type: 'password',
+    icon: 'mdi-eye',
     rules: [
       (v:String) => {
         return !!v || 'This field is required'
@@ -46,6 +50,16 @@ const loginForm = ref([
     ]
   }
 ])
+
+function iconClick(item: typeof loginForm.value[0]) {
+  if (item.icon === 'mdi-eye') {
+    item.icon = 'mdi-eye-off'
+    item.type = 'text'
+  } else if (item.icon === 'mdi-eye-off') {
+    item.icon = 'mdi-eye'
+    item.type = 'password'
+  }
+}
 
 </script>
 
@@ -59,6 +73,8 @@ const loginForm = ref([
       <v-text-field
           variant="underlined"
           color="indigo"
+          :type="item.type"
+          :append-inner-icon="item.icon"
           v-for="item in loginForm"
           :key="item.text"
           :label="item.text"
@@ -66,6 +82,7 @@ const loginForm = ref([
           :rules="item.rules"
           v-model="item.value"
           class="ml-1 mr-1"
+          @click:appendInner="iconClick(item)"
       >
       </v-text-field>
     </v-card-text>
