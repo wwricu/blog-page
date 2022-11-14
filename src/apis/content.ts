@@ -48,6 +48,18 @@ export const getAllBlog = (success: Function,
     })
 }
 
+export const modifyContent = (data: any,
+                              success: Function,
+                              failure: Function) => {
+    myAxios.request({
+        method: 'POST',
+        url: '/content',
+        data: data
+    }).then((res: any) => {
+        success(res)
+    })
+}
+
 export const deleteContent = (data: any,
                               success: Function,
                               failure: Function) => {
