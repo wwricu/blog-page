@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import EditorCard from "@/components/cards/EditorCard.vue";
 import RightBottomButtons from "@/components/buttons/RightBottomButtons.vue"
-import {postContent} from '@/apis/content'
+import {modifyContent, postContent} from '@/apis/content'
 import {ref} from "vue";
 
 const subEditor = ref()
@@ -19,6 +19,9 @@ const buttons = [
     icon: 'mdi-content-save',
     color: 'success',
     handle: () => {
+      modifyContent(subEditor.value.getEditorContents(), ()=>{
+        alert('success')
+      }, ()=>{})
     }
   },
   {

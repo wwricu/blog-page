@@ -33,9 +33,9 @@ function findContent() {
   getContent({
     id: route.params.id
   }, (res: any)=>{
-    title.value = res.data.title
-    categorySelect.value.id = res.data.parent_id
-    quillEditor.value.setContents(Base64.decode(res.data.content))
+    title.value = res.data[0].title
+    categorySelect.value.id = res.data[0].parent_id
+    quillEditor.value.setContents(Base64.decode(res.data[0].content))
     // get category
   }, ()=>{})
 }
@@ -43,13 +43,10 @@ function findContent() {
 defineExpose({
   getEditorContents() {
     return {
+      id: route.params.id,
       title: title.value,
-      author: {
-        id: 1
-      },
-      parent: {
-        id: categorySelect.value.id
-      },
+      author_id: 1,
+      parent_id: categorySelect.value.id,
       content: encode(quillEditor.value.getContents())
     }
   }

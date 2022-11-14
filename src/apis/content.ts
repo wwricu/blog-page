@@ -52,7 +52,7 @@ export const modifyContent = (data: any,
                               success: Function,
                               failure: Function) => {
     myAxios.request({
-        method: 'POST',
+        method: 'PUT',
         url: '/content',
         data: data
     }).then((res: any) => {
