@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import {getCurrentInstance} from "vue";
-import {deleteFolder} from "@/apis/folder";
 
 const props = defineProps({
   blog: {
@@ -16,8 +14,6 @@ const emit = defineEmits(['delete']);
 function deleteBlog() {
   emit('delete', props.blog)
 }
-
-const instance = getCurrentInstance();
 
 </script>
 

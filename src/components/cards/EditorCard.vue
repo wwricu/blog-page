@@ -59,12 +59,6 @@ defineExpose({
   }
 })
 
-function printContent() {
-  // console.log(quillEditor.value.getContents())
-  // quillEditor.value.setContents('<p>???</p>')
-  alert(categories)
-}
-
 </script>
 <template>
   <v-card

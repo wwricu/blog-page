@@ -1,9 +1,5 @@
 <script setup lang="ts">
 import {ref, onMounted} from "vue";
-import CategoryCard from "@/components/cards/CategoryCard.vue";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import RenameDialog from "@/components/dialogs/RenameDialog.vue";
-import {getSubFolders, postFolder} from "@/apis/folder";
 import BlogCard from "@/components/cards/BlogCard.vue";
 import {deleteContent, getAllBlog, postContent} from "@/apis/content";
 import RightBottomButtons from "@/components/buttons/RightBottomButtons.vue";
