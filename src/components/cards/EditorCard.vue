@@ -9,19 +9,12 @@ const quillEditor = ref()
 const content = ref("")
 
 onMounted(()=> {
-  findContent()
   getSubFolders((res: any)=>{
     categories.value = res.data
+    findContent()
   }, (res: any)=>{
     console.log(res)
   })
-})
-
-defineProps({
-  id: {
-    type: Number,
-    required: true
-  }
 })
 
 const title = ref()
@@ -34,7 +27,12 @@ function findContent() {
     id: route.params.id
   }, (res: any)=>{
     title.value = res.data[0].title
-    categorySelect.value.id = res.data[0].parent_id
+    for (const cat of categories.value) {
+      if (cat.id === res.data[0].parent_id) {
+        categorySelect.value = cat
+        break
+      }
+    }
     quillEditor.value.setContents(Base64.decode(res.data[0].content))
     // get category
   }, ()=>{})
