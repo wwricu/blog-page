@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref} from "vue";
 
-const Title = 'Tech'
+const Title = 'Categories'
 const subFolders = ref([
   {
     text: 'C++',
@@ -15,22 +15,29 @@ const subFolders = ref([
 function push(link: String) {
   alert(link)
 }
-
 </script>
+
 <template>
-  <v-menu
-    open-on-hover
-    transition="scroll-y-transition"
-  >
-    <template v-slot:activator="{ props }">
+  <v-hover close-delay="500">
+    <template v-slot:default="{ isHovering, props }">
       <v-btn
-          color="primary"
-          class="ma-2"
+          id="menu-activator"
           v-bind="props"
+          rounded="pill"
+          class="ma-2 pa-n2"
+          :color="isHovering ? 'white' : 'primary'"
+          :class="isHovering ? 'bg-primary' : 'bg-white'"
       >
         {{ Title }}
       </v-btn>
     </template>
+  </v-hover>
+
+  <v-menu
+      open-on-hover
+      activator="#menu-activator"
+      transition="scroll-y-transition"
+  >
     <v-list>
       <v-list-item
           v-for="subFolder in subFolders"
@@ -38,7 +45,7 @@ function push(link: String) {
           link
       >
         <v-list-item-title
-          @click="push(subFolder.text)"
+            @click="push(subFolder.text)"
         >
           {{subFolder.text}}
         </v-list-item-title>
