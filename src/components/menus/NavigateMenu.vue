@@ -18,7 +18,10 @@ function push(link: String) {
 
 </script>
 <template>
-  <v-menu transition="scroll-y-transition">
+  <v-menu
+    open-on-hover
+    transition="scroll-y-transition"
+  >
     <template v-slot:activator="{ props }">
       <v-btn
           color="primary"
