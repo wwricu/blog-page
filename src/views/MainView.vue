@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import NavigateMenu from "@/components/menus/NavigateMenu.vue";
+import NavigateMenu from "@/components/buttons/NavigateMenu.vue";
 import AppbarButton from "@/components/buttons/AppbarButton.vue";
 </script>
 
