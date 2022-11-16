@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import NavigateMenu from "@/components/menus/NavigateMenu.vue";
+import AppbarButton from "@/components/buttons/AppbarButton.vue";
 </script>
 
 <template>
@@ -8,6 +9,7 @@ import NavigateMenu from "@/components/menus/NavigateMenu.vue";
       density="compact"
   >
     <navigate-menu/>
+    <appbar-button/>
   </v-app-bar>
 </template>
 
