@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const props = defineProps({
+  activator: String,
   menu: Boolean,
   title: String
 })
@@ -9,7 +10,7 @@ const props = defineProps({
   <v-hover close-delay="200">
     <template v-slot:default="{ isHovering, props }">
       <v-btn
-        id="menu-activator"
+        :id="activator"
         v-bind="props"
         rounded="pill"
         :color="isHovering || menu ? 'white' : 'primary'"

@@ -23,14 +23,13 @@ const folders = ref([
       density="compact"
   >
     <navigate-button
-      id="menu-activator"
+      activator="menu-activator"
       :title="'Category'"
       :menu="menu"/>
     <list-menu
       activator="#menu-activator"
       :list="folders"
       v-model="menu"/>
-    <appbar-button/>
   </v-app-bar>
 </template>
 
