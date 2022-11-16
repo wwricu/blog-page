@@ -13,6 +13,7 @@ const props = defineProps({
         :id="activator"
         v-bind="props"
         rounded="pill"
+        class="ma-1"
         :color="isHovering || menu ? 'white' : 'primary'"
         :class="isHovering || menu ? 'bg-primary' : 'bg-white'"
       >

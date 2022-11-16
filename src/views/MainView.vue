@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import NavigateButton from "@/components/buttons/NavigateButton.vue";
-import AppbarButton from "@/components/buttons/AppbarButton.vue";
 import ListMenu from "@/components/menus/ListMenu.vue";
 import {ref} from "vue";
+import TagMenu from "@/components/menus/TagMenu.vue";
 
 let menu = ref()
+let overlay = ref()
 const folders = ref([
   {
     text: 'C++',
@@ -24,12 +25,20 @@ const folders = ref([
   >
     <navigate-button
       activator="menu-activator"
-      :title="'Category'"
+      title="Category"
       :menu="menu"/>
     <list-menu
       activator="#menu-activator"
       :list="folders"
       v-model="menu"/>
+
+    <navigate-button
+        activator="tag-activator"
+        title="Tags"
+        :menu="overlay"/>
+    <tag-menu
+      activator="#tag-activator"
+      v-model="overlay"/>
   </v-app-bar>
 </template>
 
