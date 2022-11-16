@@ -5,6 +5,16 @@ import ListMenu from "@/components/menus/ListMenu.vue";
 import {ref} from "vue";
 
 let menu = ref()
+const folders = ref([
+  {
+    text: 'C++',
+    link: '/C++'
+  },
+  {
+    text: 'Java',
+    link: '/Java'
+  }
+])
 </script>
 
 <template>
@@ -12,8 +22,14 @@ let menu = ref()
       style="position:fixed;"
       density="compact"
   >
-    <navigate-button id="menu-activator" :menu="menu"/>
-    <list-menu activator="#menu-activator" v-model="menu"/>
+    <navigate-button
+      id="menu-activator"
+      :title="'Category'"
+      :menu="menu"/>
+    <list-menu
+      activator="#menu-activator"
+      :list="folders"
+      v-model="menu"/>
     <appbar-button/>
   </v-app-bar>
 </template>

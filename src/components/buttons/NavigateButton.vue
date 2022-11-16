@@ -1,7 +1,7 @@
 <script setup lang="ts">
-const Title = 'Categories'
 const props = defineProps({
-  menu: Boolean
+  menu: Boolean,
+  title: String
 })
 </script>
 
@@ -9,13 +9,13 @@ const props = defineProps({
   <v-hover close-delay="200">
     <template v-slot:default="{ isHovering, props }">
       <v-btn
-          id="menu-activator"
-          v-bind="props"
-          rounded="pill"
-          :color="isHovering || menu ? 'white' : 'primary'"
-          :class="isHovering || menu ? 'bg-primary' : 'bg-white'"
+        id="menu-activator"
+        v-bind="props"
+        rounded="pill"
+        :color="isHovering || menu ? 'white' : 'primary'"
+        :class="isHovering || menu ? 'bg-primary' : 'bg-white'"
       >
-        {{ Title }}
+        {{ title }}
       </v-btn>
     </template>
   </v-hover>

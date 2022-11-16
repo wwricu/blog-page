@@ -1,10 +1,14 @@
 <script setup lang="ts">
-import {computed, ref} from "vue";
+import {computed, PropType, ref} from "vue";
 
 const props = defineProps({
   modelValue: Boolean,
-  activator: String
+  activator: String,
+  list: {
+    type: Object
+  }
 })
+
 const emits = defineEmits(['update:modelValue'])
 const menuOutput = computed({
   get: () => {
@@ -15,16 +19,6 @@ const menuOutput = computed({
   }
 })
 
-const subFolders = ref([
-  {
-    text: 'C++',
-    link: '/C++'
-  },
-  {
-    text: 'Java',
-    link: '/Java'
-  }
-])
 const push = (text: String) => {
   alert(text)
 }
@@ -40,7 +34,7 @@ const push = (text: String) => {
   >
     <v-list>
       <v-list-item
-          v-for="subFolder in subFolders"
+          v-for="subFolder in list"
           :key="subFolder"
           link
       >
