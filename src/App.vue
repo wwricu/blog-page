@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-// import NavigateMenu from "@/components/menus/NavigateMenu.vue";
+// import NavigateMenu from "@/components/menus/NavigateButton.vue";
 
 export default defineComponent({
   name: 'App',

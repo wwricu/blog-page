@@ -14,8 +14,8 @@ function push(link: String) {
           v-bind="props"
           rounded="pill"
           class="ma-2 pa-n2"
-          :color="isHovering || menu ? 'white' : 'primary'"
-          :class="isHovering || menu ? 'bg-primary' : 'bg-white'"
+          :color="isHovering ? 'white' : 'primary'"
+          :class="isHovering ? 'bg-primary' : 'bg-white'"
           @click="push"
       >
         {{ Title }}
