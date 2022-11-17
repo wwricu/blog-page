@@ -34,12 +34,12 @@ const push = (text: String) => {
   >
     <v-list>
       <v-list-item
-          v-for="subFolder in list"
-          :key="subFolder"
-          link
+        v-for="subFolder in list"
+        :key="subFolder"
+        link
       >
         <v-list-item-title
-            @click="push(subFolder.text)"
+          @click="push(subFolder.text)"
         >
           {{subFolder.text}}
         </v-list-item-title>

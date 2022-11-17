@@ -12,15 +12,15 @@ const props = defineProps({
   <v-container id="icons">
     <v-row class="flex-column" no-gutters>
       <v-col
-          class="mt-2"
-          v-for="button in buttons"
-          :key="button"
+        class="mt-2"
+        v-for="button in buttons"
+        :key="button"
       >
         <v-btn
-            density="comfortable"
-            :icon="button.icon"
-            :color="button.color"
-            @click="button.handle"
+          density="comfortable"
+          :icon="button.icon"
+          :color="button.color"
+          @click="button.handle"
         />
       </v-col>
     </v-row>

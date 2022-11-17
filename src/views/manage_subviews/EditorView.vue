@@ -41,8 +41,7 @@ const buttons = [
 
 <template>
   <editor-card ref="subEditor" class="mx-auto"/>
-  <right-bottom-buttons
-    :buttons="buttons"/>
+  <right-bottom-buttons :buttons="buttons"/>
 </template>
 
 <style scoped>

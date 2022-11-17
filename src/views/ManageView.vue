@@ -1,14 +1,14 @@
 <template>
   <v-app-bar
-      style="position:fixed;"
+    style="position:fixed;"
     density="compact">
-    <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+    <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
   </v-app-bar>
   <v-navigation-drawer
-      v-model="drawer"
-      absolute
-      bottom
-      temporary
+    v-model="drawer"
+    absolute
+    bottom
+    temporary
   >
     <v-list
         dense
@@ -16,12 +16,12 @@
     >
       <v-list density="default" nav>
         <v-list-item
-            v-for="item in manageNavigations"
-            :key="item.title"
-            :prepend-icon="item.icon"
-            :title="item.title"
-            :value="item.title"
-            @click="$router.push(item.link)"
+          v-for="item in manageNavigations"
+          :key="item.title"
+          :prepend-icon="item.icon"
+          :title="item.title"
+          :value="item.title"
+          @click="$router.push(item.link)"
         />
       </v-list>
     </v-list>

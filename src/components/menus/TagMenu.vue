@@ -22,12 +22,11 @@ const menuOutput = computed({
 
 <template>
   <v-overlay
-      open-on-hover
-      :activator="activator"
-      transition="scroll-y-transition"
-      v-model="menuOutput"
-  >
-  </v-overlay>
+    open-on-hover
+    :activator="activator"
+    transition="scroll-y-transition"
+    v-model="menuOutput"
+  />
 </template>
 
 <style scoped>

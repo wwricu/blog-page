@@ -24,15 +24,14 @@
           Cancel
         </v-btn>
         <v-btn
-            size="small"
-            color="primary"
+          size="small"
+          color="primary"
           @click="updateCategory()"
         >
           Confirm
         </v-btn>
       </v-card-actions>
     </v-card>
-
   </v-dialog>
 </template>
 

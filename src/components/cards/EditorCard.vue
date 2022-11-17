@@ -87,7 +87,7 @@ defineExpose({
             label="Category"
             :items="categories"
             v-model="categorySelect"
-          ></v-select>
+          />
         </v-col>
       </v-row>
     </v-container>

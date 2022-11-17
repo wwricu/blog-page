@@ -20,25 +20,29 @@ const folders = ref([
 
 <template>
   <v-app-bar
-      style="position:fixed;"
-      density="compact"
+    style="position:fixed;"
+    density="compact"
   >
     <navigate-button
       activator="menu-activator"
       title="Category"
-      :menu="menu"/>
+      :menu="menu"
+    />
     <list-menu
       activator="#menu-activator"
       :list="folders"
-      v-model="menu"/>
+      v-model="menu"
+    />
 
     <navigate-button
         activator="tag-activator"
         title="Tags"
-        :menu="overlay"/>
+        :menu="overlay"
+    />
     <tag-menu
       activator="#tag-activator"
-      v-model="overlay"/>
+      v-model="overlay"
+    />
   </v-app-bar>
 </template>
 

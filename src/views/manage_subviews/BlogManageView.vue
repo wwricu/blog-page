@@ -45,16 +45,16 @@ const buttons = [
 
 <template>
   <v-sheet
-      max-width="600"
-      class="mx-auto pa-4"
+    max-width="600"
+    class="mx-auto pa-4"
   >
     <blog-card
-        class="mb-4"
-        v-for="blog in blogs"
-        :key="blog.id"
-        :category="blog"
-        :blog="blog"
-        @delete="deleteBlog(blog)"
+      class="mb-4"
+      v-for="blog in blogs"
+      :key="blog.id"
+      :category="blog"
+      :blog="blog"
+      @delete="deleteBlog(blog)"
     />
     <right-bottom-buttons
       :buttons="buttons"

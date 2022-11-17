@@ -1,6 +1,5 @@
 <template>
   <v-layout style="z-index: 0">
-
     <v-app>
       <v-main>
         <router-view/>

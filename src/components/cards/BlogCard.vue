@@ -31,14 +31,14 @@ function deleteBlog() {
     <v-card-actions>
       <v-spacer/>
       <v-btn
-          color="primary"
-          @click="modifyBlog()"
+        color="primary"
+        @click="modifyBlog()"
       >
         edit
       </v-btn>
       <v-btn
-          color="error"
-          @click="deleteBlog()"
+        color="error"
+        @click="deleteBlog()"
       >
         delete
       </v-btn>

@@ -71,18 +71,18 @@ function iconClick(item: typeof loginForm.value[0]) {
   >
     <v-card-text>
       <v-text-field
-          variant="underlined"
-          color="indigo"
-          :type="item.type"
-          :append-inner-icon="item.icon"
-          v-for="item in loginForm"
-          :key="item.text"
-          :label="item.text"
-          :counter="item.counter"
-          :rules="item.rules"
-          v-model="item.value"
-          class="ml-1 mr-1"
-          @click:appendInner="iconClick(item)"
+        variant="underlined"
+        color="indigo"
+        :type="item.type"
+        :append-inner-icon="item.icon"
+        v-for="item in loginForm"
+        :key="item.text"
+        :label="item.text"
+        :counter="item.counter"
+        :rules="item.rules"
+        v-model="item.value"
+        class="ml-1 mr-1"
+        @click:appendInner="iconClick(item)"
       >
       </v-text-field>
     </v-card-text>
