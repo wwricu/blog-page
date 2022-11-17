@@ -11,8 +11,8 @@
     temporary
   >
     <v-list
-        dense
-        rounded
+      dense
+      rounded
     >
       <v-list density="default" nav>
         <v-list-item

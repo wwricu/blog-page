@@ -16,6 +16,24 @@ const folders = ref([
     link: '/Java'
   }
 ])
+const tags = ref([
+  {
+    text: 'C++',
+    link: 'C++'
+  },
+  {
+    text: 'Python',
+    link: 'Python'
+  },
+  {
+    text: 'Kernel',
+    link: 'Kernel'
+  },
+  {
+    text: 'Trust Zone',
+    link: 'Trust Zone'
+  },
+])
 </script>
 
 <template>
@@ -35,13 +53,14 @@ const folders = ref([
     />
 
     <navigate-button
-        activator="tag-activator"
-        title="Tags"
-        :menu="overlay"
+      activator="tag-activator"
+      title="Tags"
+      :menu="overlay"
     />
     <tag-menu
       activator="#tag-activator"
       v-model="overlay"
+      :tags="tags"
     />
   </v-app-bar>
 </template>
