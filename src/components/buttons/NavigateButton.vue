@@ -2,7 +2,9 @@
 const props = defineProps({
   activator: String,
   menu: Boolean,
-  title: String
+  title: String,
+  appendIcon: String,
+  prependIcon: String
 })
 </script>
 
@@ -16,6 +18,8 @@ const props = defineProps({
         class="ma-1"
         :color="isHovering || menu ? 'white' : 'primary'"
         :class="isHovering || menu ? 'bg-primary' : 'bg-white'"
+        :append-icon="appendIcon"
+        :prepend-icon="prependIcon"
       >
         {{ title }}
       </v-btn>

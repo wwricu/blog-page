@@ -45,6 +45,8 @@ const tags = ref([
       activator="menu-activator"
       title="Category"
       :menu="menu"
+      prepend-icon="mdi-book-open-variant"
+      append-icon="mdi-menu-down"
     />
     <list-menu
       activator="#menu-activator"
@@ -56,6 +58,7 @@ const tags = ref([
       activator="tag-activator"
       title="Tags"
       :menu="overlay"
+      prepend-icon="mdi-tag"
     />
     <tag-menu
       activator="#tag-activator"
