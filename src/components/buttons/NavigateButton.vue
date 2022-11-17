@@ -16,8 +16,8 @@ const props = defineProps({
         v-bind="props"
         rounded="pill"
         class="ma-1"
-        :color="isHovering || menu ? 'white' : 'primary'"
-        :class="isHovering || menu ? 'bg-primary' : 'bg-white'"
+        :color="isHovering || menu ? 'blue-grey-lighten-5' : 'primary'"
+        :class="isHovering || menu ? 'bg-primary' : 'bg-blue-grey-lighten-5'"
         :append-icon="appendIcon"
         :prepend-icon="prependIcon"
       >

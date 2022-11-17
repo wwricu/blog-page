@@ -40,7 +40,12 @@ const tags = ref([
   <v-app-bar
     style="position:fixed;"
     density="compact"
+    class="bg-blue-grey-lighten-5"
   >
+    <navigate-button
+      title="Home"
+      prepend-icon="mdi-home"
+    />
     <navigate-button
       activator="menu-activator"
       title="Category"
@@ -65,9 +70,25 @@ const tags = ref([
       v-model="overlay"
       :tags="tags"
     />
+
+    <v-spacer/>
+    <navigate-button
+        title="About"
+        prepend-icon="mdi-information-outline"
+    />
   </v-app-bar>
+  <div class="bgd">
+
+  </div>
 </template>
 
 <style scoped>
-
+.bgd {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-image: linear-gradient(to right bottom, #ace0f9 0%, #fff1eb 100%);
+}
 </style>
