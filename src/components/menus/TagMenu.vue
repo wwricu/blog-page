@@ -19,21 +19,25 @@ const menuOutput = computed({
   }
 })
 
-let tagSelect = ref([])
+const tagSelect = ref([])
+const snackbar = ref()
 </script>
 
 <template>
   <v-overlay
-    open-on-hover
+    close-on-content-click
+    scroll-strategy="none"
     :activator="activator"
     class="align-center justify-center"
     transition="scroll-y-transition"
     v-model="menuOutput"
+    :opacity="0.1"
   >
     <v-chip-group
-      v-model="tagSelect"
       column
-      multiple
+      color="white"
+      v-model="tagSelect"
+      @click="snackbar = true"
     >
       <v-chip
         filter
@@ -46,6 +50,16 @@ let tagSelect = ref([])
       </v-chip>
     </v-chip-group>
   </v-overlay>
+  <v-sheet v-show="snackbar" width="100">
+    <v-snackbar
+      color="indigo"
+      timeout="3000"
+      v-model="snackbar"
+      class="text-center"
+    >
+      #{{ tags[tagSelect].text }} Selected
+    </v-snackbar>
+  </v-sheet>
 </template>
 
 <style scoped>
