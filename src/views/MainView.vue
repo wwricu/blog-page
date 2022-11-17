@@ -3,6 +3,7 @@ import NavigateButton from "@/components/buttons/NavigateButton.vue";
 import ListMenu from "@/components/menus/ListMenu.vue";
 import {ref} from "vue";
 import TagMenu from "@/components/menus/TagMenu.vue";
+import BlogBigCard from "@/components/cards/BlogBigCard.vue";
 
 let menu = ref()
 let overlay = ref()
@@ -34,6 +35,12 @@ const tags = ref([
     link: 'Trust Zone'
   },
 ])
+const blog = ref({
+  id: 1,
+  title: 'test title',
+  sub_title: 'test sub title',
+  created_time: '2022-12-01'
+})
 </script>
 
 <template>
@@ -78,8 +85,14 @@ const tags = ref([
     />
   </v-app-bar>
   <div class="bgd">
-
   </div>
+  <blog-big-card class="mx-auto mt-4" :blog="blog"/>
+  <v-row>
+    <v-col cols="2"/>
+    <v-col cols="8">
+    </v-col>
+    <v-col cols="2"/>
+  </v-row>
 </template>
 
 <style scoped>
