@@ -9,19 +9,49 @@ const props = defineProps({
 
 <template>
   <v-card
-    min-height="180"
-    width="900"
+    min-height="200"
+    width="800"
     color="blue-grey-lighten-5"
-    class="bgdColor"
+    class="bgdColor pa-2"
     elevation="24"
     rounded="lg"
   >
-    <v-card-title>{{blog.title}}</v-card-title>
-    <v-card-text class="d-flex">
-      <p class="text-grey-darken-2">Created Time: &ensp;</p>
-      <p>{{blog.created_time}}</p>
-    </v-card-text>
-    <v-slot name="action"/>
+    <v-row>
+      <v-col cols="8">
+        <v-card-title class="text-h4 my-2">
+          {{blog.title}}
+        </v-card-title>
+        <v-card-subtitle class="d-flex text-body-1">
+          <p>
+            sub titles sub <br/>
+            sub titles sub
+            sub titles sub
+            sub titles sub
+            sub titles sub
+          </p>
+        </v-card-subtitle>
+        <v-card-text class="d-flex text-body-2">
+          <p>Kernel</p>
+          <v-divider vertical class="mx-2"/>
+          <v-icon class="mr-1">mdi-calendar-clock</v-icon>
+          <p class="text-grey-darken-2">Created At: &ensp;</p>
+          <p>{{blog.created_time}}</p>
+          <v-divider vertical class="mx-2"/>
+          <v-icon class="mr-1">mdi-calendar-clock</v-icon>
+          <p class="text-grey-darken-2">Updated At: &ensp;</p>
+          <p>{{blog.updated_time}}</p>
+        </v-card-text>
+        <v-divider class="ml-4 mb-2"/>
+        <v-card-actions>
+          <v-chip color="primary">test</v-chip>
+        </v-card-actions>
+        <slot name="action"/>
+      </v-col>
+      <v-col cols="4">
+        <v-img></v-img>
+      </v-col>
+    </v-row>
+
   </v-card>
 </template>
 

@@ -37,9 +37,10 @@ const tags = ref([
 ])
 const blog = ref({
   id: 1,
-  title: 'test title',
+  title: 'test title1 test title2 test title3 test title4 test title5',
   sub_title: 'test sub title',
-  created_time: '2022-12-01'
+  created_time: '2022-12-01',
+  updated_time: '2022-12-01',
 })
 </script>
 
@@ -86,7 +87,10 @@ const blog = ref({
   </v-app-bar>
   <div class="bgd">
   </div>
-  <blog-big-card class="mx-auto mt-4" :blog="blog"/>
+  <blog-big-card
+    class="mx-auto mt-4"
+    :blog="blog"
+  />
   <v-row>
     <v-col cols="2"/>
     <v-col cols="8">
