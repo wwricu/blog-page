@@ -1,16 +1,17 @@
 <script setup lang="ts">
 import {ref, onMounted} from "vue";
 import BlogCard from "@/components/cards/BlogCard.vue";
-import {deleteContent, getAllBlog, postContent} from "@/apis/content";
+import {deleteContent, getAllBlog, getContent, getContentPreview, postContent} from "@/apis/content";
 import RightBottomButtons from "@/components/buttons/RightBottomButtons.vue";
 import {useRouter} from "vue-router";
+import SwitchButton from "@/components/buttons/SwitchButton.vue";
 
 let blogs = ref()
 onMounted(() => {
   getBlogs()
 })
 function getBlogs() {
-  getAllBlog((res: any)=>{
+  getContentPreview({status: 'publish'}, (res: any)=>{
     blogs.value = res.data
   }, ()=>{})
 }
@@ -19,6 +20,20 @@ function deleteBlog(blog: any) {
   deleteContent(blog, ()=>{
     blogs.value.splice(blogs.value.indexOf(blog), 1)
   },()=>{})
+}
+
+const draftSwitch = ref(true)
+function switchDraft() {
+  const data = {
+    status: 'publish'
+  }
+  draftSwitch.value = !draftSwitch.value
+  if (draftSwitch.value === false) {
+    data.status = 'draft'
+  }
+  getContentPreview(data, (res: any)=>{
+    blogs.value = res.data
+  }, ()=>{})
 }
 
 const router = useRouter()
@@ -40,7 +55,6 @@ const buttons = [
     }
   },
 ]
-
 </script>
 
 <template>
@@ -58,6 +72,13 @@ const buttons = [
     />
     <right-bottom-buttons
       :buttons="buttons"
-    />
+    >
+      <switch-button
+        v-model="draftSwitch"
+        true-icon="mdi-checkbox-marked"
+        false-icon="mdi-checkbox-blank-off-outline"
+        @click="switchDraft()"
+      />
+    </right-bottom-buttons>
   </v-sheet>
 </template>
