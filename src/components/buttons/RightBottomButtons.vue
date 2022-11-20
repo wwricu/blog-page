@@ -11,6 +11,9 @@ const props = defineProps({
 <template>
   <v-container id="icons">
     <v-row class="flex-column" no-gutters>
+      <v-col class="mt-2">
+        <slot/>
+      </v-col>
       <v-col
         class="mt-2"
         v-for="button in buttons"
