@@ -27,6 +27,7 @@ function findContent() {
     id: route.params.id
   }, (res: any)=>{
     if (res.data.length === 0) return
+    contentData.value = res.data[0]
     title.value = res.data[0].title
     if (res.data[0].content !== null) {
       quillEditor.value.setContents(Base64.decode(res.data[0].content))
@@ -42,20 +43,16 @@ function findContent() {
   }, ()=>{})
 }
 
+const contentData = ref()
 defineExpose({
   getEditorContents() {
-    const data = {
-      id: route.params.id,
-      title: title.value,
-      author_id: 1,
-      parent_id: 0,
-      content: encode(quillEditor.value.getContents())
-    }
+    contentData.value.title = title.value
+    contentData.value.content = encode(quillEditor.value.getContents())
     if (categorySelect.value !== undefined
         && categorySelect.value.id !== undefined) {
-      data.parent_id = categorySelect.value.id
+      contentData.value.parent_id = categorySelect.value.id
     }
-    return data
+    return contentData
   }
 })
 
