@@ -85,8 +85,7 @@ const blog = ref({
         prepend-icon="mdi-information-outline"
     />
   </v-app-bar>
-  <div class="bgd">
-  </div>
+  <div class="bgd"/>
   <blog-big-card
     class="mx-auto mt-4"
     :blog="blog"

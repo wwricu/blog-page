@@ -34,6 +34,11 @@ const router = createRouter({
           name: 'category',
           component: () => import('@/views/manage_subviews/CategoryManageView.vue'),
         },
+        {
+          path: 'tag',
+          name: 'tag',
+          component: () => import('@/views/manage_subviews/TagManageView.vue'),
+        },
       ]
     }
   ]
