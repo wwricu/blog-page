@@ -2,14 +2,14 @@
 
 const props = defineProps({
   buttons: {
-    required: true
+    required: false
   }
 })
 
 </script>
 
 <template>
-  <v-container id="icons">
+  <v-container class="right-bottom-icons">
     <v-row class="flex-column" no-gutters>
       <v-col class="mt-2">
         <slot/>
@@ -31,7 +31,7 @@ const props = defineProps({
 </template>
 
 <style scoped>
-#icons {
+.right-bottom-icons {
   position: fixed;
   width: auto;
   bottom: 0;
