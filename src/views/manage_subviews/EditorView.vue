@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import EditorCard from "@/components/cards/EditorCard.vue";
 import RightBottomButtons from "@/components/buttons/RightBottomButtons.vue"
-import {deleteContent, modifyContent, postContent} from '@/apis/content'
+import {deleteContent, modifyContent} from '@/apis/content'
 import {ref} from "vue";
 import {useRouter} from "vue-router";
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref, onMounted} from "vue";
 import BlogCard from "@/components/cards/BlogCard.vue";
-import {deleteContent, getAllBlog, getContent, getContentPreview, postContent} from "@/apis/content";
+import {deleteContent, getContentPreview, postContent} from "@/apis/content";
 import RightBottomButtons from "@/components/buttons/RightBottomButtons.vue";
 import {useRouter} from "vue-router";
 import SwitchButton from "@/components/buttons/SwitchButton.vue";

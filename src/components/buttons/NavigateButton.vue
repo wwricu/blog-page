@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const props = defineProps({
+const localProps = defineProps({
   activator: String,
   menu: Boolean,
   title: String,
@@ -12,14 +12,14 @@ const props = defineProps({
   <v-hover close-delay="200">
     <template v-slot:default="{ isHovering, props }">
       <v-btn
-        :id="activator"
+        :id="localProps.activator"
         v-bind="props"
         rounded="pill"
         class="ma-1"
         :color="isHovering || menu ? 'blue-grey-lighten-5' : 'primary'"
         :class="isHovering || menu ? 'bg-primary' : 'bg-blue-grey-lighten-5'"
-        :append-icon="appendIcon"
-        :prepend-icon="prependIcon"
+        :append-icon="localProps.appendIcon"
+        :prepend-icon="localProps.prependIcon"
       >
         {{ title }}
       </v-btn>

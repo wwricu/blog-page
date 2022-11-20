@@ -16,7 +16,7 @@ const props = defineProps({
       </v-col>
       <v-col
         class="mt-2"
-        v-for="button in buttons"
+        v-for="button in props.buttons"
         :key="button"
       >
         <v-btn

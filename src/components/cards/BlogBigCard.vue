@@ -19,7 +19,7 @@ const props = defineProps({
     <v-row>
       <v-col cols="8">
         <v-card-title class="text-h4 my-2">
-          {{blog.title}}
+          {{props.blog.title}}
         </v-card-title>
         <v-card-subtitle class="d-flex text-body-1">
           <p>
