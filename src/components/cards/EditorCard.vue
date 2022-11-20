@@ -52,7 +52,7 @@ defineExpose({
         && categorySelect.value.id !== undefined) {
       contentData.value.parent_id = categorySelect.value.id
     }
-    return contentData
+    return contentData.value
   }
 })
 

@@ -12,9 +12,12 @@ const buttons = [
     icon: 'mdi-cloud-upload',
     color: 'indigo',
     handle: () => {
-      postContent(subEditor.value.getEditorContents(),
-          () => {},
-          ()=>{})
+      const data = subEditor.value.getEditorContents()
+      data.status = 'publish'
+      modifyContent(data, () => {
+        alert('success')
+        router.push({path: '/manage/blog'})
+      }, ()=>{})
     }
   },
   {
@@ -22,7 +25,7 @@ const buttons = [
     color: 'success',
     handle: () => {
       modifyContent(subEditor.value.getEditorContents(), ()=>{
-        alert('success')
+        alert('saved')
       }, ()=>{})
     }
   },
