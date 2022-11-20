@@ -24,6 +24,31 @@ export const getContent = (data: any,
         if (data.url !== undefined) {
             url += `url=${data.url}&`
         }
+        if (data.status !== undefined) {
+            url += `status=${data.status}&`
+        }
+        if (data.parent_id !== undefined) {
+            url += `parent_id=${data.parent_id}&`
+        }
+        url = url.slice(0, -1)
+    }
+    myAxios.request({
+        method: 'GET',
+        url: url,
+    }).then((res: any) => {
+        success(res)
+    })
+}
+
+export const getContentPreview = (data: any,
+                                  success: Function,
+                                  failure: Function) => {
+    let url = '/content/preview'
+    if (data != null) {
+        url += '?'
+        if (data.status !== undefined) {
+            url += `status=${data.status}&`
+        }
         if (data.parent_id !== undefined) {
             url += `parent_id=${data.parent_id}&`
         }
