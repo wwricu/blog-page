@@ -57,7 +57,7 @@ const snackbar = ref()
       v-model="snackbar"
       class="text-center"
     >
-      #{{ tags[tagSelect].text }} Selected
+      #{{ tags[tagSelect].name }} Selected
     </v-snackbar>
   </v-sheet>
 </template>

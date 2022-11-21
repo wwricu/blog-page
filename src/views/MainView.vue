@@ -8,8 +8,6 @@ import BlogSubview from "@/views/main_subviews/BlogSubview.vue";
 import {getSubFolders} from "@/apis/folder";
 import {getTagAPI} from "@/apis/tag";
 
-
-
 let categories = ref()
 let tags = ref()
 onMounted(() => {
