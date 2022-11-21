@@ -81,8 +81,8 @@ const blog = ref({
 
     <v-spacer/>
     <navigate-button
-        title="About"
-        prepend-icon="mdi-information-outline"
+      title="About"
+      prepend-icon="mdi-information-outline"
     />
   </v-app-bar>
   <div class="bgd"/>

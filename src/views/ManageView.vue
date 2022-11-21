@@ -33,6 +33,7 @@
     </v-list>
   </v-navigation-drawer>
   <router-view/>
+  <div class="bgd"/>
 </template>
 
 <script lang="ts">
@@ -63,5 +64,13 @@ export default {
 </script>
 
 <style scoped>
-
+.bgd {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -100;
+  background-image: linear-gradient(to right bottom, #ace0f9 0%, #fff1eb 100%);
+}
 </style>

@@ -58,8 +58,9 @@ const props = defineProps({
 <style scoped>
 .bgdColor {
   opacity: 0.6;
-  background-image: linear-gradient(to right bottom,
+  background-color: rgba(255, 255, 255, 0);
+  /*background-image: linear-gradient(to right bottom,
                                     #fbe7ef 0%,
-                                    #dff4fd 100%);
+                                    #dff4fd 100%);*/
 }
 </style>

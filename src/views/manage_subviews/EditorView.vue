@@ -43,10 +43,14 @@ const buttons = [
 </script>
 
 <template>
-  <editor-card ref="subEditor" class="mx-auto"/>
-  <right-bottom-buttons :buttons="buttons"/>
+  <div class="sub-view">
+    <editor-card ref="subEditor" class="mx-auto"/>
+    <right-bottom-buttons :buttons="buttons"/>
+  </div>
 </template>
 
 <style scoped>
-
+.sub-view {
+  background-color: rgba(255, 255, 255, 0);
+}
 </style>

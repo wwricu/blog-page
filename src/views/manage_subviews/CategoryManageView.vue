@@ -37,7 +37,7 @@ const renameCategory = (category: any) => {
 <template>
   <v-sheet
     max-width="600"
-    class="mx-auto pa-4"
+    class="mx-auto pa-4 sub-view"
   >
     <rename-dialog
       ref="renameDialog"
@@ -74,3 +74,9 @@ const renameCategory = (category: any) => {
   />
   </v-sheet>
 </template>
+
+<style scoped>
+.sub-view {
+  background-color: rgba(255, 255, 255, 0);
+}
+</style>

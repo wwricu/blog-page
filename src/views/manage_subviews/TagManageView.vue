@@ -44,7 +44,7 @@ const confirmHandle = () => {
   <v-sheet
     height="100%"
     max-width="800"
-    class="d-flex mx-auto justify-center mt-6"
+    class="d-flex mx-auto justify-center mt-6 sub-view"
   >
     <v-item-group>
       <v-chip
@@ -84,5 +84,7 @@ const confirmHandle = () => {
 </template>
 
 <style scoped>
-
+.sub-view {
+  background-color: rgba(255, 255, 255, 0);
+}
 </style>

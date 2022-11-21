@@ -60,7 +60,7 @@ const buttons = [
 <template>
   <v-sheet
     max-width="600"
-    class="mx-auto pa-4"
+    class="mx-auto pa-4 sub-view"
   >
     <blog-card
       class="mb-4"
@@ -82,3 +82,9 @@ const buttons = [
     </right-bottom-buttons>
   </v-sheet>
 </template>
+
+<style scoped>
+.sub-view {
+  background-color: rgba(255, 255, 255, 0);
+}
+</style>
