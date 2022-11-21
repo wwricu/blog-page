@@ -4,6 +4,7 @@ import ListMenu from "@/components/menus/ListMenu.vue";
 import {ref} from "vue";
 import TagMenu from "@/components/menus/TagMenu.vue";
 import BlogBigCard from "@/components/cards/BlogBigCard.vue";
+import BlogSubview from "@/views/main_subviews/BlogSubview.vue";
 
 let menu = ref()
 let overlay = ref()
@@ -42,6 +43,10 @@ const blog = ref({
   created_time: '2022-12-01',
   updated_time: '2022-12-01',
 })
+const pageIdx = ref(0)
+const changePage = () => {
+  alert(pageIdx.value)
+}
 </script>
 
 <template>
@@ -86,16 +91,7 @@ const blog = ref({
     />
   </v-app-bar>
   <div class="bgd"/>
-  <blog-big-card
-    class="mx-auto mt-4"
-    :blog="blog"
-  />
-  <v-row>
-    <v-col cols="2"/>
-    <v-col cols="8">
-    </v-col>
-    <v-col cols="2"/>
-  </v-row>
+  <blog-subview class="mx-auto"/>
 </template>
 
 <style scoped>

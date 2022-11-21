@@ -22,24 +22,18 @@ const props = defineProps({
           {{props.blog.title}}
         </v-card-title>
         <v-card-subtitle class="d-flex text-body-1">
-          <p>
-            sub titles sub <br/>
-            sub titles sub
-            sub titles sub
-            sub titles sub
-            sub titles sub
-          </p>
+          <p></p>
         </v-card-subtitle>
         <v-card-text class="d-flex text-body-2">
           <p>Kernel</p>
           <v-divider vertical class="mx-2"/>
           <v-icon class="mr-1">mdi-calendar-clock</v-icon>
           <p class="text-grey-darken-2">Created At: &ensp;</p>
-          <p>{{blog.created_time}}</p>
+          <p>{{blog.created_time.slice(0, 10)}}</p>
           <v-divider vertical class="mx-2"/>
           <v-icon class="mr-1">mdi-calendar-clock</v-icon>
           <p class="text-grey-darken-2">Updated At: &ensp;</p>
-          <p>{{blog.updated_time}}</p>
+          <p>{{blog.updated_time.slice(0, 10)}}</p>
         </v-card-text>
         <v-divider class="ml-4 mb-2"/>
         <v-card-actions>

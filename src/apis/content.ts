@@ -40,17 +40,50 @@ export const getContent = (data: any,
     })
 }
 
+export const getContentCountAPI = (data: any,
+                                   success: Function,
+                                   failure: Function) => {
+    let url = '/content/count'
+    if (data != null) {
+        url += '?'
+        if (data.url !== undefined) {
+            url += `url=${data.url}&`
+        }
+        if (data.parent_id !== undefined) {
+            url += `parent_id=${data.parent_id}&`
+        }
+        if (data.status !== undefined) {
+            data.status = 'publish'
+        }
+        url += `status=${data.status}`
+    }
+    myAxios.request({
+        method: 'GET',
+        url: url,
+    }).then((res: any) => {
+        success(res)
+    })
+}
+
 export const getContentPreview = (data: any,
                                   success: Function,
                                   failure: Function) => {
-    let url = '/content/preview'
+    let url = '/content/preview?'
     if (data != null) {
-        url += '?'
         if (data.status !== undefined) {
             url += `status=${data.status}&`
         }
         if (data.parent_id !== undefined) {
             url += `parent_id=${data.parent_id}&`
+        }
+        if (data.tag_id !== undefined) {
+            url += `tag_id=${data.tag_id}&`
+        }
+        if (data.pageIdx !== undefined) {
+            url += `page_idx=${data.pageIdx}&`
+        }
+        if (data.pageSize !== undefined) {
+            url += `page_size=${data.pageSize}&`
         }
         url = url.slice(0, -1)
     }
