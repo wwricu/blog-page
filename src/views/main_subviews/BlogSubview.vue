@@ -6,11 +6,11 @@ import {getContentCountAPI, getContentPreview} from "@/apis/content";
 const blogs = ref()
 const blogCount = ref()
 onMounted(() => {
+  getPreviews()
   getContentCountAPI({
     status: 'publish'
   }, (res: any)=>{
     blogCount.value = res.data
-    getPreviews()
   }, ()=>{})
 })
 
@@ -29,9 +29,6 @@ const pageSize = ref(5)
 const pageLength = computed(() => {
   return Math.ceil(blogCount.value / pageSize.value)
 })
-const changePage = () => {
-  alert(Math.ceil(blogCount.value / pageSize.value))
-}
 </script>
 
 <template>

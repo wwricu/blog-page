@@ -39,9 +39,9 @@ const push = (text: String) => {
         link
       >
         <v-list-item-title
-          @click="push(subFolder.text)"
+          @click="push(subFolder.id)"
         >
-          {{subFolder.text}}
+          {{subFolder.title}}
         </v-list-item-title>
       </v-list-item>
     </v-list>

@@ -1,52 +1,34 @@
 <script setup lang="ts">
+import {onMounted, ref} from "vue";
+
 import NavigateButton from "@/components/buttons/NavigateButton.vue";
 import ListMenu from "@/components/menus/ListMenu.vue";
-import {ref} from "vue";
 import TagMenu from "@/components/menus/TagMenu.vue";
-import BlogBigCard from "@/components/cards/BlogBigCard.vue";
 import BlogSubview from "@/views/main_subviews/BlogSubview.vue";
+import {getSubFolders} from "@/apis/folder";
+import {getTagAPI} from "@/apis/tag";
 
-let menu = ref()
-let overlay = ref()
-const folders = ref([
-  {
-    text: 'C++',
-    link: '/C++'
-  },
-  {
-    text: 'Java',
-    link: '/Java'
-  }
-])
-const tags = ref([
-  {
-    text: 'C++',
-    link: 'C++'
-  },
-  {
-    text: 'Python',
-    link: 'Python'
-  },
-  {
-    text: 'Kernel',
-    link: 'Kernel'
-  },
-  {
-    text: 'Trust Zone',
-    link: 'Trust Zone'
-  },
-])
-const blog = ref({
-  id: 1,
-  title: 'test title1 test title2 test title3 test title4 test title5',
-  sub_title: 'test sub title',
-  created_time: '2022-12-01',
-  updated_time: '2022-12-01',
+
+
+let categories = ref()
+let tags = ref()
+onMounted(() => {
+  getCategories()
+  getTags()
 })
-const pageIdx = ref(0)
-const changePage = () => {
-  alert(pageIdx.value)
+const getCategories = () => {
+  getSubFolders((res: any)=>{
+    categories.value = res.data
+  }, ()=>{})
 }
+const getTags = () => {
+  getTagAPI(null, (res: any)=>{
+    tags.value = res.data
+  }, ()=>{})
+}
+
+const menu = ref()
+const overlay = ref()
 </script>
 
 <template>
@@ -68,7 +50,7 @@ const changePage = () => {
     />
     <list-menu
       activator="#menu-activator"
-      :list="folders"
+      :list="categories"
       v-model="menu"
     />
 

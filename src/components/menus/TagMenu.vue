@@ -46,7 +46,7 @@ const snackbar = ref()
         v-for="tag in tags"
         :key="tag.link"
       >
-        {{ tag.text }}
+        {{ tag.name }}
       </v-chip>
     </v-chip-group>
   </v-overlay>
