@@ -41,20 +41,26 @@ const confirmHandle = () => {
 </script>
 
 <template>
-  <v-chip-group
-    class="align-center justify-center"
-    transition="scroll-y-transition"
+  <v-sheet
+    height="100%"
+    max-width="800"
+    class="d-flex mx-auto justify-center mt-6"
   >
-    <v-chip
-      v-for="item in chips"
-      :key="item.id"
-      color="error"
-      text-color="white"
-      @click="showDeleteConfirm(item)"
-    >
-      {{item.name}}
-    </v-chip>
-  </v-chip-group>
+    <v-item-group>
+      <v-chip
+        v-for="item in chips"
+        :key="item.id"
+        class="ma-2"
+        color="primary"
+        text-color="white"
+        size="large"
+        @click="showDeleteConfirm(item)"
+      >
+        {{item.name}}
+      </v-chip>
+    </v-item-group>
+
+  </v-sheet>
   <confirm-dialog
     v-model="confirmSwitch"
     @confirm="deleteChip()"
