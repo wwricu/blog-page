@@ -25,7 +25,7 @@ const props = defineProps({
           <p></p>
         </v-card-subtitle>
         <v-card-text class="d-flex text-body-2">
-          <p>Kernel</p>
+          <p>{{blog.parent.title}}</p>
           <v-divider vertical class="mx-2"/>
           <v-icon class="mr-1">mdi-calendar-clock</v-icon>
           <p class="text-grey-darken-2">Created At: &ensp;</p>
@@ -36,8 +36,14 @@ const props = defineProps({
           <p>{{blog.updated_time.slice(0, 10)}}</p>
         </v-card-text>
         <v-divider class="ml-4 mb-2"/>
-        <v-card-actions>
-          <v-chip color="primary">test</v-chip>
+        <v-card-actions v-if="blog.tags.length > 0">
+          <v-chip
+            color="primary"
+            v-for="item in blog.tags"
+            :key="item.id"
+          >
+            {{item.name}}
+          </v-chip>
         </v-card-actions>
         <slot name="action"/>
       </v-col>
@@ -45,7 +51,6 @@ const props = defineProps({
         <v-img></v-img>
       </v-col>
     </v-row>
-
   </v-card>
 </template>
 
@@ -53,8 +58,5 @@ const props = defineProps({
 .bgdColor {
   opacity: 0.6;
   background-color: rgba(255, 255, 255, 0);
-  /*background-image: linear-gradient(to right bottom,
-                                    #fbe7ef 0%,
-                                    #dff4fd 100%);*/
 }
 </style>
