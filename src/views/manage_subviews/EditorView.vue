@@ -33,7 +33,7 @@ const buttons = [
     icon: 'mdi-delete',
     color: 'error',
     handle: () => {
-      deleteContent(subEditor.value.getEditorContents(), ()=>{
+      deleteContent(subEditor.value.getEditorContents().id, ()=>{
         alert('success')
         router.push({path: '/manage/blog'})
       }, ()=>{})

@@ -23,9 +23,7 @@ const categorySelect = ref()
 
 const route = useRoute()
 function findContent() {
-  getContent({
-    id: route.params.id
-  }, (res: any)=>{
+  getContent(route.params.id, (res: any)=>{
     if (res.data.length === 0) return
     contentData.value = res.data[0]
     title.value = res.data[0].title

@@ -13,29 +13,12 @@ export const postContent = (data: ContentInput,
     })
 }
 
-export const getContent = (data: any,
+export const getContent = (content_id: number | string | string[],
                            success: Function,
                            failure: Function) => {
-    let url = '/content'
-    if (data != null) {
-        url += '?'
-        if (data.id !== undefined) {
-            url += `content_id=${data.id}&`
-        }
-        if (data.url !== undefined) {
-            url += `url=${data.url}&`
-        }
-        if (data.status !== undefined) {
-            url += `status=${data.status}&`
-        }
-        if (data.parent_id !== undefined) {
-            url += `parent_id=${data.parent_id}&`
-        }
-        url = url.slice(0, -1)
-    }
     myAxios.request({
         method: 'GET',
-        url: url,
+        url: `content/${content_id}`,
     }).then((res: any) => {
         success(res)
     })
@@ -109,12 +92,12 @@ export const modifyContent = (data: ContentInput,
     })
 }
 
-export const deleteContent = (data: any,
+export const deleteContent = (content_id: number | string | string[],
                               success: Function,
                               failure: Function) => {
     myAxios.request({
         method: 'DELETE',
-        url: `/content/${data.id}`,
+        url: `/content/${content_id}`,
     }).then((res: any) => {
         success(res)
     })

@@ -17,7 +17,7 @@ function getBlogs() {
 }
 function deleteBlog(blog: any) {
   // alert(JSON.stringify(blog))
-  deleteContent(blog, ()=>{
+  deleteContent(blog.id, ()=>{
     blogs.value.splice(blogs.value.indexOf(blog), 1)
   },()=>{})
 }
