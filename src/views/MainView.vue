@@ -20,7 +20,7 @@ const getCategories = () => {
   }, ()=>{})
 }
 const getTags = () => {
-  getTagAPI(null, (res: any)=>{
+  getTagAPI({}, (res: any)=>{
     tags.value = res.data
   }, ()=>{})
 }

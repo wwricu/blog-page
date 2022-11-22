@@ -1,7 +1,10 @@
 <script setup lang="ts">
-import {computed, onMounted, ref} from "vue";
+import {computed, onMounted, PropType, ref} from "vue";
 import BlogBigCard from "@/components/cards/BlogBigCard.vue";
 import {getContentCountAPI, getContentPreview} from "@/apis/content";
+import type {Tag} from "@/types/schemas/tag";
+import type {FolderOutput} from "@/types/schemas/resource";
+import type {ResourceSearch} from "@/types/schemas/resource";
 
 const blogs = ref()
 const blogCount = ref()
@@ -14,7 +17,31 @@ onMounted(() => {
   }, ()=>{})
 })
 
+const props = defineProps({
+  tag: {
+    type: Object as PropType<Tag>,
+    required: false,
+    default: undefined,
+  },
+  category: {
+    type: Object as PropType<FolderOutput>,
+    required: false,
+    default: undefined,
+  }
+})
+
 const getPreviews = () => {
+  const searchParams: ResourceSearch = {
+    status: 'publish',
+    pageIdx: pageIdx.value - 1,
+    pageSize: pageSize.value,
+  }
+  if (props.tag !== undefined) {
+    searchParams.tag_id = props.tag.id
+  }
+  if (props.category !== undefined) {
+    searchParams.parent_id = props.category.id
+  }
   getContentPreview({
     status: 'publish',
     pageIdx: pageIdx.value - 1,

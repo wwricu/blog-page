@@ -30,16 +30,16 @@ export const getContentCountAPI = (data: ResourceSearch,
     let url = '/content/count'
     if (data != null) {
         url += '?'
-        if (data.url !== undefined) {
-            url += `url=${data.url}&`
-        }
         if (data.parent_id !== undefined) {
             url += `parent_id=${data.parent_id}&`
         }
-        if (data.status !== undefined) {
-            data.status = 'publish'
+        if (data.tag_id !== undefined) {
+            url += `tag_id=${data.tag_id}&`
         }
-        url += `status=${data.status}`
+        if (data.status !== undefined) {
+            url += `status=${data.status}&`
+        }
+        url = url.slice(0, -1)
     }
     myAxios.request({
         method: 'GET',

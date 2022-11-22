@@ -8,12 +8,11 @@ interface ResourceBase {
 
 export interface ResourceSearch extends ResourceBase {
     id?: number
-    url?: string
     status?: string
     parent_id?: number
     tag_id?: number
     pageIdx?: number
-    pageSize: number
+    pageSize?: number
 }
 
 export interface FolderInput extends ResourceBase {
