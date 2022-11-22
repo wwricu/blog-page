@@ -6,6 +6,7 @@ const localProps = defineProps({
   appendIcon: String,
   prependIcon: String
 })
+const emit = defineEmits(['click'])
 </script>
 
 <template>
@@ -20,6 +21,7 @@ const localProps = defineProps({
         :class="isHovering || menu ? 'bg-primary' : 'bg-blue-grey-lighten-5'"
         :append-icon="localProps.appendIcon"
         :prepend-icon="localProps.prependIcon"
+        @click="emit('click')"
       >
         {{ title }}
       </v-btn>

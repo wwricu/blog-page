@@ -39,7 +39,7 @@ const push = (text: String) => {
         link
       >
         <v-list-item-title
-          @click="push(subFolder.id)"
+          @click="$router.push(`/category/${subFolder.id}`)"
         >
           {{subFolder.title}}
         </v-list-item-title>

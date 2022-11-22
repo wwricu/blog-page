@@ -3,14 +3,12 @@ import type {Tag} from "@/types/schemas/tag";
 interface ResourceBase {
     id?: number
     title?: string
-    parent_id?: number
+    parent_id?: number | string
 }
 
 export interface ResourceSearch extends ResourceBase {
-    id?: number
     status?: string
-    parent_id?: number
-    tag_id?: number
+    tag_id?: number | string
     pageIdx?: number
     pageSize?: number
 }

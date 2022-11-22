@@ -7,18 +7,26 @@ import TagMenu from "@/components/menus/TagMenu.vue";
 import BlogSubview from "@/views/main_subviews/BlogSubview.vue";
 import {getSubFolders} from "@/apis/folder";
 import {getTagAPI} from "@/apis/tag";
+import {useRoute} from "vue-router";
 
-let categories = ref()
-let tags = ref()
+const route = useRoute()
+const filter = ref()
+const currentId = ref()
 onMounted(() => {
   getCategories()
   getTags()
+  filter.value = route.params.filter
+  currentId.value = route.params.id
 })
+
+const categories = ref()
 const getCategories = () => {
   getSubFolders((res: any)=>{
     categories.value = res.data
   }, ()=>{})
 }
+
+const tags = ref()
 const getTags = () => {
   getTagAPI({}, (res: any)=>{
     tags.value = res.data
@@ -38,6 +46,7 @@ const overlay = ref()
     <navigate-button
       title="Home"
       prepend-icon="mdi-home"
+      @click="$router.push('/')"
     />
     <navigate-button
       activator="menu-activator"
@@ -71,7 +80,7 @@ const overlay = ref()
     />
   </v-app-bar>
   <div class="bgd"/>
-  <blog-subview class="mx-auto"/>
+  <router-view/>
 </template>
 
 <style scoped>

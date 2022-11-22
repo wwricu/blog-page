@@ -1,52 +1,50 @@
 <script setup lang="ts">
-import {computed, onMounted, PropType, ref} from "vue";
+import {computed, onMounted, ref, watch} from "vue";
 import BlogBigCard from "@/components/cards/BlogBigCard.vue";
 import {getContentCountAPI, getContentPreview} from "@/apis/content";
-import type {Tag} from "@/types/schemas/tag";
-import type {FolderOutput} from "@/types/schemas/resource";
 import type {ResourceSearch} from "@/types/schemas/resource";
+import {useRoute} from "vue-router";
 
+const route = useRoute()
 const blogs = ref()
 const blogCount = ref()
 onMounted(() => {
-  getPreviews()
-  getContentCountAPI({
-    status: 'publish'
-  }, (res: any)=>{
-    blogCount.value = res.data
-  }, ()=>{})
+  init()
 })
 
-const props = defineProps({
-  tag: {
-    type: Object as PropType<Tag>,
-    required: false,
-    default: undefined,
-  },
-  category: {
-    type: Object as PropType<FolderOutput>,
-    required: false,
-    default: undefined,
-  }
-})
+watch(route, async () => {
+  init()
+}, {immediate:true})
 
-const getPreviews = () => {
+const init = () => {
   const searchParams: ResourceSearch = {
     status: 'publish',
-    pageIdx: pageIdx.value - 1,
-    pageSize: pageSize.value,
   }
-  if (props.tag !== undefined) {
-    searchParams.tag_id = props.tag.id
+  const filter = route.params.filter as string
+  const id = route.params.id as string
+  if (filter.length !== 0
+      && id.length !== 0 && id !== '0') {
+    if (filter === 'category') {
+      searchParams.parent_id = id
+    } else if (filter === 'tag') {
+      searchParams.tag_id = id
+    }
   }
-  if (props.category !== undefined) {
-    searchParams.parent_id = props.category.id
-  }
-  getContentPreview({
-    status: 'publish',
-    pageIdx: pageIdx.value - 1,
-    pageSize: pageSize.value,
-  }, (res: any) => {
+  getPreviews(searchParams)
+  getPreviewCount(searchParams)
+}
+
+const getPreviewCount = (searchParams: ResourceSearch) => {
+  getContentCountAPI(searchParams, (res: any) => {
+    blogCount.value = res.data
+  }, ()=>{})
+}
+
+const getPreviews = (searchParams: ResourceSearch) => {
+  searchParams.pageIdx = pageIdx.value - 1
+  searchParams.pageSize = pageSize.value
+
+  getContentPreview(searchParams, (res: any) => {
     blogs.value = res.data
   }, ()=>{})
 }
