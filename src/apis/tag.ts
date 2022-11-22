@@ -1,6 +1,7 @@
 import myAxios from "@/apis/axios";
+import type {Tag} from "@/types/schemas/tag";
 
-export const addTagAPI = (name: String,
+export const addTagAPI = (name: string,
                          success: Function,
                          failure: Function) => {
     myAxios.request({
@@ -14,7 +15,7 @@ export const addTagAPI = (name: String,
     })
 }
 
-export const getTagAPI = (data: any,
+export const getTagAPI = (data: Tag,
                           success: Function,
                           failure: Function) => {
     let url = '/tag'

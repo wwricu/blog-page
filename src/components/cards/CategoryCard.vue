@@ -15,7 +15,7 @@ function renameCategory() {
 
 const instance = getCurrentInstance();
 function deleteCategory() {
-  deleteFolder(props.category, ()=>{
+  deleteFolder(props.category.id, ()=>{
     alert('deleted')
     instance?.proxy?.$forceUpdate();
   }, ()=>{})

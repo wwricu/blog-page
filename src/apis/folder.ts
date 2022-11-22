@@ -1,4 +1,5 @@
 import myAxios from "@/apis/axios";
+import type {FolderInput} from "@/types/schemas/resource";
 
 export const getSubFolders = (success: Function, failure: Function) => {
     myAxios.request({
@@ -9,9 +10,9 @@ export const getSubFolders = (success: Function, failure: Function) => {
     })
 }
 
-export const postFolder = (data: any,
-                        success: Function,
-                        failure: Function) => {
+export const postFolder = (data: FolderInput,
+                           success: Function,
+                           failure: Function) => {
     myAxios.request({
         method: 'POST',
         url: '/folder',
@@ -21,9 +22,9 @@ export const postFolder = (data: any,
     })
 }
 
-export const putFolder = (data: any,
-                            success: Function,
-                            failure: Function) => {
+export const putFolder = (data: FolderInput,
+                          success: Function,
+                          failure: Function) => {
     myAxios.request({
         method: 'PUT',
         url: '/folder',
@@ -34,12 +35,12 @@ export const putFolder = (data: any,
     })
 }
 
-export const deleteFolder = (data: any,
-                          success: Function,
-                          failure: Function) => {
+export const deleteFolder = (folder_id: number | string,
+                             success: Function,
+                             failure: Function) => {
     myAxios.request({
         method: 'DELETE',
-        url: `/folder/${data.id}`,
+        url: `/folder/${folder_id}`,
     }).then((res: any) => {
         success(res)
     })
