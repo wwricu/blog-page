@@ -1,6 +1,7 @@
 import myAxios from "@/apis/axios";
+import type {ContentInput, ResourceSearch} from "@/types/schemas/resource";
 
-export const postContent = (data: any,
+export const postContent = (data: ContentInput,
                             success: Function,
                             failure: Function) => {
     myAxios.request({
@@ -40,7 +41,7 @@ export const getContent = (data: any,
     })
 }
 
-export const getContentCountAPI = (data: any,
+export const getContentCountAPI = (data: ResourceSearch,
                                    success: Function,
                                    failure: Function) => {
     let url = '/content/count'
@@ -65,7 +66,7 @@ export const getContentCountAPI = (data: any,
     })
 }
 
-export const getContentPreview = (data: any,
+export const getContentPreview = (data: ResourceSearch,
                                   success: Function,
                                   failure: Function) => {
     let url = '/content/preview?'
@@ -96,17 +97,7 @@ export const getContentPreview = (data: any,
     })
 }
 
-export const getAllBlog = (success: Function,
-                           failure: Function) => {
-    myAxios.request({
-        method: 'GET',
-        url: '/content',
-    }).then((res: any) => {
-        success(res)
-    })
-}
-
-export const modifyContent = (data: any,
+export const modifyContent = (data: ContentInput,
                               success: Function,
                               failure: Function) => {
     myAxios.request({
