@@ -18,7 +18,7 @@ export const getContent = (content_id: number | string | string[],
                            failure: Function) => {
     myAxios.request({
         method: 'GET',
-        url: `content/${content_id}`,
+        url: `content?content_id=${content_id}`,
     }).then((res: any) => {
         success(res)
     })
