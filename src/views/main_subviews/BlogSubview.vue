@@ -2,7 +2,6 @@
 import {computed, onMounted, ref, watch} from "vue";
 import BlogBigCard from "@/components/cards/BlogBigCard.vue";
 import {getContentCountAPI, getContentPreview} from "@/apis/content";
-import type {ResourceSearch} from "@/types/schemas/resource";
 import {useRoute} from "vue-router";
 
 const route = useRoute()
@@ -17,7 +16,14 @@ watch(route, async () => {
 }, {immediate:true})
 
 const init = () => {
-  const searchParams: ResourceSearch = {
+  parseParam()
+  getPreviews()
+  getPreviewCount()
+}
+
+const searchParams = ref()
+const parseParam = () => {
+  searchParams.value = {
     status: 'publish',
   }
   const filter = route.params.filter as string
@@ -25,26 +31,24 @@ const init = () => {
   if (filter.length !== 0
       && id.length !== 0 && id !== '0') {
     if (filter === 'category') {
-      searchParams.parent_id = id
+      searchParams.value.parent_id = id
     } else if (filter === 'tag') {
-      searchParams.tag_id = id
+      searchParams.value.tag_id = id
     }
   }
-  getPreviews(searchParams)
-  getPreviewCount(searchParams)
 }
 
-const getPreviewCount = (searchParams: ResourceSearch) => {
-  getContentCountAPI(searchParams, (res: any) => {
+const getPreviewCount = () => {
+  getContentCountAPI(searchParams.value, (res: any) => {
     blogCount.value = res.data
   }, ()=>{})
 }
 
-const getPreviews = (searchParams: ResourceSearch) => {
-  searchParams.pageIdx = pageIdx.value - 1
-  searchParams.pageSize = pageSize.value
+const getPreviews = () => {
+  searchParams.value.pageIdx = pageIdx.value - 1
+  searchParams.value.pageSize = pageSize.value
 
-  getContentPreview(searchParams, (res: any) => {
+  getContentPreview(searchParams.value, (res: any) => {
     blogs.value = res.data
   }, ()=>{})
 }
