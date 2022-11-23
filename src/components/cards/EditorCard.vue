@@ -10,6 +10,20 @@ import type {Response} from "@/types/types"
 
 const quillEditor = ref()
 const content = ref("")
+const toolbar = ref([
+  [
+    { 'header': [1, 2, 3, false] },
+    { 'font': [] },
+    'bold',
+    'italic',
+    'underline',
+    'blockquote',
+    'code-block',
+    'link',
+    { 'align': [] },
+    { 'color': [] },
+  ],
+])
 
 onMounted(()=> {
   getSubFolders((res: any)=>{
@@ -117,17 +131,18 @@ defineExpose({
       ref="quillEditor"
       v-model:content="content"
       theme="snow"
-      toolbar="essential"
+      :toolbar="toolbar"
       content-type="html"
     />
   </v-card>
 </template>
 
 <style scoped>
-/deep/ .ql-container.ql-snow {
+:deep(.ql-container.ql-snow) {
   height: calc(100vh - 2.8rem - 48px);
+  font-size: 12px;
 }
-/deep/ .ql-editor {
+:deep(.ql-editor) {
   overflow-y: scroll;
 }
 </style>
