@@ -35,12 +35,14 @@ const props = defineProps({
           <p class="text-grey-darken-2">Updated At &ensp;</p>
           <p>{{blog.updated_time.slice(0, 10)}}</p>
         </v-card-text>
-        <v-divider class="ml-4 mb-2 mt-n2"/>
+        <v-divider class="ml-4 mb-2 mt-n1"/>
         <v-card-actions v-if="blog.tags.length > 0">
           <v-chip
             color="primary"
+            class="mx-1"
             v-for="item in blog.tags"
             :key="item.id"
+            @click="$router.push(`/tag/${item.id}`)"
           >
             {{item.name}}
           </v-chip>

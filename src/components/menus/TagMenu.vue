@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import {computed, ref} from "vue";
+import {computed, PropType, ref} from "vue";
+import {useRouter} from "vue-router";
+import type {Tag} from "@/types/schemas/tag";
 
 const props = defineProps({
   modelValue: Boolean,
   activator: String,
   tags: {
-    type: Object
+    type: Object as PropType<Tag>
   }
 })
 
@@ -19,8 +21,14 @@ const menuOutput = computed({
   }
 })
 
-const tagSelect = ref([])
 const snackbar = ref()
+const snackMsg = ref('')
+const router = useRouter()
+
+const chooseTag = (tag: Tag) => {
+  snackMsg.value = tag.name as string
+  router.push(`/tag/${tag.id}`)
+}
 </script>
 
 <template>
@@ -33,10 +41,9 @@ const snackbar = ref()
     v-model="menuOutput"
     :opacity="0.1"
   >
-    <v-chip-group
+    <v-item-group
       column
       color="white"
-      v-model="tagSelect"
       @click="snackbar = true"
     >
       <v-chip
@@ -44,11 +51,12 @@ const snackbar = ref()
         variant="outlined"
         color="primary"
         v-for="tag in tags"
-        :key="tag.link"
+        :key="tag.id"
+        @click="chooseTag(tag)"
       >
         {{ tag.name }}
       </v-chip>
-    </v-chip-group>
+    </v-item-group>
   </v-overlay>
   <v-sheet v-show="snackbar" width="100">
     <v-snackbar
@@ -57,7 +65,7 @@ const snackbar = ref()
       v-model="snackbar"
       class="text-center"
     >
-      #{{ tags[tagSelect].name }} Selected
+      #{{ snackMsg }} Selected
     </v-snackbar>
   </v-sheet>
 </template>
