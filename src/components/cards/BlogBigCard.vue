@@ -24,7 +24,8 @@ const props = defineProps({
               v-bind="props"
               class="text-h2 my-4"
               :class="isHovering ? 'text-indigo-darken-4' : ''"
-              style="cursor: pointer"
+              style="cursor: pointer;"
+              @click="$router.push(`/content/${blog.id}`)"
             >
               {{blog.title}}
             </v-card-title>

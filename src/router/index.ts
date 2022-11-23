@@ -21,6 +21,11 @@ const router = createRouter({
       component: LoginPage
     },
     {
+      path: '/content/:id',
+      name: 'content',
+      component: () => import('@/views/BlogView.vue')
+    },
+    {
       path: '/manage',
       name: 'manage',
       component: () => import('@/views/ManageView.vue'),
