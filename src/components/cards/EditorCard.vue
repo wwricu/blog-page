@@ -4,6 +4,7 @@ import {getSubFolders} from "@/apis/folder";
 import {Base64, encode} from "js-base64";
 import {getContent} from "@/apis/content";
 import {useRoute} from "vue-router";
+import {getTagAPI} from "@/apis/tag";
 
 const quillEditor = ref()
 const content = ref("")
@@ -15,12 +16,17 @@ onMounted(()=> {
   }, (res: any)=>{
     console.log(res)
   })
+  getTagAPI({}, (res: any)=>{
+    tags.value = res.data
+  }, ()=>{})
 })
 
-const title = ref()
+const tags = ref()
+const tagSelect = ref()
 const categories = ref()
 const categorySelect = ref()
 
+const title = ref()
 const route = useRoute()
 function findContent() {
   getContent(route.params.id, (res: any)=>{
@@ -37,7 +43,7 @@ function findContent() {
         break
       }
     }
-    // get category
+    tagSelect.value = res.data[0].tags
   }, ()=>{})
 }
 
@@ -46,6 +52,7 @@ defineExpose({
   getEditorContents() {
     contentData.value.title = title.value
     contentData.value.content = encode(quillEditor.value.getContents())
+    contentData.value.tags = tagSelect.value
     if (categorySelect.value !== undefined
         && categorySelect.value.id !== undefined) {
       contentData.value.parent_id = categorySelect.value.id
@@ -82,6 +89,24 @@ defineExpose({
             label="Category"
             :items="categories"
             v-model="categorySelect"
+          />
+        </v-col>
+        <v-col cols="12" class="align-self-end mt-n4">
+          <v-combobox
+            chips
+            multiple
+            clearable
+            hide-selected
+            closable-chips
+            return-object
+            item-title="name"
+            item-value="id"
+            label="Tags"
+            density="compact"
+            variant="underlined"
+            color="indigo"
+            v-model="tagSelect"
+            :items="tags"
           />
         </v-col>
       </v-row>
