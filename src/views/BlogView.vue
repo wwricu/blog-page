@@ -9,13 +9,16 @@ import type {ContentOutput} from "@/types/schemas/resource";
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 // OR | AND
 import '@vueup/vue-quill/dist/vue-quill.bubble.css';
+import BlogTitleCard from "@/components/cards/BlogTitleCard.vue";
 
 const route = useRoute()
+const blog = ref()
 const content = ref()
 onMounted(() => {
   getContent(route.params.id,
       (res: Response<ContentOutput>) => {
-    content.value = Base64.decode(res.data.content as string)
+    blog.value = res.data
+    content.value = Base64.decode(blog.value.content as string)
   }, ()=>{})
 })
 </script>
@@ -23,8 +26,7 @@ onMounted(() => {
 <template>
   <v-app-bar
     flat
-    style="position:fixed;"
-    density="compact"
+    density="comfortable"
     class="bg-blue-grey-lighten-5"
   >
     <navigate-button
@@ -33,17 +35,26 @@ onMounted(() => {
       @click="$router.push('/')"
     />
     <v-spacer/>
+
+    <v-spacer/>
     <navigate-button
       title="About"
       prepend-icon="mdi-information-outline"
     />
   </v-app-bar>
-  <div class="bgd"/>
-  <div class="ql-container">
+  <blog-title-card
+    v-if="blog !== undefined"
+    :blog="blog"
+  />
+  <v-sheet
+    width="800"
+    class="mx-auto ql-container"
+  >
     <div class="ql-editor">
       <div v-html="content"/>
     </div>
-  </div>
+  </v-sheet>
+  <div class="bgd"/>
 </template>
 
 <style scoped>
@@ -55,5 +66,9 @@ onMounted(() => {
   left: 0;
   z-index: -100;
   background-image: linear-gradient(to right bottom, #ace0f9 0%, #fff1eb 100%);
+}
+.ql-container {
+  /*background-color: rgba(236, 239, 241, 0.75);*/
+  background-color: rgba(255, 255, 255, 0.3);
 }
 </style>
