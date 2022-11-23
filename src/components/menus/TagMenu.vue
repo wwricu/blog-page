@@ -50,6 +50,7 @@ const chooseTag = (tag: Tag) => {
         filter
         variant="outlined"
         color="primary"
+        class="ma-1"
         v-for="tag in tags"
         :key="tag.id"
         @click="chooseTag(tag)"
