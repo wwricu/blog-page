@@ -4,7 +4,6 @@ import {onMounted, ref} from "vue";
 import NavigateButton from "@/components/buttons/NavigateButton.vue";
 import ListMenu from "@/components/menus/ListMenu.vue";
 import TagMenu from "@/components/menus/TagMenu.vue";
-import BlogSubview from "@/views/main_subviews/BlogSubview.vue";
 import {getSubFolders} from "@/apis/folder";
 import {getTagAPI} from "@/apis/tag";
 import {useRoute} from "vue-router";

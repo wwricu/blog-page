@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import {getCurrentInstance} from "vue";
+import {getCurrentInstance, PropType} from "vue";
 import {deleteFolder} from "@/apis/folder";
+import type {FolderOutput} from "@/types/schemas/resource";
 
 const props = defineProps({
   category: {
+    type: Object as PropType<FolderOutput>,
     required: true
   }
 })
@@ -15,7 +17,7 @@ function renameCategory() {
 
 const instance = getCurrentInstance();
 function deleteCategory() {
-  deleteFolder(props.category.id, ()=>{
+  deleteFolder(props.category.id as number, ()=>{
     alert('deleted')
     instance?.proxy?.$forceUpdate();
   }, ()=>{})

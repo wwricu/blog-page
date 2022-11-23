@@ -15,7 +15,7 @@ export const addTagAPI = (name: string,
     })
 }
 
-export const getTagAPI = (data: Tag,
+export const getTagAPI = (data: Tag | null,
                           success: Function,
                           failure: Function) => {
     let url = '/tag'

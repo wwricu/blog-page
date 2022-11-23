@@ -19,10 +19,6 @@ const menuOutput = computed({
   }
 })
 
-const push = (text: String) => {
-  alert(text)
-}
-
 </script>
 
 <template>
