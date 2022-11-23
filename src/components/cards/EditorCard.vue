@@ -5,6 +5,8 @@ import {Base64, encode} from "js-base64";
 import {getContent} from "@/apis/content";
 import {useRoute} from "vue-router";
 import {getTagAPI} from "@/apis/tag";
+import type {ContentOutput} from "@/types/schemas/resource";
+import type {Response} from "@/types/types"
 
 const quillEditor = ref()
 const content = ref("")
@@ -29,21 +31,20 @@ const categorySelect = ref()
 const title = ref()
 const route = useRoute()
 function findContent() {
-  getContent(route.params.id, (res: any)=>{
-    if (res.data.length === 0) return
-    contentData.value = res.data[0]
-    title.value = res.data[0].title
-    if (res.data[0].content !== null) {
-      quillEditor.value.setContents(Base64.decode(res.data[0].content))
+  getContent(route.params.id, (res: Response<ContentOutput>)=>{
+    contentData.value = res.data
+    title.value = res.data.title
+    if (res.data.content !== undefined) {
+      quillEditor.value.setContents(Base64.decode(res.data.content))
     }
 
     for (const cat of categories.value) {
-      if (cat.id === res.data[0].parent_id) {
+      if (cat.id === res.data.parent_id) {
         categorySelect.value = cat
         break
       }
     }
-    tagSelect.value = res.data[0].tags
+    tagSelect.value = res.data.tags
   }, ()=>{})
 }
 
