@@ -61,14 +61,21 @@ const pageLength = computed(() => {
 </script>
 
 <template>
-  <v-sheet class="sub-view">
-  <blog-big-card
-    class="mx-auto mt-4"
-    v-for="blog in blogs"
-    :key="blog.id"
-    :blog="blog"
-  />
+  <v-sheet
+    class="sub-view"
+    min-height="1200px"
+  >
+    <blog-big-card
+      v-ripple
+      class="mx-auto mt-4"
+      v-for="blog in blogs"
+      :key="blog.id"
+      :blog="blog"
+    />
+  </v-sheet>
   <v-pagination
+    color="white"
+    active-color="amber"
     v-model="pageIdx"
     :length="pageLength"
     :total-visible="5"
@@ -76,11 +83,10 @@ const pageLength = computed(() => {
     class="ma-2"
     @click="getPreviews()"
   />
-  </v-sheet>
 </template>
 
 <style scoped>
 .sub-view {
-  background-color: rgba(255, 255, 255, 0);
+  background: transparent;
 }
 </style>

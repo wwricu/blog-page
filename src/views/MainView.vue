@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import {onMounted, ref} from "vue";
-
 import NavigateButton from "@/components/buttons/NavigateButton.vue";
 import ListMenu from "@/components/menus/ListMenu.vue";
 import TagMenu from "@/components/menus/TagMenu.vue";
 import {getSubFolders} from "@/apis/folder";
 import {getTagAPI} from "@/apis/tag";
 import {useRoute} from "vue-router";
+import bgdImg from "@/assets/background.jpg"
 
 const route = useRoute()
 const filter = ref()
@@ -78,8 +78,12 @@ const overlay = ref()
       prepend-icon="mdi-information-outline"
     />
   </v-app-bar>
-  <div class="bgd"/>
-  <router-view/>
+  <v-parallax
+    :src="bgdImg"
+  >
+    <router-view/>
+  </v-parallax>
+<!--  <div class="bgd"/>-->
 </template>
 
 <style scoped>

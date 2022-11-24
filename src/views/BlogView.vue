@@ -47,7 +47,7 @@ onMounted(() => {
     :blog="blog"
   />
   <v-sheet
-    width="800"
+    width="1000"
     class="mx-auto ql-container"
   >
     <div class="ql-editor">

@@ -11,7 +11,7 @@ const props = defineProps({
   <v-card
     min-height="200"
     width="800"
-    color="rgba(255, 255, 255, 0.2)"
+    color="rgba(236, 239, 241, 0.8)"
     class="pa-2"
     elevation="24"
     rounded="lg"
@@ -74,7 +74,7 @@ const props = defineProps({
         <slot name="action"/>
       </v-col>
       <v-col cols="4">
-        <v-img src="https://api.isoyu.com/bing_images.php"/>
+        <v-img src="http://pic.tsmp4.net/api/erciyuan/img.php"/>
       </v-col>
     </v-row>
   </v-card>
