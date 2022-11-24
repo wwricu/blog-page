@@ -3,6 +3,7 @@ import {onMounted, ref} from "vue";
 import NavigateButton from "@/components/buttons/NavigateButton.vue";
 import ListMenu from "@/components/menus/ListMenu.vue";
 import TagMenu from "@/components/menus/TagMenu.vue";
+import CustomFooter from "@/components/cards/CustomFooter.vue";
 import {getSubFolders} from "@/apis/folder";
 import {getTagAPI} from "@/apis/tag";
 import {useRoute} from "vue-router";
@@ -82,17 +83,9 @@ const overlay = ref()
     :src="bgdImg"
   >
     <router-view/>
+    <custom-footer class="mt-8"/>
   </v-parallax>
-<!--  <div class="bgd"/>-->
 </template>
 
 <style scoped>
-.bgd {
-  height: 100%;
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-image: linear-gradient(to right bottom, #ace0f9 0%, #fff1eb 100%);
-}
 </style>

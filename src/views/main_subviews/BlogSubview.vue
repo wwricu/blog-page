@@ -6,14 +6,14 @@ import {useRoute} from "vue-router";
 
 const route = useRoute()
 const blogs = ref()
-const blogCount = ref()
+const blogCount = ref(0)
 onMounted(() => {
   init()
 })
 
 watch(route, async () => {
   init()
-}, {immediate:true})
+})
 
 const init = () => {
   parseParam()
@@ -75,7 +75,7 @@ const pageLength = computed(() => {
   </v-sheet>
   <v-pagination
     color="white"
-    active-color="amber"
+    active-color="blue"
     v-model="pageIdx"
     :length="pageLength"
     :total-visible="5"

@@ -10,6 +10,7 @@ import '@vueup/vue-quill/dist/vue-quill.snow.css';
 // OR | AND
 import '@vueup/vue-quill/dist/vue-quill.bubble.css';
 import BlogTitleCard from "@/components/cards/BlogTitleCard.vue";
+import CustomFooter from "@/components/cards/CustomFooter.vue";
 
 const route = useRoute()
 const blog = ref()
@@ -55,6 +56,7 @@ onMounted(() => {
     </div>
   </v-sheet>
   <div class="bgd"/>
+  <custom-footer class="mt-8"/>
 </template>
 
 <style scoped>
