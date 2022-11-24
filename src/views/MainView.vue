@@ -79,9 +79,7 @@ const overlay = ref()
       prepend-icon="mdi-information-outline"
     />
   </v-app-bar>
-  <v-parallax
-    :src="bgdImg"
-  >
+  <v-parallax :src="bgdImg">
     <router-view/>
     <custom-footer class="mt-8"/>
   </v-parallax>

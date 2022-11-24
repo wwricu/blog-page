@@ -12,13 +12,13 @@ const props = defineProps({
 
 <template>
   <v-sheet
-    height="260"
-    class="bg-transparent pt-8"
+    height="300"
+    class="py-8 blog-title"
     v-show="blog !== undefined"
   >
     <v-sheet
       max-width="800"
-      class="mx-auto text-center"
+      class="mx-auto bg-transparent text-center"
       style="background: transparent">
       <p class="text-h1">
         {{blog.title}}
@@ -38,19 +38,19 @@ const props = defineProps({
               style="cursor: pointer"
               @click="$router.push(`/category/${blog.parent_id}`)"
             >
-              <v-icon>mdi-pound</v-icon>
+              <v-icon color="primary">mdi-pound</v-icon>
               {{blog.parent.title}}
             </p>
           </template>
         </v-hover>
         <v-divider vertical color="grey-lighten-1"/>
         <p>
-          <v-icon class="mr-1">mdi-calendar-clock</v-icon>
+          <v-icon color="primary" class="mr-1">mdi-calendar-clock</v-icon>
           Created At {{blog.created_time.slice(0,10)}}
         </p>
         <v-divider vertical color="grey-lighten-1"/>
         <p>
-          <v-icon class="mr-1">mdi-calendar-clock</v-icon>
+          <v-icon color="primary" class="mr-1">mdi-calendar-clock</v-icon>
           Updated At {{blog.updated_time.slice(0,10)}}
         </p>
       </div>
@@ -64,6 +64,11 @@ const props = defineProps({
         {{item.name}}
       </v-chip>
     </v-sheet>
-
   </v-sheet>
 </template>
+
+<style scoped>
+.blog-title {
+  background-image: url('../../assets/background.jpg');
+}
+</style>
