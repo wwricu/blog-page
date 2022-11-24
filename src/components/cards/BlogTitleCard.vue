@@ -12,9 +12,8 @@ const props = defineProps({
 
 <template>
   <v-sheet
-    elevation="16"
     height="260"
-    class="bg-blue-grey-lighten-5"
+    class="bg-transparent pt-8"
     v-show="blog !== undefined"
   >
     <v-sheet

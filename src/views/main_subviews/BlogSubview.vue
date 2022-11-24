@@ -63,7 +63,7 @@ const pageLength = computed(() => {
 <template>
   <v-sheet
     class="sub-view"
-    min-height="1200px"
+    min-height="1250px"
   >
     <blog-big-card
       v-ripple

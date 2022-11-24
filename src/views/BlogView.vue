@@ -6,11 +6,9 @@ import {getContent} from "@/apis/content";
 import {Base64} from "js-base64";
 import type {Response} from "@/types/types";
 import type {ContentOutput} from "@/types/schemas/resource";
-import '@vueup/vue-quill/dist/vue-quill.snow.css';
-// OR | AND
-import '@vueup/vue-quill/dist/vue-quill.bubble.css';
 import BlogTitleCard from "@/components/cards/BlogTitleCard.vue";
 import CustomFooter from "@/components/cards/CustomFooter.vue";
+import bgdImg from "@/assets/background.jpg"
 
 const route = useRoute()
 const blog = ref()
@@ -26,8 +24,7 @@ onMounted(() => {
 
 <template>
   <v-app-bar
-    flat
-    density="comfortable"
+    density="compact"
     class="bg-blue-grey-lighten-5"
   >
     <navigate-button
@@ -43,32 +40,30 @@ onMounted(() => {
       prepend-icon="mdi-information-outline"
     />
   </v-app-bar>
-  <blog-title-card
-    v-if="blog !== undefined"
-    :blog="blog"
-  />
-  <v-sheet
-    width="1000"
-    class="mx-auto ql-container"
-  >
-    <div class="ql-editor">
-      <div v-html="content"/>
-    </div>
-  </v-sheet>
-  <div class="bgd"/>
-  <custom-footer class="mt-8"/>
+
+  <v-parallax :src="bgdImg">
+    <v-sheet
+      width="1000"
+      class="mx-auto ql-container"
+    >
+      <blog-title-card
+        class="mb-16"
+        v-if="blog !== undefined"
+        :blog="blog"
+      />
+      <div class="ql-editor">
+        <div v-html="content"/>
+        <v-divider color="grey-darken-3"/>
+        <custom-footer
+          class="mt-8"
+          :text-color="'text-grey-darken-3'"
+        />
+      </div>
+    </v-sheet>
+  </v-parallax>
 </template>
 
 <style scoped>
-.bgd {
-  height: 100%;
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: -100;
-  background-image: linear-gradient(to right bottom, #ace0f9 0%, #fff1eb 100%);
-}
 .ql-container {
   /*background-color: rgba(236, 239, 241, 0.75);*/
   background-color: rgba(255, 255, 255, 0.3);
