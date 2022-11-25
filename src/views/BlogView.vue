@@ -92,6 +92,7 @@ const toTop = () => {
     />
   </right-bottom-buttons>
   <div class="bgd"/>
+  <div class="bgd-bottom"/>
 </template>
 
 <style scoped>
@@ -101,12 +102,34 @@ const toTop = () => {
   position: fixed;
   z-index: -100;
   top: v-bind(-top + 'px');
-  background: repeat-y url('../assets/background.jpg');
+  background: #fafbf1 repeat-y url('../assets/blog_background.png');
   -webkit-background-size: 100% auto;
   background-size: 100% auto;
 }
+
 .ql-container {
   /*background-color: rgba(236, 239, 241, 0.75);*/
-  background-color: rgba(255, 255, 255, 0.5);
+  /*background-color: rgba(250, 251, 241, 0.8);*/
+  background: transparent;
 }
+
+/*.bgd-bottom {*/
+/*  top: 0;*/
+/*  left: 0;*/
+/*  width: 100vw;*/
+/*  height: 100vh;*/
+/*  position: fixed;*/
+/*  z-index: -110;*/
+/*  background: whitesmoke;*/
+/*  background-image:*/
+/*      linear-gradient(rgba(0,0,0,.3) 1px, transparent 0),*/
+/*      linear-gradient(90deg, rgba(0,0,0,.3) 1px, transparent 0),*/
+/*      linear-gradient(black 1px, transparent 0),*/
+/*      linear-gradient(90deg, black 1px, transparent 0);*/
+/*  background-size:*/
+/*      15px 15px,*/
+/*      15px 15px,*/
+/*      75px 75px,*/
+/*      75px 75px;*/
+/*}*/
 </style>

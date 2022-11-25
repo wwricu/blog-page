@@ -69,6 +69,8 @@ const props = defineProps({
 
 <style scoped>
 .blog-title {
-  background-image: url('../../assets/background.jpg');
+  background: fixed url('../../assets/background.jpg');
+  background-size: cover;
+  -webkit-background-size: cover;
 }
 </style>
