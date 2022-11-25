@@ -60,6 +60,7 @@ const pageSize = ref(5)
 const pageLength = computed(() => {
   return Math.ceil(blogCount.value / pageSize.value)
 })
+
 </script>
 
 <template>
@@ -67,14 +68,36 @@ const pageLength = computed(() => {
     class="sub-view"
     min-height="1250px"
   >
-    <blog-big-card
-      v-ripple
-      class="mx-auto mt-4"
-      v-for="(blog, index) in blogs"
-      :key="blog.id"
-      :blog="blog"
-      :cover-index="(index + imgIndexBase) % 5"
-    />
+    <v-row no-gutters>
+      <v-col
+        class="mt-4"
+        cols="12"
+        v-for="(blog, index) in blogs"
+        :key="blog.id"
+      >
+        <v-hover
+          v-slot:default="{ isHovering, props }"
+          close-delay="200"
+          open-delay="100"
+        >
+          <v-lazy
+            min-height="200"
+            :options="{threshold: .25}"
+            transition="scale-transition"
+          >
+            <blog-big-card
+              v-ripple
+              class="mx-auto"
+              v-bind="props"
+              :elevation="isHovering ? 24 : 4"
+              :blog="blog"
+              :cover-index="(index + imgIndexBase) % 5"
+            />
+          </v-lazy>
+        </v-hover>
+      </v-col>
+    </v-row>
+
   </v-sheet>
   <v-pagination
     color="white"

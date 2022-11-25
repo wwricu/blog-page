@@ -22,7 +22,6 @@ const getImgUrl = () => {
     min-height="200"
     color="rgba(250, 251, 241, 0.8)"
     width="800"
-    elevation="24"
     rounded="lg"
   >
     <v-row>
