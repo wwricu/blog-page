@@ -13,9 +13,10 @@ const props = defineProps({
 <template>
   <v-sheet
     height="300"
-    class="py-8 blog-title"
+    class="py-8 blog-title text-white"
     v-show="blog !== undefined"
   >
+    <div class="bgd"/>
     <v-sheet
       max-width="800"
       class="mx-auto bg-transparent text-center"
@@ -38,24 +39,24 @@ const props = defineProps({
               style="cursor: pointer"
               @click="$router.push(`/category/${blog.parent_id}`)"
             >
-              <v-icon color="primary">mdi-pound</v-icon>
+              <v-icon color="yellow">mdi-pound</v-icon>
               {{blog.parent.title}}
             </p>
           </template>
         </v-hover>
         <v-divider vertical color="grey-lighten-1"/>
         <p>
-          <v-icon color="primary" class="mr-1">mdi-calendar-clock</v-icon>
+          <v-icon color="yellow" class="mr-1">mdi-calendar-clock</v-icon>
           Created At {{blog.created_time.slice(0,10)}}
         </p>
         <v-divider vertical color="grey-lighten-1"/>
         <p>
-          <v-icon color="primary" class="mr-1">mdi-calendar-clock</v-icon>
+          <v-icon color="yellow" class="mr-1">mdi-calendar-clock</v-icon>
           Updated At {{blog.updated_time.slice(0,10)}}
         </p>
       </div>
       <v-chip
-        color="primary"
+        color="yellow"
         class="mx-1"
         v-for="item in blog.tags"
         :key="item.id"
@@ -68,9 +69,19 @@ const props = defineProps({
 </template>
 
 <style scoped>
+.bgd {
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: -100;
+  background: no-repeat fixed url('../../assets/banner.jpg');
+  filter: brightness(60%);
+  background-size: 100% auto;
+  -webkit-background-size: 100% auto;
+}
 .blog-title {
-  background: fixed url('../../assets/background.jpg');
-  background-size: cover;
-  -webkit-background-size: cover;
+  filter: brightness(100%);
 }
 </style>

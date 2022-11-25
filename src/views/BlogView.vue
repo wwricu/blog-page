@@ -76,9 +76,8 @@ const toTop = () => {
   >
     <div class="ql-editor">
       <div v-html="content"/>
-      <v-divider color="grey-darken-3"/>
+      <v-divider class="my-16" color="grey-darken-3"/>
       <custom-footer
-        class="mt-8"
         :text-color="'text-grey-darken-3'"
       />
     </div>
