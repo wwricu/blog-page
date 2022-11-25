@@ -4,10 +4,12 @@ import BlogBigCard from "@/components/cards/BlogBigCard.vue";
 import {getContentCountAPI, getContentPreview} from "@/apis/content";
 import {useRoute} from "vue-router";
 
+const imgIndexBase = ref(0)
 const route = useRoute()
 const blogs = ref()
 const blogCount = ref(0)
 onMounted(() => {
+  imgIndexBase.value = Math.floor(Math.random() * 5)
   init()
 })
 
@@ -68,9 +70,10 @@ const pageLength = computed(() => {
     <blog-big-card
       v-ripple
       class="mx-auto mt-4"
-      v-for="blog in blogs"
+      v-for="(blog, index) in blogs"
       :key="blog.id"
       :blog="blog"
+      :cover-index="(index + imgIndexBase) % 5"
     />
   </v-sheet>
   <v-pagination

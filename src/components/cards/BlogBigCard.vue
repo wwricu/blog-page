@@ -1,18 +1,27 @@
 <script setup lang="ts">
-
 const props = defineProps({
+  coverIndex: {
+    type: [Number, String],
+    required: false,
+    default: 1
+  },
   blog: {
     required: true
   }
 })
+
+const getImgUrl = () => {
+  return new URL(`../../assets/card_covers/${props.coverIndex}.jpg`,
+      import.meta.url).href;
+}
 </script>
+<!--color="rgba(236, 239, 241, 0.8)"-->
 
 <template>
   <v-card
     min-height="200"
+    color="rgba(250, 251, 241, 0.8)"
     width="800"
-    color="rgba(236, 239, 241, 0.8)"
-    class="pa-2"
     elevation="24"
     rounded="lg"
   >
@@ -43,24 +52,25 @@ const props = defineProps({
               style="cursor: pointer"
               @click="$router.push(`/category/${blog.parent_id}`)"
             >
-              <v-icon>mdi-pound</v-icon>
+              <v-icon color="primary">mdi-pound</v-icon>
               {{blog.parent.title}}
             </p>
           </template>
         </v-hover>
         <v-card-text class="d-flex justify-lg-space-between text-body-2">
           <p class="text-grey-darken-2">
-            <v-icon class="mr-1">mdi-calendar-clock</v-icon>
+            <v-icon color="primary" class="mr-1">mdi-calendar-clock</v-icon>
             Created At &ensp;{{blog.created_time.slice(0, 10)}}
           </p>
           <v-divider vertical class="mx-2"/>
           <p class="text-grey-darken-2">
-            <v-icon class="mr-1">mdi-calendar-clock</v-icon>
+            <v-icon color="primary" class="mr-1">mdi-calendar-clock</v-icon>
             Updated At &ensp;{{blog.updated_time.slice(0, 10)}}
           </p>
         </v-card-text>
-        <v-divider class="ml-4 mb-2 mt-n1"/>
-        <v-card-actions v-if="blog.tags.length > 0">
+        <v-divider class="ml-4 mt-n1"/>
+        <v-card-actions class="ml-2 my-2" v-if="blog.tags.length > 0">
+          <v-icon color="primary">mdi-tag</v-icon>
           <v-chip
             color="primary"
             class="mx-1"
@@ -73,8 +83,11 @@ const props = defineProps({
         </v-card-actions>
         <slot name="action"/>
       </v-col>
-      <v-col cols="4">
-        <v-img src="http://pic.tsmp4.net/api/erciyuan/img.php"/>
+      <v-col class="d-flex" cols="4">
+        <v-img
+          cover
+          :src="getImgUrl()"
+        />
       </v-col>
     </v-row>
   </v-card>
