@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {onMounted, ref} from "vue";
+import {nextTick, onMounted, ref} from "vue";
 import NavigateButton from "@/components/buttons/NavigateButton.vue";
 import {useRoute} from "vue-router";
 import {getContent} from "@/apis/content";
@@ -13,14 +13,36 @@ import RightBottomButtons from "@/components/buttons/RightBottomButtons.vue";
 const route = useRoute()
 const blog = ref()
 const content = ref()
+const height = ref()
 onMounted(() => {
   getContent(route.params.id,
       (res: Response<ContentOutput>) => {
     blog.value = res.data
     content.value = Base64.decode(blog.value.content as string)
+    nextTick(() => {
+      getHeight()
+    })
   }, ()=>{})
 })
-const toTop= () => {
+
+const getHeight = () => {
+  let body = document.body
+  let html = document.documentElement
+  height.value = Math.max(body.scrollHeight,
+                          body.offsetHeight,
+                          html.clientHeight,
+                          html.scrollHeight,
+                          html.offsetHeight)
+};
+
+const top = ref(0)
+const parallel = () => {
+  let scrollY = document.documentElement.scrollTop
+             || document.body.scrollTop
+  top.value = 0.5 * scrollY
+}
+
+const toTop = () => {
   window.scrollTo(0,0)
 }
 </script>
@@ -50,6 +72,7 @@ const toTop= () => {
   <v-sheet
     width="1000"
     class="mx-auto ql-container pt-16"
+    v-scroll="parallel"
   >
     <div class="ql-editor">
       <div v-html="content"/>
@@ -73,14 +96,14 @@ const toTop= () => {
 
 <style scoped>
 .bgd {
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: v-bind(height + 'px');
   position: fixed;
   z-index: -100;
-  top: 0;
-  left: 0;
-  /*background-image: linear-gradient(to right bottom, #ace0f9 0%, #fff1eb 100%);*/
-  background-color: #fafbf1;
+  top: v-bind(-top + 'px');
+  background: repeat-y url('../assets/background.jpg');
+  -webkit-background-size: 100% auto;
+  background-size: 100% auto;
 }
 .ql-container {
   /*background-color: rgba(236, 239, 241, 0.75);*/
