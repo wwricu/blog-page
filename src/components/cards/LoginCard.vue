@@ -6,9 +6,11 @@ import {Md5} from 'ts-md5/dist/esm/md5';
 import {loginApi} from '@/apis/user'
 import type {TokenResponse} from "@/types/types";
 import type {AxiosResponse} from "axios";
+import {useRouter} from "vue-router";
 
 const ctx = getCurrentInstance()!.appContext.config.globalProperties
 const store = useStore();
+const router = useRouter()
 
 function login() {
   loginApi({
@@ -16,6 +18,7 @@ function login() {
     password: Md5.hashStr(loginForm.value[1].value)
   }, (res: AxiosResponse<TokenResponse>) => {
     // alert(JSON.stringify(parseJwt(res.data.access_token)))
+    router.push('/manage/blog')
     localStorage.setItem('access_token', res.data.access_token)
     localStorage.setItem('refresh_token', res.data.refresh_token)
   }, ()=>{})

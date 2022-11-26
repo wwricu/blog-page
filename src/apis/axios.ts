@@ -1,4 +1,6 @@
 import axios, {type AxiosRequestConfig, type AxiosResponse} from "axios";
+import {refreshTokenAPI} from "@/apis/user";
+import {useRouter} from "vue-router";
 // import {Base64} from "js-base64";
 
 const myAxios = axios.create({
@@ -32,8 +34,10 @@ myAxios.interceptors.request.use(
 
 myAxios.interceptors.response.use(
     (res: AxiosResponse) => {
-        if (res.headers['x-token-need-refresh'] != null) {
+        const needRefresh = res.headers['x-token-need-refresh']
+        if (needRefresh != null && needRefresh === 'true') {
             console.log('need refresh!')
+            refreshTokenAPI()
         }
         return res;
     },

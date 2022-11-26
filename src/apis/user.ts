@@ -1,4 +1,6 @@
 import myAxios from "@/apis/axios";
+import type {AxiosResponse} from "axios";
+import type {TokenResponse} from "@/types/types";
 
 export const loginApi = (data: any,
                       success: Function,
@@ -10,5 +12,15 @@ export const loginApi = (data: any,
         data: data
     }).then((res: any) => {
         success(res)
+    })
+}
+
+export const refreshTokenAPI = () => {
+    myAxios.request({
+        method: 'POST',
+        url: '/auth/refresh',
+    }).then((res: AxiosResponse<TokenResponse>) => {
+        localStorage.setItem('access_token', res.data.access_token)
+        localStorage.setItem('refresh_token', res.data.refresh_token)
     })
 }
