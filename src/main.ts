@@ -8,7 +8,7 @@ import '@vueup/vue-quill/dist/vue-quill.snow.css';
 import { createPinia } from 'pinia'
 import axios from "axios";
 
-loadFonts().then(r => console.log(r))
+loadFonts().then()
 
 const app = createApp(App)
 axios.defaults.method = 'POST'

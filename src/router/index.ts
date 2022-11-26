@@ -8,12 +8,6 @@ const router = createRouter({
       path: '/:filter?/:id?',
       name: 'home',
       component: () => import('@/views/MainView.vue'),
-      children: [
-        {
-          path: '',
-          component: () => import('@/views/main_subviews/BlogSubview.vue')
-        }
-      ]
     },
     {
       path: '/login',

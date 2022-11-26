@@ -8,6 +8,7 @@ import {getSubFolders} from "@/apis/folder";
 import {getTagAPI} from "@/apis/tag";
 import {useRoute} from "vue-router";
 import bgdImg from "@/assets/background.jpg"
+import BlogSubview from "@/views/main_subviews/BlogSubview.vue";
 
 const route = useRoute()
 const filter = ref()
@@ -80,7 +81,7 @@ const overlay = ref()
     />
   </v-app-bar>
   <v-parallax :src="bgdImg">
-    <router-view/>
+    <blog-subview/>
     <custom-footer class="mt-8"/>
   </v-parallax>
 </template>
