@@ -48,7 +48,7 @@ function findContent() {
   getContent(route.params.id, (res: Response<ContentOutput>)=>{
     contentData.value = res.data
     title.value = res.data.title
-    if (res.data.content !== undefined) {
+    if (res.data.content != null) {
       quillEditor.value.setContents(Base64.decode(res.data.content))
     }
 
