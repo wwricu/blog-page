@@ -9,11 +9,6 @@ const myAxios = axios.create({
     withCredentials: true,
 });
 
-// const parseJwt = (jwt: string) => {
-//     const data = jwt.split('.')[1]
-//     return JSON.parse(Base64.decode(data))
-// }
-
 myAxios.interceptors.request.use(
     (config: AxiosRequestConfig) => {
         const access_token = localStorage.getItem("access_token")

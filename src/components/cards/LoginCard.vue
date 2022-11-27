@@ -1,16 +1,24 @@
 <script setup lang="ts">
 
 import {ref, getCurrentInstance} from "vue";
-import { useStore } from "@/stores";
+import {useInfoStore} from "@/stores/UserInfo";
 import {Md5} from 'ts-md5/dist/esm/md5';
 import {loginApi} from '@/apis/user'
 import type {TokenResponse} from "@/types/types";
 import type {AxiosResponse} from "axios";
 import {useRouter} from "vue-router";
+import {Base64} from "js-base64";
+import type {UserOutput} from "@/types/schemas/user";
 
 const ctx = getCurrentInstance()!.appContext.config.globalProperties
-const store = useStore();
+const userInfoStore = useInfoStore();
 const router = useRouter()
+
+const parseJwt = (jwt: string): UserOutput => {
+    const data = jwt.split('.')[1]
+    alert(JSON.stringify(data))
+    return JSON.parse(Base64.decode(data))
+}
 
 function login() {
   loginApi({
@@ -19,6 +27,7 @@ function login() {
   }, (res: AxiosResponse<TokenResponse>) => {
     // alert(JSON.stringify(parseJwt(res.data.access_token)))
     router.push('/manage/blog')
+    userInfoStore.login(parseJwt(res.data.access_token))
     localStorage.setItem('access_token', res.data.access_token)
     localStorage.setItem('refresh_token', res.data.refresh_token)
   }, ()=>{})

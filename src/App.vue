@@ -10,6 +10,10 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import {getCurrentUserAPI} from "@/apis/user";
+import type {AxiosResponse} from "axios";
+import type {UserOutput} from "@/types/schemas/user";
+import {useInfoStore} from "@/stores/UserInfo";
 
 export default defineComponent({
   name: 'App',
@@ -18,5 +22,11 @@ export default defineComponent({
       //
     }
   },
+  mounted() {
+    getCurrentUserAPI((res: AxiosResponse<UserOutput>) => {
+      const userInfoStore = useInfoStore();
+      userInfoStore.login(res.data)
+    })
+  }
 })
 </script>
