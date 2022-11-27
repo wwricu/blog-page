@@ -9,6 +9,7 @@ import {getTagAPI} from "@/apis/tag";
 import {useRoute} from "vue-router";
 import bgdImg from "@/assets/background.jpg"
 import BlogSubview from "@/views/main_subviews/BlogSubview.vue";
+import AboutCard from "@/components/cards/AboutCard.vue";
 
 const route = useRoute()
 const filter = ref()
@@ -36,6 +37,10 @@ const getTags = () => {
 
 const menu = ref()
 const overlay = ref()
+const aboutDialog = ref(false)
+const switchAbout = () => {
+  aboutDialog.value = !aboutDialog.value
+}
 </script>
 
 <template>
@@ -78,10 +83,15 @@ const overlay = ref()
     <navigate-button
       title="About"
       prepend-icon="mdi-information-outline"
+      :menu="aboutDialog"
+      @click="switchAbout()"
     />
   </v-app-bar>
   <v-parallax :src="bgdImg">
     <blog-subview/>
     <custom-footer class="mt-8"/>
   </v-parallax>
+  <v-dialog v-model="aboutDialog">
+    <about-card @confirm="switchAbout()"/>
+  </v-dialog>
 </template>

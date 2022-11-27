@@ -9,6 +9,7 @@ import type {ContentOutput} from "@/types/schemas/resource";
 import BlogTitleCard from "@/components/cards/BlogTitleCard.vue";
 import CustomFooter from "@/components/cards/CustomFooter.vue";
 import RightBottomButtons from "@/components/buttons/RightBottomButtons.vue";
+import AboutCard from "@/components/cards/AboutCard.vue";
 
 const route = useRoute()
 const blog = ref()
@@ -42,6 +43,11 @@ const parallel = () => {
   top.value = 0.5 * scrollY
 }
 
+const aboutDialog = ref(false)
+const switchAbout = () => {
+  aboutDialog.value = !aboutDialog.value
+}
+
 const toTop = () => {
   window.scrollTo(0,0)
 }
@@ -63,12 +69,17 @@ const toTop = () => {
     <navigate-button
       title="About"
       prepend-icon="mdi-information-outline"
+      :menu="aboutDialog"
+      @click="switchAbout()"
     />
   </v-app-bar>
   <blog-title-card
     v-if="blog !== undefined"
     :blog="blog"
   />
+  <v-dialog v-model="aboutDialog">
+    <about-card @confirm="switchAbout()"/>
+  </v-dialog>
   <v-sheet
     width="1000"
     class="mx-auto ql-container pt-16"
@@ -91,7 +102,6 @@ const toTop = () => {
     />
   </right-bottom-buttons>
   <div class="bgd"/>
-  <div class="bgd-bottom"/>
 </template>
 
 <style scoped>
