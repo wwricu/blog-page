@@ -28,7 +28,3 @@ const emit = defineEmits(['click'])
     </template>
   </v-hover>
 </template>
-
-<style scoped>
-
-</style>

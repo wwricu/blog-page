@@ -78,7 +78,3 @@ const inputText = computed({
     </v-card>
   </v-dialog>
 </template>
-
-<style scoped>
-
-</style>

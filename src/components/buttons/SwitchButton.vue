@@ -48,7 +48,3 @@ const switchValue = computed({
     :color="switchValue ? trueColor : falseColor"
   />
 </template>
-
-<style scoped>
-
-</style>

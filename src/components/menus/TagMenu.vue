@@ -70,7 +70,3 @@ const chooseTag = (tag: Tag) => {
     </v-snackbar>
   </v-sheet>
 </template>
-
-<style scoped>
-
-</style>

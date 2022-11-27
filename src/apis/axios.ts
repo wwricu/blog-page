@@ -1,7 +1,5 @@
 import axios, {type AxiosRequestConfig, type AxiosResponse} from "axios";
 import {refreshTokenAPI} from "@/apis/user";
-import {useRouter} from "vue-router";
-// import {Base64} from "js-base64";
 
 const myAxios = axios.create({
     baseURL: 'http://127.0.0.1:8000',

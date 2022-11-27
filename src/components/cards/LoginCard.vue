@@ -116,7 +116,3 @@ function iconClick(item: typeof loginForm.value[0]) {
     </v-card-actions>
   </v-card>
 </template>
-
-<style scoped>
-
-</style>

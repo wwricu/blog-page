@@ -40,7 +40,3 @@ const dialogSwitch = computed({
     </v-card>
   </v-dialog>
 </template>
-
-<style scoped>
-
-</style>

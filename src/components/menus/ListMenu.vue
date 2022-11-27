@@ -43,7 +43,3 @@ const menuOutput = computed({
     </v-list>
   </v-menu>
 </template>
-
-<style scoped>
-
-</style>

@@ -85,6 +85,3 @@ const overlay = ref()
     <custom-footer class="mt-8"/>
   </v-parallax>
 </template>
-
-<style scoped>
-</style>

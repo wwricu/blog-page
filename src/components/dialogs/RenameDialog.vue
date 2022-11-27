@@ -67,9 +67,4 @@ function updateCategory() {
     renameDialog.value = false
   })
 }
-
 </script>
-
-<style scoped>
-
-</style>
