@@ -13,7 +13,7 @@ import { defineComponent } from 'vue'
 import {getCurrentUserAPI} from "@/apis/user";
 import type {AxiosResponse} from "axios";
 import type {UserOutput} from "@/types/schemas/user";
-import {useInfoStore} from "@/stores/UserInfo";
+import {useLoginStore} from "@/stores/login";
 
 export default defineComponent({
   name: 'App',
@@ -23,10 +23,12 @@ export default defineComponent({
     }
   },
   mounted() {
-    getCurrentUserAPI((res: AxiosResponse<UserOutput>) => {
-      const userInfoStore = useInfoStore();
-      userInfoStore.login(res.data)
-    })
+    if (localStorage.getItem('access_token')) {
+      getCurrentUserAPI((res: AxiosResponse<UserOutput>) => {
+        const userInfoStore = useLoginStore();
+        userInfoStore.login(res.data)
+      })
+    }
   }
 })
 </script>

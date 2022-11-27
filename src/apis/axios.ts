@@ -44,7 +44,6 @@ myAxios.interceptors.response.use(
                     break;
                 case 403:
                     message = "unauthorized"
-                    alert('need login!')
                     break;
                 default:
                     message = "internal error";

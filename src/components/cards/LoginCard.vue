@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
-import {ref, getCurrentInstance} from "vue";
-import {useInfoStore} from "@/stores/UserInfo";
+import {ref} from "vue";
+import {useLoginStore} from "@/stores/login";
 import {Md5} from 'ts-md5/dist/esm/md5';
 import {loginApi} from '@/apis/user'
 import type {TokenResponse} from "@/types/types";
@@ -10,13 +10,12 @@ import {useRouter} from "vue-router";
 import {Base64} from "js-base64";
 import type {UserOutput} from "@/types/schemas/user";
 
-const ctx = getCurrentInstance()!.appContext.config.globalProperties
-const userInfoStore = useInfoStore();
+// const ctx = getCurrentInstance()!.appContext.config.globalProperties
+const userInfoStore = useLoginStore();
 const router = useRouter()
 
 const parseJwt = (jwt: string): UserOutput => {
     const data = jwt.split('.')[1]
-    alert(JSON.stringify(data))
     return JSON.parse(Base64.decode(data))
 }
 
