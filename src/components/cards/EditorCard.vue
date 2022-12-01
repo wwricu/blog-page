@@ -7,23 +7,34 @@ import {useRoute} from "vue-router";
 import {getTagAPI} from "@/apis/tag";
 import type {ContentOutput} from "@/types/schemas/resource";
 import type {Response} from "@/types/types"
+import 'highlight.js/styles/github.css'
+import 'highlight.js/lib/common'
+import hljs from 'highlight.js'
 
 const quillEditor = ref()
 const content = ref("")
-const toolbar = ref([
-  [
-    { 'header': [1, 2, 3, false] },
-    { 'font': [] },
-    'bold',
-    'italic',
-    'underline',
-    'blockquote',
-    'code-block',
-    'link',
-    { 'align': [] },
-    { 'color': [] },
-  ],
-])
+const editorOption = {
+  placeholder: '',
+  modules: {
+    toolbar: [
+      { 'header': [1, 2, 3, false] },
+      { 'font': [] },
+      'bold',
+      'italic',
+      'underline',
+      'blockquote',
+      'code-block',
+      'link',
+      { 'align': [] },
+      { 'color': [] },
+    ],
+    syntax: {
+      highlight: (text: any) => {
+        return hljs.highlightAuto(text).value
+      }
+    }
+  }
+}
 
 onMounted(()=> {
   getSubFolders((res: any)=>{
@@ -131,7 +142,7 @@ defineExpose({
       ref="quillEditor"
       v-model:content="content"
       theme="snow"
-      :toolbar="toolbar"
+      :options="editorOption"
       content-type="html"
     />
   </v-card>
