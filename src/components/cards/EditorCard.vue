@@ -140,7 +140,7 @@ defineExpose({
 <style scoped>
 :deep(.ql-container.ql-snow) {
   height: calc(100vh - 2.8rem - 48px);
-  font-size: 12px;
+  font-size: 16px;
 }
 :deep(.ql-editor) {
   overflow-y: scroll;

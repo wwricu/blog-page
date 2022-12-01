@@ -120,6 +120,7 @@ const toTop = () => {
   /*background-color: rgba(236, 239, 241, 0.75);*/
   /*background-color: rgba(250, 251, 241, 0.8);*/
   background: transparent;
+  font-size: 16px;
 }
 
 /*.bgd-bottom {*/

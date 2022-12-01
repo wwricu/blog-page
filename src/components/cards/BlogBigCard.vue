@@ -30,7 +30,7 @@ const getImgUrl = () => {
           <template v-slot:default="{ isHovering, props }">
             <v-card-title
               v-bind="props"
-              class="text-h2 my-4"
+              class="text-h4 my-4"
               :class="isHovering ? 'text-indigo-darken-4' : ''"
               style="cursor: pointer;"
               @click="$router.push(`/content/${blog.id}`)"
