@@ -2,7 +2,7 @@ import axios, {type AxiosRequestConfig, type AxiosResponse} from "axios";
 import {refreshTokenAPI} from "@/apis/user";
 
 const myAxios = axios.create({
-    baseURL: 'http://127.0.0.1:8000',
+    baseURL: import.meta.env.VITE_BASE_URL,
     timeout: 10000,
     withCredentials: true,
 });
