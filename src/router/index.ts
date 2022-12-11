@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LoginPage from '@/views/LoginView.vue'
-import {useLoginStore} from "@/stores/login";
+import {parseJwt, useLoginStore} from "@/stores/login";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -65,6 +65,10 @@ router.beforeEach((to, from, next) => {
   const roles = to.meta.roles as string[]
   if (roles != null) {
     const loginStore = useLoginStore()
+    const jwt = localStorage.getItem('refresh_token')
+    if (loginStore.isLogin !== true && jwt != null) {
+      loginStore.login(parseJwt(jwt))
+    }
     if (loginStore.userInfo == null || loginStore.isLogin !== true) {
       return next('/')
     }
