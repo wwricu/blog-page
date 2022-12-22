@@ -3,7 +3,7 @@ import {ref, onMounted} from "vue";
 import CategoryCard from "@/components/cards/CategoryCard.vue";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import RenameDialog from "@/components/dialogs/RenameDialog.vue";
-import {getSubFolders, postFolder} from "@/apis/folder";
+import {getSubFolders, postFolderAPI} from "@/apis/folder";
 import type {ResourcePreview} from "@/types/schemas/resource";
 
 let categories = ref()
@@ -18,9 +18,9 @@ function getCategories() {
 
 let newCategoryName = ref('')
 function newCategory() {
-  postFolder({
+  postFolderAPI({
     title: newCategoryName.value,
-    parent_id: 1
+    parent_url: '/post'
   }, ()=>{
     alert('success')
     getCategories()

@@ -13,9 +13,9 @@ export const getSubFolders = (url: string,
     })
 }
 
-export const postFolder = (data: FolderInput,
-                           success: Function,
-                           failure: Function) => {
+export const postFolderAPI = (data: FolderInput,
+                              success: Function,
+                              failure: Function) => {
     myAxios.request({
         method: 'POST',
         url: '/folder',
@@ -25,9 +25,9 @@ export const postFolder = (data: FolderInput,
     })
 }
 
-export const putFolder = (data: FolderInput,
-                          success: Function,
-                          failure: Function) => {
+export const putFolderAPI = (data: FolderInput,
+                             success: Function,
+                             failure: Function) => {
     myAxios.request({
         method: 'PUT',
         url: '/folder',

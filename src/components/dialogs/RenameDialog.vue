@@ -37,7 +37,7 @@
 
 <script setup lang="ts">
 import {ref} from "vue";
-import {putFolder} from '@/apis/folder';
+import {putFolderAPI} from '@/apis/folder';
 
 const renameDialog = ref(false)
 
@@ -59,7 +59,7 @@ function updateCategory() {
   let data: any = props.category
   data.title = newName.value
   // rename category, id==0
-  putFolder(data, ()=>{
+  putFolderAPI(data, ()=>{
     alert('success')
     renameDialog.value = false
   }, ()=>{
