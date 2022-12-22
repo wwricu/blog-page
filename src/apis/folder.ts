@@ -1,12 +1,15 @@
 import myAxios from "@/apis/axios";
-import type {FolderInput} from "@/types/schemas/resource";
+import type {FolderInput, ResourcePreview} from "@/types/schemas/resource";
+import type {AxiosResponse} from "axios";
 
-export const getSubFolders = (success: Function, failure: Function) => {
+export const getSubFolders = (url: string,
+                              success: Function,
+                              failure: Function) => {
     myAxios.request({
         method: 'GET',
-        url: '/folder?parent_id=1',
-    }).then((res: any) => {
-        success(res)
+        url: `/folder/sub_resources/${url}`,
+    }).then((res: AxiosResponse<ResourcePreview>) => {
+        success(res.data)
     })
 }
 

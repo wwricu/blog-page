@@ -4,14 +4,15 @@ import CategoryCard from "@/components/cards/CategoryCard.vue";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import RenameDialog from "@/components/dialogs/RenameDialog.vue";
 import {getSubFolders, postFolder} from "@/apis/folder";
+import type {ResourcePreview} from "@/types/schemas/resource";
 
 let categories = ref()
 onMounted(() => {
   getCategories()
 })
 function getCategories() {
-  getSubFolders((res: any)=>{
-    categories.value = res.data
+  getSubFolders('/post', (data: ResourcePreview)=>{
+    categories.value = data
   }, ()=>{})
 }
 

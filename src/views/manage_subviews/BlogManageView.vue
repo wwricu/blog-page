@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref, onMounted} from "vue";
 import BlogCard from "@/components/cards/BlogCard.vue";
-import {deleteContent, getContentPreview, postContent} from "@/apis/content";
+import {deleteContent, getContentPreview, postContentAPI} from "@/apis/content";
 import RightBottomButtons from "@/components/buttons/RightBottomButtons.vue";
 import {useRouter} from "vue-router";
 import SwitchButton from "@/components/buttons/SwitchButton.vue";
@@ -38,8 +38,8 @@ function switchDraft() {
 
 const router = useRouter()
 function newDraft() {
-  postContent({
-    status: 'draft'
+  postContentAPI({
+    parent_url: '/draft'
   }, (res: any)=>{
     alert('success')
     router.push({path: `/manage/editor/${res.data.id}`})

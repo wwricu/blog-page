@@ -4,6 +4,8 @@ interface ResourceBase {
     id?: number
     title?: string
     parent_id?: number | string
+    parent_url?: string
+    permission?: number
 }
 
 export interface ResourceSearch extends ResourceBase {
@@ -29,14 +31,13 @@ export interface FolderOutput extends ResourceBase {
     updated_time?: string
 }
 
-export interface ContentPreview extends FolderOutput {
+export interface ResourcePreview extends FolderOutput {
     parent?: FolderOutput
-    author_id?: number
-    sub_title?: string
-    status?: string
+    owner_id?: number
+    type?: string
     tags?: Tag[]
 }
 
-export interface ContentOutput extends ContentPreview {
+export interface ContentOutput extends ResourcePreview {
     content?: string
 }

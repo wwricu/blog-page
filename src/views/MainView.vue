@@ -10,6 +10,7 @@ import {useRoute} from "vue-router";
 import bgdImg from "@/assets/background.jpg"
 import BlogSubview from "@/views/main_subviews/BlogSubview.vue";
 import AboutCard from "@/components/cards/AboutCard.vue";
+import type {ResourcePreview} from "@/types/schemas/resource";
 
 const route = useRoute()
 const filter = ref()
@@ -23,8 +24,8 @@ onMounted(() => {
 
 const categories = ref()
 const getCategories = () => {
-  getSubFolders((res: any)=>{
-    categories.value = res.data
+  getSubFolders('/post', (data: ResourcePreview)=>{
+    categories.value = data
   }, ()=>{})
 }
 

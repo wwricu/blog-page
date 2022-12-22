@@ -2,7 +2,7 @@
 import {nextTick, onMounted, ref} from "vue";
 import NavigateButton from "@/components/buttons/NavigateButton.vue";
 import {useRoute} from "vue-router";
-import {getContent} from "@/apis/content";
+import {getContentAPI} from "@/apis/content";
 import {Base64} from "js-base64";
 import type {Response} from "@/types/types";
 import type {ContentOutput} from "@/types/schemas/resource";
@@ -16,9 +16,9 @@ const blog = ref()
 const content = ref()
 const height = ref()
 onMounted(() => {
-  getContent(route.params.id,
-      (res: Response<ContentOutput>) => {
-    blog.value = res.data
+  getContentAPI(route.params.id,
+      (data: ContentOutput) => {
+    blog.value = data
     content.value = Base64.decode(blog.value.content as string)
     nextTick(() => {
       getHeight()

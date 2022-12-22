@@ -1,9 +1,10 @@
 import myAxios from "@/apis/axios";
-import type {ContentInput, ResourceSearch} from "@/types/schemas/resource";
+import type {ContentInput, ContentOutput, ResourceSearch} from "@/types/schemas/resource";
+import type {AxiosResponse} from "axios";
 
-export const postContent = (data: ContentInput,
-                            success: Function,
-                            failure: Function) => {
+export const postContentAPI = (data: ContentInput,
+                               success: Function,
+                               failure: Function) => {
     myAxios.request({
         method: 'POST',
         url: '/content',
@@ -13,14 +14,14 @@ export const postContent = (data: ContentInput,
     })
 }
 
-export const getContent = (content_id: number | string | string[],
-                           success: Function,
-                           failure: Function) => {
+export const getContentAPI = (content_id: number | string | string[],
+                              success: Function,
+                              failure: Function) => {
     myAxios.request({
         method: 'GET',
         url: `content?content_id=${content_id}`,
-    }).then((res: any) => {
-        success(res)
+    }).then((res: AxiosResponse<ContentOutput>) => {
+        success(res.data)
     })
 }
 

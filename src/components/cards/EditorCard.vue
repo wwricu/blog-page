@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import {ref, onMounted} from "vue";
+import {ref, onMounted, Ref} from "vue";
 import {getSubFolders} from "@/apis/folder";
 import {Base64, encode} from "js-base64";
-import {getContent} from "@/apis/content";
+import {getContentAPI} from "@/apis/content";
 import {useRoute} from "vue-router";
 import {getTagAPI} from "@/apis/tag";
-import type {ContentOutput} from "@/types/schemas/resource";
+import type {ContentOutput, ResourcePreview} from "@/types/schemas/resource";
 import type {Response} from "@/types/types"
 import 'highlight.js/styles/github.css'
 import 'highlight.js/lib/common'
@@ -37,10 +37,10 @@ const editorOption = {
 }
 
 onMounted(()=> {
-  getSubFolders((res: any)=>{
-    categories.value = res.data
+  getSubFolders('/post',(folders: ResourcePreview[]) => {
+    categories.value = folders
     findContent()
-  }, (res: any)=>{
+  }, (res: any) => {
     console.log(res)
   })
   getTagAPI({}, (res: any)=>{
@@ -50,26 +50,26 @@ onMounted(()=> {
 
 const tags = ref()
 const tagSelect = ref()
-const categories = ref()
+const categories: Ref<Array<ResourcePreview>> = ref([])
 const categorySelect = ref()
 
 const title = ref()
 const route = useRoute()
 function findContent() {
-  getContent(route.params.id, (res: Response<ContentOutput>)=>{
-    contentData.value = res.data
-    title.value = res.data.title
-    if (res.data.content != null) {
-      quillEditor.value.setContents(Base64.decode(res.data.content))
+  getContentAPI(route.params.id, (data: ContentOutput) => {
+    contentData.value = data
+    title.value = data.title
+    if (data.content != null) {
+      quillEditor.value.setContents(Base64.decode(data.content))
     }
 
     for (const cat of categories.value) {
-      if (cat.id === res.data.parent_id) {
+      if (cat.url === data.parent_url) {
         categorySelect.value = cat
         break
       }
     }
-    tagSelect.value = res.data.tags
+    tagSelect.value = data.tags
   }, ()=>{})
 }
 
