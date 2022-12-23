@@ -50,8 +50,8 @@ export const getContentPreview = (data: ResourceSearch,
                                   failure: Function) => {
     let url = '/folder/sub_resources/'
     if (data != null) {
-        if (data.parent_id !== undefined) {
-            url += `${data.parent_id}`
+        if (data.parent_url !== undefined) {
+            url += `${data.parent_url}`
         }
         url += '?'
         if (data.tag_id !== undefined) {

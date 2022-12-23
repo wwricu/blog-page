@@ -11,7 +11,7 @@ onMounted(() => {
   getBlogs()
 })
 function getBlogs() {
-  getContentPreview({status: 'publish'}, (res: any)=>{
+  getContentPreview({parent_url: '/post'}, (res: any)=>{
     blogs.value = res.data
   }, ()=>{})
 }
@@ -25,22 +25,22 @@ function deleteBlog(blog: any) {
 const draftSwitch = ref(true)
 function switchDraft() {
   const data = {
-    status: 'publish'
+    parent_url: '/post'
   }
   draftSwitch.value = !draftSwitch.value
   if (draftSwitch.value === false) {
-    data.status = 'draft'
+    data.parent_url = '/draft'
   }
   getContentPreview(data, (res: any)=>{
     blogs.value = res.data
-  }, ()=>{})
+  }, () => {})
 }
 
 const router = useRouter()
 function newDraft() {
   postContentAPI({
     parent_url: '/draft'
-  }, (id: number)=>{
+  }, (id: number) => {
     alert('success')
     router.push({path: `/manage/editor/${id}`})
   }, ()=>{})
