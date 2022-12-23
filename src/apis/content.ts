@@ -9,8 +9,8 @@ export const postContentAPI = (data: ContentInput,
         method: 'POST',
         url: '/content',
         data: data
-    }).then((res: any) => {
-        success(res)
+    }).then((res: AxiosResponse<number>) => {
+        success(res.data)
     })
 }
 
@@ -74,15 +74,15 @@ export const getContentPreview = (data: ResourceSearch,
     })
 }
 
-export const modifyContent = (data: ContentInput,
-                              success: Function,
-                              failure: Function) => {
+export const modifyContentAPI = (data: ContentInput,
+                                 success: Function,
+                                 failure: Function) => {
     myAxios.request({
         method: 'PUT',
         url: '/content',
         data: data
-    }).then((res: any) => {
-        success(res)
+    }).then((res: AxiosResponse<ContentOutput>) => {
+        success(res.data)
     })
 }
 

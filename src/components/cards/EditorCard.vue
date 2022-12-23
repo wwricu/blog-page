@@ -6,7 +6,6 @@ import {getContentAPI} from "@/apis/content";
 import {useRoute} from "vue-router";
 import {getTagAPI} from "@/apis/tag";
 import type {ContentOutput, ResourcePreview} from "@/types/schemas/resource";
-import type {Response} from "@/types/types"
 import 'highlight.js/styles/github.css'
 import 'highlight.js/lib/common'
 import hljs from 'highlight.js'
@@ -39,6 +38,10 @@ const editorOption = {
 onMounted(()=> {
   getSubFolders('/post',(folders: ResourcePreview[]) => {
     categories.value = folders
+    categories.value.push({
+      title: 'draft',
+      url: '/draft'
+    })
     findContent()
   }, (res: any) => {
     console.log(res)
@@ -80,8 +83,8 @@ defineExpose({
     contentData.value.content = encode(quillEditor.value.getContents())
     contentData.value.tags = tagSelect.value
     if (categorySelect.value !== undefined
-        && categorySelect.value.id !== undefined) {
-      contentData.value.parent_id = categorySelect.value.id
+        && categorySelect.value.url !== undefined) {
+      contentData.value.parent_url = categorySelect.value.url
     }
     return contentData.value
   }

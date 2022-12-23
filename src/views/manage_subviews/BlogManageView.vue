@@ -40,9 +40,9 @@ const router = useRouter()
 function newDraft() {
   postContentAPI({
     parent_url: '/draft'
-  }, (res: any)=>{
+  }, (id: number)=>{
     alert('success')
-    router.push({path: `/manage/editor/${res.data.id}`})
+    router.push({path: `/manage/editor/${id}`})
   }, ()=>{})
 }
 
