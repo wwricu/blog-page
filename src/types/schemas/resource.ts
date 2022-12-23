@@ -13,6 +13,7 @@ export interface ResourceSearch extends ResourceBase {
     tag_id?: number | string
     pageIdx?: number
     pageSize?: number
+    parent_url?: string
 }
 
 export interface FolderInput extends ResourceBase {

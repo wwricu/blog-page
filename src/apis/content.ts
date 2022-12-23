@@ -28,39 +28,32 @@ export const getContentAPI = (content_id: number | string | string[],
 export const getContentCountAPI = (data: ResourceSearch,
                                    success: Function,
                                    failure: Function) => {
-    let url = '/content/count'
+    let url = '/folder/count/'
     if (data != null) {
-        url += '?'
-        if (data.parent_id !== undefined) {
-            url += `parent_id=${data.parent_id}&`
+        if (data.parent_url !== undefined) {
+            url += `${data.parent_url}`
         }
         if (data.tag_id !== undefined) {
-            url += `tag_id=${data.tag_id}&`
+            url += `?tag_id=${data.tag_id}`
         }
-        if (data.status !== undefined) {
-            url += `status=${data.status}&`
-        }
-        url = url.slice(0, -1)
     }
     myAxios.request({
         method: 'GET',
         url: url,
-    }).then((res: any) => {
-        success(res)
+    }).then((res: AxiosResponse<number>) => {
+        success(res.data)
     })
 }
 
 export const getContentPreview = (data: ResourceSearch,
                                   success: Function,
                                   failure: Function) => {
-    let url = '/content/preview?'
+    let url = '/folder/sub_resources/'
     if (data != null) {
-        if (data.status !== undefined) {
-            url += `status=${data.status}&`
-        }
         if (data.parent_id !== undefined) {
-            url += `parent_id=${data.parent_id}&`
+            url += `${data.parent_id}`
         }
+        url += '?'
         if (data.tag_id !== undefined) {
             url += `tag_id=${data.tag_id}&`
         }

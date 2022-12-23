@@ -19,30 +19,27 @@ watch(route, async () => {
 
 const init = () => {
   parseParam()
-  getPreviews()
+  // getPreviews()
   getPreviewCount()
 }
 
 const searchParams = ref()
 const parseParam = () => {
-  searchParams.value = {
-    status: 'publish',
-  }
   const filter = route.params.filter as string
-  const id = route.params.id as string
+  const param = route.params.param as string
   if (filter.length !== 0
-      && id.length !== 0 && id !== '0') {
-    if (filter === 'category') {
-      searchParams.value.parent_id = id
+      && param.length !== 0 && param !== '0') {
+    if (filter === 'post') {
+      searchParams.value.parent_url = `/post/${route.params.param}`
     } else if (filter === 'tag') {
-      searchParams.value.tag_id = id
+      searchParams.value.tag_id = param
     }
   }
 }
 
 const getPreviewCount = () => {
-  getContentCountAPI(searchParams.value, (res: any) => {
-    blogCount.value = res.data
+  getContentCountAPI(searchParams.value, (data: number) => {
+    blogCount.value = data
   }, ()=>{})
 }
 

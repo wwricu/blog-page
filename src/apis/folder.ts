@@ -38,9 +38,9 @@ export const putFolderAPI = (data: FolderInput,
     })
 }
 
-export const deleteFolder = (folder_id: number | string,
-                             success: Function,
-                             failure: Function) => {
+export const deleteFolderAPI = (folder_id: number | string,
+                                success: Function,
+                                failure: Function) => {
     myAxios.request({
         method: 'DELETE',
         url: `/folder/${folder_id}`,
