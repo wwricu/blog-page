@@ -8,7 +8,7 @@ export const getSubFolders = (url: string,
     myAxios.request({
         method: 'GET',
         url: `/folder/sub_resources/${url}`,
-    }).then((res: AxiosResponse<ResourcePreview>) => {
+    }).then((res: AxiosResponse<ResourcePreview[]>) => {
         success(res.data)
     })
 }
