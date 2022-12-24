@@ -64,8 +64,10 @@ function updateCategory() {
   modifyCategoryAPI(data, () => {
     alert('success')
     renameDialog.value = false
+    newName.value = ''
   }, () => {
     alert('failure')
+    newName.value = ''
     renameDialog.value = false
   })
 }

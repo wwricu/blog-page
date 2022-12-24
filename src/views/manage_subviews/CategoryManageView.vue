@@ -28,6 +28,7 @@ const inputDialog = ref()
 const confirmNewCategory = () => {
   addCategoryAPI(newCategoryName.value, () => {
     alert('success')
+    newCategoryName.value = ''
     getCategories()
   }, () => {})
 }
