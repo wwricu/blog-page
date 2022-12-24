@@ -36,7 +36,7 @@ const editorOption = {
   }
 }
 
-onMounted(()=> {
+onMounted(() => {
   getCategoryAPI(null,(tags: Tag[]) => {
     categories.value = tags
     findContent()

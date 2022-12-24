@@ -30,6 +30,7 @@ const cancel = () => {
     props.cancelHandle()
   }
   dialogSwitch.value = false
+  inputText.value = ''
 }
 
 const emits = defineEmits(['update:modelValue'])

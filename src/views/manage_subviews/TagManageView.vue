@@ -38,6 +38,7 @@ const confirmHandle = () => {
   addTagAPI(newTagName.value, ()=>{
     alert('success')
     refreshChips()
+    newTagName.value = ''
   }, ()=>{})
 }
 </script>
