@@ -19,7 +19,7 @@ export const getContentAPI = (content_id: number | string | string[],
                               failure: Function) => {
     myAxios.request({
         method: 'GET',
-        url: `content?content_id=${content_id}`,
+        url: `content/${content_id}`,
     }).then((res: AxiosResponse<ContentOutput>) => {
         success(res.data)
     })

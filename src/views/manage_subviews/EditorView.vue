@@ -12,9 +12,9 @@ const buttons = [
     icon: 'mdi-content-save',
     color: 'success',
     handle: () => {
-      modifyContentAPI(subEditor.value.getEditorContents(), ()=>{
+      modifyContentAPI(subEditor.value.getEditorContents(), () => {
         alert('saved')
-      }, ()=>{})
+      }, () => {})
     }
   },
   {

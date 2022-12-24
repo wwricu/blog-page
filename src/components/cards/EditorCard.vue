@@ -6,9 +6,11 @@ import {getContentAPI} from "@/apis/content";
 import {useRoute} from "vue-router";
 import {getTagAPI} from "@/apis/tag";
 import type {ContentOutput, ResourcePreview} from "@/types/schemas/resource";
+import type {Tag} from "@/types/schemas/tag";
 import 'highlight.js/styles/github.css'
 import 'highlight.js/lib/common'
 import hljs from 'highlight.js'
+import {getCategoryAPI} from "@/apis/category";
 
 const quillEditor = ref()
 const content = ref("")
@@ -36,12 +38,8 @@ const editorOption = {
 }
 
 onMounted(()=> {
-  getSubFolders('/post',(folders: ResourcePreview[]) => {
-    categories.value = folders
-    categories.value.push({
-      title: 'draft',
-      url: '/draft'
-    })
+  getCategoryAPI(null,(tags: Tag[]) => {
+    categories.value = tags
     findContent()
   }, (res: any) => {
     console.log(res)
@@ -53,8 +51,19 @@ onMounted(()=> {
 
 const tags = ref()
 const tagSelect = ref()
-const categories: Ref<Array<ResourcePreview>> = ref([])
+const categories: Ref<Array<Tag>> = ref([])
 const categorySelect = ref()
+const status = ref([
+  {
+    title: 'draft',
+    url: '/draft'
+  },
+  {
+    title: 'publish',
+    url: '/post'
+  },
+])
+const statusSelect = ref()
 
 const title = ref()
 const route = useRoute()
@@ -66,8 +75,15 @@ function findContent() {
       quillEditor.value.setContents(Base64.decode(data.content))
     }
 
+    for (const st of status.value) {
+      if (data.parent_url === st.url) {
+        statusSelect.value = st
+        break
+      }
+    }
+
     for (const cat of categories.value) {
-      if (cat.url === data.parent_url) {
+      if (cat.name === data.category_name) {
         categorySelect.value = cat
         break
       }
@@ -82,9 +98,11 @@ defineExpose({
     contentData.value.title = title.value
     contentData.value.content = encode(quillEditor.value.getContents())
     contentData.value.tags = tagSelect.value
+    contentData.value.parent_url = statusSelect.value.url
+
     if (categorySelect.value !== undefined
-        && categorySelect.value.url !== undefined) {
-      contentData.value.parent_url = categorySelect.value.url
+        && categorySelect.value.name !== undefined) {
+      contentData.value.category_name = categorySelect.value.name
     }
     return contentData.value
   }
@@ -111,6 +129,19 @@ defineExpose({
           <v-select
             return-object
             item-title="title"
+            item-value="url"
+            density="compact"
+            variant="underlined"
+            color="indigo"
+            label="Status"
+            :items="status"
+            v-model="statusSelect"
+          />
+        </v-col>
+        <v-col cols="6" class="align-self-end">
+          <v-select
+            return-object
+            item-title="name"
             item-value="id"
             density="compact"
             variant="underlined"
@@ -120,7 +151,7 @@ defineExpose({
             v-model="categorySelect"
           />
         </v-col>
-        <v-col cols="12" class="align-self-end mt-n4">
+        <v-col cols="6" class="align-self-end mt-n4">
           <v-combobox
             chips
             multiple
