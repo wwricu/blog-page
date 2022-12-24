@@ -11,9 +11,9 @@ export const loginApi = (data: any,
         url: '/auth',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         data: data
-    }).then((res: any) => {
-        success(res)
-    })
+    }).then((res: AxiosResponse<TokenResponse>) => {
+        success(res.data)
+    }).catch(failure())
 }
 
 export const refreshTokenAPI = () => {
@@ -31,6 +31,6 @@ export const getCurrentUserAPI = (success: Function) => {
         method: 'GET',
         url: '/auth',
     }).then((res: AxiosResponse<UserOutput>) => {
-        success(res)
+        success(res.data)
     })
 }

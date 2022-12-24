@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import {computed, onMounted, Ref, ref, watch} from "vue";
 import BlogBigCard from "@/components/cards/BlogBigCard.vue";
-import {getContentCountAPI, getContentPreview} from "@/apis/content";
+import {getContentCountAPI, getContentPreviewAPI} from "@/apis/content";
 import {useRoute} from "vue-router";
-import {ResourceSearch} from "@/types/schemas/resource";
+import {ResourcePreview, ResourceSearch} from "@/types/schemas/resource";
 
 const imgIndexBase = ref(0)
 const route = useRoute()
@@ -53,9 +53,9 @@ const getPreviews = () => {
   searchParams.value.pageIdx = pageIdx.value - 1
   searchParams.value.pageSize = pageSize.value
 
-  getContentPreview(searchParams.value, (res: any) => {
-    blogs.value = res.data
-  }, ()=>{})
+  getContentPreviewAPI(searchParams.value, (data: ResourcePreview[]) => {
+    blogs.value = data
+  }, () => {})
 }
 
 const pageIdx = ref(1)

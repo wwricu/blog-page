@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {ref, onMounted, Ref} from "vue";
 import BlogCard from "@/components/cards/BlogCard.vue";
-import {deleteContent, getContentPreview, postContentAPI} from "@/apis/content";
+import {deleteContentAPI, getContentPreviewAPI, postContentAPI} from "@/apis/content";
 import RightBottomButtons from "@/components/buttons/RightBottomButtons.vue";
 import {useRouter} from "vue-router";
 import SwitchButton from "@/components/buttons/SwitchButton.vue";
@@ -47,14 +47,14 @@ function getBlogs() {
   if (categorySelect.value != null) {
     searchParams.category_name = categorySelect.value.name
   }
-  getContentPreview(searchParams,
-      (res: any) => {
-    blogs.value = res.data
+  getContentPreviewAPI(searchParams,
+      (data: ResourcePreview[]) => {
+    blogs.value = data
   }, () => {})
 }
 function deleteBlog(blog: any) {
   // alert(JSON.stringify(blog))
-  deleteContent(blog.id, () => {
+  deleteContentAPI(blog.id, () => {
     blogs.value.splice(blogs.value.indexOf(blog), 1)
   },() => {})
 }

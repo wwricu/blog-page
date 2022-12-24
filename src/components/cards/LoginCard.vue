@@ -16,12 +16,12 @@ function login() {
   loginApi({
     username: loginForm.value[0].value,
     password: Md5.hashStr(loginForm.value[1].value)
-  }, (res: AxiosResponse<TokenResponse>) => {
+  }, (data: TokenResponse) => {
     // alert(JSON.stringify(parseJwt(res.data.access_token)))
     router.push('/manage/blog')
-    userInfoStore.login(parseJwt(res.data.access_token))
-    localStorage.setItem('access_token', res.data.access_token)
-    localStorage.setItem('refresh_token', res.data.refresh_token)
+    userInfoStore.login(parseJwt(data.access_token))
+    localStorage.setItem('access_token', data.access_token)
+    localStorage.setItem('refresh_token', data.refresh_token)
   }, ()=>{})
 }
 

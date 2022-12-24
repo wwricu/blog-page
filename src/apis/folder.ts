@@ -10,7 +10,7 @@ export const getSubFolders = (url: string,
         url: `/folder/sub_resources/${url}`,
     }).then((res: AxiosResponse<ResourcePreview[]>) => {
         success(res.data)
-    })
+    }).catch(failure())
 }
 
 export const postFolderAPI = (data: FolderInput,
@@ -22,7 +22,7 @@ export const postFolderAPI = (data: FolderInput,
         data: data
     }).then((res: any) => {
         success(res)
-    })
+    }).catch(failure())
 }
 
 export const putFolderAPI = (data: FolderInput,
@@ -35,7 +35,7 @@ export const putFolderAPI = (data: FolderInput,
     }).then((res: any) => {
         success(res)
         // failure(res)
-    })
+    }).catch(failure())
 }
 
 export const deleteFolderAPI = (folder_id: number | string,
@@ -46,5 +46,5 @@ export const deleteFolderAPI = (folder_id: number | string,
         url: `/folder/${folder_id}`,
     }).then((res: any) => {
         success(res)
-    })
+    }).catch(failure())
 }

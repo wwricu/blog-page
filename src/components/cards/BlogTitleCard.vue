@@ -37,10 +37,10 @@ const props = defineProps({
               v-bind="props"
               :class="isHovering ? 'text-indigo-darken-4' : ''"
               style="cursor: pointer"
-              @click="$router.push(`/category/${blog.parent_id}`)"
+              @click="$router.push(`/category/${blog.category_name}`)"
             >
               <v-icon color="yellow">mdi-pound</v-icon>
-              {{blog.parent.title}}
+              {{blog.category_name}}
             </p>
           </template>
         </v-hover>
@@ -60,7 +60,7 @@ const props = defineProps({
         class="mx-1"
         v-for="item in blog.tags"
         :key="item.id"
-        @click="$router.push(`/tag/${item.id}`)"
+        @click="$router.push(`/tag/${item.name}`)"
       >
         {{item.name}}
       </v-chip>

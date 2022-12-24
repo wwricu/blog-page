@@ -11,7 +11,7 @@ export const addCategoryAPI = (name: string,
         data: { name: name },
     }).then((res: AxiosResponse<Tag>) => {
         success(res.data)
-    })
+    }).catch(failure())
 }
 
 export const getCategoryAPI = (name: string | null,
@@ -26,7 +26,7 @@ export const getCategoryAPI = (name: string | null,
         url: url,
     }).then((res: AxiosResponse<Array<Tag>>) => {
         success(res.data)
-    })
+    }).catch(failure())
 }
 
 export const modifyCategoryAPI = (data: Tag,
@@ -38,5 +38,5 @@ export const modifyCategoryAPI = (data: Tag,
         data: data,
     }).then((res: AxiosResponse<Tag>) => {
         success(res.data)
-    })
+    }).catch(failure())
 }

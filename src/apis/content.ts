@@ -1,5 +1,5 @@
 import myAxios from "@/apis/axios";
-import type {ContentInput, ContentOutput, ResourceSearch} from "@/types/schemas/resource";
+import type {ContentInput, ContentOutput, ResourcePreview, ResourceSearch} from "@/types/schemas/resource";
 import type {AxiosResponse} from "axios";
 
 export const postContentAPI = (data: ContentInput,
@@ -22,7 +22,7 @@ export const getContentAPI = (content_id: number | string | string[],
         url: `content/${content_id}`,
     }).then((res: AxiosResponse<ContentOutput>) => {
         success(res.data)
-    })
+    }).catch(failure())
 }
 
 export const getContentCountAPI = (data: ResourceSearch,
@@ -45,12 +45,12 @@ export const getContentCountAPI = (data: ResourceSearch,
         url: url,
     }).then((res: AxiosResponse<number>) => {
         success(res.data)
-    })
+    }).catch(failure())
 }
 
-export const getContentPreview = (data: ResourceSearch,
-                                  success: Function,
-                                  failure: Function) => {
+export const getContentPreviewAPI = (data: ResourceSearch,
+                                     success: Function,
+                                     failure: Function) => {
     let url = '/folder/sub_content/'
     if (data != null) {
         if (data.parent_url !== undefined && data.parent_url.length > 0) {
@@ -75,9 +75,9 @@ export const getContentPreview = (data: ResourceSearch,
     myAxios.request({
         method: 'GET',
         url: url,
-    }).then((res: any) => {
-        success(res)
-    })
+    }).then((res: AxiosResponse<ResourcePreview[]>) => {
+        success(res.data)
+    }).catch(failure())
 }
 
 export const modifyContentAPI = (data: ContentInput,
@@ -92,13 +92,13 @@ export const modifyContentAPI = (data: ContentInput,
     })
 }
 
-export const deleteContent = (content_id: number | string | string[],
-                              success: Function,
-                              failure: Function) => {
+export const deleteContentAPI = (content_id: number | string | string[],
+                                 success: Function,
+                                 failure: Function) => {
     myAxios.request({
         method: 'DELETE',
         url: `/content/${content_id}`,
-    }).then((res: any) => {
-        success(res)
+    }).then((res: AxiosResponse<number>) => {
+        success(res.data)
     })
 }

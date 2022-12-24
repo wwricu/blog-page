@@ -24,9 +24,9 @@ export default defineComponent({
   },
   mounted() {
     if (localStorage.getItem('access_token')) {
-      getCurrentUserAPI((res: AxiosResponse<UserOutput>) => {
+      getCurrentUserAPI((data: UserOutput) => {
         const userInfoStore = useLoginStore();
-        userInfoStore.login(res.data)
+        userInfoStore.login(data)
       })
     }
   }
