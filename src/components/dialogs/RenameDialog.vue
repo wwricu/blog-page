@@ -36,8 +36,9 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue";
-import {putFolderAPI} from '@/apis/folder';
+import {PropType, ref} from "vue";
+import type {Tag} from '@/types/schemas/tag'
+import {modifyCategoryAPI} from "@/apis/category";
 
 const renameDialog = ref(false)
 
@@ -49,6 +50,7 @@ defineExpose({
 
 const props = defineProps({
   category: {
+    type: Object as PropType<Tag>,
     required: true
   }
 })
@@ -56,13 +58,13 @@ const props = defineProps({
 const newName = ref()
 function updateCategory() {
   // alert(JSON.stringify(newName.value))
-  let data: any = props.category
-  data.title = newName.value
+  let data: Tag = props.category
+  data.name = newName.value
   // rename category, id==0
-  putFolderAPI(data, ()=>{
+  modifyCategoryAPI(data, () => {
     alert('success')
     renameDialog.value = false
-  }, ()=>{
+  }, () => {
     alert('failure')
     renameDialog.value = false
   })

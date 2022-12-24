@@ -30,10 +30,10 @@ export const getContentCountAPI = (data: ResourceSearch,
                                    failure: Function) => {
     let url = '/folder/count/'
     if (data != null) {
-        if (data.parent_url !== undefined) {
+        if (data.parent_url != null && data.parent_url.length > 0) {
             url += `${data.parent_url}`
         }
-        if (data.tag_id !== undefined) {
+        if (data.tag_id != null && data.tag_id != 0) {
             url += `?tag_id=${data.tag_id}`
         }
     }
@@ -50,11 +50,11 @@ export const getContentPreview = (data: ResourceSearch,
                                   failure: Function) => {
     let url = '/folder/sub_resources/'
     if (data != null) {
-        if (data.parent_url !== undefined) {
+        if (data.parent_url !== undefined && data.parent_url.length > 0) {
             url += `${data.parent_url}`
         }
         url += '?'
-        if (data.tag_id !== undefined) {
+        if (data.tag_id !== undefined && data.tag_id != 0) {
             url += `tag_id=${data.tag_id}&`
         }
         if (data.pageIdx !== undefined) {

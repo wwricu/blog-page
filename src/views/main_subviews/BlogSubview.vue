@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import {computed, onMounted, ref, watch} from "vue";
+import {computed, onMounted, Ref, ref, watch} from "vue";
 import BlogBigCard from "@/components/cards/BlogBigCard.vue";
 import {getContentCountAPI, getContentPreview} from "@/apis/content";
 import {useRoute} from "vue-router";
+import {ResourceSearch} from "@/types/schemas/resource";
 
 const imgIndexBase = ref(0)
 const route = useRoute()
@@ -19,18 +20,21 @@ watch(route, async () => {
 
 const init = () => {
   parseParam()
-  // getPreviews()
+  getPreviews()
   getPreviewCount()
 }
 
-const searchParams = ref()
+const searchParams: Ref<ResourceSearch> = ref({
+  parent_url: '',
+  tag_id: 0
+})
 const parseParam = () => {
   const filter = route.params.filter as string
   const param = route.params.param as string
   if (filter.length !== 0
       && param.length !== 0 && param !== '0') {
     if (filter === 'post') {
-      searchParams.value.parent_url = `/post/${route.params.param}`
+      searchParams.value.parent_url = `/post/${param}`
     } else if (filter === 'tag') {
       searchParams.value.tag_id = param
     }

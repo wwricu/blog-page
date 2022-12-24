@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import {getCurrentInstance, PropType} from "vue";
 import {deleteFolderAPI} from "@/apis/folder";
-import type {FolderOutput} from "@/types/schemas/resource";
+import type {Tag} from "@/types/schemas/tag";
+import {deleteTagAPI} from "@/apis/tag";
 
 const props = defineProps({
   category: {
-    type: Object as PropType<FolderOutput>,
+    type: Object as PropType<Tag>,
     required: true
   }
 })
@@ -17,20 +18,16 @@ function renameCategory() {
 
 const instance = getCurrentInstance();
 function deleteCategory() {
-  deleteFolderAPI(props.category.id as number, ()=>{
+  deleteTagAPI(props.category.id as number, () => {
     alert('deleted')
     instance?.proxy?.$forceUpdate();
-  }, ()=>{})
+  }, () => {})
 }
 </script>
 
 <template>
   <v-card>
-    <v-card-title>{{category.title}}</v-card-title>
-    <v-card-text class="d-flex">
-      <p class="text-grey-darken-2">Created Time: &ensp;</p>
-      <p>{{category.created_time}}</p>
-    </v-card-text>
+    <v-card-title>{{category.name}}</v-card-title>
     <v-divider/>
     <v-card-actions>
       <v-spacer/>

@@ -1,5 +1,6 @@
 import myAxios from "@/apis/axios";
 import type {Tag} from "@/types/schemas/tag";
+import type {AxiosResponse} from "axios";
 
 export const addTagAPI = (name: string,
                          success: Function,
@@ -37,7 +38,7 @@ export const getTagAPI = (data: Tag | null,
     })
 }
 
-export const deleteTagAPI = (id: Number,
+export const deleteTagAPI = (id: number,
                              success: Function,
                              failure: Function) => {
     myAxios.request({

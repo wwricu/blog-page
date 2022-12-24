@@ -1,35 +1,36 @@
 <script setup lang="ts">
-import {ref, onMounted} from "vue";
+import {ref, onMounted, Ref} from "vue";
 import CategoryCard from "@/components/cards/CategoryCard.vue";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import RenameDialog from "@/components/dialogs/RenameDialog.vue";
 import {getSubFolders, postFolderAPI} from "@/apis/folder";
 import type {ResourcePreview} from "@/types/schemas/resource";
+import type {Tag} from '@/types/schemas/tag'
+import {addCategoryAPI, getCategoryAPI} from "@/apis/category";
 
 let categories = ref()
 onMounted(() => {
   getCategories()
 })
 function getCategories() {
-  getSubFolders('/post', (data: ResourcePreview)=>{
-    categories.value = data
-  }, ()=>{})
+  getCategoryAPI(null,
+      (data: Tag[]) => {
+        categories.value = data
+      },
+      () => {})
 }
 
 let newCategoryName = ref('')
 function newCategory() {
-  postFolderAPI({
-    title: newCategoryName.value,
-    parent_url: '/post'
-  }, ()=>{
+  addCategoryAPI(newCategoryName.value, () => {
     alert('success')
     getCategories()
-  }, ()=>{})
+  }, () => {})
 }
 
 const renameDialog = ref()
-const categoryInstance = ref()
-const renameCategory = (category: any) => {
+const categoryInstance: Ref<Tag> = ref({id: 0, name: ''})
+const renameCategory = (category: Tag) => {
   categoryInstance.value = category
   renameDialog.value.switchDialog()
 }
