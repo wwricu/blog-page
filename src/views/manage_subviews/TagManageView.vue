@@ -5,29 +5,30 @@ import RightBottomButtons from "@/components/buttons/RightBottomButtons.vue";
 import InputDialog from "@/components/dialogs/InputDialog.vue";
 import {addTagAPI, deleteTagAPI, getTagAPI} from "@/apis/tag";
 import ConfirmDialog from "@/components/dialogs/ConfirmDialog.vue";
+import type {Tag} from '@/types/schemas/tag'
 
 const chips = ref()
 const refreshChips = () => {
-  getTagAPI(null, (res: any)=>{
-    chips.value = res.data
-  }, ()=>{})
+  getTagAPI(null, (data: Tag)=>{
+    chips.value = data
+  }, () => {})
 }
 onMounted(()=> {
   refreshChips()
 })
 
 const confirmSwitch = ref(false)
-const chipForDelete = ref({id: 0, name: null})
-const showDeleteConfirm = (chip: any) => {
+const chipForDelete = ref()
+const showDeleteConfirm = (chip: Tag) => {
   confirmSwitch.value = true
   chipForDelete.value = chip
 }
 const deleteChip = () => {
-  deleteTagAPI(chipForDelete.value.id, ()=>{
+  deleteTagAPI(chipForDelete.value.id, () => {
     alert('deleted chip')
     confirmSwitch.value = false
     chips.value.splice(chips.value.indexOf(chipForDelete.value), 1)
-  }, ()=>{})
+  }, () => {})
 }
 
 const inputDialog = ref()

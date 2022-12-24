@@ -1,5 +1,5 @@
 import myAxios from "@/apis/axios";
-import type {FolderInput, ResourcePreview} from "@/types/schemas/resource";
+import type {FolderInput, FolderOutput, ResourcePreview} from "@/types/schemas/resource";
 import type {AxiosResponse} from "axios";
 
 export const getSubFolders = (url: string,
@@ -20,8 +20,8 @@ export const postFolderAPI = (data: FolderInput,
         method: 'POST',
         url: '/folder',
         data: data
-    }).then((res: any) => {
-        success(res)
+    }).then((res: AxiosResponse<FolderOutput>) => {
+        success(res.data)
     }).catch(failure())
 }
 
@@ -32,9 +32,8 @@ export const putFolderAPI = (data: FolderInput,
         method: 'PUT',
         url: '/folder',
         data: data
-    }).then((res: any) => {
-        success(res)
-        // failure(res)
+    }).then((res: AxiosResponse<FolderOutput>) => {
+        success(res.data)
     }).catch(failure())
 }
 
@@ -44,7 +43,7 @@ export const deleteFolderAPI = (folder_id: number | string,
     myAxios.request({
         method: 'DELETE',
         url: `/folder/${folder_id}`,
-    }).then((res: any) => {
-        success(res)
+    }).then((res: AxiosResponse<number>) => {
+        success(res.data)
     }).catch(failure())
 }

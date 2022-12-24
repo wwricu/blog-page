@@ -4,10 +4,10 @@ export interface RoleSchema {
 }
 
 export interface UserInput {
-    id: number
-    username: string
-    password: string
-    email: string
+    id?: number
+    username?: string
+    password?: string
+    email?: string
 }
 
 export interface UserOutput {

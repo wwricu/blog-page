@@ -4,8 +4,6 @@ import BlogCard from "@/components/cards/BlogCard.vue";
 import {deleteContentAPI, getContentPreviewAPI, postContentAPI} from "@/apis/content";
 import RightBottomButtons from "@/components/buttons/RightBottomButtons.vue";
 import {useRouter} from "vue-router";
-import SwitchButton from "@/components/buttons/SwitchButton.vue";
-import {getSubFolders} from "@/apis/folder";
 import {ResourcePreview} from "@/types/schemas/resource";
 import {Tag} from "@/types/schemas/tag";
 import {getCategoryAPI} from "@/apis/category";

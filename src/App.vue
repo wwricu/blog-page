@@ -11,7 +11,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import {getCurrentUserAPI} from "@/apis/user";
-import type {AxiosResponse} from "axios";
 import type {UserOutput} from "@/types/schemas/user";
 import {useLoginStore} from "@/stores/login";
 

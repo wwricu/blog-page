@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import {ref, onMounted, Ref} from "vue";
-import {getSubFolders} from "@/apis/folder";
 import {Base64, encode} from "js-base64";
 import {getContentAPI} from "@/apis/content";
 import {useRoute} from "vue-router";
 import {getTagAPI} from "@/apis/tag";
-import type {ContentOutput, ResourcePreview} from "@/types/schemas/resource";
+import type {ContentOutput} from "@/types/schemas/resource";
 import type {Tag} from "@/types/schemas/tag";
 import 'highlight.js/styles/github.css'
 import 'highlight.js/lib/common'
@@ -41,12 +40,10 @@ onMounted(()=> {
   getCategoryAPI(null,(tags: Tag[]) => {
     categories.value = tags
     findContent()
-  }, (res: any) => {
-    console.log(res)
-  })
-  getTagAPI({}, (res: any)=>{
-    tags.value = res.data
-  }, ()=>{})
+  }, () => {})
+  getTagAPI({}, (data: Tag[])=>{
+    tags.value = data
+  }, () => {})
 })
 
 const tags = ref()

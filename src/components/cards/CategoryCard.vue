@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {getCurrentInstance, PropType} from "vue";
-import {deleteFolderAPI} from "@/apis/folder";
 import type {Tag} from "@/types/schemas/tag";
 import {deleteTagAPI} from "@/apis/tag";
 

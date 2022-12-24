@@ -22,7 +22,7 @@ const props = defineProps({
       class="mx-auto bg-transparent text-center"
       style="background: transparent">
       <p class="text-h1">
-        {{blog.title}}
+        {{props.blog.title}}
       </p>
 
       <v-divider

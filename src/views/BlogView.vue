@@ -4,7 +4,6 @@ import NavigateButton from "@/components/buttons/NavigateButton.vue";
 import {useRoute} from "vue-router";
 import {getContentAPI} from "@/apis/content";
 import {Base64} from "js-base64";
-import type {Response} from "@/types/types";
 import type {ContentOutput} from "@/types/schemas/resource";
 import BlogTitleCard from "@/components/cards/BlogTitleCard.vue";
 import CustomFooter from "@/components/cards/CustomFooter.vue";

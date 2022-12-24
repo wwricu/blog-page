@@ -1,4 +1,4 @@
-import axios, {type AxiosRequestConfig, type AxiosResponse} from "axios";
+import axios, {AxiosError, type AxiosRequestConfig, type AxiosResponse} from "axios";
 import {refreshTokenAPI} from "@/apis/user";
 
 const myAxios = axios.create({
@@ -19,8 +19,8 @@ myAxios.interceptors.request.use(
         }
         return config
     },
-    (error: any) => {
-        console.log(error)
+    (error: AxiosError) => {
+        console.log(error.message)
         return Promise.reject(error)
     }
 )

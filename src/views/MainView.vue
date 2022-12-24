@@ -4,13 +4,11 @@ import NavigateButton from "@/components/buttons/NavigateButton.vue";
 import ListMenu from "@/components/menus/ListMenu.vue";
 import TagMenu from "@/components/menus/TagMenu.vue";
 import CustomFooter from "@/components/cards/CustomFooter.vue";
-import {getSubFolders} from "@/apis/folder";
 import {getTagAPI} from "@/apis/tag";
 import {useRoute} from "vue-router";
 import bgdImg from "@/assets/background.jpg"
 import BlogSubview from "@/views/main_subviews/BlogSubview.vue";
 import AboutCard from "@/components/cards/AboutCard.vue";
-import type {ResourcePreview} from "@/types/schemas/resource";
 import type {Tag} from "@/types/schemas/tag";
 import {getCategoryAPI} from "@/apis/category";
 
@@ -31,8 +29,8 @@ const getCategories = () => {
 
 const tags = ref()
 const getTags = () => {
-  getTagAPI({}, (res: any)=>{
-    tags.value = res.data
+  getTagAPI({}, (data: Tag[])=>{
+    tags.value = data
   }, ()=>{})
 }
 

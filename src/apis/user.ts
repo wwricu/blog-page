@@ -1,11 +1,11 @@
 import myAxios from "@/apis/axios";
 import type {AxiosResponse} from "axios";
 import type {TokenResponse} from "@/types/types";
-import type {UserOutput} from "@/types/schemas/user";
+import type {UserOutput, UserInput} from "@/types/schemas/user";
 
-export const loginApi = (data: any,
-                      success: Function,
-                      failure: Function) => {
+export const loginApi = (data: UserInput,
+                         success: Function,
+                         failure: Function) => {
     myAxios.request({
         method: 'POST',
         url: '/auth',
