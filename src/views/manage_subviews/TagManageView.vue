@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {onMounted, ref} from "vue";
+import {onMounted, Ref, ref} from "vue";
 
 import RightBottomButtons from "@/components/buttons/RightBottomButtons.vue";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -19,7 +19,7 @@ onMounted(()=> {
 })
 
 const confirmSwitch = ref(false)
-const chipForDelete = ref()
+const chipForDelete: Ref<Tag> = ref({})
 const showDeleteConfirm = (chip: Tag) => {
   confirmSwitch.value = true
   chipForDelete.value = chip
