@@ -49,10 +49,10 @@ const getImgUrl = () => {
               class="text-body-1 ml-4"
               :class="isHovering ? 'text-indigo-darken-4' : ''"
               style="cursor: pointer"
-              @click="$router.push(`/category/${blog.parent_id}`)"
+              @click="$router.push(`/category/${blog.category_name}`)"
             >
               <v-icon color="primary">mdi-pound</v-icon>
-              {{blog.parent.title}}
+              {{blog.category_name}}
             </p>
           </template>
         </v-hover>
@@ -68,14 +68,14 @@ const getImgUrl = () => {
           </p>
         </v-card-text>
         <v-divider class="ml-4 mt-n1"/>
-        <v-card-actions class="ml-2 my-2" v-if="blog.tags.length > 0">
+        <v-card-actions class="ml-2 my-2">
           <v-icon color="primary">mdi-tag</v-icon>
           <v-chip
             color="primary"
             class="mx-1"
             v-for="item in blog.tags"
             :key="item.id"
-            @click="$router.push(`/tag/${item.id}`)"
+            @click="$router.push(`/tag/${item.name}`)"
           >
             {{item.name}}
           </v-chip>

@@ -27,7 +27,7 @@ const router = useRouter()
 
 const chooseTag = (tag: Tag) => {
   snackMsg.value = tag.name as string
-  router.push(`/tag/${tag.id}`)
+  router.push(`/tag/${tag.name}`)
 }
 </script>
 

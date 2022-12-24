@@ -19,10 +19,6 @@ const menuOutput = computed({
   }
 })
 
-const push = (subFolder: any) => {
-  alert(JSON.stringify(subFolder))
-}
-
 </script>
 
 <template>
@@ -34,14 +30,14 @@ const push = (subFolder: any) => {
   >
     <v-list>
       <v-list-item
-        v-for="subFolder in list"
-        :key="subFolder"
+        v-for="category in list"
+        :key="category.id"
         link
       >
         <v-list-item-title
-          @click="$router.push(subFolder.url)"
+          @click="$router.push(`/category/${category.name}`)"
         >
-          {{subFolder.title}}
+          {{category.name}}
         </v-list-item-title>
       </v-list-item>
     </v-list>

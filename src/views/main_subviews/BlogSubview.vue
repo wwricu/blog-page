@@ -25,18 +25,20 @@ const init = () => {
 }
 
 const searchParams: Ref<ResourceSearch> = ref({
-  parent_url: '',
-  tag_id: 0
+  parent_url: '/post'
 })
 const parseParam = () => {
   const filter = route.params.filter as string
   const param = route.params.param as string
+
   if (filter.length !== 0
       && param.length !== 0 && param !== '0') {
-    if (filter === 'post') {
-      searchParams.value.parent_url = `/post/${param}`
+    if (filter === 'category') {
+      searchParams.value.category_name = param
+      searchParams.value.tag_name = undefined
     } else if (filter === 'tag') {
-      searchParams.value.tag_id = param
+      searchParams.value.category_name = undefined
+      searchParams.value.tag_name = param
     }
   }
 }

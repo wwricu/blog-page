@@ -11,22 +11,22 @@ import bgdImg from "@/assets/background.jpg"
 import BlogSubview from "@/views/main_subviews/BlogSubview.vue";
 import AboutCard from "@/components/cards/AboutCard.vue";
 import type {ResourcePreview} from "@/types/schemas/resource";
+import type {Tag} from "@/types/schemas/tag";
+import {getCategoryAPI} from "@/apis/category";
 
 const route = useRoute()
 const filter = ref()
-const currentId = ref()
 onMounted(() => {
   getCategories()
   getTags()
   filter.value = route.params.filter
-  currentId.value = route.params.id
 })
 
 const categories = ref()
 const getCategories = () => {
-  getSubFolders('/post', (data: ResourcePreview)=>{
+  getCategoryAPI(null, (data: Tag)=>{
     categories.value = data
-  }, ()=>{})
+  }, () => {})
 }
 
 const tags = ref()

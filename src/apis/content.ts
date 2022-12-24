@@ -33,8 +33,11 @@ export const getContentCountAPI = (data: ResourceSearch,
         if (data.parent_url != null && data.parent_url.length > 0) {
             url += `${data.parent_url}`
         }
-        if (data.tag_id != null && data.tag_id != 0) {
-            url += `?tag_id=${data.tag_id}`
+        if (data.category_name != null && data.category_name.length != 0) {
+            url += `?category_name=${data.category_name}`
+        }
+        if (data.tag_name != null && data.tag_name.length != 0) {
+            url += `?tag_name=${data.tag_name}`
         }
     }
     myAxios.request({
