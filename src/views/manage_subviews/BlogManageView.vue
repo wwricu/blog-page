@@ -7,6 +7,8 @@ import {useRouter} from "vue-router";
 import SwitchButton from "@/components/buttons/SwitchButton.vue";
 import {getSubFolders} from "@/apis/folder";
 import {ResourcePreview} from "@/types/schemas/resource";
+import {Tag} from "@/types/schemas/tag";
+import {getCategoryAPI} from "@/apis/category";
 
 let blogs = ref()
 onMounted(() => {
@@ -14,20 +16,38 @@ onMounted(() => {
   getBlogs()
 })
 
-const categories: Ref<Array<ResourcePreview>> = ref([])
-const categorySelect = ref({
+const status = ref([
+  {
+    title: 'draft',
+    url: '/draft'
+  },
+  {
+    title: 'public',
+    url: '/post'
+  }
+])
+const statusSelect = ref({
   title: 'draft',
   url: '/draft'
 })
+
+const categories: Ref<Array<Tag>> = ref([])
+const categorySelect = ref()
 const getCategories = () => {
-  getSubFolders('/post', (data: ResourcePreview[]) => {
+  getCategoryAPI(null, (data: Tag[]) => {
     categories.value = data
-    categories.value.push(categorySelect.value)
   }, () => {})
 }
 
 function getBlogs() {
-  getContentPreview({parent_url: categorySelect.value.url},
+  let searchParams = {
+    parent_url: statusSelect.value.url,
+    category_name: undefined
+  }
+  if (categorySelect.value != null) {
+    searchParams.category_name = categorySelect.value.name
+  }
+  getContentPreview(searchParams,
       (res: any) => {
     blogs.value = res.data
   }, () => {})
@@ -37,20 +57,6 @@ function deleteBlog(blog: any) {
   deleteContent(blog.id, () => {
     blogs.value.splice(blogs.value.indexOf(blog), 1)
   },() => {})
-}
-
-const draftSwitch = ref(true)
-function switchDraft() {
-  const data = {
-    parent_url: '/post'
-  }
-  draftSwitch.value = !draftSwitch.value
-  if (draftSwitch.value === false) {
-    data.parent_url = '/draft'
-  }
-  getContentPreview(data, (res: any)=>{
-    blogs.value = res.data
-  }, () => {})
 }
 
 const router = useRouter()
@@ -80,10 +86,24 @@ const buttons = [
     class="mx-auto pa-4 sub-view"
   >
     <v-row>
-      <v-col cols="12">
+      <v-col cols="6">
         <v-select
           return-object
           item-title="title"
+          item-value="url"
+          density="compact"
+          variant="underlined"
+          color="indigo"
+          label="Status"
+          :items="status"
+          v-model="statusSelect"
+          @update:model-value="getBlogs()"
+        />
+      </v-col>
+      <v-col cols="6">
+        <v-select
+          return-object
+          item-title="name"
           item-value="id"
           density="compact"
           variant="underlined"

@@ -14,6 +14,8 @@ export interface ResourceSearch extends ResourceBase {
     pageIdx?: number
     pageSize?: number
     parent_url?: string
+    category_name?: string
+    tag_name?: string
 }
 
 export interface FolderInput extends ResourceBase {
