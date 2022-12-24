@@ -43,8 +43,8 @@ export const getTagAPI = (data: Tag | null,
 }
 
 export const deleteTagAPI = (id: number | undefined,
-                             success: Function,
-                             failure: Function) => {
+                                  success: Function,
+                                  failure: Function) => {
     myAxios.request({
         method: 'DELETE',
         url: `/tag/${id}`,

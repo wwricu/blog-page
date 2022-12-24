@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import {getCurrentInstance, PropType} from "vue";
+import {PropType} from "vue";
 import type {Tag} from "@/types/schemas/tag";
-import {deleteTagAPI} from "@/apis/tag";
 
 const props = defineProps({
   category: {
@@ -10,17 +9,17 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['rename']);
+const emit = defineEmits(['rename', 'delete']);
 function renameCategory() {
   emit('rename', props.category)
 }
 
-const instance = getCurrentInstance();
 function deleteCategory() {
-  deleteTagAPI(props.category.id as number, () => {
-    alert('deleted')
-    instance?.proxy?.$forceUpdate();
-  }, () => {})
+  emit('delete', props.category)
+  // deleteTagAPI(props.category.id as number, () => {
+  //   alert('deleted')
+  //   instance?.proxy?.$forceUpdate();
+  // }, () => {})
 }
 </script>
 
@@ -28,7 +27,7 @@ function deleteCategory() {
   <v-card>
     <v-card-title>{{category.name}}</v-card-title>
     <v-divider/>
-    <v-card-actions>
+    <v-card-actions class="my-n2">
       <v-spacer/>
       <v-btn
         color="primary"
