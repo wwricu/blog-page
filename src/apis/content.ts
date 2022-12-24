@@ -11,6 +11,8 @@ export const postContentAPI = (data: ContentInput,
         data: data
     }).then((res: AxiosResponse<number>) => {
         success(res.data)
+    }).catch(() => {
+        failure()
     })
 }
 
@@ -22,7 +24,9 @@ export const getContentAPI = (content_id: number | string | string[],
         url: `content/${content_id}`,
     }).then((res: AxiosResponse<ContentOutput>) => {
         success(res.data)
-    }).catch(failure())
+    }).catch(() => {
+        failure()
+    })
 }
 
 export const getContentCountAPI = (data: ResourceSearch,
@@ -45,7 +49,9 @@ export const getContentCountAPI = (data: ResourceSearch,
         url: url,
     }).then((res: AxiosResponse<number>) => {
         success(res.data)
-    }).catch(failure())
+    }).catch(() => {
+        failure()
+    })
 }
 
 export const getContentPreviewAPI = (data: ResourceSearch,
@@ -77,7 +83,9 @@ export const getContentPreviewAPI = (data: ResourceSearch,
         url: url,
     }).then((res: AxiosResponse<ResourcePreview[]>) => {
         success(res.data)
-    }).catch(failure())
+    }).catch(() => {
+        failure()
+    })
 }
 
 export const modifyContentAPI = (data: ContentInput,
@@ -89,6 +97,8 @@ export const modifyContentAPI = (data: ContentInput,
         data: data
     }).then((res: AxiosResponse<ContentOutput>) => {
         success(res.data)
+    }).catch(() => {
+        failure()
     })
 }
 
@@ -100,5 +110,7 @@ export const deleteContentAPI = (content_id: number | string | string[],
         url: `/content/${content_id}`,
     }).then((res: AxiosResponse<number>) => {
         success(res.data)
+    }).catch(() => {
+        failure()
     })
 }

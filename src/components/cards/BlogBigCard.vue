@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import type {PropType} from "vue";
+import type {ContentOutput} from'@/types/schemas/resource'
+
 const props = defineProps({
   coverIndex: {
     type: [Number, String],
@@ -6,6 +9,7 @@ const props = defineProps({
     default: 1
   },
   blog: {
+    type: Object as PropType<ContentOutput>,
     required: true
   }
 })

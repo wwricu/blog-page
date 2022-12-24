@@ -13,7 +13,9 @@ export const addTagAPI = (name: string,
         }
     }).then((res: AxiosResponse<Tag>) => {
         success(res.data)
-    }).catch(failure())
+    }).catch(() => {
+        failure()
+    })
 }
 
 export const getTagAPI = (data: Tag | null,
@@ -35,7 +37,9 @@ export const getTagAPI = (data: Tag | null,
         url: url,
     }).then((res: AxiosResponse<Tag[]>) => {
         success(res.data)
-    }).catch(failure())
+    }).catch(() => {
+        failure()
+    })
 }
 
 export const deleteTagAPI = (id: number,
@@ -46,5 +50,7 @@ export const deleteTagAPI = (id: number,
         url: `/tag/${id}`,
     }).then((res: AxiosResponse<number>) => {
         success(res.data)
-    }).catch(failure())
+    }).catch(() => {
+        failure()
+    })
 }

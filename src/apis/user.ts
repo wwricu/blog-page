@@ -13,7 +13,9 @@ export const loginApi = (data: UserInput,
         data: data
     }).then((res: AxiosResponse<TokenResponse>) => {
         success(res.data)
-    }).catch(failure())
+    }).catch(() => {
+        failure()
+    })
 }
 
 export const refreshTokenAPI = () => {

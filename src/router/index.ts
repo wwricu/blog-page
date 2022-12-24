@@ -69,7 +69,7 @@ router.beforeEach((to, from, next) => {
     if (loginStore.isLogin !== true && jwt != null) {
       loginStore.login(parseJwt(jwt))
     }
-    if (loginStore.userInfo == null || loginStore.isLogin !== true) {
+    if (loginStore.userInfo == null || !loginStore.isLogin) {
       return next('/')
     }
     for (const role of roles) {
