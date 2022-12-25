@@ -17,6 +17,11 @@ onMounted(() => {
     cache: {
       enable: false,
     },
+    preview: {
+      hljs: {
+        style: 'dracula',
+      }
+    },
     toolbar: [
       'headings',
       'bold',
@@ -65,7 +70,6 @@ onMounted(() => {
     },
     after: () => {
       // vditor.value is an instance of Vditor now and thus can be safely used here
-      vditor.value!.setValue('Vue Composition API + Vditor + TypeScript Minimal Example');
       getCategoryAPI(null,(tags: Tag[]) => {
         categories.value = tags
         findContent()
@@ -204,7 +208,6 @@ defineExpose({
 <style>
 .vditor {
   height: calc(100vh - 2.8rem - 4px) !important;
-  font-size: 16px;
   overflow-y: scroll;
 }
 </style>

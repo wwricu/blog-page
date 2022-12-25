@@ -21,20 +21,20 @@ onMounted(() => {
       (data: ContentOutput) => {
     blog.value = data
     content.value = Base64.decode(blog.value.content as string) // md
+    // VditorPreview.setCodeTheme('api')
     VditorPreview.preview(
         document.getElementById('vditor'),
         content.value,
         {
           anchor: 1,
+          hljs: {
+            style: 'dracula',
+          },
           after: () => {
             getHeight()
           }
         })
-
-    nextTick(() => {
-      getHeight()
-    })
-  }, ()=>{})
+  }, () => {})
 })
 
 const getHeight = () => {
@@ -95,6 +95,7 @@ const toTop = () => {
     width="1000"
     class="mx-auto vditor-container pt-16"
     v-scroll="parallel"
+    v-resize="getHeight"
   >
     <div id="vditor"/>
     <v-divider class="my-16" color="grey-darken-3"/>
