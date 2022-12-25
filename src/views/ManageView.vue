@@ -11,7 +11,7 @@
   </v-app-bar>
   <v-navigation-drawer
     v-model="drawer"
-    absolute
+    style="position:fixed; bottom:0; left:0; overflow-y:scroll;"
     bottom
     temporary
     color="blue-grey-lighten-5"

@@ -10,7 +10,7 @@ import {deleteTagAPI} from "@/apis/tag";
 import RightBottomButtons from "@/components/buttons/RightBottomButtons.vue";
 import InputDialog from "@/components/dialogs/InputDialog.vue";
 
-let categories = ref()
+let categories = ref<Tag[]>([])
 onMounted(() => {
   getCategories()
 })
@@ -50,7 +50,7 @@ const deleteCategory = (category: Tag) => {
 const confirmDelete = () => {
   deleteTagAPI(categoryForDelete.value.id,
   () => {
-    categories.value.splice(categories.value.indexOf(categoryForDelete), 1)
+    categories.value.splice(categories.value.indexOf(categoryForDelete.value), 1)
     confirmDialog.value = false
     newCategoryName.value = ''
   }, () => {})
@@ -74,7 +74,7 @@ const confirmDelete = () => {
     :key="category.id"
     :category="category"
     @rename="renameCategory"
-    @delete="deleteCategory"
+    @delete="deleteCategory(category)"
   />
   <confirm-dialog
     v-model="confirmDialog"

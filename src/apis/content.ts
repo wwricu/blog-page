@@ -102,7 +102,7 @@ export const modifyContentAPI = (data: ContentInput,
     })
 }
 
-export const deleteContentAPI = (content_id: number | string | string[],
+export const deleteContentAPI = (content_id: number | string | string[] | undefined,
                                  success: Function,
                                  failure: Function) => {
     myAxios.request({

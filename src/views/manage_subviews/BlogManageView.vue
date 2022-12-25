@@ -4,9 +4,10 @@ import BlogCard from "@/components/cards/BlogCard.vue";
 import {deleteContentAPI, getContentPreviewAPI, postContentAPI} from "@/apis/content";
 import RightBottomButtons from "@/components/buttons/RightBottomButtons.vue";
 import {useRouter} from "vue-router";
-import {ResourcePreview} from "@/types/schemas/resource";
+import {ContentOutput, ResourcePreview} from "@/types/schemas/resource";
 import {Tag} from "@/types/schemas/tag";
 import {getCategoryAPI} from "@/apis/category";
+import ConfirmDialog from "@/components/dialogs/ConfirmDialog.vue";
 
 let blogs = ref()
 onMounted(() => {
@@ -25,8 +26,8 @@ const status = ref([
   }
 ])
 const statusSelect = ref({
-  title: 'draft',
-  url: '/draft'
+  title: 'public',
+  url: '/post'
 })
 
 const categories: Ref<Array<Tag>> = ref([])
@@ -50,11 +51,20 @@ function getBlogs() {
     blogs.value = data
   }, () => {})
 }
-function deleteBlog(blog: any) {
+
+const confirmDialog = ref<boolean>(false)
+const blogForDelete = ref<ContentOutput | null>({id: 0, title: ''})
+function deleteBlog(blog: ContentOutput) {
   // alert(JSON.stringify(blog))
-  deleteContentAPI(blog.id, () => {
-    blogs.value.splice(blogs.value.indexOf(blog), 1)
+  blogForDelete.value = blog
+  confirmDialog.value = true
+}
+const confirmDelete = () => {
+  deleteContentAPI(blogForDelete.value?.id, () => {
+    blogs.value.splice(blogs.value.indexOf(blogForDelete.value), 1)
   },() => {})
+  confirmDialog.value = false
+  blogForDelete.value = null
 }
 
 const router = useRouter()
@@ -83,7 +93,7 @@ const buttons = [
     max-width="600"
     class="mx-auto pa-4 sub-view"
   >
-    <v-row>
+    <v-row class="d-flex align-end">
       <v-col cols="6">
         <v-select
           return-object
@@ -100,6 +110,7 @@ const buttons = [
       </v-col>
       <v-col cols="6">
         <v-select
+          clearable
           return-object
           item-title="name"
           item-value="id"
@@ -120,6 +131,12 @@ const buttons = [
       :category="blog"
       :blog="blog"
       @delete="deleteBlog(blog)"
+    />
+    <confirm-dialog
+      v-model="confirmDialog"
+      :title="`Delete ${blogForDelete?.title}`"
+      color="error"
+      @confirm="confirmDelete()"
     />
     <right-bottom-buttons
       :buttons="buttons"
