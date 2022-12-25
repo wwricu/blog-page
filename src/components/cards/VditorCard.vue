@@ -14,6 +14,55 @@ const vditor = ref<Vditor | null>(null);
 
 onMounted(() => {
   vditor.value = new Vditor('vditor', {
+    cache: {
+      enable: false,
+    },
+    toolbar: [
+      'headings',
+      'bold',
+      'italic',
+      'strike',
+      'inline-code',
+      '|',
+      'table',
+      'check',
+      'link',
+      'quote',
+      'line',
+      'emoji',
+      '|',
+      'upload',
+      'undo',
+      'redo',
+      'export',
+      'edit-mode',
+    ],
+    upload: {
+      accept: 'image/*, .mp3, .wav, .rar',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        'refresh-token': `${localStorage.getItem("refresh_token")}`,
+        'connection': 'keep-alive',
+        'X-content-id': `${route.params.id}`
+      },
+      multiple: true,
+      fieldName: 'files',
+      url: `${import.meta.env.VITE_BASE_URL}/file/static/content`,
+      success: (editor: HTMLPreElement, msg: string) => {
+        const images = JSON.parse(msg).data.succFiles
+        for (const image of images) {
+          vditor.value!.insertValue(`![${image.name}](${import.meta.env.VITE_BASE_URL}/${image.path})`)
+        }
+      },
+      error(msg: string) {
+        alert(`failed to upload ${msg}`)
+      },
+      filename: (name: string) => {
+        return name.replace(/[^(a-zA-Z0-9\u4e00-\u9fa5.)]/g, '')
+                   .replace(/[?\\/:|<>*[\]()$%{}@~]/g, '')
+                   .replace('/\\s/g', '')
+      },
+    },
     after: () => {
       // vditor.value is an instance of Vditor now and thus can be safely used here
       vditor.value!.setValue('Vue Composition API + Vditor + TypeScript Minimal Example');
