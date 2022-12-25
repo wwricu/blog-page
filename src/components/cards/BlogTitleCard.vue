@@ -12,7 +12,6 @@ const props = defineProps({
 
 <template>
   <v-sheet
-    height="300"
     class="py-8 blog-title text-white"
     v-show="blog !== undefined"
   >
@@ -21,7 +20,7 @@ const props = defineProps({
       max-width="800"
       class="mx-auto bg-transparent text-center"
       style="background: transparent">
-      <p class="text-h1">
+      <p class="text-h2">
         {{props.blog.title}}
       </p>
 

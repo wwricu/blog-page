@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import EditorCard from "@/components/cards/EditorCard.vue";
+import VditorCard from "@/components/cards/VditorCard.vue";
 import RightBottomButtons from "@/components/buttons/RightBottomButtons.vue"
 import {deleteContentAPI, modifyContentAPI} from '@/apis/content'
 import {ref} from "vue";
@@ -24,7 +24,7 @@ const buttons = [
       deleteContentAPI(subEditor.value.getEditorContents().id, ()=>{
         alert('success')
         router.push({path: '/manage/blog'})
-      }, ()=>{})
+      }, () => {})
     }
   },
 ]
@@ -32,7 +32,7 @@ const buttons = [
 
 <template>
   <div class="sub-view">
-    <editor-card ref="subEditor" class="mx-auto"/>
+    <vditor-card ref="subEditor" class="mx-auto"/>
     <right-bottom-buttons :buttons="buttons"/>
   </div>
 </template>

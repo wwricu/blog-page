@@ -1,4 +1,5 @@
 <script setup lang="ts">
+/* This Quill editor card is deprecated */
 import {ref, onMounted, Ref} from "vue";
 import {Base64, encode} from "js-base64";
 import {getContentAPI} from "@/apis/content";
