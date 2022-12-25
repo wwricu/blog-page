@@ -27,6 +27,7 @@ export interface ContentInput extends ResourceBase {
     status?: string
     category_name?: string
     tags?: Tag[]
+    files?: string[]
     content?: string
 }
 

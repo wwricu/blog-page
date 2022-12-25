@@ -100,6 +100,8 @@ const statusSelect = ref()
 
 const title = ref()
 const route = useRoute()
+const contentData = ref()
+
 function findContent() {
   getContentAPI(route.params.id, (data: ContentOutput) => {
     contentData.value = data
@@ -125,7 +127,6 @@ function findContent() {
   }, () => {})
 }
 
-const contentData = ref()
 defineExpose({
   getEditorContents() {
     contentData.value.title = title.value
@@ -137,9 +138,19 @@ defineExpose({
         && categorySelect.value.name !== undefined) {
       contentData.value.category_name = categorySelect.value.name
     }
+    contentData.value.files = scanImages()
     return contentData.value
   }
 })
+
+const scanImages = () => {
+  const md = vditor.value!.getValue()
+  // match image and domains, get url
+  const pattern = new RegExp(`(?<=!\\[.*\\]\\(${import.meta.env.VITE_BASE_URL}/static/content/\\d*/).*?(?=\\))`, 'g')
+  const images = md.match(pattern) ?? []
+  console.log(images)
+  return images
+}
 </script>
 
 <template>
