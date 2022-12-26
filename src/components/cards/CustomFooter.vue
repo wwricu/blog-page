@@ -11,21 +11,23 @@ const props = defineProps({
 
 const links = ref([
   {
-    text: 'Login',
-    link: '/login',
-  },
-  {
-    text: 'Contact me',
-    link: 'mailto:iswangwr@outlook.com',
-  },
-  {
     text: 'Manage',
     link: '/manage',
+    target: '_self',
+  },
+  {
+    text: 'Login',
+    link: '/login',
+    target: '_self',
+  },
+  {
+    text: 'Github',
+    link: 'https://github.com/HerrKKK/blog-page',
+    target: '_blank',
   },
 ])
-const skipTo = (link: string) => {
-  window.open(link,"_self")
-
+const skipTo = (link: string, target: string) => {
+  window.open(link, target)
 }
 </script>
 
@@ -39,7 +41,7 @@ const skipTo = (link: string) => {
         class="mx-2"
         :class="props.textColor"
         rounded="xl"
-        @click="skipTo(link.link)"
+        @click="skipTo(link.link, link.target)"
       >
         {{ link.text }}
       </v-btn>
