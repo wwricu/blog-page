@@ -21,7 +21,7 @@ export interface FolderInput extends ResourceBase {
 
 export interface ContentInput extends ResourceBase {
     sub_title?: string
-    category_name?: string
+    category?: Tag
     tags?: Tag[]
     files?: string[]
     content?: string
@@ -37,7 +37,7 @@ export interface ResourcePreview extends FolderOutput {
     owner_id?: number
     type?: string
     tags?: Tag[]
-    category_name?: string
+    category?: Tag
 }
 
 export interface ContentOutput extends ResourcePreview {

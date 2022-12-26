@@ -61,10 +61,10 @@ const getImgUrl = () => {
               class="text-body-1 ml-4"
               :class="isHovering ? 'text-indigo-darken-4' : ''"
               style="cursor: pointer"
-              @click="$router.push(`/category/${encodeURIComponent(blog.category_name)}`)"
+              @click="$router.push(`/category/${encodeURIComponent(blog.category?.name)}`)"
             >
               <v-icon color="primary">mdi-pound</v-icon>
-              {{blog.category_name}}
+              {{blog.category?.name}}
             </p>
           </template>
         </v-hover>

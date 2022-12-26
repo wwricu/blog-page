@@ -118,7 +118,7 @@ function findContent() {
     }
 
     for (const cat of categories.value) {
-      if (cat.name === data.category_name) {
+      if (cat.id === data.category?.id) {
         categorySelect.value = cat
         break
       }
@@ -141,7 +141,7 @@ defineExpose({
 
     if (categorySelect.value !== undefined
         && categorySelect.value.name !== undefined) {
-      contentData.value.category_name = categorySelect.value.name
+      contentData.value.category = categorySelect.value
     }
     contentData.value.files = scanImages()
     return contentData.value

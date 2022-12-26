@@ -37,10 +37,10 @@ const props = defineProps({
               v-bind="props"
               :class="isHovering ? 'text-indigo-darken-4' : ''"
               style="cursor: pointer"
-              @click="$router.push(`/category/${encodeURIComponent(blog.category_name)}`)"
+              @click="$router.push(`/category/${encodeURIComponent(blog.category?.name)}`)"
             >
               <v-icon color="yellow">mdi-pound</v-icon>
-              {{blog.category_name}}
+              {{blog.category?.name}}
             </p>
           </template>
         </v-hover>
