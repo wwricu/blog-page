@@ -67,6 +67,7 @@ const pageLength = computed(() => {
   return Math.ceil(blogCount.value / pageSize.value)
 })
 
+const emits = defineEmits(['select'])
 </script>
 
 <template>
@@ -99,6 +100,7 @@ const pageLength = computed(() => {
               :blog="blog"
               :cover-index="(index + imgIndexBase) % 5"
               @click.prevent="$router.push(`/content/${blog.id}`)"
+              @select="(name: string) => { emits('select', name) }"
             />
           </v-lazy>
         </v-hover>

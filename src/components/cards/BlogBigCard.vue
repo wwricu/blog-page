@@ -3,6 +3,7 @@ import type {PropType} from "vue";
 import type {ContentOutput} from'@/types/schemas/resource'
 import {computed} from "vue";
 import { useDisplay } from 'vuetify'
+import {useRouter} from "vue-router";
 
 const props = defineProps({
   coverIndex: {
@@ -24,6 +25,15 @@ const cardWidth = computed(() => {
   }
   return 800
 })
+
+const emits = defineEmits(['select'])
+const router = useRouter()
+const selectTag = (filter: string, name: string) => {
+  if (name != null) {
+    emits('select', name)
+    router.push(`/${filter}/${encodeURIComponent(name)}`)
+  }
+}
 
 const getImgUrl = () => {
   return new URL(`../../assets/card_covers/${props.coverIndex}.jpg`,
@@ -66,7 +76,7 @@ const getImgUrl = () => {
                 :class="isHovering ? 'text-indigo-darken-4' : ''"
                 class="ml-1"
                 style="cursor: pointer"
-                @click.stop="$router.push(`/category/${encodeURIComponent(blog.category?.name)}`)"
+                @click.stop="selectTag('category', blog.category?.name)"
               >
                 {{blog.category?.name}}
               </span>
@@ -102,7 +112,7 @@ const getImgUrl = () => {
             class="mx-1 post-tag"
             v-for="item in blog.tags"
             :key="item.id"
-            @click.stop="$router.push(`/tag/${encodeURIComponent(item.name)}`)"
+            @click.stop="selectTag('tag', item?.name)"
           >
             {{item.name}}
           </v-chip>

@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import {computed} from "vue";
+import {useRouter} from "vue-router";
+import type {Tag} from '@/types/schemas/tag'
 
 const props = defineProps({
   modelValue: Boolean,
@@ -9,7 +11,7 @@ const props = defineProps({
   }
 })
 
-const emits = defineEmits(['update:modelValue'])
+const emits = defineEmits(['update:modelValue', 'select'])
 const menuOutput = computed({
   get: () => {
     return props.modelValue
@@ -18,6 +20,14 @@ const menuOutput = computed({
     emits('update:modelValue', val)
   }
 })
+
+const router = useRouter()
+const selectTag = (category: Tag) => {
+  if (category.name !== undefined) {
+    emits('select', category.name)
+    router.push(`/category/${encodeURIComponent(category.name)}`)
+  }
+}
 
 </script>
 
@@ -35,7 +45,7 @@ const menuOutput = computed({
         link
       >
         <v-list-item-title
-          @click="$router.push(`/category/${encodeURIComponent(category.name)}`)"
+          @click="selectTag(category)"
         >
           {{category.name}}
         </v-list-item-title>

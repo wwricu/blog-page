@@ -40,6 +40,13 @@ const aboutDialog = ref(false)
 const switchAbout = () => {
   aboutDialog.value = !aboutDialog.value
 }
+
+const snackMsg = ref('')
+const snackbar = ref(false)
+const selectTag = (tagName: string) => {
+  snackMsg.value = tagName
+  snackbar.value = true
+}
 </script>
 
 <template>
@@ -64,6 +71,7 @@ const switchAbout = () => {
       activator="#menu-activator"
       :list="categories"
       v-model="menu"
+      @select="selectTag"
     />
 
     <navigate-button
@@ -76,6 +84,7 @@ const switchAbout = () => {
       activator="#tag-activator"
       v-model="overlay"
       :tags="tags"
+      @select="selectTag"
     />
 
     <v-spacer/>
@@ -89,10 +98,26 @@ const switchAbout = () => {
     </v-sheet>
   </v-app-bar>
   <v-parallax :src="bgdImg">
-    <blog-subview/>
+    <blog-subview
+      @select="selectTag"
+    />
     <custom-footer class="mt-8"/>
   </v-parallax>
+  <v-snackbar
+    color="indigo"
+    timeout="3000"
+    v-model="snackbar"
+    transition="slide-y-reverse-transition"
+  >
+    # {{ snackMsg }} selected
+  </v-snackbar>
   <v-dialog v-model="aboutDialog">
     <about-card @confirm="switchAbout()"/>
   </v-dialog>
 </template>
+
+<style scoped>
+.v-snack__wrapper {
+  max-width: none;
+}
+</style>

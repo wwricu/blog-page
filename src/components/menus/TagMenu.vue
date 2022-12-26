@@ -11,7 +11,7 @@ const props = defineProps({
   }
 })
 
-const emits = defineEmits(['update:modelValue'])
+const emits = defineEmits(['update:modelValue', 'select'])
 const menuOutput = computed({
   get: () => {
     return props.modelValue
@@ -21,13 +21,11 @@ const menuOutput = computed({
   }
 })
 
-const snackbar = ref()
-const snackMsg = ref('')
 const router = useRouter()
 
 const chooseTag = (tag: Tag) => {
-  snackMsg.value = tag.name as string
   if (tag.name !== undefined) {
+    emits('select', tag.name)
     router.push(`/tag/${encodeURIComponent(tag.name)}`)
   }
 }
@@ -46,7 +44,6 @@ const chooseTag = (tag: Tag) => {
     <v-item-group
       column
       color="white"
-      @click="snackbar = true"
     >
       <v-chip
         filter
@@ -61,14 +58,4 @@ const chooseTag = (tag: Tag) => {
       </v-chip>
     </v-item-group>
   </v-overlay>
-  <v-sheet v-show="snackbar" width="100">
-    <v-snackbar
-      color="indigo"
-      timeout="3000"
-      v-model="snackbar"
-      class="text-center"
-    >
-      #{{ snackMsg }} Selected
-    </v-snackbar>
-  </v-sheet>
 </template>
