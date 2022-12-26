@@ -12,11 +12,13 @@ import AboutCard from "@/components/cards/AboutCard.vue";
 import 'vditor/dist/index.css';
 import VditorPreview from 'vditor/dist/method.min.js'
 import {useDisplay} from "vuetify";
+import {watch} from "vue-demi";
 
 const route = useRoute()
 const blog = ref()
 const content = ref()
 const height = ref()
+const vditor = ref(document.getElementById('vditor'))
 onMounted(() => {
   getContentAPI(route.params.id,
       (data: ContentOutput) => {
@@ -33,9 +35,6 @@ onMounted(() => {
           },
           after: () => {
             getHeight()
-            nextTick(() => {
-              getHeight()
-            })
           }
         })
   }, () => {})
@@ -59,6 +58,12 @@ const getHeight = () => {
                           html.scrollHeight,
                           html.offsetHeight)
 };
+
+watch(vditor, async () => {
+  await nextTick(() => {
+    getHeight()
+  })
+})
 
 const top = ref(0)
 const parallel = () => {
