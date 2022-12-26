@@ -38,9 +38,12 @@ const cardWidth = computed(() => {
             <a href="https://vuejs.org/" target="_blank">Vue.js</a>
           </p>
           <p>
+            Markdown solution:
+            <a href="https://github.com/Vanessa219/vditor" target="_blank">Vditor</a>
+          </p>
+          <p>
             UI components:
-            <a
-              href="https://next.vuetifyjs.com/" target="_blank">Vuetify.js</a>
+            <a href="https://next.vuetifyjs.com/" target="_blank">Vuetify.js</a>
           </p>
           <p>
             Service framework:

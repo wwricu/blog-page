@@ -14,13 +14,14 @@ const props = defineProps({
   <v-sheet
     class="py-8 blog-title text-white"
     v-show="blog !== undefined"
+    style="position: relative"
   >
     <div class="bgd"/>
     <v-sheet
       max-width="800"
       class="mx-auto bg-transparent text-center"
       style="background: transparent">
-      <p class="text-h2">
+      <p class="text-h4 text-sm-h3 text-md-h2">
         {{props.blog.title}}
       </p>
 
@@ -29,7 +30,7 @@ const props = defineProps({
         class="my-6"
       />
 
-      <div class="d-flex justify-lg-space-between text-body-1 mb-6">
+      <div class="d-flex justify-space-between text-body-2 text-sm-body-1 mb-6">
         <v-hover>
           <template v-slot:default="{ isHovering, props }">
             <p
@@ -75,8 +76,8 @@ const props = defineProps({
   width: 100%;
   position: absolute;
   z-index: -100;
-  background: no-repeat fixed url('../../assets/banner.jpg');
-  filter: brightness(60%);
+  background: repeat-y fixed url('../../assets/banner.jpg');
+  filter: brightness(70%);
   background-size: 100% auto;
   -webkit-background-size: 100% auto;
 }

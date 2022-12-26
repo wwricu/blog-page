@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {nextTick, onMounted, ref, watch} from "vue";
+import {computed, nextTick, onMounted, ref, watch} from "vue";
 import NavigateButton from "@/components/buttons/NavigateButton.vue";
 import {useRoute} from "vue-router";
 import {getContentAPI} from "@/apis/content";
@@ -11,6 +11,7 @@ import RightBottomButtons from "@/components/buttons/RightBottomButtons.vue";
 import AboutCard from "@/components/cards/AboutCard.vue";
 import 'vditor/dist/index.css';
 import VditorPreview from 'vditor/dist/method.min.js'
+import {useDisplay} from "vuetify";
 
 const route = useRoute()
 const blog = ref()
@@ -38,6 +39,15 @@ onMounted(() => {
           }
         })
   }, () => {})
+})
+
+const { name } = useDisplay()
+const cardWidth = computed(() => {
+  switch (name.value) {
+    case 'xs':
+    case 'sm': return 'w-auto'
+  }
+  return 1000
 })
 
 const getHeight = () => {
@@ -95,8 +105,8 @@ const toTop = () => {
     <about-card @confirm="switchAbout()"/>
   </v-dialog>
   <v-sheet
-    width="1000"
-    class="mx-auto vditor-container pt-16"
+    :width="cardWidth"
+    class="mx-auto vditor-container pt-16 pr-4 pr-md-0"
     v-scroll="parallel"
     v-resize="getHeight"
   >
