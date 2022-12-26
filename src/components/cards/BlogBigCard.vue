@@ -48,26 +48,31 @@ const getImgUrl = () => {
               class="text-h4 my-4"
               :class="isHovering ? 'text-indigo-darken-4' : ''"
               style="cursor: pointer;"
-              @click="$router.push(`/content/${blog.id}`)"
             >
               {{blog.title}}
             </v-card-title>
           </template>
         </v-hover>
-        <v-hover>
-          <template v-slot:default="{ isHovering, props }">
-            <p
-              v-bind="props"
-              class="text-body-1 ml-4"
-              :class="isHovering ? 'text-indigo-darken-4' : ''"
-              style="cursor: pointer"
-              @click="$router.push(`/category/${encodeURIComponent(blog.category?.name)}`)"
-            >
-              <v-icon color="primary">mdi-pound</v-icon>
-              {{blog.category?.name}}
-            </p>
-          </template>
-        </v-hover>
+
+        <p
+          class="d-flex text-body-1 ml-4 mt-4"
+        >
+          <v-icon color="primary">mdi-pound</v-icon>
+
+          <v-hover>
+            <template v-slot:default="{ isHovering, props }">
+              <span
+                v-bind="props"
+                :class="isHovering ? 'text-indigo-darken-4' : ''"
+                class="ml-1"
+                style="cursor: pointer"
+                @click.stop="$router.push(`/category/${encodeURIComponent(blog.category?.name)}`)"
+              >
+                {{blog.category?.name}}
+              </span>
+            </template>
+          </v-hover>
+        </p>
         <v-card-text class="d-flex text-body-1 text-sm-body-2">
           <v-row no-gutters>
             <v-col
@@ -94,10 +99,10 @@ const getImgUrl = () => {
           <v-icon color="primary">mdi-tag</v-icon>
           <v-chip
             color="primary"
-            class="mx-1"
+            class="mx-1 post-tag"
             v-for="item in blog.tags"
             :key="item.id"
-            @click="$router.push(`/tag/${encodeURIComponent(item.name)}`)"
+            @click.stop="$router.push(`/tag/${encodeURIComponent(item.name)}`)"
           >
             {{item.name}}
           </v-chip>
@@ -113,3 +118,9 @@ const getImgUrl = () => {
     </v-row>
   </v-card>
 </template>
+
+<style scoped>
+.post-tag {
+  cursor: pointer;
+}
+</style>

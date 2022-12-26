@@ -93,11 +93,12 @@ const pageLength = computed(() => {
           >
             <blog-big-card
               v-ripple
-              class="mx-auto"
+              class="mx-auto blog-card"
               v-bind="props"
               :elevation="isHovering ? 24 : 4"
               :blog="blog"
               :cover-index="(index + imgIndexBase) % 5"
+              @click.prevent="$router.push(`/content/${blog.id}`)"
             />
           </v-lazy>
         </v-hover>
@@ -120,5 +121,8 @@ const pageLength = computed(() => {
 <style scoped>
 .sub-view {
   background: transparent;
+}
+.blog-card {
+  cursor: default;
 }
 </style>
