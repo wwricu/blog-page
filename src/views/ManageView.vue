@@ -44,6 +44,11 @@ export default {
     group: null,
     manageNavigations: [
       {
+        title: 'Home',
+        icon: 'mdi-home',
+        link: '/'
+      },
+      {
         title: 'Manage Blogs',
         icon: 'mdi-pencil',
         link: '/manage/blog'

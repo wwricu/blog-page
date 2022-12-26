@@ -11,20 +11,20 @@ const props = defineProps({
 
 const links = ref([
   {
-    text: 'Github',
-    link: 'https://github.com/HerrKKK',
+    text: 'Login',
+    link: '/login',
   },
   {
-    text: 'Home',
-    link: 'https://wwr-blog.com',
+    text: 'Contact me',
+    link: 'mailto:iswangwr@outlook.com',
   },
   {
-    text: 'About',
-    link: '',
+    text: 'Manage',
+    link: '/manage',
   },
 ])
 const skipTo = (link: string) => {
-  window.open(link,"_blank")
+  window.open(link,"_self")
 
 }
 </script>
