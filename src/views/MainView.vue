@@ -79,12 +79,14 @@ const switchAbout = () => {
     />
 
     <v-spacer/>
+    <v-sheet class="d-none d-sm-block bg-transparent">
     <navigate-button
       title="About"
       prepend-icon="mdi-information-outline"
       :menu="aboutDialog"
       @click="switchAbout()"
     />
+    </v-sheet>
   </v-app-bar>
   <v-parallax :src="bgdImg">
     <blog-subview/>

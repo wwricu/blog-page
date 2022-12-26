@@ -1,19 +1,30 @@
 <script setup lang="ts">
 import avatar from '../../assets/avatar.jpg'
+import {useDisplay} from "vuetify";
+import {computed} from "vue";
 const emit = defineEmits(['confirm']);
 function confirm() {
   emit('confirm')
 }
+
+const { name } = useDisplay()
+const cardWidth = computed(() => {
+  switch (name.value) {
+    case 'xs': return 300
+    case 'sm': return 600
+  }
+  return 800
+})
 </script>
 
 <template>
   <v-card
     color="rgba(250, 251, 241, 1)"
-    width="800"
+    :width="cardWidth"
     class="mx-auto"
   >
     <v-row no-gutters>
-      <v-col rols="8">
+      <v-col sm="12" md="8">
         <v-card-title>About</v-card-title>
         <v-card-text class="text-body-1 text-grey-darken-2">
           <p>
@@ -50,7 +61,7 @@ function confirm() {
           </v-btn>
         </v-card-actions>
       </v-col>
-      <v-col class="d-flex" cols="4">
+      <v-col class="d-none d-md-flex" md="4">
         <v-img
           cover
           :src="avatar"

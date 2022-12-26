@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type {PropType} from "vue";
 import type {ContentOutput} from'@/types/schemas/resource'
+import {computed, onMounted, ref} from "vue";
+import { useDisplay } from 'vuetify'
 
 const props = defineProps({
   coverIndex: {
@@ -14,6 +16,15 @@ const props = defineProps({
   }
 })
 
+const { name } = useDisplay()
+const cardWidth = computed(() => {
+  switch (name.value) {
+    case 'xs':
+    case 'sm': return 'w-auto'
+  }
+  return 800
+})
+
 const getImgUrl = () => {
   return new URL(`../../assets/card_covers/${props.coverIndex}.jpg`,
       import.meta.url).href;
@@ -25,11 +36,11 @@ const getImgUrl = () => {
   <v-card
     min-height="200"
     color="rgba(250, 251, 241, 0.8)"
-    width="800"
+    :width="cardWidth"
     rounded="lg"
   >
     <v-row>
-      <v-col cols="8" style="opacity: 0.75">
+      <v-col xs="12" sm="8" style="opacity: 0.75">
         <v-hover>
           <template v-slot:default="{ isHovering, props }">
             <v-card-title
@@ -43,9 +54,6 @@ const getImgUrl = () => {
             </v-card-title>
           </template>
         </v-hover>
-        <v-card-subtitle class="d-flex text-body-1">
-          <p></p>
-        </v-card-subtitle>
         <v-hover>
           <template v-slot:default="{ isHovering, props }">
             <p
@@ -60,18 +68,28 @@ const getImgUrl = () => {
             </p>
           </template>
         </v-hover>
-        <v-card-text class="d-flex justify-lg-space-between text-body-2">
-          <p class="text-grey-darken-2">
-            <v-icon color="primary" class="mr-1">mdi-calendar-clock</v-icon>
-            Created At &ensp;{{blog.created_time.slice(0, 10)}}
-          </p>
-          <v-divider vertical class="mx-2"/>
-          <p class="text-grey-darken-2">
-            <v-icon color="primary" class="mr-1">mdi-calendar-clock</v-icon>
-            Updated At &ensp;{{blog.updated_time.slice(0, 10)}}
-          </p>
+        <v-card-text class="d-flex text-body-1 text-sm-body-2">
+          <v-row no-gutters>
+            <v-col
+              cols="12"
+              sm="6"
+              class="text-grey-darken-2 my-2 my-sm-0"
+            >
+              <v-icon color="primary" class="mr-1">mdi-calendar-clock</v-icon>
+              <span>Created At &ensp;{{blog.created_time.slice(0, 10)}}</span>
+            </v-col>
+            <v-col
+              cols="12"
+              sm="6"
+              class="text-grey-darken-2 text-sm-right my-2 my-sm-0"
+            >
+<!--              <v-divider vertical class="mx-2"/>-->
+              <v-icon color="primary" class="mr-1">mdi-calendar-clock</v-icon>
+              <span>Updated At &ensp;{{blog.updated_time.slice(0, 10)}}</span>
+            </v-col>
+          </v-row>
         </v-card-text>
-        <v-divider class="ml-4 mt-n1"/>
+        <v-divider class="ml-4"/>
         <v-card-actions class="ml-2 my-2">
           <v-icon color="primary">mdi-tag</v-icon>
           <v-chip
@@ -86,7 +104,7 @@ const getImgUrl = () => {
         </v-card-actions>
         <slot name="action"/>
       </v-col>
-      <v-col class="d-flex" cols="4">
+      <v-col class="d-none d-sm-flex" sm="4">
         <v-img
           cover
           :src="getImgUrl()"

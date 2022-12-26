@@ -73,7 +73,7 @@ const pageLength = computed(() => {
   >
     <v-row no-gutters>
       <v-col
-        class="mt-4"
+        class="mt-4 pa-2 px-sm-4 px-md-0"
         cols="12"
         v-for="(blog, index) in blogs"
         :key="blog.id"
