@@ -17,16 +17,16 @@ const buttons = [
       }, () => {})
     }
   },
-  {
-    icon: 'mdi-delete',
-    color: 'error',
-    handle: () => {
-      deleteContentAPI(subEditor.value.getEditorContents().id, ()=>{
-        alert('success')
-        router.push({path: '/manage/blog'})
-      }, () => {})
-    }
-  },
+  // {
+  //   icon: 'mdi-delete',
+  //   color: 'error',
+  //   handle: () => {
+  //     deleteContentAPI(subEditor.value.getEditorContents().id, ()=>{
+  //       alert('success')
+  //       router.push({path: '/manage/blog'})
+  //     }, () => {})
+  //   }
+  // },
 ]
 </script>
 

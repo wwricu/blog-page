@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {nextTick, onMounted, ref} from "vue";
+import {nextTick, onMounted, ref, watch} from "vue";
 import NavigateButton from "@/components/buttons/NavigateButton.vue";
 import {useRoute} from "vue-router";
 import {getContentAPI} from "@/apis/content";
@@ -32,6 +32,9 @@ onMounted(() => {
           },
           after: () => {
             getHeight()
+            nextTick(() => {
+              getHeight()
+            })
           }
         })
   }, () => {})

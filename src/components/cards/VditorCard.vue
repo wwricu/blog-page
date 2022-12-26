@@ -133,6 +133,11 @@ defineExpose({
     contentData.value.content = encode(vditor.value!.getValue())
     contentData.value.tags = tagSelect.value
     contentData.value.parent_url = statusSelect.value.url
+    if (contentData.value.parent_url === '/post') {
+      contentData.value.permission = 701
+    } else {
+      contentData.value.permission = 700
+    }
 
     if (categorySelect.value !== undefined
         && categorySelect.value.name !== undefined) {
