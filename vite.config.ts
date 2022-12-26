@@ -27,7 +27,7 @@ export default defineConfig({
               {
                   name: 'vue',
                   var: 'Vue',
-                  path: 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.45/vue.global.min.js'
+                  path: 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.45/vue.global.prod.min.js'
               },
               {
                   name: 'vue-demi', // resolve vue var
