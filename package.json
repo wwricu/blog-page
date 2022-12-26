@@ -14,7 +14,7 @@
   "dependencies": {
     "@highlightjs/vue-plugin": "^2.1.0",
     "@mdi/font": "5.9.55",
-    "axios": "^1.2.2",
+    "axios": "^1.2.1",
     "highlight.js": "^11.7.0",
     "js-base64": "^3.7.2",
     "pinia": "^2.0.23",
@@ -46,6 +46,7 @@
     "sass": "^1.56.1",
     "typescript": "~4.7.4",
     "vite": "^3.0.9",
+    "vite-plugin-compression": "^0.5.1",
     "vite-plugin-vuetify": "^1.0.0-alpha.12",
     "vitest": "^0.23.0",
     "vue-cli-plugin-vuetify": "~2.5.8",

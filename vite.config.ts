@@ -3,6 +3,7 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { visualizer } from 'rollup-plugin-visualizer';
+import viteCompression from 'vite-plugin-compression'
 // https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vite-plugin
 import vuetify from 'vite-plugin-vuetify'
 import importToCDN from 'vite-plugin-cdn-import'
@@ -17,12 +18,18 @@ export default defineConfig({
           filename: 'stats.html',
           open: true
         }),
+        viteCompression({
+            algorithm: 'gzip',
+            threshold: 10240,
+            ext: ".gz",
+            deleteOriginFile: false
+        }),
         importToCDN({
           modules: [
               {
                   name: 'axios',
                   var: 'axios',
-                  path: 'https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js'
+                  path: 'https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js'
               },
               {
                   name: 'vue',
@@ -37,7 +44,7 @@ export default defineConfig({
               {
                   name: 'vue-router',
                   var: 'VueRouter',
-                  path: 'https://cdnjs.cloudflare.com/ajax/libs/vue-router/4.1.6/vue-router.global.min.js'
+                  path: 'https://cdnjs.cloudflare.com/ajax/libs/vue-router/4.1.6/vue-router.global.prod.min.js'
               },
               // {
               //     name:"vuetify",

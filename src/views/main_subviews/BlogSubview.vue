@@ -74,9 +74,9 @@ const pageLength = computed(() => {
     class="sub-view"
     min-height="1250px"
   >
-    <v-row no-gutters>
+    <v-row no-gutters class="mt-2">
       <v-col
-        class="mt-4 pa-2 px-sm-4 px-md-0"
+        class="pa-2 px-sm-4 px-md-0"
         cols="12"
         v-for="(blog, index) in blogs"
         :key="blog.id"
