@@ -22,6 +22,9 @@ const init = () => {
   parseParam()
   getPreviews()
   getPreviewCount()
+  searchParams.value = {
+    parent_url: '/post' // reset search param
+  }
 }
 
 const searchParams: Ref<ResourceSearch> = ref({
@@ -34,11 +37,11 @@ const parseParam = () => {
   if (filter.length !== 0
       && param.length !== 0 && param !== '0') {
     if (filter === 'category') {
-      searchParams.value.category_name = param
+      searchParams.value.category_name = encodeURIComponent(param)
       searchParams.value.tag_name = undefined
     } else if (filter === 'tag') {
       searchParams.value.category_name = undefined
-      searchParams.value.tag_name = param
+      searchParams.value.tag_name = encodeURIComponent(param)
     }
   }
 }

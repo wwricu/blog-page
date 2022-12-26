@@ -61,7 +61,7 @@ const getImgUrl = () => {
               class="text-body-1 ml-4"
               :class="isHovering ? 'text-indigo-darken-4' : ''"
               style="cursor: pointer"
-              @click="$router.push(`/category/${blog.category_name}`)"
+              @click="$router.push(`/category/${encodeURIComponent(blog.category_name)}`)"
             >
               <v-icon color="primary">mdi-pound</v-icon>
               {{blog.category_name}}
@@ -97,7 +97,7 @@ const getImgUrl = () => {
             class="mx-1"
             v-for="item in blog.tags"
             :key="item.id"
-            @click="$router.push(`/tag/${item.name}`)"
+            @click="$router.push(`/tag/${encodeURIComponent(item.name)}`)"
           >
             {{item.name}}
           </v-chip>

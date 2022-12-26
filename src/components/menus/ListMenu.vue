@@ -35,7 +35,7 @@ const menuOutput = computed({
         link
       >
         <v-list-item-title
-          @click="$router.push(`/category/${category.name}`)"
+          @click="$router.push(`/category/${encodeURIComponent(category.name)}`)"
         >
           {{category.name}}
         </v-list-item-title>

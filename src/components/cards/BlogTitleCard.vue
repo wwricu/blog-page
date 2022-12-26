@@ -37,7 +37,7 @@ const props = defineProps({
               v-bind="props"
               :class="isHovering ? 'text-indigo-darken-4' : ''"
               style="cursor: pointer"
-              @click="$router.push(`/category/${blog.category_name}`)"
+              @click="$router.push(`/category/${encodeURIComponent(blog.category_name)}`)"
             >
               <v-icon color="yellow">mdi-pound</v-icon>
               {{blog.category_name}}
@@ -60,7 +60,7 @@ const props = defineProps({
         class="mx-1"
         v-for="item in blog.tags"
         :key="item.id"
-        @click="$router.push(`/tag/${item.name}`)"
+        @click="$router.push(`/tag/${encodeURIComponent(item.name)}`)"
       >
         {{item.name}}
       </v-chip>

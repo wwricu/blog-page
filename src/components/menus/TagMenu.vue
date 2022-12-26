@@ -27,7 +27,9 @@ const router = useRouter()
 
 const chooseTag = (tag: Tag) => {
   snackMsg.value = tag.name as string
-  router.push(`/tag/${tag.name}`)
+  if (tag.name !== undefined) {
+    router.push(`/tag/${encodeURIComponent(tag.name)}`)
+  }
 }
 </script>
 
