@@ -2,7 +2,7 @@ import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-
+import { visualizer } from 'rollup-plugin-visualizer';
 // https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vite-plugin
 import vuetify from 'vite-plugin-vuetify'
 // import importToCDN from 'vite-plugin-cdn-import'
@@ -12,6 +12,11 @@ export default defineConfig({
   plugins: [
 		vue(),
 		vuetify({ autoImport: true }),
+        visualizer({
+          emitFile: true,
+          filename: 'stats.html',
+          open: true
+        }),
         // importToCDN({
         //   modules: [
         //       {
