@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {computed, nextTick, onMounted, ref, watch} from "vue";
+import {computed, nextTick, onMounted, ref} from "vue";
 import NavigateButton from "@/components/buttons/NavigateButton.vue";
 import {useRoute} from "vue-router";
 import {getContentAPI} from "@/apis/content";

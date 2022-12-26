@@ -151,7 +151,7 @@ defineExpose({
 const scanImages = () => {
   const md = vditor.value!.getValue()
   // match image and domains, get url
-  const pattern = new RegExp(`(?<=!\\[.*\\]\\(${import.meta.env.VITE_BASE_URL}/static/content/\\d*/).*?(?=\\))`, 'g')
+  const pattern = new RegExp(`(?<=!\\[.*]\\(${import.meta.env.VITE_BASE_URL}/static/content/\\d*/).*?(?=\\))`, 'g')
   const images = md.match(pattern) ?? []
   console.log(images)
   return images

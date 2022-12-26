@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import VditorCard from "@/components/cards/VditorCard.vue";
 import RightBottomButtons from "@/components/buttons/RightBottomButtons.vue"
-import {deleteContentAPI, modifyContentAPI} from '@/apis/content'
+import {modifyContentAPI} from '@/apis/content'
 import {ref} from "vue";
-import {useRouter} from "vue-router";
 
-const router = useRouter()
 const subEditor = ref()
 const buttons = [
   {
@@ -17,16 +15,6 @@ const buttons = [
       }, () => {})
     }
   },
-  // {
-  //   icon: 'mdi-delete',
-  //   color: 'error',
-  //   handle: () => {
-  //     deleteContentAPI(subEditor.value.getEditorContents().id, ()=>{
-  //       alert('success')
-  //       router.push({path: '/manage/blog'})
-  //     }, () => {})
-  //   }
-  // },
 ]
 </script>
 
