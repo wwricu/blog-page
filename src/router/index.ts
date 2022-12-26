@@ -24,6 +24,7 @@ const router = createRouter({
       path: '/manage',
       name: 'manage',
       component: () => import('@/views/ManageView.vue'),
+      redirect: '/manage/blog',
       meta: {
         roles: ['admin']
       },

@@ -3,14 +3,11 @@ import type {Tag} from "@/types/schemas/tag";
 interface ResourceBase {
     id?: number
     title?: string
-    parent_id?: number | string
     parent_url?: string
     permission?: number
 }
 
 export interface ResourceSearch extends ResourceBase {
-    status?: string
-    tag_id?: number | string
     pageIdx?: number
     pageSize?: number
     parent_url?: string
@@ -24,7 +21,6 @@ export interface FolderInput extends ResourceBase {
 
 export interface ContentInput extends ResourceBase {
     sub_title?: string
-    status?: string
     category_name?: string
     tags?: Tag[]
     files?: string[]
@@ -38,7 +34,6 @@ export interface FolderOutput extends ResourceBase {
 }
 
 export interface ResourcePreview extends FolderOutput {
-    parent?: FolderOutput
     owner_id?: number
     type?: string
     tags?: Tag[]
