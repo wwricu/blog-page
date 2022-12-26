@@ -79,6 +79,12 @@ const getImgUrl = () => {
                 @click.stop="selectTag('category', blog.category?.name)"
               >
                 {{blog.category?.name}}
+                <v-tooltip
+                  activator="parent"
+                  location="end"
+                >
+                  click to select {{blog.category?.name}}
+                </v-tooltip>
               </span>
             </template>
           </v-hover>
@@ -114,7 +120,13 @@ const getImgUrl = () => {
             :key="item.id"
             @click.stop="selectTag('tag', item?.name)"
           >
-            {{item.name}}
+            {{item?.name}}
+            <v-tooltip
+              activator="parent"
+              location="end"
+            >
+              click to select {{item?.name}}
+            </v-tooltip>
           </v-chip>
         </v-card-actions>
         <slot name="action"/>
