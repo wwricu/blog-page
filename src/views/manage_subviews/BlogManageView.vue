@@ -74,7 +74,7 @@ function newDraft() {
   }, (id: number) => {
     alert('success')
     router.push({path: `/manage/editor/${id}`})
-  }, ()=>{})
+  }, () => {})
 }
 
 const buttons = [

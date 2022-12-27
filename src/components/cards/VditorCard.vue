@@ -76,7 +76,7 @@ onMounted(() => {
         categories.value = tags
         findContent()
       }, () => {})
-      getTagAPI({}, (data: Tag[])=>{
+      getTagAPI({}, (data: Tag[]) => {
         tags.value = data
       }, () => {})
     },

@@ -4,7 +4,9 @@ import BlogBigCard from "@/components/cards/BlogBigCard.vue";
 import {getContentCountAPI, getContentPreviewAPI} from "@/apis/content";
 import {useRoute, useRouter} from "vue-router";
 import {ResourcePreview, ResourceSearch} from "@/types/schemas/resource";
+import {Ripple} from "vuetify/directives";
 
+const vRipple = Ripple
 const imgIndexBase = ref(0)
 const route = useRoute()
 const router = useRouter()
@@ -50,7 +52,7 @@ const parseParam = () => {
 const getPreviewCount = () => {
   getContentCountAPI(searchParams.value, (data: number) => {
     blogCount.value = data
-  }, ()=>{})
+  }, () => {})
 }
 
 const getPreviews = () => {

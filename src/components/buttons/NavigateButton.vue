@@ -11,7 +11,7 @@ const emit = defineEmits(['click'])
 
 <template>
   <v-hover close-delay="200">
-    <template v-slot:default="{ isHovering, props }">
+    <template v-slot="{ isHovering, props }">
       <v-btn
         :id="localProps.activator"
         v-bind="props"

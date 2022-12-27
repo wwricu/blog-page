@@ -10,10 +10,15 @@ import CustomFooter from "@/components/cards/CustomFooter.vue";
 import RightBottomButtons from "@/components/buttons/RightBottomButtons.vue";
 import AboutCard from "@/components/cards/AboutCard.vue";
 import 'vditor/dist/index.css';
-import VditorPreview from 'vditor/dist/method.min.js'
+import VditorPreview from 'vditor'
+// import VditorPreview from 'vditor/dist/method.min.js'
 import {useDisplay} from "vuetify";
 import {watch} from "vue-demi";
+import {Resize, Scroll} from "vuetify/directives";
 
+
+const vResize = Resize
+const vScroll = Scroll
 const route = useRoute()
 const router = useRouter()
 const blog = ref()
@@ -25,11 +30,11 @@ onMounted(() => {
       (data: ContentOutput) => {
     blog.value = data
     content.value = Base64.decode(blog.value.content as string) // md
-    // VditorPreview.setCodeTheme('api')
     VditorPreview.preview(
-        document.getElementById('vditor'),
+        document.getElementById('vditor')! as HTMLDivElement,
         content.value,
         {
+          mode: 'light',
           anchor: 1,
           hljs: {
             style: 'dracula',

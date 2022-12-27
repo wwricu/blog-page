@@ -10,7 +10,7 @@ import type {Tag} from '@/types/schemas/tag'
 
 const chips = ref()
 const refreshChips = () => {
-  getTagAPI(null, (data: Tag)=>{
+  getTagAPI(null, (data: Tag) => {
     chips.value = data
   }, () => {})
 }

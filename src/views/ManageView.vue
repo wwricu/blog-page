@@ -21,7 +21,7 @@
         />
       </v-list>
     </v-list>
-    <template v-slot:append>
+    <template #[`append`]>
       <v-list-item
         class="mr-2 mb-2"
         prepend-icon="mdi-arrow-left-box"
