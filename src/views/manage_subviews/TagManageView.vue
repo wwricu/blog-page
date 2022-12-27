@@ -32,14 +32,13 @@ const deleteChip = () => {
   }, () => {})
 }
 
-const inputDialog = ref()
-const newTagName = ref('')
-const confirmHandle = () => {
-  addTagAPI(newTagName.value, ()=>{
+const inputDialogSwitch = ref()
+const confirmHandle = (newTagName: string) => {
+  addTagAPI(newTagName, () => {
     alert('success')
     refreshChips()
-    newTagName.value = ''
-  }, ()=>{})
+  }, () => {})
+  inputDialogSwitch.value = false
 }
 </script>
 
@@ -71,17 +70,16 @@ const confirmHandle = () => {
     color="error"
   />
   <input-dialog
-    ref="inputDialog"
-    v-model="newTagName"
+    v-model="inputDialogSwitch"
     label="new tag name"
-    :confirm-handle="confirmHandle"
+    @confirm="confirmHandle"
   />
   <right-bottom-buttons>
     <v-btn
       density="comfortable"
       color="primary"
       icon="mdi-plus"
-      @click="inputDialog.switchDialog()"
+      @click="inputDialogSwitch = true"
     />
   </right-bottom-buttons>
 </template>

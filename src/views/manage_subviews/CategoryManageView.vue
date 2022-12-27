@@ -22,15 +22,13 @@ function getCategories() {
       () => {})
 }
 
-let newCategoryName = ref('')
-const inputDialog = ref()
-
-const confirmNewCategory = () => {
-  addCategoryAPI(newCategoryName.value, () => {
+const inputDialogSwitch = ref()
+const confirmNewCategory = (newCategoryName: string) => {
+  addCategoryAPI(newCategoryName, () => {
     alert('success')
-    newCategoryName.value = ''
     getCategories()
   }, () => {})
+  inputDialogSwitch.value = false
 }
 
 const renameDialog = ref()
@@ -52,7 +50,6 @@ const confirmDelete = () => {
   () => {
     categories.value.splice(categories.value.indexOf(categoryForDelete.value), 1)
     confirmDialog.value = false
-    newCategoryName.value = ''
   }, () => {})
 }
 
@@ -82,18 +79,17 @@ const confirmDelete = () => {
     :title="`Delete ${categoryForDelete.name}`"
     color="error"
   />
-  <InputDialog
-    ref="inputDialog"
-    v-model="newCategoryName"
+  <input-dialog
+    v-model="inputDialogSwitch"
     label="new category name"
-    :confirm-handle="confirmNewCategory"
+    @confirm="confirmNewCategory"
   />
   <right-bottom-buttons>
     <v-btn
       density="comfortable"
       color="primary"
       icon="mdi-plus"
-      @click="inputDialog.switchDialog()"
+      @click="inputDialogSwitch = true"
     />
   </right-bottom-buttons>
   </v-sheet>

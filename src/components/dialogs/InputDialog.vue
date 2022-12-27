@@ -1,40 +1,24 @@
 <script setup lang="ts">
 import {computed, ref} from "vue";
 
-const dialogSwitch = ref(false)
-defineExpose({
-  switchDialog() {
-    dialogSwitch.value = !dialogSwitch.value
-  }
-})
-
 const props = defineProps({
   modelValue: {
-    type: String,
-    default: 'test'
+    type: Boolean,
+    default: false,
+    required: true,
   },
   label: String,
   title: String,
-  confirmHandle: Function,
-  cancelHandle: Function,
 })
 
-const confirm = () => {
-  if (props.confirmHandle !== undefined) {
-    props.confirmHandle()
-  }
-  dialogSwitch.value = false
-}
-const cancel = () => {
-  if (props.cancelHandle !== undefined) {
-    props.cancelHandle()
-  }
-  dialogSwitch.value = false
-  inputText.value = ''
-}
+const emits = defineEmits([
+  'update:modelValue',
+  'confirm',
+  'cancel'
+])
 
-const emits = defineEmits(['update:modelValue'])
-const inputText = computed({
+const inputText = ref('')
+const inputDialog = computed({
   get: () => {
     return props.modelValue
   },
@@ -43,11 +27,21 @@ const inputText = computed({
     return val
   }
 })
+
+const confirm = () => {
+  emits('confirm', inputText.value)
+  inputText.value = ''
+}
+const cancel = () => {
+  emits('cancel', inputText.value)
+  inputText.value = ''
+  inputDialog.value = false
+}
 </script>
 
 <template>
   <v-dialog
-    v-model="dialogSwitch"
+    v-model="inputDialog"
     width="400"
   >
     <v-card>
