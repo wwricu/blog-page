@@ -35,12 +35,14 @@ onMounted(() => {
       'quote',
       'line',
       'emoji',
-      '|',
       'upload',
+      '|',
       'undo',
       'redo',
-      'export',
+      'outline',
       'edit-mode',
+      'fullscreen',
+      'export',
     ],
     upload: {
       accept: 'image/*, .mp3, .wav, .rar',
@@ -222,8 +224,8 @@ const scanImages = () => {
 </template>
 
 <style>
-.vditor {
-  height: calc(100vh - 2.8rem - 4px) !important;
+#vditor {
+  height: calc(100vh) !important;
   overflow-y: scroll;
 }
 </style>

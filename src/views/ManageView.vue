@@ -1,19 +1,9 @@
 <template>
-  <v-app-bar
-    style="position:fixed;"
-    density="compact"
-    class="bg-blue-grey-lighten-5"
-  >
-    <v-app-bar-nav-icon
-      @click.stop="drawer = !drawer"
-      color="primary"
-    />
-  </v-app-bar>
   <v-navigation-drawer
+    rail
+    expand-on-hover
     v-model="drawer"
-    style="position:fixed; bottom:0; left:0; overflow-y:scroll;"
-    bottom
-    temporary
+    style="position:fixed; bottom:0; left:0; overflow-y:scroll; z-index: 0"
     color="blue-grey-lighten-5"
   >
     <v-list
@@ -31,7 +21,24 @@
         />
       </v-list>
     </v-list>
+    <template v-slot:append>
+      <v-list-item
+        class="mr-2 mb-2"
+        prepend-icon="mdi-arrow-left-box"
+        title="hide menu"
+        @click="drawer = false"
+      />
+    </template>
   </v-navigation-drawer>
+  <v-icon
+    id="show-menu-btn"
+    class="ma-2"
+    icon="mdi-arrow-right-box"
+    color="grey-darken-2"
+    size="x-large"
+    v-show="!drawer"
+    @click="drawer = true"
+  />
   <router-view/>
   <div class="bgd"/>
 </template>
@@ -40,7 +47,7 @@
 import {ref} from "vue";
 import {useRouter} from "vue-router";
 
-const drawer = ref(false)
+const drawer = ref(true)
 const router = useRouter()
 const manageNavigations = ref([
     {
@@ -75,5 +82,12 @@ const manageNavigations = ref([
   left: 0;
   z-index: -100;
   background-image: linear-gradient(to right bottom, #ace0f9 0%, #fff1eb 100%);
+}
+
+#show-menu-btn {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 0;
 }
 </style>
