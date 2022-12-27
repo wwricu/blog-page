@@ -46,12 +46,18 @@ export default defineConfig({
                   var: 'VueRouter',
                   path: 'https://cdnjs.cloudflare.com/ajax/libs/vue-router/4.1.6/vue-router.global.prod.min.js'
               },
-              // {
-              //     name:"vuetify",
-              //     var:"Vuetify",
-              //     path:"https://cdn.jsdelivr.net/npm/vuetify@3.0.6/dist/vuetify.min.js",
-              //     css:"https://cdn.jsdelivr.net/npm/vuetify@3.0.6/dist/vuetify.min.css"
-              // },
+              {
+                  name: 'vditor',
+                  var: 'Vditor',
+                  path: 'https://cdnjs.cloudflare.com/ajax/libs/vditor/3.8.18/index.min.js',
+                  css: 'https://cdnjs.cloudflare.com/ajax/libs/vditor/3.8.18/index.min.css'
+              },
+              {
+                  name:"vuetify",
+                  var:"Vuetify",
+                  path:"https://cdn.jsdelivr.net/npm/vuetify@3.0.6/dist/vuetify.min.js",
+                  css:"https://cdn.jsdelivr.net/npm/vuetify@3.0.6/dist/vuetify.min.css"
+              },
           ]
         })
 	],
