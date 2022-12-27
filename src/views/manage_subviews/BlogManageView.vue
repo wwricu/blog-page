@@ -132,7 +132,7 @@ const buttons = [
       :blog="blog"
       @delete="deleteBlog(blog)"
     />
-    <confirm-dialog
+    <ConfirmDialog
       v-model="confirmDialog"
       :title="`Delete ${blogForDelete?.title}`"
       color="error"

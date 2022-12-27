@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {computed, nextTick, onMounted, ref} from "vue";
 import NavigateButton from "@/components/buttons/NavigateButton.vue";
-import {useRoute} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import {getContentAPI} from "@/apis/content";
 import {Base64} from "js-base64";
 import type {ContentOutput} from "@/types/schemas/resource";
@@ -15,6 +15,7 @@ import {useDisplay} from "vuetify";
 import {watch} from "vue-demi";
 
 const route = useRoute()
+const router = useRouter()
 const blog = ref()
 const content = ref()
 const height = ref()
@@ -90,7 +91,7 @@ const toTop = () => {
     <navigate-button
       title="Home"
       prepend-icon="mdi-home"
-      @click="$router.push('/')"
+      @click="router.push('/')"
     />
     <v-spacer/>
 

@@ -27,7 +27,7 @@
           :prepend-icon="item.icon"
           :title="item.title"
           :value="item.title"
-          @click="$router.push(item.link)"
+          @click="router.push(item.link)"
         />
       </v-list>
     </v-list>
@@ -36,36 +36,34 @@
   <div class="bgd"/>
 </template>
 
-<script lang="ts">
-export default {
-  name: "ManageView",
-  data: () => ({
-    drawer: false,
-    group: null,
-    manageNavigations: [
-      {
-        title: 'Home',
-        icon: 'mdi-home',
-        link: '/'
-      },
-      {
-        title: 'Manage Blogs',
-        icon: 'mdi-pencil',
-        link: '/manage/blog'
-      },
-      {
-        title: 'Manage Categories',
-        icon: 'mdi-view-dashboard',
-        link: '/manage/category'
-      },
-      {
-        title: 'Manage Tags',
-        icon: 'mdi-tag',
-        link: '/manage/tag'
-      },
-    ]
-  })
-}
+<script setup lang="ts">
+import {ref} from "vue";
+import {useRouter} from "vue-router";
+
+const drawer = ref(false)
+const router = useRouter()
+const manageNavigations = ref([
+    {
+      title: 'Home',
+      icon: 'mdi-home',
+      link: '/'
+    },
+    {
+      title: 'Manage Blogs',
+      icon: 'mdi-pencil',
+      link: '/manage/blog'
+    },
+    {
+      title: 'Manage Categories',
+      icon: 'mdi-view-dashboard',
+      link: '/manage/category'
+    },
+    {
+      title: 'Manage Tags',
+      icon: 'mdi-tag',
+      link: '/manage/tag'
+    },
+])
 </script>
 
 <style scoped>

@@ -8,26 +8,18 @@
   </v-layout>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
+import {onMounted} from 'vue'
 import {getCurrentUserAPI} from "@/apis/user";
 import type {UserOutput} from "@/types/schemas/user";
 import {useLoginStore} from "@/stores/login";
 
-export default defineComponent({
-  name: 'App',
-  data () {
-    return {
-      //
-    }
-  },
-  mounted() {
-    if (localStorage.getItem('access_token')) {
-      getCurrentUserAPI((data: UserOutput) => {
-        const userInfoStore = useLoginStore();
-        userInfoStore.login(data)
-      })
-    }
+onMounted(() => {
+  if (localStorage.getItem('access_token')) {
+    getCurrentUserAPI((data: UserOutput) => {
+      const userInfoStore = useLoginStore();
+      userInfoStore.login(data)
+    })
   }
 })
 </script>

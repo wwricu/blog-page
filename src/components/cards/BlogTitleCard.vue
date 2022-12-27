@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {PropType} from "vue";
 import type {ContentOutput} from "@/types/schemas/resource";
+import {useRouter} from "vue-router";
 
 const props = defineProps({
   blog: {
@@ -8,6 +9,11 @@ const props = defineProps({
     required: true
   }
 })
+
+const router = useRouter()
+const push = (path: string) => {
+  router.push(path)
+}
 </script>
 
 <template>
@@ -32,12 +38,12 @@ const props = defineProps({
 
       <div class="d-flex justify-space-between text-body-2 text-sm-body-1 mb-6">
         <v-hover>
-          <template v-slot:default="{ isHovering, props }">
+          <template v-slot="{ isHovering, props }">
             <p
               v-bind="props"
               :class="isHovering ? 'text-indigo-darken-4' : ''"
               style="cursor: pointer"
-              @click="$router.push(`/category/${encodeURIComponent(blog.category?.name)}`)"
+              @click="push(`/category/${encodeURIComponent(blog.category?.name)}`)"
             >
               <v-icon color="yellow">mdi-pound</v-icon>
               {{blog.category?.name}}
@@ -60,7 +66,7 @@ const props = defineProps({
         class="mx-1"
         v-for="item in blog.tags"
         :key="item.id"
-        @click="$router.push(`/tag/${encodeURIComponent(item.name)}`)"
+        @click="push(`/tag/${encodeURIComponent(item.name)}`)"
       >
         {{item.name}}
       </v-chip>

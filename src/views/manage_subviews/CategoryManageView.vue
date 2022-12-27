@@ -76,13 +76,13 @@ const confirmDelete = () => {
     @rename="renameCategory"
     @delete="deleteCategory(category)"
   />
-  <confirm-dialog
+  <ConfirmDialog
     v-model="confirmDialog"
     @confirm="confirmDelete()"
     :title="`Delete ${categoryForDelete.name}`"
     color="error"
   />
-  <input-dialog
+  <InputDialog
     ref="inputDialog"
     v-model="newCategoryName"
     label="new category name"

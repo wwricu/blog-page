@@ -52,7 +52,7 @@ const getImgUrl = () => {
     <v-row>
       <v-col xs="12" sm="8" style="opacity: 0.75">
         <v-hover>
-          <template v-slot:default="{ isHovering, props }">
+          <template v-slot="{ isHovering, props }">
             <v-card-title
               v-bind="props"
               class="text-h4 my-4"
@@ -70,7 +70,7 @@ const getImgUrl = () => {
           <v-icon color="primary">mdi-pound</v-icon>
 
           <v-hover>
-            <template v-slot:default="{ isHovering, props }">
+            <template v-slot="{ isHovering, props }">
               <span
                 v-bind="props"
                 :class="isHovering ? 'text-indigo-darken-4' : ''"

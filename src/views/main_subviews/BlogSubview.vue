@@ -2,11 +2,12 @@
 import {computed, onMounted, Ref, ref, watch} from "vue";
 import BlogBigCard from "@/components/cards/BlogBigCard.vue";
 import {getContentCountAPI, getContentPreviewAPI} from "@/apis/content";
-import {useRoute} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import {ResourcePreview, ResourceSearch} from "@/types/schemas/resource";
 
 const imgIndexBase = ref(0)
 const route = useRoute()
+const router = useRouter()
 const blogs = ref()
 const blogCount = ref(0)
 onMounted(() => {
@@ -83,7 +84,7 @@ const emits = defineEmits(['select'])
         :key="blog.id"
       >
         <v-hover
-          v-slot:default="{ isHovering, props }"
+          v-slot="{ isHovering, props }"
           close-delay="200"
           open-delay="100"
         >
@@ -99,7 +100,7 @@ const emits = defineEmits(['select'])
               :elevation="isHovering ? 24 : 4"
               :blog="blog"
               :cover-index="(index + imgIndexBase) % 5"
-              @click.prevent="$router.push(`/content/${blog.id}`)"
+              @click.prevent="router.push(`/content/${blog.id}`)"
               @select="(name: string) => { emits('select', name) }"
             />
           </v-lazy>

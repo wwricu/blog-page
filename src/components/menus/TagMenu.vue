@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {computed, PropType, ref} from "vue";
+import {computed, PropType} from "vue";
 import {useRouter} from "vue-router";
 import type {Tag} from "@/types/schemas/tag";
 

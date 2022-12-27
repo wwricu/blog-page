@@ -5,7 +5,7 @@ import ListMenu from "@/components/menus/ListMenu.vue";
 import TagMenu from "@/components/menus/TagMenu.vue";
 import CustomFooter from "@/components/cards/CustomFooter.vue";
 import {getTagAPI} from "@/apis/tag";
-import {useRoute} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import bgdImg from "@/assets/background.jpg"
 import BlogSubview from "@/views/main_subviews/BlogSubview.vue";
 import AboutCard from "@/components/cards/AboutCard.vue";
@@ -13,6 +13,7 @@ import type {Tag} from "@/types/schemas/tag";
 import {getCategoryAPI} from "@/apis/category";
 
 const route = useRoute()
+const router = useRouter()
 const filter = ref()
 onMounted(() => {
   getCategories()
@@ -58,7 +59,7 @@ const selectTag = (tagName: string) => {
     <navigate-button
       title="Home"
       prepend-icon="mdi-home"
-      @click="$router.push('/')"
+      @click="router.push('/')"
     />
     <navigate-button
       activator="menu-activator"
@@ -115,9 +116,3 @@ const selectTag = (tagName: string) => {
     <about-card @confirm="switchAbout()"/>
   </v-dialog>
 </template>
-
-<style scoped>
-.v-snack__wrapper {
-  max-width: none;
-}
-</style>
