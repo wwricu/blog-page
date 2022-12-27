@@ -20,7 +20,11 @@ const buttons = [
 
 <template>
   <div class="sub-view">
-    <vditor-card ref="subEditor" class="mx-auto"/>
+    <vditor-card
+      ref="subEditor"
+      class="mx-auto"
+      style="z-index:50"
+    />
     <right-bottom-buttons :buttons="buttons"/>
   </div>
 </template>

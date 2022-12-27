@@ -22,6 +22,9 @@ onMounted(() => {
         style: 'dracula',
       }
     },
+    fullscreen: {
+      index: 999,
+    },
     toolbar: [
       'headings',
       'bold',

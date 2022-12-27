@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {computed, nextTick, onMounted, ref} from "vue";
+import {computed, nextTick, onMounted, ref, watch} from "vue";
 import NavigateButton from "@/components/buttons/NavigateButton.vue";
 import {useRoute, useRouter} from "vue-router";
 import {getContentAPI} from "@/apis/content";
@@ -13,7 +13,6 @@ import 'vditor/dist/index.css';
 import VditorPreview from 'vditor'
 // import VditorPreview from 'vditor/dist/method.min.js'
 import {useDisplay} from "vuetify";
-import {watch} from "vue-demi";
 import {Resize, Scroll} from "vuetify/directives";
 
 
