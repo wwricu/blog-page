@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {computed, nextTick, onMounted, ref, watch} from "vue";
+import {computed, onMounted, ref} from "vue";
 import NavigateButton from "@/components/buttons/NavigateButton.vue";
 import {useRoute, useRouter} from "vue-router";
 import {getContentAPI} from "@/apis/content";
@@ -23,7 +23,7 @@ const router = useRouter()
 const blog = ref()
 const content = ref()
 const height = ref()
-const vditor = ref(document.getElementById('vditor'))
+const vditor = ref()
 onMounted(() => {
   getContentAPI(route.params.id,
       (data: ContentOutput) => {
@@ -40,6 +40,10 @@ onMounted(() => {
           },
           after: () => {
             getHeight()
+            const observer = new ResizeObserver(() => {
+              getHeight();
+            });
+            observer.observe(vditor.value);
           }
         })
   }, () => {})
@@ -63,12 +67,6 @@ const getHeight = () => {
                           html.scrollHeight,
                           html.offsetHeight)
 };
-
-watch(vditor, async () => {
-  await nextTick(() => {
-    getHeight()
-  })
-})
 
 const top = ref(0)
 const parallel = () => {
@@ -120,7 +118,7 @@ const toTop = () => {
     v-scroll="parallel"
     v-resize="getHeight"
   >
-    <div id="vditor"/>
+    <div id="vditor" ref="vditor"/>
     <v-divider class="my-16" color="grey-darken-3"/>
     <custom-footer
       :text-color="'text-grey-darken-3'"
@@ -147,6 +145,10 @@ const toTop = () => {
   background: #fafbf1 repeat-y url('../assets/blog_background.png');
   -webkit-background-size: 100% auto;
   background-size: 100% auto;
+}
+
+#vditor {
+  overflow: visible !important;
 }
 
 .vditor-container {
