@@ -3,6 +3,7 @@ import {PropType} from "vue";
 import type {ContentOutput} from "@/types/schemas/resource";
 import {useRouter} from "vue-router";
 
+
 const props = defineProps({
   blog: {
     type: Object as PropType<ContentOutput>,

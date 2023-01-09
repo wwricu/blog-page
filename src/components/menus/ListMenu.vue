@@ -3,6 +3,7 @@ import {computed} from "vue";
 import {useRouter} from "vue-router";
 import type {Tag} from '@/types/schemas/tag'
 
+
 const props = defineProps({
   modelValue: Boolean,
   activator: String,
@@ -28,7 +29,6 @@ const selectTag = (category: Tag) => {
     router.push(`/category/${encodeURIComponent(category.name)}`)
   }
 }
-
 </script>
 
 <template>

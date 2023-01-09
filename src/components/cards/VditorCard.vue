@@ -10,8 +10,8 @@ import {Base64, encode} from "js-base64";
 import {getCategoryAPI} from "@/apis/category";
 import {getTagAPI} from "@/apis/tag";
 
-const vditor = ref<Vditor | null>(null);
 
+const vditor = ref<Vditor | null>(null);
 onMounted(() => {
   vditor.value = new Vditor('vditor', {
     cache: {
@@ -85,7 +85,6 @@ onMounted(() => {
     },
   });
 });
-
 
 const tags = ref()
 const tagSelect = ref()

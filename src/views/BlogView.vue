@@ -96,8 +96,6 @@ const toTop = () => {
       @click="router.push('/')"
     />
     <v-spacer/>
-
-    <v-spacer/>
     <navigate-button
       title="About"
       prepend-icon="mdi-information-outline"

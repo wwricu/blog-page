@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {ref, onMounted, Ref} from "vue";
 import CategoryCard from "@/components/cards/CategoryCard.vue";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import RenameDialog from "@/components/dialogs/RenameDialog.vue";
 import type {Tag} from '@/types/schemas/tag'
 import {addCategoryAPI, getCategoryAPI} from "@/apis/category";
@@ -9,6 +8,7 @@ import ConfirmDialog from "@/components/dialogs/ConfirmDialog.vue";
 import {deleteTagAPI} from "@/apis/tag";
 import RightBottomButtons from "@/components/buttons/RightBottomButtons.vue";
 import InputDialog from "@/components/dialogs/InputDialog.vue";
+
 
 let categories = ref<Tag[]>([])
 onMounted(() => {
@@ -31,11 +31,11 @@ const confirmNewCategory = (newCategoryName: string) => {
   inputDialogSwitch.value = false
 }
 
-const renameDialog = ref()
+const renameDialogSwitch = ref()
 const categoryInstance: Ref<Tag> = ref({id: 0, name: ''})
 const renameCategory = (category: Tag) => {
   categoryInstance.value = category
-  renameDialog.value.switchDialog()
+  renameDialogSwitch.value.switchDialog()
 }
 
 const confirmDialog: Ref<boolean> = ref(false)
@@ -52,8 +52,6 @@ const confirmDelete = () => {
     confirmDialog.value = false
   }, () => {})
 }
-
-
 </script>
 
 <template>

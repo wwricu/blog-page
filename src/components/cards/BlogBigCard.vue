@@ -2,8 +2,9 @@
 import type {PropType} from "vue";
 import type {ContentOutput} from'@/types/schemas/resource'
 import {computed} from "vue";
-import { useDisplay } from 'vuetify'
+import {useDisplay} from 'vuetify'
 import {useRouter} from "vue-router";
+
 
 const props = defineProps({
   coverIndex: {
@@ -40,7 +41,6 @@ const getImgUrl = () => {
       import.meta.url).href;
 }
 </script>
-<!--color="rgba(236, 239, 241, 0.8)"-->
 
 <template>
   <v-card
@@ -63,12 +63,10 @@ const getImgUrl = () => {
             </v-card-title>
           </template>
         </v-hover>
-
         <p
           class="d-flex text-body-1 ml-4 mt-4"
         >
           <v-icon color="primary">mdi-pound</v-icon>
-
           <v-hover>
             <template v-slot="{ isHovering, props }">
               <span
@@ -104,7 +102,6 @@ const getImgUrl = () => {
               sm="6"
               class="text-grey-darken-2 text-sm-right my-2 my-sm-0"
             >
-<!--              <v-divider vertical class="mx-2"/>-->
               <v-icon color="primary" class="mr-1">mdi-calendar-clock</v-icon>
               <span>Updated At &ensp;{{blog.updated_time.slice(0, 10)}}</span>
             </v-col>

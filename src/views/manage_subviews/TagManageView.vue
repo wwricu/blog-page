@@ -2,11 +2,11 @@
 import {onMounted, Ref, ref} from "vue";
 
 import RightBottomButtons from "@/components/buttons/RightBottomButtons.vue";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import InputDialog from "@/components/dialogs/InputDialog.vue";
 import {addTagAPI, deleteTagAPI, getTagAPI} from "@/apis/tag";
 import ConfirmDialog from "@/components/dialogs/ConfirmDialog.vue";
 import type {Tag} from '@/types/schemas/tag'
+
 
 const chips = ref()
 const refreshChips = () => {
@@ -61,7 +61,6 @@ const confirmHandle = (newTagName: string) => {
         {{item.name}}
       </v-chip>
     </v-item-group>
-
   </v-sheet>
   <confirm-dialog
     v-model="confirmSwitch"

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-
 import {useRouter} from "vue-router";
 import type {PropType} from "vue";
 import type {ContentOutput} from "@/types/schemas/resource";
+
 
 const props = defineProps({
   blog: {
@@ -20,7 +20,6 @@ const emit = defineEmits(['delete']);
 function deleteBlog() {
   emit('delete', props.blog)
 }
-
 </script>
 
 <template>

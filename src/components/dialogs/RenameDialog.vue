@@ -1,3 +1,41 @@
+<script setup lang="ts">
+import {PropType, ref} from "vue";
+import type {Tag} from '@/types/schemas/tag'
+import {modifyCategoryAPI} from "@/apis/category";
+
+
+const renameDialog = ref(false)
+defineExpose({
+  switchDialog() {
+    renameDialog.value = !renameDialog.value
+  }
+})
+
+const props = defineProps({
+  category: {
+    type: Object as PropType<Tag>,
+    required: true
+  }
+})
+
+const newName = ref()
+function updateCategory() {
+  // alert(JSON.stringify(newName.value))
+  let data: Tag = props.category
+  data.name = newName.value
+  // rename category, id==0
+  modifyCategoryAPI(data, () => {
+    alert('success')
+    renameDialog.value = false
+    newName.value = ''
+  }, () => {
+    alert('failure')
+    newName.value = ''
+    renameDialog.value = false
+  })
+}
+</script>
+
 <template>
   <v-dialog
     v-model="renameDialog"
@@ -34,41 +72,3 @@
     </v-card>
   </v-dialog>
 </template>
-
-<script setup lang="ts">
-import {PropType, ref} from "vue";
-import type {Tag} from '@/types/schemas/tag'
-import {modifyCategoryAPI} from "@/apis/category";
-
-const renameDialog = ref(false)
-
-defineExpose({
-  switchDialog() {
-    renameDialog.value = !renameDialog.value
-  }
-})
-
-const props = defineProps({
-  category: {
-    type: Object as PropType<Tag>,
-    required: true
-  }
-})
-
-const newName = ref()
-function updateCategory() {
-  // alert(JSON.stringify(newName.value))
-  let data: Tag = props.category
-  data.name = newName.value
-  // rename category, id==0
-  modifyCategoryAPI(data, () => {
-    alert('success')
-    renameDialog.value = false
-    newName.value = ''
-  }, () => {
-    alert('failure')
-    newName.value = ''
-    renameDialog.value = false
-  })
-}
-</script>

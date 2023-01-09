@@ -2,6 +2,7 @@
 import {PropType} from "vue";
 import type {Tag} from "@/types/schemas/tag";
 
+
 const props = defineProps({
   category: {
     type: Object as PropType<Tag>,
@@ -16,10 +17,6 @@ function renameCategory() {
 
 function deleteCategory() {
   emit('delete', props.category)
-  // deleteTagAPI(props.category.id as number, () => {
-  //   alert('deleted')
-  //   instance?.proxy?.$forceUpdate();
-  // }, () => {})
 }
 </script>
 

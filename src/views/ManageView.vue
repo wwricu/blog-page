@@ -1,3 +1,57 @@
+<script setup lang="ts">
+import {onMounted, ref, watch} from "vue";
+import {useRouter} from "vue-router";
+import {useDisplay} from "vuetify";
+
+
+const { name } = useDisplay()
+const isMobile = ref(false)
+const zIndex = ref(0)
+
+const adjustMenu = async () => {
+  if (name.value === 'xs') {
+    isMobile.value = true
+    drawer.value = false
+    zIndex.value = 100
+    return
+  }
+
+  zIndex.value = 0
+  isMobile.value = false
+  drawer.value = true
+}
+watch(name, adjustMenu)
+onMounted(() => {
+  adjustMenu()
+})
+
+const drawer = ref(true)
+const rail = ref(true)
+const router = useRouter()
+const manageNavigations = ref([
+  {
+    title: 'Home',
+    icon: 'mdi-home',
+    link: '/'
+  },
+  {
+    title: 'Manage Blogs',
+    icon: 'mdi-pencil',
+    link: '/manage/blog'
+  },
+  {
+    title: 'Manage Categories',
+    icon: 'mdi-view-dashboard',
+    link: '/manage/category'
+  },
+  {
+    title: 'Manage Tags',
+    icon: 'mdi-tag',
+    link: '/manage/tag'
+  },
+])
+</script>
+
 <template>
   <v-app-bar
     density="compact"
@@ -56,61 +110,6 @@
   <router-view/>
   <div class="bgd"/>
 </template>
-
-<script setup lang="ts">
-import {onMounted, ref, watch} from "vue";
-import {useRouter} from "vue-router";
-import {useDisplay} from "vuetify";
-
-const { name } = useDisplay()
-const isMobile = ref(false)
-const zIndex = ref(0)
-
-
-const adjustMenu = async () => {
-  if (name.value === 'xs') {
-    isMobile.value = true
-    drawer.value = false
-    zIndex.value = 100
-    return
-  }
-
-  zIndex.value = 0
-  isMobile.value = false
-  drawer.value = true
-}
-watch(name, adjustMenu)
-onMounted(() => {
-  adjustMenu()
-})
-
-
-const drawer = ref(true)
-const rail = ref(true)
-const router = useRouter()
-const manageNavigations = ref([
-    {
-      title: 'Home',
-      icon: 'mdi-home',
-      link: '/'
-    },
-    {
-      title: 'Manage Blogs',
-      icon: 'mdi-pencil',
-      link: '/manage/blog'
-    },
-    {
-      title: 'Manage Categories',
-      icon: 'mdi-view-dashboard',
-      link: '/manage/category'
-    },
-    {
-      title: 'Manage Tags',
-      icon: 'mdi-tag',
-      link: '/manage/tag'
-    },
-])
-</script>
 
 <style scoped>
 .bgd {

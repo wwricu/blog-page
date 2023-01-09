@@ -6,6 +6,7 @@ import {useRoute, useRouter} from "vue-router";
 import {ResourcePreview, ResourceSearch} from "@/types/schemas/resource";
 import {Ripple} from "vuetify/directives";
 
+
 const vRipple = Ripple
 const imgIndexBase = ref(0)
 const route = useRoute()

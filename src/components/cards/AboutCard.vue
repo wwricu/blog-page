@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import avatar from '../../assets/avatar.jpg'
+import avatar from '@/assets/avatar.jpg'
 import {useDisplay} from "vuetify";
 import {computed} from "vue";
+
+
 const emit = defineEmits(['confirm']);
 function confirm() {
   emit('confirm')

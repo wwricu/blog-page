@@ -3,6 +3,7 @@ import {computed, PropType} from "vue";
 import {useRouter} from "vue-router";
 import type {Tag} from "@/types/schemas/tag";
 
+
 const props = defineProps({
   modelValue: Boolean,
   activator: String,
