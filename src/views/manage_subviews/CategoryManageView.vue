@@ -31,11 +31,11 @@ const confirmNewCategory = (newCategoryName: string) => {
   inputDialogSwitch.value = false
 }
 
-const renameDialogSwitch = ref()
+const renameDialogRef = ref()
 const categoryInstance: Ref<Tag> = ref({id: 0, name: ''})
 const renameCategory = (category: Tag) => {
   categoryInstance.value = category
-  renameDialogSwitch.value.switchDialog()
+  renameDialogRef.value.switchDialog()
 }
 
 const confirmDialog: Ref<boolean> = ref(false)
@@ -60,7 +60,7 @@ const confirmDelete = () => {
     class="mx-auto pa-4 sub-view"
   >
   <rename-dialog
-    ref="renameDialog"
+    ref="renameDialogRef"
     :category="categoryInstance"
   />
   <category-card
