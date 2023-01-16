@@ -53,7 +53,7 @@ const parseParam = () => {
 const getPreviewCount = () => {
   getContentCountAPI(searchParams.value, (data: number) => {
     blogCount.value = data
-  }, () => {})
+  })
 }
 
 const getPreviews = () => {
@@ -62,7 +62,7 @@ const getPreviews = () => {
 
   getContentPreviewAPI(searchParams.value, (data: ResourcePreview[]) => {
     blogs.value = data
-  }, () => {})
+  })
 }
 
 const pageIdx = ref(1)

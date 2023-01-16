@@ -46,7 +46,7 @@ onMounted(() => {
             observer.observe(vditor.value);
           }
         })
-  }, () => {})
+  })
 })
 
 const { name } = useDisplay()

@@ -1,10 +1,10 @@
 import myAxios from "@/apis/axios";
 import type {Tag} from "@/types/schemas/tag";
-import type {AxiosResponse} from "axios";
+import type {AxiosResponse, AxiosError} from "axios";
 
 export const addTagAPI = (name: string,
                          success: Function,
-                         failure: Function) => {
+                         failure: Function = ()=>{}) => {
     myAxios.request({
         method: 'POST',
         url: '/tag',
@@ -13,14 +13,14 @@ export const addTagAPI = (name: string,
         }
     }).then((res: AxiosResponse<Tag>) => {
         success(res.data)
-    }).catch(() => {
-        failure()
+    }).catch((err: AxiosError) => {
+        failure(err)
     })
 }
 
 export const getTagAPI = (data: Tag | null,
                           success: Function,
-                          failure: Function) => {
+                          failure: Function = ()=>{}) => {
     let url = '/tag'
     if (data !== null) {
         url += '&'
@@ -37,20 +37,20 @@ export const getTagAPI = (data: Tag | null,
         url: url,
     }).then((res: AxiosResponse<Tag[]>) => {
         success(res.data)
-    }).catch(() => {
-        failure()
+    }).catch((err: AxiosError) => {
+        failure(err)
     })
 }
 
 export const deleteTagAPI = (id: number | undefined,
                                   success: Function,
-                                  failure: Function) => {
+                                  failure: Function = ()=>{}) => {
     myAxios.request({
         method: 'DELETE',
         url: `/tag/${id}`,
     }).then((res: AxiosResponse<number>) => {
         success(res.data)
-    }).catch(() => {
-        failure()
+    }).catch((err: AxiosError) => {
+        failure(err)
     })
 }

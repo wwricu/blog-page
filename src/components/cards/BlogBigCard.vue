@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import type {PropType} from "vue";
 import type {ContentOutput} from'@/types/schemas/resource'
-import {computed} from "vue";
+import {type PropType, computed} from "vue";
 import {useDisplay} from 'vuetify'
 import {useRouter} from "vue-router";
 

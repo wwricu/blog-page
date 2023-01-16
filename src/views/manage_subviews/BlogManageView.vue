@@ -36,7 +36,7 @@ const categorySelect = ref()
 const getCategories = () => {
   getCategoryAPI(null, (data: Tag[]) => {
     categories.value = data
-  }, () => {})
+  })
 }
 
 function getBlogs() {
@@ -50,7 +50,7 @@ function getBlogs() {
   getContentPreviewAPI(searchParams,
       (data: ResourcePreview[]) => {
     blogs.value = data
-  }, () => {})
+  })
 }
 
 const confirmDialog = ref<boolean>(false)
@@ -75,7 +75,7 @@ function newDraft() {
   }, (id: number) => {
     alert('success')
     router.push({path: `/manage/editor/${id}`})
-  }, () => {})
+  })
 }
 
 const buttons = [

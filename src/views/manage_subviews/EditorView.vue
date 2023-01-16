@@ -13,7 +13,7 @@ const buttons = [
     handle: () => {
       modifyContentAPI(subEditor.value.getEditorContents(), () => {
         alert('saved')
-      }, () => {})
+      })
     }
   },
 ]

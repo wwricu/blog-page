@@ -78,10 +78,10 @@ onMounted(() => {
       getCategoryAPI(null,(tags: Tag[]) => {
         categories.value = tags
         findContent()
-      }, () => {})
+      })
       getTagAPI({}, (data: Tag[]) => {
         tags.value = data
-      }, () => {})
+      })
     },
   });
 });
@@ -128,7 +128,7 @@ function findContent() {
       }
     }
     tagSelect.value = data.tags
-  }, () => {})
+  })
 }
 
 defineExpose({

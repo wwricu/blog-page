@@ -7,16 +7,12 @@ interface ResourceBase {
     permission?: number
 }
 
-export interface ResourceSearch extends ResourceBase {
+export interface ResourceSearch {
     pageIdx?: number
     pageSize?: number
     parent_url?: string
     category_name?: string
     tag_name?: string
-}
-
-export interface FolderInput extends ResourceBase {
-
 }
 
 export interface ContentInput extends ResourceBase {

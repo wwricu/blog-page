@@ -26,14 +26,14 @@ const categories = ref()
 const getCategories = () => {
   getCategoryAPI(null, (data: Tag) => {
     categories.value = data
-  }, () => {})
+  })
 }
 
 const tags = ref()
 const getTags = () => {
   getTagAPI({}, (data: Tag[]) => {
     tags.value = data
-  }, () => {})
+  })
 }
 
 const menu = ref()

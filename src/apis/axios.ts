@@ -27,30 +27,14 @@ myAxios.interceptors.request.use(
 
 myAxios.interceptors.response.use(
     (res: AxiosResponse) => {
-        const needRefresh = res.headers['x-token-need-refresh']
-        if (needRefresh != null && needRefresh === 'true') {
-            console.log('need refresh!')
+        if (res.headers['x-token-need-refresh'] === 'true') {
             refreshTokenAPI()
         }
         return res;
     },
 
-    (error) => {
-        let message = "";
-        if (error && error.response) {
-            switch (error.response.status) {
-                case 302:
-                    message = "redirected";
-                    break;
-                case 403:
-                    message = "unauthorized"
-                    break;
-                default:
-                    message = "internal error";
-                    break;
-            }
-        }
-        return Promise.reject(message);
+    (error: AxiosError) => {
+        return Promise.reject(error.message);
     }
 );
 

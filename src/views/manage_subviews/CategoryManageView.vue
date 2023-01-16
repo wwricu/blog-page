@@ -27,7 +27,7 @@ const confirmNewCategory = (newCategoryName: string) => {
   addCategoryAPI(newCategoryName, () => {
     alert('success')
     getCategories()
-  }, () => {})
+  })
   inputDialogSwitch.value = false
 }
 
@@ -50,7 +50,7 @@ const confirmDelete = () => {
   () => {
     categories.value.splice(categories.value.indexOf(categoryForDelete.value), 1)
     confirmDialog.value = false
-  }, () => {})
+  })
 }
 </script>
 

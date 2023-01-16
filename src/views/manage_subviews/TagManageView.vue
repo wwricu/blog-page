@@ -12,7 +12,7 @@ const chips = ref()
 const refreshChips = () => {
   getTagAPI(null, (data: Tag) => {
     chips.value = data
-  }, () => {})
+  })
 }
 onMounted(()=> {
   refreshChips()
@@ -29,7 +29,7 @@ const deleteChip = () => {
     alert('deleted chip')
     confirmSwitch.value = false
     chips.value.splice(chips.value.indexOf(chipForDelete.value), 1)
-  }, () => {})
+  })
 }
 
 const inputDialogSwitch = ref()
@@ -37,7 +37,7 @@ const confirmHandle = (newTagName: string) => {
   addTagAPI(newTagName, () => {
     alert('success')
     refreshChips()
-  }, () => {})
+  })
   inputDialogSwitch.value = false
 }
 </script>
