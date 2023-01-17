@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {useRouter} from "vue-router";
 import type {PropType} from "vue";
+import {useRouter} from "vue-router";
 import type {ContentOutput} from "@/types/schemas/resource";
 
 

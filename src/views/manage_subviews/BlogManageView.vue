@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import {ref, onMounted, Ref} from "vue";
-import BlogCard from "@/components/cards/BlogCard.vue";
-import {deleteContentAPI, getContentPreviewAPI, postContentAPI} from "@/apis/content";
-import RightBottomButtons from "@/components/buttons/RightBottomButtons.vue";
 import {useRouter} from "vue-router";
-import {ContentOutput, ResourcePreview} from "@/types/schemas/resource";
-import {Tag} from "@/types/schemas/tag";
-import {getCategoryAPI} from "@/apis/category";
+
+import BlogCard from "@/components/cards/BlogCard.vue";
+import RightBottomButtons from "@/components/buttons/RightBottomButtons.vue";
 import ConfirmDialog from "@/components/dialogs/ConfirmDialog.vue";
+
+import {getCategoryAPI} from "@/apis/category";
+import {deleteContentAPI, getContentPreviewAPI, postContentAPI} from "@/apis/content";
+import type {ContentOutput, ResourcePreview} from "@/types/schemas/resource";
+import type {Tag} from "@/types/schemas/tag";
 
 
 let blogs = ref()

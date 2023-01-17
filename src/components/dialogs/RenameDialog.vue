@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {PropType, ref} from "vue";
-import type {Tag} from '@/types/schemas/tag'
 import {modifyCategoryAPI} from "@/apis/category";
+import type {Tag} from '@/types/schemas/tag'
 
 
 const renameDialog = ref(false)

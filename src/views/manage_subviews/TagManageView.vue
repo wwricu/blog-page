@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import {onMounted, Ref, ref} from "vue";
-
+import ConfirmDialog from "@/components/dialogs/ConfirmDialog.vue";
 import RightBottomButtons from "@/components/buttons/RightBottomButtons.vue";
 import InputDialog from "@/components/dialogs/InputDialog.vue";
 import {addTagAPI, deleteTagAPI, getTagAPI} from "@/apis/tag";
-import ConfirmDialog from "@/components/dialogs/ConfirmDialog.vue";
 import type {Tag} from '@/types/schemas/tag'
 
 

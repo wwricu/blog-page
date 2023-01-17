@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import {ref} from "vue";
-import {parseJwt, useLoginStore} from "@/stores/login";
+import {useRouter} from "vue-router";
 import {Md5} from 'ts-md5/dist/esm/md5';
+import {parseJwt, useLoginStore} from "@/stores/login";
 import {loginApi} from '@/apis/user'
 import type {TokenResponse} from "@/types/types";
-import {useRouter} from "vue-router";
 
 
 // const ctx = getCurrentInstance()!.appContext.config.globalProperties

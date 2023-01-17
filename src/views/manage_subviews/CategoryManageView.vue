@@ -2,12 +2,12 @@
 import {ref, onMounted, Ref} from "vue";
 import CategoryCard from "@/components/cards/CategoryCard.vue";
 import RenameDialog from "@/components/dialogs/RenameDialog.vue";
-import type {Tag} from '@/types/schemas/tag'
-import {addCategoryAPI, getCategoryAPI} from "@/apis/category";
 import ConfirmDialog from "@/components/dialogs/ConfirmDialog.vue";
-import {deleteTagAPI} from "@/apis/tag";
 import RightBottomButtons from "@/components/buttons/RightBottomButtons.vue";
 import InputDialog from "@/components/dialogs/InputDialog.vue";
+import {deleteTagAPI} from "@/apis/tag";
+import {addCategoryAPI, getCategoryAPI} from "@/apis/category";
+import type {Tag} from '@/types/schemas/tag'
 
 
 let categories = ref<Tag[]>([])

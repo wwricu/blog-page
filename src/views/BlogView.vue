@@ -1,19 +1,20 @@
 <script setup lang="ts">
 import {computed, onMounted, ref} from "vue";
-import NavigateButton from "@/components/buttons/NavigateButton.vue";
 import {useRoute, useRouter} from "vue-router";
-import {getContentAPI} from "@/apis/content";
+import {useDisplay} from "vuetify";
+import {Resize, Scroll} from "vuetify/directives";
 import {Base64} from "js-base64";
-import type {ContentOutput} from "@/types/schemas/resource";
+
+import VditorPreview from 'vditor'
+import 'vditor/dist/index.css';
+import NavigateButton from "@/components/buttons/NavigateButton.vue";
 import BlogTitleCard from "@/components/cards/BlogTitleCard.vue";
 import CustomFooter from "@/components/cards/CustomFooter.vue";
 import RightBottomButtons from "@/components/buttons/RightBottomButtons.vue";
 import AboutCard from "@/components/cards/AboutCard.vue";
-import 'vditor/dist/index.css';
-import VditorPreview from 'vditor'
-// import VditorPreview from 'vditor/dist/method.min.js'
-import {useDisplay} from "vuetify";
-import {Resize, Scroll} from "vuetify/directives";
+
+import {getContentAPI} from "@/apis/content";
+import type {ContentOutput} from "@/types/schemas/resource";
 
 
 const vResize = Resize

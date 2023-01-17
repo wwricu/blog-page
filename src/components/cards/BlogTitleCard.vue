@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {PropType} from "vue";
-import type {ContentOutput} from "@/types/schemas/resource";
 import {useRouter} from "vue-router";
+import type {ContentOutput} from "@/types/schemas/resource";
 
 
 const props = defineProps({

@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import {ref, onMounted, Ref} from 'vue';
+import {useRoute} from "vue-router";
 import Vditor from 'vditor';
 import 'vditor/dist/index.css';
-import {Tag} from "@/types/schemas/tag";
-import {useRoute} from "vue-router";
-import {getContentAPI} from "@/apis/content";
-import {ContentOutput} from "@/types/schemas/resource";
 import {Base64, encode} from "js-base64";
+import {getContentAPI} from "@/apis/content";
 import {getCategoryAPI} from "@/apis/category";
 import {getTagAPI} from "@/apis/tag";
+import type {Tag} from "@/types/schemas/tag";
+import type {ContentOutput} from "@/types/schemas/resource";
 
 
 const vditor = ref<Vditor | null>(null);
@@ -59,7 +59,7 @@ onMounted(() => {
       fieldName: 'files',
       url: `${import.meta.env.VITE_BASE_URL}/file/static/content`,
       success: (editor: HTMLPreElement, msg: string) => {
-        const images = JSON.parse(msg).data.succFiles
+        const images = JSON.parse(msg).files
         for (const image of images) {
           vditor.value!.insertValue(`![${image.name}](${import.meta.env.VITE_BASE_URL}/${image.path})`)
         }

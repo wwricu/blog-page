@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import {computed, onMounted, Ref, ref, watch} from "vue";
+import {useRoute, useRouter} from "vue-router";
+import {Ripple} from "vuetify/directives";
 import BlogBigCard from "@/components/cards/BlogBigCard.vue";
 import {getContentCountAPI, getContentPreviewAPI} from "@/apis/content";
-import {useRoute, useRouter} from "vue-router";
-import {ResourcePreview, ResourceSearch} from "@/types/schemas/resource";
-import {Ripple} from "vuetify/directives";
+import type {ResourcePreview, ResourceSearch} from "@/types/schemas/resource";
 
 
 const vRipple = Ripple

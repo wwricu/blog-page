@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import {onMounted} from 'vue'
+import {useLoginStore} from "@/stores/login";
 import {getCurrentUserAPI} from "@/apis/user";
 import type {UserOutput} from "@/types/schemas/user";
-import {useLoginStore} from "@/stores/login";
 
 
 onMounted(() => {

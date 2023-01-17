@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import {ref} from "vue";
 import VditorCard from "@/components/cards/VditorCard.vue";
 import RightBottomButtons from "@/components/buttons/RightBottomButtons.vue"
 import {modifyContentAPI} from '@/apis/content'
-import {ref} from "vue";
 
 
 const subEditor = ref()
