@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import {ref} from "vue";
 import {useRouter} from "vue-router";
-import {Md5} from 'ts-md5/dist/esm/md5';
 import {parseJwt, useLoginStore} from "@/stores/login";
 import {loginApi} from '@/apis/user'
+import CryptoJs from 'crypto-js'
 import type {TokenResponse} from "@/types/types";
 
 
@@ -14,7 +14,7 @@ const router = useRouter()
 function login() {
   loginApi({
     username: loginForm.value[0].value,
-    password: Md5.hashStr(loginForm.value[1].value)
+    password: CryptoJs.SHA256(loginForm.value[1].value).toString()
   }, (data: TokenResponse) => {
     // alert(JSON.stringify(parseJwt(res.data.access_token)))
     router.push('/manage/blog')
@@ -32,10 +32,10 @@ const loginForm = ref([
     type: 'text',
     icon: '',
     rules: [
-      (v:String) => {
+      (v: string) => {
         return !!v || 'This field is required'
       },
-      (v:String) => {
+      (v: string) => {
         return !!v && v.length <= 12
             || 'Username must be less than 12 chars'
       },
@@ -48,10 +48,10 @@ const loginForm = ref([
     type: 'password',
     icon: 'mdi-eye',
     rules: [
-      (v:String) => {
+      (v: string) => {
         return !!v || 'This field is required'
       },
-      (v:String) => {
+      (v: string) => {
         return !!v && v.length <= 25
             || 'Username must be less than 25 chars'
       },
