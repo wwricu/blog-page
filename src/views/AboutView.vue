@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import {useRouter} from "vue-router";
 
-import WalineCard from "@/components/cards/WalineCard.vue";
 import avatar from '@/assets/avatar.jpg'
-import NavigateButton from "@/components/buttons/NavigateButton.vue";
 import bgdImg from "@/assets/blog_background.png"
+import CustomFooter from "@/components/cards/CustomFooter.vue";
+import NavigateButton from "@/components/buttons/NavigateButton.vue";
+import WalineCard from "@/components/cards/WalineCard.vue";
+
 
 const router = useRouter()
 </script>
@@ -25,7 +27,7 @@ const router = useRouter()
     <v-card
       class="mx-auto mt-2"
       color="rgba(250, 250, 250, 0.7)"
-      width="800"
+      max-width="800"
       elevation="16"
     >
       <v-row no-gutters>
@@ -69,7 +71,11 @@ const router = useRouter()
         </v-col>
       </v-row>
       <v-divider class="mb-4"/>
-      <waline-card/>
+      <waline-card class="mx-2"/>
     </v-card>
+    <custom-footer
+      style="position:absolute; bottom:0; left:50%; transform:translateX(-50%);"
+      :text-color="'text-grey-darken-3'"
+    />
   </v-parallax>
 </template>

@@ -27,6 +27,11 @@ const manageNavigations = ref([
     icon: 'mdi-tag',
     link: '/manage/tag'
   },
+  {
+    title: 'Manage Comments',
+    icon: 'mdi-comment',
+    link: '/waline/ui'
+  },
 ])
 </script>
 
