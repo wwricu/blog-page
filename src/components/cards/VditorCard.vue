@@ -44,7 +44,6 @@ onMounted(() => {
       'redo',
       'outline',
       'edit-mode',
-      'fullscreen',
       'export',
     ],
     upload: {
@@ -163,7 +162,7 @@ const scanImages = () => {
 </script>
 
 <template>
-  <v-card max-width="800px">
+  <v-card max-width="1000">
   <v-container class="mt-n2 mb-n6">
     <v-row>
       <v-col cols="8">
@@ -227,7 +226,7 @@ const scanImages = () => {
 
 <style>
 #vditor {
-  height: calc(100vh) !important;
+  height: calc(100vh - 3rem) !important;
   overflow-y: scroll;
 }
 </style>

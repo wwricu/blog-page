@@ -24,7 +24,6 @@ const buttons = [
     <vditor-card
       ref="subEditor"
       class="mx-auto"
-      style="z-index:50"
     />
     <right-bottom-buttons :buttons="buttons"/>
   </div>

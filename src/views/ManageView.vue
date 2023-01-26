@@ -1,32 +1,10 @@
 <script setup lang="ts">
-import {onMounted, ref, watch} from "vue";
+import {ref} from "vue";
 import {useRouter} from "vue-router";
-import {useDisplay} from "vuetify";
+import NavigateButton from "@/components/buttons/NavigateButton.vue";
 
 
-const { name } = useDisplay()
-const isMobile = ref(false)
-const zIndex = ref(0)
-
-const adjustMenu = async () => {
-  if (name.value === 'xs') {
-    isMobile.value = true
-    drawer.value = false
-    zIndex.value = 100
-    return
-  }
-
-  zIndex.value = 0
-  isMobile.value = false
-  drawer.value = true
-}
-watch(name, adjustMenu)
-onMounted(() => {
-  adjustMenu()
-})
-
-const drawer = ref(true)
-const rail = ref(true)
+const drawer = ref(false)
 const router = useRouter()
 const manageNavigations = ref([
   {
@@ -56,46 +34,35 @@ const manageNavigations = ref([
   <v-app-bar
     density="compact"
     color="blue-grey-lighten-5"
-    v-if="isMobile"
-    style="position: fixed; z-index: 15"
+    style="position: fixed"
   >
     <v-app-bar-nav-icon
       color="primary"
       @click="drawer = !drawer"
     />
+    <navigate-button
+      title="Home"
+      prepend-icon="mdi-home"
+      @click="router.push('/')"
+    />
+    <v-spacer/>
+    <navigate-button
+      title="About"
+      prepend-icon="mdi-information-outline"
+      @click="router.push('/about')"
+    />
   </v-app-bar>
   <v-navigation-drawer
-    permanent
+    temporary
     v-model="drawer"
-    :rail="!isMobile && rail"
     color="blue-grey-lighten-5"
-    style="position:fixed;bottom:0;left:0;overflow-y:scroll;z-index:10"
+    style="position:fixed;bottom:0;left:0;overflow-y:scroll;"
   >
     <v-list
       nav
       dense
       rounded
     >
-      <v-list-item
-        nav
-        v-if="!isMobile"
-        @click.stop="rail = !rail"
-        title="Collapse"
-      >
-        <template v-slot:prepend>
-          <v-icon
-            v-show="rail"
-            icon="mdi-menu"
-          />
-        </template>
-        <template v-slot:append>
-          <v-icon
-            v-show="!rail"
-            icon="mdi-arrow-left"
-          />
-        </template>
-      </v-list-item>
-      <v-divider v-if="!isMobile"/>
       <v-list-item
         nav
         v-for="item in manageNavigations"
