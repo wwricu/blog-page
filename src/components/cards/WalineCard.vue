@@ -14,9 +14,10 @@ const path = computed(() => useRoute().path);
     :serverURL="serverURL"
     :path="path"
     login="disable"
-    word-limit="140"
+    :page-size="5"
     :image-uploader="false"
     :copyright="false"
     :search="false"
+    word-limit="140"
   />
 </template>

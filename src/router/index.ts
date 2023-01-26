@@ -13,7 +13,7 @@ const router = createRouter({
     {
       path: '/about',
       name: 'about',
-      component: () => import('@/components/cards/WalineCard.vue'),
+      component: () => import('@/views/AboutView.vue'),
     },
     {
       path: '/login',

@@ -7,7 +7,6 @@ import ListMenu from "@/components/menus/ListMenu.vue";
 import TagMenu from "@/components/menus/TagMenu.vue";
 import CustomFooter from "@/components/cards/CustomFooter.vue";
 import BlogSubview from "@/views/main_subviews/BlogSubview.vue";
-import AboutCard from "@/components/cards/AboutCard.vue";
 
 import {getCategoryAPI} from "@/apis/category";
 import {getTagAPI} from "@/apis/tag";
@@ -40,11 +39,6 @@ const getTags = () => {
 
 const menu = ref()
 const overlay = ref()
-const aboutDialog = ref(false)
-const switchAbout = () => {
-  aboutDialog.value = !aboutDialog.value
-}
-
 const snackMsg = ref('')
 const snackbar = ref(false)
 const selectTag = (tagName: string) => {
@@ -96,8 +90,7 @@ const selectTag = (tagName: string) => {
     <navigate-button
       title="About"
       prepend-icon="mdi-information-outline"
-      :menu="aboutDialog"
-      @click="switchAbout()"
+      @click="router.push('/about')"
     />
     </v-sheet>
   </v-app-bar>
@@ -115,7 +108,4 @@ const selectTag = (tagName: string) => {
   >
     # {{ snackMsg }} selected
   </v-snackbar>
-  <v-dialog v-model="aboutDialog">
-    <about-card @confirm="switchAbout()"/>
-  </v-dialog>
 </template>
