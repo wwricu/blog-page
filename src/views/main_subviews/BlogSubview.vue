@@ -110,7 +110,6 @@ const emits = defineEmits(['select'])
         </v-hover>
       </v-col>
     </v-row>
-
   </v-sheet>
   <v-pagination
     color="white"

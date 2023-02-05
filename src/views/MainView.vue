@@ -95,10 +95,13 @@ const selectTag = (tagName: string) => {
     </v-sheet>
   </v-app-bar>
   <v-parallax :src="bgdImg">
-    <blog-subview
-      @select="selectTag"
+    <div style="margin-bottom: 8rem;">
+      <blog-subview @select="selectTag"/>
+    </div>
+    <custom-footer
+      class="mt-8"
+      style="position:absolute; bottom:0; left:50%; transform:translateX(-50%);"
     />
-    <custom-footer class="mt-8"/>
   </v-parallax>
   <v-snackbar
     color="indigo"
