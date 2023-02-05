@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import {type PropType, computed} from "vue";
-import {useDisplay} from 'vuetify'
+import {type PropType} from "vue";
 import {useRouter} from "vue-router";
 import type {ContentOutput} from'@/types/schemas/resource'
 
@@ -15,15 +14,6 @@ const props = defineProps({
     type: Object as PropType<ContentOutput>,
     required: true
   }
-})
-
-const { name } = useDisplay()
-const cardWidth = computed(() => {
-  switch (name.value) {
-    case 'xs':
-    case 'sm': return 'w-auto'
-  }
-  return 800
 })
 
 const emits = defineEmits(['select'])
@@ -45,7 +35,6 @@ const getImgUrl = () => {
   <v-card
     min-height="200"
     color="rgba(250, 251, 241, 0.8)"
-    :width="cardWidth"
     rounded="lg"
   >
     <v-row>

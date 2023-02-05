@@ -2,6 +2,7 @@
 import {computed, onMounted, Ref, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {Ripple} from "vuetify/directives";
+import {useDisplay} from 'vuetify'
 import BlogBigCard from "@/components/cards/BlogBigCard.vue";
 import {getContentCountAPI, getContentPreviewAPI} from "@/apis/content";
 import type {ResourcePreview, ResourceSearch} from "@/types/schemas/resource";
@@ -50,16 +51,16 @@ const parseParam = () => {
   }
 }
 
+const emits = defineEmits(['select'])
 const getPreviewCount = () => {
   getContentCountAPI(searchParams.value, (data: number) => {
     blogCount.value = data
   })
 }
-
 const getPreviews = () => {
   searchParams.value.pageIdx = pageIdx.value - 1
   searchParams.value.pageSize = pageSize.value
-
+  window.scrollTo(0,0)
   getContentPreviewAPI(searchParams.value, (data: ResourcePreview[]) => {
     blogs.value = data
   })
@@ -71,56 +72,69 @@ const pageLength = computed(() => {
   return Math.ceil(blogCount.value / pageSize.value)
 })
 
-const emits = defineEmits(['select'])
+const { name } = useDisplay()
+const cardWidth = computed(() => {
+  switch (name.value) {
+    case 'xs':
+    case 'sm': return 'w-auto'
+  }
+  return 800
+})
 </script>
 
 <template>
   <v-sheet
-    class="sub-view"
-    min-height="1250px"
+    :width="cardWidth"
+    class="sub-view mx-auto"
   >
-    <v-row no-gutters class="mt-2">
-      <v-col
-        class="pa-2 px-sm-4 px-md-0"
-        cols="12"
-        v-for="(blog, index) in blogs"
-        :key="blog.id"
-      >
-        <v-hover
-          v-slot="{ isHovering, props }"
-          close-delay="200"
-          open-delay="100"
+    <v-sheet
+      class="sub-view"
+      min-height="1250px"
+    >
+      <v-row no-gutters class="mt-2">
+        <v-col
+          class="pa-2 px-sm-4 px-md-0"
+          cols="12"
+          v-for="(blog, index) in blogs"
+          :key="blog.id"
         >
-          <v-lazy
-            min-height="200"
-            :options="{threshold: .25}"
-            transition="scale-transition"
+          <v-hover
+            v-slot="{ isHovering, props }"
+            close-delay="200"
+            open-delay="100"
           >
-            <blog-big-card
-              v-ripple
-              class="mx-auto blog-card"
-              v-bind="props"
-              :elevation="isHovering ? 24 : 4"
-              :blog="blog"
-              :cover-index="(index + imgIndexBase) % 5"
-              @click.prevent="router.push(`/content/${blog.id}`)"
-              @select="(name: string) => { emits('select', name) }"
-            />
-          </v-lazy>
-        </v-hover>
-      </v-col>
-    </v-row>
+            <v-lazy
+              min-height="200"
+              :options="{threshold: .25}"
+              transition="scale-transition"
+            >
+              <blog-big-card
+                v-ripple
+                class="mx-auto blog-card"
+                v-bind="props"
+                :elevation="isHovering ? 24 : 4"
+                :blog="blog"
+                :cover-index="(index + imgIndexBase) % 5"
+                @click.prevent="router.push(`/content/${blog.id}`)"
+                @select="(name: string) => { emits('select', name) }"
+              />
+            </v-lazy>
+          </v-hover>
+        </v-col>
+      </v-row>
+    </v-sheet >
+    <v-pagination
+      class="rounded-pill"
+      style="background-color: rgba(128, 209, 200, 0.6);"
+      color="white"
+      active-color="black"
+      v-model="pageIdx"
+      :length="pageLength"
+      :total-visible="10"
+      rounded="circle"
+      @click="getPreviews()"
+    />
   </v-sheet>
-  <v-pagination
-    color="white"
-    active-color="blue"
-    v-model="pageIdx"
-    :length="pageLength"
-    :total-visible="5"
-    rounded="circle"
-    class="ma-2"
-    @click="getPreviews()"
-  />
 </template>
 
 <style scoped>
@@ -130,4 +144,5 @@ const emits = defineEmits(['select'])
 .blog-card {
   cursor: default;
 }
+/* style="background-color: rgba(128, 209, 200, 0.7);" Tiffany blue */
 </style>

@@ -5,7 +5,7 @@ import { useRoute } from 'vue-router';
 import '@waline/client/dist/waline.css';
 
 
-const serverURL = 'https://thisiswwr.com/waline';
+const serverURL = 'https://wwr.icu/waline';
 const path = computed(() => useRoute().path);
 </script>
 
