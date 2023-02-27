@@ -26,7 +26,7 @@ const router = useRouter()
   <v-parallax :src="bgdImg" style="background: #fafbf1;">
     <v-card
       class="mx-auto mt-2"
-      style="margin-bottom: 8rem;"
+      style="margin-bottom: 10rem;"
       color="rgba(250, 250, 250, 0.7)"
       max-width="800"
       elevation="16"

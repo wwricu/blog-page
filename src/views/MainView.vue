@@ -96,7 +96,7 @@ const selectTag = (tagName: string) => {
   </v-app-bar>
   <v-parallax :src="bgdImg">
     <blog-subview
-      style="margin-bottom: 8rem;"
+      style="margin-bottom: 10rem;"
       @select="selectTag"
     />
     <custom-footer
