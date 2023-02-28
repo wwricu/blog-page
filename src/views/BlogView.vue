@@ -108,11 +108,7 @@ const toTop = () => {
     v-resize="getHeight"
   >
     <div id="vditor" ref="vditor"/>
-    <v-divider
-      class="my-16"
-      color="grey-darken-3"
-      style="margin-bottom: 10rem;"
-    />
+    <v-spacer class="my-12 py-12"/>
     <custom-footer
       style="position:absolute; bottom:0; left:50%; transform:translateX(-50%);"
       :text-color="'text-grey-darken-3'"

@@ -12,6 +12,9 @@ import type {ContentOutput} from "@/types/schemas/resource";
 
 
 const vditor = ref<Vditor | null>(null);
+const host = import.meta.env.VITE_BASE_URL === '/api'?
+    `${document.location.protocol}//${window.location.host}`: ''
+
 onMounted(() => {
   vditor.value = new Vditor('vditor', {
     cache: {
@@ -56,11 +59,13 @@ onMounted(() => {
       },
       multiple: true,
       fieldName: 'files',
-      url: `${import.meta.env.VITE_BASE_URL}/file/static/content`,
+      url: `${import.meta.env.VITE_BASE_URL}/file/static/upload`,
       success: (editor: HTMLPreElement, msg: string) => {
         const images = JSON.parse(msg).files
         for (const image of images) {
-          vditor.value!.insertValue(`![${image.name}](${import.meta.env.VITE_BASE_URL}/${image.path})`)
+          vditor.value!.insertValue(
+              `![${image.name}](${host}${import.meta.env.VITE_BASE_URL}/${image.path})`
+          )
         }
       },
       error(msg: string) {
@@ -70,6 +75,32 @@ onMounted(() => {
         return name.replace(/[^(a-zA-Z0-9\u4e00-\u9fa5.)]/g, '')
                    .replace(/[?\\/:|<>*[\]()$%{}@~]/g, '')
                    .replace('/\\s/g', '')
+      },
+      linkToImgUrl: `${import.meta.env.VITE_BASE_URL}/file/static/url`,
+      linkToImgFormat: (responseText: string) => {
+        const image = JSON.parse(responseText)
+        // Get the image url in mark down image syntax
+        const pattern = new RegExp(
+            `(?<=!\\[.*]\\()${image.url}(?=\\))`, 'g'
+        )
+
+        const replace_url = async () => {
+          vditor.value!.setValue(
+              vditor.value!.getValue().replace(
+                  pattern,
+                  `${host}${import.meta.env.VITE_BASE_URL}/${image.path}`
+              ),
+          )
+        }
+        replace_url()
+        return JSON.stringify({
+          msg: 'success',
+          code: 200,
+          data : {
+            originalURL: image.url,
+            url: image.path
+          }
+        })
       },
     },
     after: () => {
@@ -154,7 +185,7 @@ defineExpose({
 const scanImages = () => {
   const md = vditor.value!.getValue()
   // match image and domains, get url
-  const pattern = new RegExp(`(?<=!\\[.*]\\(${import.meta.env.VITE_BASE_URL}/static/content/\\d*/).*?(?=\\))`, 'g')
+  const pattern = new RegExp(`(?<=!\\[.*]\\(.*${import.meta.env.VITE_BASE_URL}/static/content/\\d*/).*?(?=\\))`, 'g')
   const images = md.match(pattern) ?? []
   console.log(images)
   return images
