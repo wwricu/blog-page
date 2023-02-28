@@ -84,7 +84,10 @@ defineExpose({
 const scanImages = () => {
   const md = vditor.value!.getValue()
   // match image and domains, get url
-  const pattern = new RegExp(`(?<=!\\[.*]\\(.*${import.meta.env.VITE_BASE_URL}/static/content/\\d*/).*?(?=\\))`, 'g')
+  const pattern = new RegExp(
+      `(?<=!\\[.*]\\(.*${import.meta.env.VITE_BASE_URL}/static/content/\\d*/).*?(?=\\))`,
+      'g'
+  )
   const images = md.match(pattern) ?? []
   console.log(images)
   return images
@@ -146,16 +149,24 @@ vditor.value = new Vditor('vditor', {
       alert(`failed to upload ${msg}`)
     },
     filename: (name: string) => {
-      return name.replace(/[^(a-zA-Z0-9\u4e00-\u9fa5.)]/g, '')
-          .replace(/[?\\/:|<>*[\]()$%{}@~]/g, '')
-          .replace('/\\s/g', '')
+      return name.replace(
+          /[^(a-zA-Z0-9\u4e00-\u9fa5.)]/g,
+          ''
+      ).replace(
+          /[?\\/:|<>*[\]()$%{}@~]/g,
+          ''
+      ).replace(
+          '/\\s/g',
+          ''
+      )
     },
     linkToImgUrl: `${import.meta.env.VITE_BASE_URL}/file/static/url`,
     linkToImgFormat: (responseText: string) => {
       const image = JSON.parse(responseText)
       // Get the image url in mark down image syntax
       const pattern = new RegExp(
-          `(?<=!\\[.*]\\()${image.url}(?=\\))`, 'g'
+          `(?<=!\\[.*]\\()${image.url}(?=\\))`,
+          'g'
       )
 
       const replace_url = async () => {

@@ -2,11 +2,12 @@
 import {useLoginStore} from "@/stores/login";
 import {getCurrentUserAPI} from "@/apis/user";
 import type {UserOutput} from "@/types/schemas/user";
+import {getContentCountAPI, getContentPreviewAPI} from "@/apis/content";
 
 
 if (localStorage.getItem('access_token')) {
   getCurrentUserAPI((data: UserOutput) => {
-    const userInfoStore = useLoginStore();
+    const userInfoStore = useLoginStore()
     userInfoStore.login(data)
   })
 }

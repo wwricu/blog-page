@@ -3,7 +3,7 @@ import {ref} from "vue";
 import type {UserOutput} from "@/types/schemas/user";
 import {Base64} from "js-base64";
 
-export const useLoginStore = defineStore('counter', () => {
+export const useLoginStore = defineStore('login', () => {
     const userInfo = ref()
     const isLogin = ref(false)
     const login = (loginUser: UserOutput) => {
