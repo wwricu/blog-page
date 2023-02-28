@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {computed, onMounted, Ref, ref, watch} from "vue";
+import {computed, Ref, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {Ripple} from "vuetify/directives";
 import {useDisplay} from 'vuetify'
@@ -9,15 +9,11 @@ import type {ResourcePreview, ResourceSearch} from "@/types/schemas/resource";
 
 
 const vRipple = Ripple
-const imgIndexBase = ref(0)
+const imgIndexBase = ref(Math.floor(Math.random() * 5))
 const route = useRoute()
 const router = useRouter()
 const blogs = ref()
 const blogCount = ref(0)
-onMounted(() => {
-  imgIndexBase.value = Math.floor(Math.random() * 5)
-  init()
-})
 
 watch(route, async () => {
   init()
@@ -80,6 +76,8 @@ const cardWidth = computed(() => {
   }
   return 800
 })
+
+init()
 </script>
 
 <template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {onMounted, Ref, ref} from "vue";
+import {Ref, ref} from "vue";
 import ConfirmDialog from "@/components/dialogs/ConfirmDialog.vue";
 import RightBottomButtons from "@/components/buttons/RightBottomButtons.vue";
 import InputDialog from "@/components/dialogs/InputDialog.vue";
@@ -13,9 +13,6 @@ const refreshChips = () => {
     chips.value = data
   })
 }
-onMounted(()=> {
-  refreshChips()
-})
 
 const confirmSwitch = ref(false)
 const chipForDelete: Ref<Tag> = ref({})
@@ -39,6 +36,8 @@ const confirmHandle = (newTagName: string) => {
   })
   inputDialogSwitch.value = false
 }
+
+refreshChips()
 </script>
 
 <template>

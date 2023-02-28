@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {computed, onMounted, ref} from "vue";
+import {computed, ref} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {useDisplay} from "vuetify";
 import {Resize, Scroll} from "vuetify/directives";
@@ -24,30 +24,6 @@ const blog = ref()
 const content = ref()
 const height = ref()
 const vditor = ref()
-onMounted(() => {
-  getContentAPI(route.params.id,
-      (data: ContentOutput) => {
-    blog.value = data
-    content.value = Base64.decode(blog.value.content as string) // md
-    VditorPreview.preview(
-        document.getElementById('vditor')! as HTMLDivElement,
-        content.value,
-        {
-          mode: 'light',
-          anchor: 1,
-          hljs: {
-            style: 'dracula',
-          },
-          after: () => {
-            getHeight()
-            const observer = new ResizeObserver(() => {
-              getHeight();
-            });
-            observer.observe(vditor.value);
-          }
-        })
-  })
-})
 
 const { name } = useDisplay()
 const cardWidth = computed(() => {
@@ -78,6 +54,30 @@ const parallel = () => {
 const toTop = () => {
   window.scrollTo(0,0)
 }
+
+getContentAPI(route.params.id,
+  (data: ContentOutput) => {
+    blog.value = data
+    content.value = Base64.decode(blog.value.content as string) // md
+    VditorPreview.preview(
+        document.getElementById('vditor')! as HTMLDivElement,
+        content.value,
+        {
+          mode: 'light',
+          anchor: 1,
+          hljs: {
+            style: 'dracula',
+          },
+          after: () => {
+            getHeight()
+            const observer = new ResizeObserver(() => {
+              getHeight();
+            });
+            observer.observe(vditor.value);
+          }
+        })
+  }
+)
 </script>
 
 <template>

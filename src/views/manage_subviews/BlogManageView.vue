@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref, onMounted, Ref} from "vue";
+import {ref, Ref} from "vue";
 import {useRouter} from "vue-router";
 
 import BlogCard from "@/components/cards/BlogCard.vue";
@@ -13,11 +13,6 @@ import type {Tag} from "@/types/schemas/tag";
 
 
 let blogs = ref()
-onMounted(() => {
-  getCategories()
-  getBlogs()
-})
-
 const status = ref([
   {
     title: 'draft',
@@ -89,6 +84,9 @@ const buttons = [
     }
   },
 ]
+
+getCategories()
+getBlogs()
 </script>
 
 <template>

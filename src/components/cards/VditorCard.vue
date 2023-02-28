@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref, onMounted, Ref} from 'vue';
+import {ref, Ref} from 'vue';
 import {useRoute} from "vue-router";
 import Vditor from 'vditor';
 import 'vditor/dist/index.css';
@@ -14,107 +14,6 @@ import type {ContentOutput} from "@/types/schemas/resource";
 const vditor = ref<Vditor | null>(null);
 const host = import.meta.env.VITE_BASE_URL === '/api'?
     `${document.location.protocol}//${window.location.host}`: ''
-
-onMounted(() => {
-  vditor.value = new Vditor('vditor', {
-    cache: {
-      enable: false,
-    },
-    preview: {
-      hljs: {
-        style: 'dracula',
-      }
-    },
-    fullscreen: {
-      index: 999,
-    },
-    toolbar: [
-      'headings',
-      'bold',
-      'italic',
-      'strike',
-      'inline-code',
-      '|',
-      'table',
-      'check',
-      'link',
-      'quote',
-      'line',
-      'emoji',
-      'upload',
-      '|',
-      'undo',
-      'redo',
-      'outline',
-      'edit-mode',
-      'export',
-    ],
-    upload: {
-      accept: 'image/*, .mp3, .wav, .rar',
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-        'refresh-token': `${localStorage.getItem("refresh_token")}`,
-        'connection': 'keep-alive',
-        'X-content-id': `${route.params.id}`
-      },
-      multiple: true,
-      fieldName: 'files',
-      url: `${import.meta.env.VITE_BASE_URL}/file/static/upload`,
-      success: (editor: HTMLPreElement, msg: string) => {
-        const images = JSON.parse(msg).files
-        for (const image of images) {
-          vditor.value!.insertValue(
-              `![${image.name}](${host}${import.meta.env.VITE_BASE_URL}/${image.path})`
-          )
-        }
-      },
-      error(msg: string) {
-        alert(`failed to upload ${msg}`)
-      },
-      filename: (name: string) => {
-        return name.replace(/[^(a-zA-Z0-9\u4e00-\u9fa5.)]/g, '')
-                   .replace(/[?\\/:|<>*[\]()$%{}@~]/g, '')
-                   .replace('/\\s/g', '')
-      },
-      linkToImgUrl: `${import.meta.env.VITE_BASE_URL}/file/static/url`,
-      linkToImgFormat: (responseText: string) => {
-        const image = JSON.parse(responseText)
-        // Get the image url in mark down image syntax
-        const pattern = new RegExp(
-            `(?<=!\\[.*]\\()${image.url}(?=\\))`, 'g'
-        )
-
-        const replace_url = async () => {
-          vditor.value!.setValue(
-              vditor.value!.getValue().replace(
-                  pattern,
-                  `${host}${import.meta.env.VITE_BASE_URL}/${image.path}`
-              ),
-          )
-        }
-        replace_url()
-        return JSON.stringify({
-          msg: 'success',
-          code: 200,
-          data : {
-            originalURL: image.url,
-            url: image.path
-          }
-        })
-      },
-    },
-    after: () => {
-      // vditor.value is an instance of Vditor now and thus can be safely used here
-      getCategoryAPI(null,(tags: Tag[]) => {
-        categories.value = tags
-        findContent()
-      })
-      getTagAPI({}, (data: Tag[]) => {
-        tags.value = data
-      })
-    },
-  });
-});
 
 const tags = ref()
 const tagSelect = ref()
@@ -190,6 +89,105 @@ const scanImages = () => {
   console.log(images)
   return images
 }
+
+vditor.value = new Vditor('vditor', {
+  cache: {
+    enable: false,
+  },
+  preview: {
+    hljs: {
+      style: 'dracula',
+    }
+  },
+  fullscreen: {
+    index: 999,
+  },
+  toolbar: [
+    'headings',
+    'bold',
+    'italic',
+    'strike',
+    'inline-code',
+    '|',
+    'table',
+    'check',
+    'link',
+    'quote',
+    'line',
+    'emoji',
+    'upload',
+    '|',
+    'undo',
+    'redo',
+    'outline',
+    'edit-mode',
+    'export',
+  ],
+  upload: {
+    accept: 'image/*, .mp3, .wav, .rar',
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+      'refresh-token': `${localStorage.getItem("refresh_token")}`,
+      'connection': 'keep-alive',
+      'X-content-id': `${route.params.id}`
+    },
+    multiple: true,
+    fieldName: 'files',
+    url: `${import.meta.env.VITE_BASE_URL}/file/static/upload`,
+    success: (editor: HTMLPreElement, msg: string) => {
+      const images = JSON.parse(msg).files
+      for (const image of images) {
+        vditor.value!.insertValue(
+            `![${image.name}](${host}${import.meta.env.VITE_BASE_URL}/${image.path})`
+        )
+      }
+    },
+    error(msg: string) {
+      alert(`failed to upload ${msg}`)
+    },
+    filename: (name: string) => {
+      return name.replace(/[^(a-zA-Z0-9\u4e00-\u9fa5.)]/g, '')
+          .replace(/[?\\/:|<>*[\]()$%{}@~]/g, '')
+          .replace('/\\s/g', '')
+    },
+    linkToImgUrl: `${import.meta.env.VITE_BASE_URL}/file/static/url`,
+    linkToImgFormat: (responseText: string) => {
+      const image = JSON.parse(responseText)
+      // Get the image url in mark down image syntax
+      const pattern = new RegExp(
+          `(?<=!\\[.*]\\()${image.url}(?=\\))`, 'g'
+      )
+
+      const replace_url = async () => {
+        vditor.value!.setValue(
+            vditor.value!.getValue().replace(
+                pattern,
+                `${host}${import.meta.env.VITE_BASE_URL}/${image.path}`
+            ),
+        )
+      }
+      replace_url()
+      return JSON.stringify({
+        msg: 'success',
+        code: 200,
+        data : {
+          originalURL: image.url,
+          url: image.path
+        }
+      })
+    },
+  },
+  after: () => {
+    // vditor.value is an instance of Vditor now and thus can be safely used here
+    getCategoryAPI(null,(tags: Tag[]) => {
+      categories.value = tags
+      findContent()
+    })
+    getTagAPI({}, (data: Tag[]) => {
+      tags.value = data
+    })
+  },
+})
 </script>
 
 <template>

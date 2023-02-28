@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {onMounted, ref} from "vue";
-import {useRoute, useRouter} from "vue-router";
+import {ref} from "vue";
+import {useRouter} from "vue-router";
 
 import NavigateButton from "@/components/buttons/NavigateButton.vue";
 import ListMenu from "@/components/menus/ListMenu.vue";
@@ -14,15 +14,7 @@ import type {Tag} from "@/types/schemas/tag";
 import bgdImg from "@/assets/background.jpg"
 
 
-const route = useRoute()
 const router = useRouter()
-const filter = ref()
-onMounted(() => {
-  getCategories()
-  getTags()
-  filter.value = route.params.filter
-})
-
 const categories = ref()
 const getCategories = () => {
   getCategoryAPI(null, (data: Tag) => {
@@ -45,6 +37,9 @@ const selectTag = (tagName: string) => {
   snackMsg.value = tagName
   snackbar.value = true
 }
+
+getCategories()
+getTags()
 </script>
 
 <template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref, onMounted, Ref} from "vue";
+import {ref, Ref} from "vue";
 import CategoryCard from "@/components/cards/CategoryCard.vue";
 import RenameDialog from "@/components/dialogs/RenameDialog.vue";
 import ConfirmDialog from "@/components/dialogs/ConfirmDialog.vue";
@@ -11,9 +11,6 @@ import type {Tag} from '@/types/schemas/tag'
 
 
 let categories = ref<Tag[]>([])
-onMounted(() => {
-  getCategories()
-})
 function getCategories() {
   getCategoryAPI(null,
       (data: Tag[]) => {
@@ -52,6 +49,8 @@ const confirmDelete = () => {
     confirmDialog.value = false
   })
 }
+
+getCategories()
 </script>
 
 <template>
