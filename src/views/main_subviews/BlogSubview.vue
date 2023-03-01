@@ -15,6 +15,10 @@ const router = useRouter()
 const blogs = ref()
 const blogCount = ref(0)
 
+onMounted(() => {
+  init()
+})
+
 watch(route, async () => {
   init()
 })
@@ -76,8 +80,6 @@ const cardWidth = computed(() => {
   }
   return 800
 })
-
-init()
 </script>
 
 <template>
