@@ -19,6 +19,9 @@ export const usePreviewStore = defineStore('preview', () => {
         categoryName: string | undefined = 'default_category_name_for_store_use',
         tagName: string | undefined = 'default_tag_name_for_store_use',
     ): number | undefined => {
+        if (parent_url[0] !== '/') {
+            parent_url = '/' + parent_url
+        }
         const parentDict = countStore.value.get(parent_url)
         if (parentDict === undefined) {
             return undefined
@@ -36,6 +39,9 @@ export const usePreviewStore = defineStore('preview', () => {
         categoryName: string | undefined = 'default_category_name_for_store_use',
         tagName: string | undefined = 'default_tag_name_for_store_use',
     ) => {
+        if (parent_url[0] !== '/') {
+            parent_url = '/' + parent_url
+        }
         let parentDict = countStore.value.get(parent_url)
         if (parentDict === undefined) {
             parentDict = new Map()
@@ -44,7 +50,7 @@ export const usePreviewStore = defineStore('preview', () => {
         let categoryDict = parentDict.get(categoryName)
         if (categoryDict === undefined) {
             categoryDict = new Map()
-            parentDict.set(parent_url, categoryDict)
+            parentDict.set(categoryName, categoryDict)
         }
         categoryDict.set(tagName, count)
     }

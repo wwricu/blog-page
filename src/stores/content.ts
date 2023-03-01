@@ -7,6 +7,10 @@ export const useContentStore = defineStore('content', () => {
     const contentStore = ref()
     contentStore.value = new Map()
 
+    const clear = () => {
+        contentStore.value.clear()
+    }
+
     const get = (id: number | string | string[]): ContentOutput | undefined => {
         if (id) {
             return contentStore.value.get(`${id}`)
@@ -17,10 +21,6 @@ export const useContentStore = defineStore('content', () => {
         if (id && content) {
             contentStore.value.set(`${id}`, content)
         }
-    }
-
-    const clear = () => {
-        contentStore.value.clear()
     }
 
     return { get, set, clear }

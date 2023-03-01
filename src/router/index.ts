@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import LoginPage from '@/views/LoginView.vue'
 import {parseJwt, useLoginStore} from "@/stores/login";
 
 const router = createRouter({
@@ -18,7 +17,7 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: LoginPage
+      component: () => import('@/stores/login'),
     },
     {
       path: '/content/:id',
