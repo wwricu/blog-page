@@ -38,6 +38,7 @@ const searchParams: Ref<ResourceSearch> = ref({
 const parseParam = () => {
   const filter = route.params.filter as string
   const param = route.params.param as string
+  pageIdx.value = 1 // reset pageIdx when re-parse parameters
 
   if (filter.length !== 0
       && param.length !== 0 && param !== '0') {
@@ -58,7 +59,7 @@ const getPreviewCount = () => {
   })
 }
 const getPreviews = () => {
-  searchParams.value.pageIdx = pageIdx.value - 1
+  searchParams.value.pageIdx = pageIdx.value - 1 // backend start from 0
   searchParams.value.pageSize = pageSize.value
   window.scrollTo(0,0)
   getContentPreviewAPI(searchParams.value, (data: ResourcePreview[]) => {
