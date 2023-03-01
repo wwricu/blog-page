@@ -23,5 +23,5 @@ export const useContentStore = defineStore('content', () => {
         contentStore.value.clear()
     }
 
-    return { get, set, clear}
+    return { get, set, clear }
 })

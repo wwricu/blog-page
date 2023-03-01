@@ -39,7 +39,7 @@ export const usePreviewStore = defineStore('preview', () => {
         let parentDict = countStore.value.get(parent_url)
         if (parentDict === undefined) {
             parentDict = new Map()
-            previewStore.value.set(parent_url, parentDict)
+            countStore.value.set(parent_url, parentDict)
         }
         let categoryDict = parentDict.get(categoryName)
         if (categoryDict === undefined) {
@@ -101,5 +101,5 @@ export const usePreviewStore = defineStore('preview', () => {
         tagDict.set(pageIdx, preview)
     }
 
-    return { getCount, setCount, getPreview, setPreview, clear}
+    return { getCount, setCount, getPreview, setPreview, clear }
 })
