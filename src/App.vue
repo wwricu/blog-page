@@ -3,6 +3,7 @@ import {onMounted} from "vue";
 import {useLoginStore} from "@/stores/login";
 import {getCurrentUserAPI} from "@/apis/user";
 import type {UserOutput} from "@/types/schemas/user";
+import {algoliaSearch} from "@/apis/algolia";
 
 
 onMounted(async () => {
@@ -12,6 +13,11 @@ onMounted(async () => {
       userInfoStore.login(data)
     })
   }
+  algoliaSearch(
+    'l',
+    (res: any) => {
+      console.log(JSON.stringify(res))
+  })
 })
 </script>
 

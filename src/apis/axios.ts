@@ -5,7 +5,7 @@ const myAxios = axios.create({
     baseURL: import.meta.env.VITE_BASE_URL,
     timeout: 10000,
     withCredentials: true,
-});
+})
 
 myAxios.interceptors.request.use(
     (config: AxiosRequestConfig) => {
@@ -34,8 +34,8 @@ myAxios.interceptors.response.use(
     },
 
     (error: AxiosError) => {
-        return Promise.reject(error.message);
+        return Promise.reject(error.message)
     }
 )
 
-export default myAxios;
+export default myAxios
