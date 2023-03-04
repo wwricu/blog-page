@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref, Ref} from "vue";
+import {ref, Ref, computed, onMounted} from "vue";
 import {useRouter} from "vue-router";
 
 import BlogCard from "@/components/cards/BlogCard.vue";
@@ -7,9 +7,10 @@ import RightBottomButtons from "@/components/buttons/RightBottomButtons.vue";
 import ConfirmDialog from "@/components/dialogs/ConfirmDialog.vue";
 
 import {getCategoryAPI} from "@/apis/category";
-import {deleteContentAPI, getContentPreviewAPI, postContentAPI} from "@/apis/content";
+import {deleteContentAPI, getContentCountAPI, getContentPreviewAPI, postContentAPI} from "@/apis/content";
 import type {ContentOutput, ResourcePreview} from "@/types/schemas/resource";
 import type {Tag} from "@/types/schemas/tag";
+import {ResourceSearch} from "@/types/schemas/resource";
 
 
 let blogs = ref()
@@ -36,19 +37,37 @@ const getCategories = () => {
   })
 }
 
-function getBlogs() {
-  let searchParams = {
-    parent_url: statusSelect.value.url,
-    category_name: undefined
-  }
+const blogCount = ref(0)
+const searchParams: Ref<ResourceSearch> = ref({
+  parent_url: statusSelect.value.url
+})
+
+const getPreviewCount = () => {
   if (categorySelect.value != null) {
-    searchParams.category_name = categorySelect.value.name
+    searchParams.value.category_name = categorySelect.value.name
   }
-  getContentPreviewAPI(searchParams,
-      (data: ResourcePreview[]) => {
+  getContentCountAPI(searchParams.value,
+                    (data: number) => {
+    blogCount.value = data
+  })
+}
+function getBlogs() {
+  if (categorySelect.value != null) {
+    searchParams.value.category_name = categorySelect.value.name
+  }
+  searchParams.value.pageSize = pageSize.value - 1
+  searchParams.value.pageIdx = pageIdx.value
+  getContentPreviewAPI(
+    searchParams.value,
+    (data: ResourcePreview[]) => {
     blogs.value = data
   })
 }
+const pageIdx = ref(1)
+const pageSize = ref(5)
+const pageLength = computed(() => {
+  return Math.ceil(blogCount.value / pageSize.value)
+})
 
 const confirmDialog = ref<boolean>(false)
 const blogForDelete = ref<ContentOutput | null>({id: 0, title: ''})
@@ -85,8 +104,11 @@ const buttons = [
   },
 ]
 
-getCategories()
-getBlogs()
+onMounted(() => {
+  getCategories()
+  getPreviewCount()
+  getBlogs()
+})
 </script>
 
 <template>
@@ -141,6 +163,17 @@ getBlogs()
     />
     <right-bottom-buttons
       :buttons="buttons"
+    />
+    <v-pagination
+      class="rounded-pill"
+      style="background-color: rgba(128, 209, 200, 0.6);"
+      color="white"
+      active-color="black"
+      v-model="pageIdx"
+      :length="pageLength"
+      :total-visible="10"
+      rounded="circle"
+      @click="getBlogs"
     />
   </v-sheet>
 </template>
