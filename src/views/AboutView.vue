@@ -46,6 +46,10 @@ const router = useRouter()
               <a href="https://vuejs.org/" target="_blank">Vue.js</a>
             </p>
             <p>
+              Search engine:
+              <a href="https://algolia.com/" target="_blank">Algolia</a>
+            </p>
+            <p>
               Markdown solution:
               <a href="https://github.com/Vanessa219/vditor" target="_blank">Vditor</a>
             </p>
@@ -55,7 +59,7 @@ const router = useRouter()
             </p>
             <p>
               UI components:
-              <a href="https://next.vuetifyjs.com/" target="_blank">Vuetify.js</a>
+              <a href="https://vuetifyjs.com/" target="_blank">Vuetify.js</a>
             </p>
             <p>
               Service framework:

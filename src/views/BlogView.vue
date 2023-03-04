@@ -7,6 +7,7 @@ import {Base64} from "js-base64";
 
 import VditorPreview from 'vditor'
 import 'vditor/dist/index.css';
+import SearchDialog from "@/components/dialogs/SearchDialog.vue";
 import NavigateButton from "@/components/buttons/NavigateButton.vue";
 import BlogTitleCard from "@/components/cards/BlogTitleCard.vue";
 import CustomFooter from "@/components/cards/CustomFooter.vue";
@@ -83,6 +84,7 @@ const parallel = () => {
 const toTop = () => {
   window.scrollTo(0,0)
 }
+const searchDialogSwitch = ref(false)
 </script>
 
 <template>
@@ -97,11 +99,17 @@ const toTop = () => {
     />
     <v-spacer/>
     <navigate-button
+      title="Search"
+      prepend-icon="mdi-magnify"
+      @click="searchDialogSwitch=true"
+    />
+    <navigate-button
       title="About"
       prepend-icon="mdi-information-outline"
       @click="router.push('/about')"
     />
   </v-app-bar>
+  <search-dialog v-model="searchDialogSwitch"/>
   <blog-title-card
     v-if="blog !== undefined"
     :blog="blog"

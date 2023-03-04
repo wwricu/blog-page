@@ -2,6 +2,7 @@
 import {ref, onMounted} from "vue";
 import {useRouter} from "vue-router";
 
+import SearchDialog from "@/components/dialogs/SearchDialog.vue";
 import NavigateButton from "@/components/buttons/NavigateButton.vue";
 import ListMenu from "@/components/menus/ListMenu.vue";
 import TagMenu from "@/components/menus/TagMenu.vue";
@@ -42,6 +43,12 @@ const snackbar = ref(false)
 const selectTag = (tagName: string) => {
   snackMsg.value = tagName
   snackbar.value = true
+}
+
+const searchDialogSwitch = ref(false)
+const openSearchDialog = () => {
+  window.scrollTo(0,0)
+  searchDialogSwitch.value = true
 }
 </script>
 
@@ -84,6 +91,11 @@ const selectTag = (tagName: string) => {
     />
 
     <v-spacer/>
+    <navigate-button
+      title="Search"
+      prepend-icon="mdi-magnify"
+      @click="openSearchDialog"
+    />
     <v-sheet class="d-none d-sm-block bg-transparent">
     <navigate-button
       title="About"
@@ -92,6 +104,7 @@ const selectTag = (tagName: string) => {
     />
     </v-sheet>
   </v-app-bar>
+  <search-dialog v-model="searchDialogSwitch"/>
   <v-parallax :src="bgdImg">
     <blog-subview
       style="margin-bottom: 10rem;"

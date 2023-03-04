@@ -1,9 +1,9 @@
 import axios, {AxiosError, type AxiosRequestConfig, type AxiosResponse} from "axios";
 
 
-const appId = '94AQK767GX'
-const apiKey = 'b82315a387b5cabb8eaaa14fe0bf535d'
-const indexName = 'blog_content_index'
+export const appId = '94AQK767GX'
+export const apiKey = 'b82315a387b5cabb8eaaa14fe0bf535d'
+export const indexName = 'blog_content_index'
 
 const algoliaAxios = axios.create({
     baseURL: `https://${appId}-dsn.algolia.net`,
