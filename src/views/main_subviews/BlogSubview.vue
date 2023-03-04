@@ -3,7 +3,7 @@ import {computed, Ref, ref, watch, onMounted} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {Ripple} from "vuetify/directives";
 import {useDisplay} from 'vuetify'
-import BlogBigCard from "@/components/cards/BlogBigCard.vue";
+import BlogCard from "@/components/cards/BlogCard.vue";
 import {getContentCountAPI, getContentPreviewAPI} from "@/apis/content";
 import type {ResourcePreview, ResourceSearch} from "@/types/schemas/resource";
 
@@ -53,6 +53,9 @@ const parseParam = () => {
 }
 
 const emits = defineEmits(['select'])
+const selectCallback = (name: string) => {
+  emits('select', name)
+}
 const getPreviewCount = () => {
   getContentCountAPI(searchParams.value, (data: number) => {
     blogCount.value = data
@@ -109,7 +112,7 @@ const cardWidth = computed(() => {
               :options="{threshold: .25}"
               transition="scale-transition"
             >
-              <blog-big-card
+              <blog-card
                 v-ripple
                 class="mx-auto blog-card"
                 v-bind="props"
@@ -117,7 +120,7 @@ const cardWidth = computed(() => {
                 :blog="blog"
                 :cover-index="(index + imgIndexBase) % 5"
                 @click.prevent="router.push(`/content/${blog.id}`)"
-                @select="(name: string) => { emits('select', name) }"
+                @select="selectCallback"
               />
             </v-lazy>
           </v-hover>

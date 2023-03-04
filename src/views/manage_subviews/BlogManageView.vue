@@ -2,7 +2,7 @@
 import {ref, Ref, computed, onMounted} from "vue";
 import {useRouter} from "vue-router";
 
-import BlogCard from "@/components/cards/BlogCard.vue";
+import BlogManageCard from "@/components/cards/BlogManageCard.vue";
 import RightBottomButtons from "@/components/buttons/RightBottomButtons.vue";
 import ConfirmDialog from "@/components/dialogs/ConfirmDialog.vue";
 
@@ -37,42 +37,54 @@ const getCategories = () => {
   })
 }
 
+const pageIdx = ref(1)
+const pageSize = ref(5)
+const pageLength = computed(() => {
+  return Math.ceil(blogCount.value / pageSize.value)
+})
 const blogCount = ref(0)
 const searchParams: Ref<ResourceSearch> = ref({
   parent_url: statusSelect.value.url
 })
 
-const getPreviewCount = () => {
-  if (categorySelect.value != null) {
+const init = () => {
+  parseParam()
+  getPreviewCount()
+  getPreviews()
+}
+onMounted(async () => {
+  getCategories()
+  init()
+})
+
+
+const parseParam = () => {
+  searchParams.value.parent_url = statusSelect.value.url
+  pageIdx.value = 1 // reset pageIdx when re-parse parameters
+  searchParams.value.category_name = undefined
+  if (categorySelect.value) {
     searchParams.value.category_name = categorySelect.value.name
   }
+}
+const getPreviewCount = () => {
   getContentCountAPI(searchParams.value,
                     (data: number) => {
     blogCount.value = data
   })
 }
-function getBlogs() {
-  if (categorySelect.value != null) {
-    searchParams.value.category_name = categorySelect.value.name
-  }
-  searchParams.value.pageSize = pageSize.value - 1
-  searchParams.value.pageIdx = pageIdx.value
+function getPreviews() {
+  searchParams.value.pageIdx = pageIdx.value - 1
+  searchParams.value.pageSize = pageSize.value
   getContentPreviewAPI(
     searchParams.value,
     (data: ResourcePreview[]) => {
     blogs.value = data
   })
 }
-const pageIdx = ref(1)
-const pageSize = ref(5)
-const pageLength = computed(() => {
-  return Math.ceil(blogCount.value / pageSize.value)
-})
 
 const confirmDialog = ref<boolean>(false)
 const blogForDelete = ref<ContentOutput | null>({id: 0, title: ''})
 function deleteBlog(blog: ContentOutput) {
-  // alert(JSON.stringify(blog))
   blogForDelete.value = blog
   confirmDialog.value = true
 }
@@ -89,7 +101,6 @@ function newDraft() {
   postContentAPI({
     parent_url: '/draft'
   }, (id: number) => {
-    alert('success')
     router.push({path: `/manage/editor/${id}`})
   })
 }
@@ -103,12 +114,6 @@ const buttons = [
     }
   },
 ]
-
-onMounted(() => {
-  getCategories()
-  getPreviewCount()
-  getBlogs()
-})
 </script>
 
 <template>
@@ -128,7 +133,7 @@ onMounted(() => {
           label="Status"
           :items="status"
           v-model="statusSelect"
-          @update:model-value="getBlogs()"
+          @update:model-value="init"
         />
       </v-col>
       <v-col cols="6">
@@ -143,11 +148,11 @@ onMounted(() => {
           label="Category"
           :items="categories"
           v-model="categorySelect"
-          @update:model-value="getBlogs()"
+          @update:model-value="init"
         />
       </v-col>
     </v-row>
-    <blog-card
+    <blog-manage-card
       class="mb-4"
       v-for="blog in blogs"
       :key="blog.id"
@@ -173,7 +178,7 @@ onMounted(() => {
       :length="pageLength"
       :total-visible="10"
       rounded="circle"
-      @click="getBlogs"
+      @click="getPreviews"
     />
   </v-sheet>
 </template>
