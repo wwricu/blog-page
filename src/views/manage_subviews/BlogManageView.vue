@@ -60,9 +60,9 @@ function deleteBlog(blog: ContentOutput) {
 const confirmDelete = () => {
   deleteContentAPI(blogForDelete.value?.id, () => {
     blogs.value.splice(blogs.value.indexOf(blogForDelete.value), 1)
+    blogForDelete.value = null
   },() => {})
   confirmDialog.value = false
-  blogForDelete.value = null
 }
 
 const router = useRouter()
