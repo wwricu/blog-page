@@ -3,13 +3,23 @@ import type {AxiosResponse, AxiosError} from "axios";
 import type {TokenResponse} from "@/types/types";
 import type {UserOutput, UserInput} from "@/types/schemas/user";
 
-export const loginApi = (data: UserInput,
-                         success: Function,
-                         failure: Function = ()=>{}) => {
+export const loginApi = (
+    data: UserInput,
+    success: Function,
+    failure: Function = ()=>{},
+    two_fa_code: string | undefined = undefined
+) => {
+    const headers: any = {
+        'Content-Type': 'application/x-www-form-urlencoded'
+    }
+    if (two_fa_code !== undefined) {
+        headers['two-fa-code'] = two_fa_code
+    }
+
     myAxios.request({
         method: 'POST',
         url: '/auth',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        headers: headers,
         data: data
     }).then((res: AxiosResponse<TokenResponse>) => {
         success(res.data)

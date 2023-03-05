@@ -34,7 +34,7 @@ myAxios.interceptors.response.use(
     },
 
     (error: AxiosError) => {
-        return Promise.reject(error.message)
+        return Promise.reject(error)
     }
 )
 
