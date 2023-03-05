@@ -3,7 +3,7 @@ import {ref} from "vue";
 import {useRouter} from "vue-router";
 import type {AxiosError} from "axios";
 import {parseJwt, useLoginStore} from "@/stores/login";
-import {loginApi} from '@/apis/user'
+import {login2FAApi, loginApi} from '@/apis/user'
 import CryptoJs from 'crypto-js'
 import type {TokenResponse} from "@/types/types";
 // should switch to vuetify v-otp-input after being ported
@@ -13,30 +13,66 @@ import VOtpInput from 'vue3-otp-input';
 const userInfoStore = useLoginStore();
 const router = useRouter()
 const cardTitle = ref('please input OTP you received')
-
-const login = (two_fa_code: string | undefined = undefined) => {
+const loginSuccess = (data: TokenResponse) => {
+  router.push('/manage/blog')
+  userInfoStore.login(parseJwt(data.access_token))
+  localStorage.setItem('access_token', data.access_token)
+  localStorage.setItem('refresh_token', data.refresh_token)
+  localStorage.removeItem('2fa_token')
+}
+const login = () => {
   loginApi(
     {
       username: loginForm.value[0].value,
       password: CryptoJs.SHA256(loginForm.value[1].value).toString()
     },
-    (data: TokenResponse) => {
-      router.push('/manage/blog')
-      userInfoStore.login(parseJwt(data.access_token))
-      localStorage.setItem('access_token', data.access_token)
-      localStorage.setItem('refresh_token', data.refresh_token)
-    },
+    loginSuccess,
     (error: AxiosError) => {
       const status_code = error.response!.status
       const detail = (error.response!.data as any).detail
-      if (status_code === 440 || status_code === 441) {
-        cardTitle.value = detail
-        twoFADialog.value = true
+      if (status_code !== 440) { // other errors
+        alert(detail)
         return
       }
-      alert(detail)
+      cardTitle.value = detail
+      twoFADialog.value = true
+      const two_fa_token = error.response!.headers['x-2fa-token']
+      if (two_fa_token) {
+        localStorage.setItem('2fa_token', two_fa_token)
+      }
     },
-    two_fa_code
+  )
+}
+
+const otpInput = ref(null)
+const otpValue = ref('')
+const twoFADialog = ref(false)
+const handleOnChange = (value: string) => {
+  otpValue.value = value
+}
+
+const twoFALogin = () => {
+  if (otpValue.value == null || otpValue.value.length < 6) {
+    alert('please complete the otp')
+    return
+  }
+  login2FAApi(
+    otpValue.value,
+    loginSuccess,
+    (error: AxiosError) => {
+      const status_code = error.response!.status
+      const detail = (error.response!.data as any).detail
+      if (status_code !== 440) {
+        alert(detail)
+        return
+      }
+      cardTitle.value = detail
+      localStorage.setItem(
+        '2fa_token', // x-2fa-token from server means 2fa enforcement
+        error.response!.headers['x-2fa-token'] as string
+      )
+      twoFADialog.value = true
+    },
   )
 }
 
@@ -83,21 +119,6 @@ function iconClick(item: typeof loginForm.value[0]) {
     item.icon = 'mdi-eye'
     item.type = 'password'
   }
-}
-
-const otpInput = ref(null)
-const otpValue = ref('')
-const twoFADialog = ref(false)
-
-const handleOnChange = (value: string) => {
-  otpValue.value = value
-}
-const twoFALogin = () => {
-  if (otpValue.value == null || otpValue.value.length < 6) {
-    alert('please complete the otp')
-    return
-  }
-  login(otpValue.value)
 }
 </script>
 
@@ -154,6 +175,10 @@ const twoFALogin = () => {
           @on-change="handleOnChange"
         />
         <v-card-actions>
+          <v-btn
+            color="primary"
+            @click="login"
+          >Resend the code</v-btn>
           <v-spacer/>
           <v-btn
             color="primary"

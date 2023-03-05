@@ -7,20 +7,32 @@ export const loginApi = (
     data: UserInput,
     success: Function,
     failure: Function = ()=>{},
-    two_fa_code: string | undefined = undefined
 ) => {
-    const headers: any = {
-        'Content-Type': 'application/x-www-form-urlencoded'
-    }
-    if (two_fa_code !== undefined) {
-        headers['two-fa-code'] = two_fa_code
-    }
-
     myAxios.request({
         method: 'POST',
         url: '/auth',
-        headers: headers,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'two-fa-token': localStorage.getItem('2fa_token'),
+        },
         data: data
+    }).then((res: AxiosResponse<TokenResponse>) => {
+        success(res.data)
+    }).catch((err: AxiosError) => {
+        failure(err)
+    })
+}
+
+export const login2FAApi = (
+    two_fa_code: string,
+    success: Function,
+    failure: Function = ()=>{},
+) => {
+    myAxios.request({
+        method: 'POST',
+        url: '/auth/2fa',
+        headers: {'two-fa-token': localStorage.getItem('2fa_token')},
+        data: two_fa_code
     }).then((res: AxiosResponse<TokenResponse>) => {
         success(res.data)
     }).catch((err: AxiosError) => {
