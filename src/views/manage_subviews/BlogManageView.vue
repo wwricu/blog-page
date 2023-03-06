@@ -10,7 +10,7 @@ import {getCategoryAPI} from "@/apis/category";
 import {deleteContentAPI, getContentCountAPI, getContentPreviewAPI, postContentAPI} from "@/apis/content";
 import type {ContentOutput, ResourcePreview} from "@/types/schemas/resource";
 import type {Tag} from "@/types/schemas/tag";
-import {ResourceSearch} from "@/types/schemas/resource";
+import {type ResourceSearch} from "@/types/schemas/resource";
 
 
 let blogs = ref()

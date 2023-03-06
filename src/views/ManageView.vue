@@ -6,12 +6,9 @@ import NavigateButton from "@/components/buttons/NavigateButton.vue";
 
 const drawer = ref(false)
 const router = useRouter()
+const host = ref('')
+host.value = `${document.location.protocol}//${window.location.host}`
 const manageNavigations = ref([
-  {
-    title: 'Home',
-    icon: 'mdi-home',
-    link: '/'
-  },
   {
     title: 'Manage Blogs',
     icon: 'mdi-pencil',
@@ -27,12 +24,11 @@ const manageNavigations = ref([
     icon: 'mdi-tag',
     link: '/manage/tag'
   },
-  {
-    title: 'Manage Comments',
-    icon: 'mdi-comment',
-    link: '/waline/ui'
-  },
 ])
+
+const open = (url: string) => {
+  window.open(url, '_blank')
+}
 </script>
 
 <template>
@@ -76,6 +72,20 @@ const manageNavigations = ref([
         :title="item.title"
         :value="item.title"
         @click="router.push(item.link)"
+      />
+      <v-list-item
+        nav
+        prepend-icon="mdi-file-cabinet"
+        append-icon="mdi-open-in-new"
+        title="Alist"
+        @click="open(`${host}/alist`)"
+      />
+      <v-list-item
+        nav
+        prepend-icon="mdi-comment"
+        append-icon="mdi-open-in-new"
+        title="waline"
+        @click="open(`${host}/waline/ui`)"
       />
     </v-list>
   </v-navigation-drawer>

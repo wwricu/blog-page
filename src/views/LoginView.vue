@@ -20,6 +20,17 @@ const loginSuccess = (data: TokenResponse) => {
   localStorage.setItem('refresh_token', data.refresh_token)
   localStorage.removeItem('2fa_token')
 }
+
+const resetCountDown = ref(30)
+const setResendCountDown = () => {
+  resetCountDown.value = 30
+  const intervalId = setInterval(() => {
+    resetCountDown.value -= 1
+    if (resetCountDown.value === 0) {
+      clearInterval(intervalId)
+    }
+  }, 1000)
+}
 const login = () => {
   loginApi(
     {
@@ -36,6 +47,7 @@ const login = () => {
       }
       cardTitle.value = detail
       twoFADialog.value = true
+      setResendCountDown()
       const two_fa_token = error.response!.headers['x-2fa-token']
       if (two_fa_token) {
         localStorage.setItem('2fa_token', two_fa_token)
@@ -47,7 +59,7 @@ const login = () => {
 const otpInput = ref(null)
 const otpValue = ref('')
 const twoFADialog = ref(false)
-const handleOnChange = (value: string) => {
+const fillOTPValue = (value: string) => {
   otpValue.value = value
 }
 
@@ -172,13 +184,20 @@ function iconClick(item: typeof loginForm.value[0]) {
           :num-inputs="6"
           :should-auto-focus="true"
           :is-input-num="true"
-          @on-change="handleOnChange"
+          @on-change="fillOTPValue"
+          @on-complete="fillOTPValue"
         />
         <v-card-actions>
           <v-btn
             color="primary"
             @click="login"
-          >Resend the code</v-btn>
+            :disabled="resetCountDown > 0"
+          >
+            Resend code
+            <span v-show="resetCountDown > 0">
+              &ensp; after {{resetCountDown }}
+            </span>
+          </v-btn>
           <v-spacer/>
           <v-btn
             color="primary"
@@ -196,7 +215,7 @@ function iconClick(item: typeof loginForm.value[0]) {
 #background {
   background-color: #2c3e50;
 }
->>> .otp-input {
+:deep(.otp-input) {
    width: 40px;
    height: 60px;
    padding: 5px;
