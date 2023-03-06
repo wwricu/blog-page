@@ -97,27 +97,27 @@ const loginForm = ref([
     icon: '',
     rules: [
       (v: string) => {
-        return !!v || 'This field is required'
+        return !!v || 'username is required'
       },
       (v: string) => {
-        return !!v && v.length <= 12
-          || 'Username must be less than 12 chars'
+        return !!v && v.length >= 3 && v.length <= 12
+          || 'username must be greater than 3 chars, less than 12 chars'
       },
     ]
   },
   {
     text: 'Password',
     value: '',
-    counter: 25,
+    counter: 24,
     type: 'password',
     icon: 'mdi-eye',
     rules: [
       (v: string) => {
-        return !!v || 'This field is required'
+        return !!v || 'password is required'
       },
       (v: string) => {
-        return !!v && v.length <= 25
-          || 'Username must be less than 25 chars'
+        return !!v && v.length >= 8 && v.length <= 24
+          || 'password must be greater than 8 chars, less than 24 chars'
       },
     ]
   }
