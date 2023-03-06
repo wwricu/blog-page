@@ -42,7 +42,7 @@ const login = () => {
       const status_code = error.response!.status
       const detail = (error.response!.data as any).detail
       if (status_code !== 440) { // other errors
-        alert(detail)
+        snackAlert(detail)
         return
       }
       cardTitle.value = detail
@@ -65,7 +65,7 @@ const fillOTPValue = (value: string) => {
 
 const twoFALogin = () => {
   if (otpValue.value == null || otpValue.value.length < 6) {
-    alert('please complete the otp')
+    snackAlert('please complete the otp')
     return
   }
   login2FAApi(
@@ -75,7 +75,7 @@ const twoFALogin = () => {
       const status_code = error.response!.status
       const detail = (error.response!.data as any).detail
       if (status_code !== 440) {
-        alert(detail)
+        snackAlert(detail)
         return
       }
       cardTitle.value = detail
@@ -101,7 +101,7 @@ const loginForm = ref([
       },
       (v: string) => {
         return !!v && v.length >= 3 && v.length <= 12
-          || 'username must be greater than 3 chars, less than 12 chars'
+          || 'username must >= 3 chars and <= 12 chars'
       },
     ]
   },
@@ -117,7 +117,7 @@ const loginForm = ref([
       },
       (v: string) => {
         return !!v && v.length >= 8 && v.length <= 24
-          || 'password must be greater than 8 chars, less than 24 chars'
+          || 'password must >= 8 chars and <= 24 chars'
       },
     ]
   }
@@ -131,6 +131,13 @@ function iconClick(item: typeof loginForm.value[0]) {
     item.icon = 'mdi-eye'
     item.type = 'password'
   }
+}
+
+const snackbar = ref(false)
+const snackMsg = ref('')
+const snackAlert = (msg: string) => {
+  snackMsg.value = msg
+  snackbar.value = true
 }
 </script>
 
@@ -190,6 +197,7 @@ function iconClick(item: typeof loginForm.value[0]) {
         <v-card-actions>
           <v-btn
             color="primary"
+            density="compact"
             @click="login"
             :disabled="resetCountDown > 0"
           >
@@ -201,6 +209,7 @@ function iconClick(item: typeof loginForm.value[0]) {
           <v-spacer/>
           <v-btn
             color="primary"
+            density="compact"
             @click="twoFALogin"
           >
             Confirm
@@ -208,6 +217,14 @@ function iconClick(item: typeof loginForm.value[0]) {
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-snackbar
+      color="error"
+      timeout="3000"
+      v-model="snackbar"
+      transition="slide-y-reverse-transition"
+    >
+      {{ snackMsg }}
+    </v-snackbar>
   </div>
 </template>
 

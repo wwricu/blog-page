@@ -11,12 +11,21 @@ const buttons = [
     icon: 'mdi-content-save',
     color: 'success',
     handle: () => {
-      modifyContentAPI(subEditor.value.getEditorContents(), () => {
-        alert('saved')
+      modifyContentAPI(
+        subEditor.value.getEditorContents(),
+        () => {
+          snackAlert('successfully saved')
       })
     }
   },
 ]
+
+const snackbar = ref(false)
+const snackMsg = ref('')
+const snackAlert = (msg: string) => {
+  snackMsg.value = msg
+  snackbar.value = true
+}
 </script>
 
 <template>
@@ -27,6 +36,14 @@ const buttons = [
     />
     <right-bottom-buttons :buttons="buttons"/>
   </div>
+  <v-snackbar
+    color="success"
+    timeout="3000"
+    v-model="snackbar"
+    transition="slide-y-reverse-transition"
+  >
+    {{ snackMsg }}
+  </v-snackbar>
 </template>
 
 <style scoped>

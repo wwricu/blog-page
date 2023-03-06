@@ -20,7 +20,6 @@ const props = defineProps({
 
 const newName = ref()
 function updateCategory() {
-  // alert(JSON.stringify(newName.value))
   let data: Tag = props.category
   data.name = newName.value
   // rename category, id==0
