@@ -8,27 +8,55 @@ const drawer = ref(false)
 const router = useRouter()
 const host = ref('')
 host.value = `${document.location.protocol}//${window.location.host}`
-const manageNavigations = ref([
-  {
-    title: 'Manage Blogs',
-    icon: 'mdi-pencil',
-    link: '/manage/blog'
-  },
-  {
-    title: 'Manage Categories',
-    icon: 'mdi-view-dashboard',
-    link: '/manage/category'
-  },
-  {
-    title: 'Manage Tags',
-    icon: 'mdi-tag',
-    link: '/manage/tag'
-  },
-])
 
+const push = (link: string) => {
+  router.push(link)
+}
 const open = (url: string) => {
   window.open(url, '_blank')
 }
+
+const manageNavigations = ref([
+  {
+    title: 'Manage Blogs',
+    prependIcon: 'mdi-pencil-outline',
+    link: '/manage/blog',
+    clickHandle: push
+  },
+  {
+    title: 'Manage Categories',
+    prependIcon: 'mdi-format-list-bulleted',
+    link: '/manage/category',
+    clickHandle: push
+  },
+  {
+    title: 'Manage Tags',
+    prependIcon: 'mdi-tag-outline',
+    link: '/manage/tag',
+    clickHandle: push
+  },
+  {
+    title: 'Alist',
+    prependIcon: 'mdi-file-cabinet',
+    appendIcon: 'mdi-open-in-new',
+    link: `${host.value}/alist`,
+    clickHandle: open
+  },
+  {
+    title: 'Waline',
+    prependIcon: 'mdi-comment-minus-outline',
+    appendIcon: 'mdi-open-in-new',
+    link: `${host.value}/waline/ui`,
+    clickHandle: open
+  },
+  {
+    title: 'Sqladmin',
+    prependIcon: 'mdi-account-outline',
+    appendIcon: 'mdi-open-in-new',
+    link: `${host.value}${import.meta.env.VITE_PROXY_PATH}/admin`,
+    clickHandle: open
+  },
+])
 </script>
 
 <template>
@@ -68,24 +96,11 @@ const open = (url: string) => {
         nav
         v-for="item in manageNavigations"
         :key="item.title"
-        :prepend-icon="item.icon"
+        :prepend-icon="item.prependIcon"
+        :append-icon="item.appendIcon"
         :title="item.title"
         :value="item.title"
-        @click="router.push(item.link)"
-      />
-      <v-list-item
-        nav
-        prepend-icon="mdi-file-cabinet"
-        append-icon="mdi-open-in-new"
-        title="Alist"
-        @click="open(`${host}/alist`)"
-      />
-      <v-list-item
-        nav
-        prepend-icon="mdi-comment"
-        append-icon="mdi-open-in-new"
-        title="waline"
-        @click="open(`${host}/waline/ui`)"
+        @click="item.clickHandle(item.link)"
       />
     </v-list>
   </v-navigation-drawer>
