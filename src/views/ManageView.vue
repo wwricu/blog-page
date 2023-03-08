@@ -15,6 +15,12 @@ const push = (link: string) => {
 const open = (url: string) => {
   window.open(url, '_blank')
 }
+const logout = () => {
+  localStorage.removeItem('access_token')
+  localStorage.removeItem('refresh_token')
+  localStorage.removeItem('2fa_token')
+  router.push('/')
+}
 
 const manageNavigations = ref([
   {
@@ -103,6 +109,13 @@ const manageNavigations = ref([
         @click="item.clickHandle(item.link)"
       />
     </v-list>
+    <template v-slot:append>
+      <div class="pa-2">
+        <v-btn block @click="logout">
+          Logout
+        </v-btn>
+      </div>
+    </template>
   </v-navigation-drawer>
   <router-view/>
   <div class="bgd"/>

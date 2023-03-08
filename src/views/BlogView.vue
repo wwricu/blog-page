@@ -13,6 +13,7 @@ import BlogTitleCard from "@/components/cards/BlogTitleCard.vue";
 import CustomFooter from "@/components/cards/CustomFooter.vue";
 import RightBottomButtons from "@/components/buttons/RightBottomButtons.vue";
 
+import {useLoginStore} from "@/stores/login";
 import {getContentAPI} from "@/apis/content";
 import type {ContentOutput} from "@/types/schemas/resource";
 
@@ -67,11 +68,13 @@ const cardWidth = computed(() => {
 const getHeight = () => {
   let body = document.body
   let html = document.documentElement
-  height.value = Math.max(body.scrollHeight,
-                          body.offsetHeight,
-                          html.clientHeight,
-                          html.scrollHeight,
-                          html.offsetHeight)
+  height.value = Math.max(
+    body.scrollHeight,
+    body.offsetHeight,
+    html.clientHeight,
+    html.scrollHeight,
+    html.offsetHeight
+  )
 }
 
 const top = ref(0)
@@ -81,6 +84,7 @@ const parallel = () => {
   top.value = 0.5 * scrollY
 }
 
+const loginStore = useLoginStore()
 const toTop = () => {
   window.scrollTo(0,0)
 }
@@ -128,12 +132,23 @@ const searchDialogSwitch = ref(false)
     />
   </v-sheet>
   <right-bottom-buttons>
-    <v-btn
-      density="comfortable"
-      color="primary"
-      icon="mdi-arrow-up"
-      @click="toTop()"
-    />
+    <v-row no-gutters>
+      <v-btn
+        v-show="loginStore.isLogin === true"
+        density="comfortable"
+        color="success"
+        icon="mdi-pencil"
+        @click="router.push(`/manage/editor/${route.params.id}`)"
+      />
+    </v-row>
+    <v-row no-gutters class="mt-4">
+      <v-btn
+        density="comfortable"
+        color="primary"
+        icon="mdi-arrow-up"
+        @click="toTop()"
+      />
+    </v-row>
   </right-bottom-buttons>
   <div class="bgd"/>
 </template>
