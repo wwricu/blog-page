@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import {onMounted} from "vue";
-import {useLoginStore} from "@/stores/login";
+import {useUserStore} from "@/stores/user";
 import {getCurrentUserAPI} from "@/apis/user";
 import type {UserOutput} from "@/types/schemas/user";
 
 
 onMounted(async () => {
-  if (localStorage.getItem('access_token')) {
+  const userStore = useUserStore()
+  if (userStore.isLogin) {
     getCurrentUserAPI((data: UserOutput) => {
-      const userInfoStore = useLoginStore()
-      userInfoStore.login(data)
+      userStore.login(data)
     })
   }
 })

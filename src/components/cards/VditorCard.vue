@@ -9,8 +9,10 @@ import {getCategoryAPI} from "@/apis/category";
 import {getTagAPI} from "@/apis/tag";
 import type {Tag} from "@/types/schemas/tag";
 import type {ContentOutput} from "@/types/schemas/resource";
+import {useUserStore} from "@/stores/user";
 
 
+const userStore = useUserStore()
 const vditor = ref<Vditor | null>(null);
 const host = import.meta.env.VITE_BASE_URL === '/api'?
     `${document.location.protocol}//${window.location.host}`: ''
@@ -53,8 +55,8 @@ onMounted(() => {
     upload: {
       accept: 'image/*, .mp3, .wav, .rar',
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-        'refresh-token': `${localStorage.getItem("refresh_token")}`,
+        Authorization: `Bearer ${userStore.access_token}}`,
+        'refresh-token': `${userStore.refresh_token}}`,
         'connection': 'keep-alive',
         'X-content-id': `${route.params.id}`
       },

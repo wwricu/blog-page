@@ -1,5 +1,7 @@
 import axios, {AxiosError, type AxiosRequestConfig, type AxiosResponse} from "axios";
 import {refreshTokenAPI} from "@/apis/user";
+import {useUserStore} from "@/stores/user";
+
 
 const myAxios = axios.create({
     baseURL: import.meta.env.VITE_BASE_URL,
@@ -9,11 +11,12 @@ const myAxios = axios.create({
 
 myAxios.interceptors.request.use(
     (config: AxiosRequestConfig) => {
-        const access_token = localStorage.getItem("access_token")
+        const userStore = useUserStore()
+        const access_token = userStore.access_token
         if (access_token && access_token !== '') {
             config.headers!.Authorization = `Bearer ${access_token}`
         }
-        const refresh_token = localStorage.getItem("refresh_token")
+        const refresh_token = userStore.refresh_token
         if (refresh_token && refresh_token !== '') {
             config.headers!['refresh-token'] = refresh_token
         }

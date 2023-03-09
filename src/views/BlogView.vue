@@ -13,7 +13,7 @@ import BlogTitleCard from "@/components/cards/BlogTitleCard.vue";
 import CustomFooter from "@/components/cards/CustomFooter.vue";
 import RightBottomButtons from "@/components/buttons/RightBottomButtons.vue";
 
-import {useLoginStore} from "@/stores/login";
+import {useUserStore} from "@/stores/user";
 import {getContentAPI} from "@/apis/content";
 import type {ContentOutput} from "@/types/schemas/resource";
 
@@ -26,6 +26,7 @@ const blog = ref()
 const content = ref()
 const height = ref()
 const vditor = ref()
+const userStore = useUserStore()
 
 onMounted(() => {
   // must use mounted
@@ -84,7 +85,6 @@ const parallel = () => {
   top.value = 0.5 * scrollY
 }
 
-const loginStore = useLoginStore()
 const toTop = () => {
   window.scrollTo(0,0)
 }
@@ -134,7 +134,7 @@ const searchDialogSwitch = ref(false)
   <right-bottom-buttons>
     <v-row no-gutters>
       <v-btn
-        v-show="loginStore.isLogin === true"
+        v-show="userStore.isLogin === true"
         density="comfortable"
         color="success"
         icon="mdi-pencil"

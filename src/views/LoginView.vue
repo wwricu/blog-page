@@ -2,7 +2,7 @@
 import {ref} from "vue";
 import {useRouter} from "vue-router";
 import type {AxiosError} from "axios";
-import {parseJwt, useLoginStore} from "@/stores/login";
+import {parseJwt, useUserStore} from "@/stores/user";
 import {login2FAApi, loginApi} from '@/apis/user'
 import CryptoJs from 'crypto-js'
 import type {TokenResponse} from "@/types/types";
@@ -10,15 +10,15 @@ import type {TokenResponse} from "@/types/types";
 import VOtpInput from 'vue3-otp-input';
 
 
-const userInfoStore = useLoginStore();
+const userStore = useUserStore()
 const router = useRouter()
 const cardTitle = ref('please input OTP you received')
 const loginSuccess = (data: TokenResponse) => {
   router.push('/manage/blog')
-  userInfoStore.login(parseJwt(data.access_token))
-  localStorage.setItem('access_token', data.access_token)
-  localStorage.setItem('refresh_token', data.refresh_token)
-  localStorage.removeItem('2fa_token')
+  userStore.login(parseJwt(data.access_token))
+  userStore.access_token = data.access_token
+  userStore.refresh_token = data.refresh_token
+  userStore.two_fa_token = null
 }
 
 const resetCountDown = ref(30)
@@ -39,8 +39,8 @@ const login = () => {
     },
     loginSuccess,
     (error: AxiosError) => {
-      const status_code = error.response!.status
-      const detail = (error.response!.data as any).detail
+      const status_code = error.response?.status
+      const detail = (error.response?.data as any)?.detail ?? 'failed to login'
       if (status_code !== 440) { // other errors
         snackAlert(detail)
         return
@@ -48,10 +48,7 @@ const login = () => {
       cardTitle.value = detail
       twoFADialog.value = true
       setResendCountDown()
-      const two_fa_token = error.response!.headers['x-2fa-token']
-      if (two_fa_token) {
-        localStorage.setItem('2fa_token', two_fa_token)
-      }
+      userStore.two_fa_token = error.response?.headers['x-2fa-token']
     },
   )
 }
@@ -72,17 +69,14 @@ const twoFALogin = () => {
     otpValue.value,
     loginSuccess,
     (error: AxiosError) => {
-      const status_code = error.response!.status
-      const detail = (error.response!.data as any).detail
+      const status_code = error.response?.status
+      const detail = (error.response?.data as any)?.detail ?? 'failure'
       if (status_code !== 440) {
         snackAlert(detail)
         return
       }
+      userStore.two_fa_token = error.response?.headers['x-2fa-token']
       cardTitle.value = detail
-      localStorage.setItem(
-        '2fa_token', // x-2fa-token from server means 2fa enforcement
-        error.response!.headers['x-2fa-token'] as string
-      )
       twoFADialog.value = true
     },
   )

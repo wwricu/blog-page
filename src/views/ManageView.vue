@@ -2,6 +2,7 @@
 import {ref} from "vue";
 import {useRouter} from "vue-router";
 import NavigateButton from "@/components/buttons/NavigateButton.vue";
+import {useUserStore} from "@/stores/user";
 
 
 const drawer = ref(false)
@@ -16,9 +17,7 @@ const open = (url: string) => {
   window.open(url, '_blank')
 }
 const logout = () => {
-  localStorage.removeItem('access_token')
-  localStorage.removeItem('refresh_token')
-  localStorage.removeItem('2fa_token')
+  useUserStore().logout()
   router.push('/')
 }
 

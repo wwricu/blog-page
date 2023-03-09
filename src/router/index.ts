@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import {parseJwt, useLoginStore} from "@/stores/login";
+import {parseJwt, useUserStore} from "@/stores/user";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -69,16 +69,16 @@ router.beforeEach((to, from, next) => {
 
   const roles = to.meta.roles as string[]
   if (roles != null) {
-    const loginStore = useLoginStore()
-    const jwt = localStorage.getItem('refresh_token')
-    if (loginStore.isLogin !== true && jwt != null) {
-      loginStore.login(parseJwt(jwt))
+    const userStore = useUserStore()
+    const jwt = userStore.refresh_token
+    if (userStore.isLogin !== true && jwt != null) {
+      userStore.login(parseJwt(jwt))
     }
-    if (loginStore.userInfo == null || !loginStore.isLogin) {
+    if (userStore.userInfo == null || !userStore.isLogin) {
       return next('/')
     }
     for (const role of roles) {
-      for (const userRole of loginStore.userInfo.roles) {
+      for (const userRole of userStore.userInfo.roles) {
         if (userRole.name === role) {
           return next()
         }

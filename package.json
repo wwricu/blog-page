@@ -22,6 +22,7 @@
     "instantsearch.css": "^8.0.0",
     "js-base64": "^3.7.2",
     "pinia": "^2.0.23",
+    "pinia-plugin-persistedstate-2": "^2.0.13",
     "roboto-fontface": "*",
     "rollup-plugin-visualizer": "^5.8.3",
     "vditor": "^3.8.18",
