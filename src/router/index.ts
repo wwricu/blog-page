@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import {parseJwt, useUserStore} from "@/stores/user";
+import {useUserStore} from "@/stores/user";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -63,30 +63,32 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.path === '/login' || to.path === '/') {
+  if (to.path === '/') {
     return next()
   }
 
-  const roles = to.meta.roles as string[]
-  if (roles != null) {
-    const userStore = useUserStore()
-    const jwt = userStore.refresh_token
-    if (userStore.isLogin !== true && jwt != null) {
-      userStore.login(parseJwt(jwt))
-    }
-    if (userStore.userInfo == null || !userStore.isLogin) {
-      return next('/')
-    }
-    for (const role of roles) {
-      for (const userRole of userStore.userInfo.roles) {
-        if (userRole.name === role) {
-          return next()
-        }
-      }
-    }
+  if (to.path === '/login' && useUserStore().isLogin === true) {
     return next('/')
   }
-  return next()
+
+  const roles = to.meta.roles as string[]
+  if (roles == null) {
+    return next()
+  }
+
+  const userStore = useUserStore()
+  if (userStore.isLogin !== true) {
+    return next('/')
+  }
+
+  for (const userRole of userStore.userInfo.roles) {
+    for (const role of roles) {
+      if (userRole.name === 'admin' || userRole.name === role) {
+        return next()
+      }
+    }
+  }
+  return next('/')
 })
 
 export default router

@@ -8,9 +8,14 @@ import type {UserOutput} from "@/types/schemas/user";
 onMounted(async () => {
   const userStore = useUserStore()
   if (userStore.isLogin) {
-    getCurrentUserAPI((data: UserOutput) => {
-      userStore.login(data)
-    })
+    getCurrentUserAPI(
+      (data: UserOutput) => {
+        userStore.login(data)
+      },
+      () => {
+        userStore.logout()
+      }
+    )
   }
 })
 </script>
