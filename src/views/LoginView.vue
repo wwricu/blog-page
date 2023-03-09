@@ -13,6 +13,7 @@ import VOtpInput from 'vue3-otp-input';
 const userStore = useUserStore()
 const router = useRouter()
 const cardTitle = ref('please input OTP you received')
+const useMailCode = ref(true)
 const loginSuccess = (data: TokenResponse) => {
   router.push('/manage/blog')
   userStore.login(parseJwt(data.access_token))
@@ -31,7 +32,14 @@ const setResendCountDown = () => {
     }
   }, 1000)
 }
+
+const validation = ref(false)
 const login = () => {
+  if (validation.value !== true) {
+    snackbar.value = true
+    snackMsg.value = 'please input valid info'
+    return
+  }
   loginApi(
     {
       username: loginForm.value[0].value,
@@ -41,11 +49,12 @@ const login = () => {
     (error: AxiosError) => {
       const status_code = error.response?.status
       const detail = (error.response?.data as any)?.detail ?? 'failed to login'
-      if (status_code !== 440) { // other errors
+      if (status_code !== 440 && status_code !== 441) { // other errors
         snackAlert(detail)
         return
       }
       cardTitle.value = detail
+      useMailCode.value = status_code === 440
       twoFADialog.value = true
       setResendCountDown()
       userStore.two_fa_token = error.response?.headers['x-2fa-token']
@@ -71,10 +80,11 @@ const twoFALogin = () => {
     (error: AxiosError) => {
       const status_code = error.response?.status
       const detail = (error.response?.data as any)?.detail ?? 'failure'
-      if (status_code !== 440) {
+      if (status_code !== 440 && status_code !== 441) {
         snackAlert(detail)
         return
       }
+      useMailCode.value = status_code === 440
       userStore.two_fa_token = error.response?.headers['x-2fa-token']
       cardTitle.value = detail
       twoFADialog.value = true
@@ -133,6 +143,17 @@ const snackAlert = (msg: string) => {
   snackMsg.value = msg
   snackbar.value = true
 }
+
+document.onkeyup = function (event) {
+  if (event.ctrlKey || event.shiftKey || event.key !== 'Enter') {
+    return
+  }
+  if (twoFADialog.value === false) {
+    login()
+    return
+  }
+  twoFALogin()
+}
 </script>
 
 <template>
@@ -143,21 +164,22 @@ const snackAlert = (msg: string) => {
       class="bg-grey-lighten-4 mt-16 mx-auto"
     >
       <v-card-text>
-        <v-text-field
-          variant="underlined"
-          color="indigo"
-          :type="item.type"
-          :append-inner-icon="item.icon"
-          v-for="item in loginForm"
-          :key="item.text"
-          :label="item.text"
-          :counter="item.counter"
-          :rules="item.rules"
-          v-model="item.value"
-          class="ml-1 mr-1"
-          @click:appendInner="iconClick(item)"
-        >
-        </v-text-field>
+        <v-form v-model="validation">
+          <v-text-field
+            variant="underlined"
+            color="indigo"
+            :type="item.type"
+            :append-inner-icon="item.icon"
+            v-for="item in loginForm"
+            :key="item.text"
+            :label="item.text"
+            :counter="item.counter"
+            :rules="item.rules"
+            v-model="item.value"
+            class="ml-1 mr-1"
+            @click:appendInner="iconClick(item)"
+          />
+        </v-form>
       </v-card-text>
       <v-divider/>
       <v-card-actions>
@@ -172,11 +194,20 @@ const snackAlert = (msg: string) => {
       </v-card-actions>
     </v-card>
     <v-dialog
+      persistent
       v-model="twoFADialog"
       width="400"
     >
       <v-card>
-        <v-card-title>{{ cardTitle }}</v-card-title>
+        <v-card-title class="d-flex justify-space-between align-center">
+          {{ cardTitle }}
+          <v-btn
+            variant="flat"
+            density="compact"
+            icon="mdi-window-close"
+            @click="twoFADialog=false"
+          />
+        </v-card-title>
         <v-otp-input
           ref="otpInput"
           class="mx-auto my-6"
@@ -192,6 +223,7 @@ const snackAlert = (msg: string) => {
           <v-btn
             color="primary"
             density="compact"
+            v-show="useMailCode"
             @click="login"
             :disabled="resetCountDown > 0"
           >
