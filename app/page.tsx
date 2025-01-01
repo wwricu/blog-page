@@ -9,9 +9,9 @@ const { Footer, Content } = Layout;
 
 export default function Home() {
   return (
-      <Layout>
+      <Layout style={{ minHeight: "100vh" }}>
           <AppMenu/>
-          <Content style={{ padding: '24' }}>
+          <Content>
               <AppContent/>
           </Content>
           <Footer style={{ textAlign: 'center' }}>wwr.icu 2025</Footer>
