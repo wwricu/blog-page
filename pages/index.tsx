@@ -1,12 +1,12 @@
-import React from 'react';
-import { Card, Divider, Flex, Layout, Pagination, Row, Space, Typography} from 'antd';
-import {BorderlessTableOutlined, ClockCircleOutlined, TagsOutlined} from "@ant-design/icons";
-import {GetServerSideProps, InferGetServerSidePropsType} from "next";
-import {PostDetailPageVO, PostDetailVO} from "@/pages/model";
-import {GetAllBlogPosts} from "@/pages/api";
+import React from 'react'
+import { Card, Divider, Flex, Layout, Pagination, Row, Space, Typography} from 'antd'
+import {BorderlessTableOutlined, ClockCircleOutlined, TagsOutlined} from "@ant-design/icons"
+import {GetServerSideProps, InferGetServerSidePropsType} from "next"
+import {PostDetailPageVO, PostDetailVO} from "@/pages/model"
+import {GetAllBlogPosts} from "@/pages/api"
 import Image from 'next/image'
 
-const { Footer, Content } = Layout;
+const { Footer, Content } = Layout
 const imgStyle: React.CSSProperties = {
     height: '280px',
     width: '180px',
@@ -17,7 +17,7 @@ const imgStyle: React.CSSProperties = {
 const cardBodyStyle: React.CSSProperties = {
     overflow: 'hidden',
     padding: 0
-};
+}
 
 const cardStyle: React.CSSProperties = {
     boxShadow: '5px 8px 24px 5px rgba(208, 216, 243, 0.6)',
@@ -56,7 +56,10 @@ const renderPost = (postDetailVO: PostDetailVO) => {
     )
 }
 
-export const getServerSideProps = (async () => {
+export const getServerSideProps = (async (context) => {
+    const { query } = context
+    const { page, tagIds, category} = query
+    console.log(page, tagIds, category)
     const postDetailPageVO: PostDetailPageVO = await GetAllBlogPosts()
     // Pass data to the page via props
     return { props: { postDetailPageVO } }
@@ -74,5 +77,5 @@ export default function Home({ postDetailPageVO }: InferGetServerSidePropsType<t
             </Content>
             <Footer style={{ textAlign: 'center' }}>wwr.icu 2025</Footer>
         </Layout>
-    );
+    )
 }
