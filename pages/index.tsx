@@ -3,6 +3,8 @@ import { Card, Divider, Flex, Layout, Pagination, Row, Space, Typography} from '
 import {BorderlessTableOutlined, ClockCircleOutlined, TagsOutlined} from "@ant-design/icons";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
 import {PostDetailPageVO, PostDetailVO} from "@/pages/model";
+import {GetAllBlogPosts} from "@/pages/api";
+import Image from 'next/image'
 
 const { Footer, Content } = Layout;
 const imgStyle: React.CSSProperties = {
@@ -40,14 +42,14 @@ const renderPost = (postDetailVO: PostDetailVO) => {
                             <Typography.Paragraph>{postDetailVO.preview}</Typography.Paragraph>
                         </div>
                         <Flex justify="space-between" align='center' style={{width: '100%'}}>
-                            <Typography.Text type={"secondary"}><ClockCircleOutlined/> {postDetailVO.create_time}</Typography.Text>
+                            <Typography.Text type={"secondary"}><ClockCircleOutlined/> {postDetailVO.create_time.slice(0, 10)}</Typography.Text>
                             <Divider style={dividerStyle} type='vertical'/>
                             <Typography.Text type={"secondary"}><BorderlessTableOutlined/> {postDetailVO.category?.name}</Typography.Text>
                             <Divider style={dividerStyle} type='vertical'/>
                             <Typography.Text type={"secondary"}><TagsOutlined/> {postDetailVO.category?.name}</Typography.Text>
                         </Flex>
                     </Flex>
-                    <img src={postDetailVO.cover?.url} alt={postDetailVO.cover?.name} style={imgStyle}/>
+                    <Image width={200} height={400} src={postDetailVO.cover?.url ?? ''} alt={postDetailVO.cover?.name ?? 'cover'} style={imgStyle}/>
                 </Flex>
             </Card>
         </Row>
@@ -55,18 +57,7 @@ const renderPost = (postDetailVO: PostDetailVO) => {
 }
 
 export const getServerSideProps = (async () => {
-    // Fetch data from external API
-    const res = await fetch(`http://localhost:8000/open/post/all`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            page_index: 1,
-            page_size: 10
-        })
-    })
-    const postDetailPageVO: PostDetailPageVO = await res.json()
+    const postDetailPageVO: PostDetailPageVO = await GetAllBlogPosts()
     // Pass data to the page via props
     return { props: { postDetailPageVO } }
 }) satisfies GetServerSideProps<{ postDetailPageVO: PostDetailPageVO }>
