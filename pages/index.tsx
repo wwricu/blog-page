@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, Divider, Flex, Layout, Pagination, Row, Space, Typography} from 'antd';
 import {BorderlessTableOutlined, ClockCircleOutlined, TagsOutlined} from "@ant-design/icons";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
+import {PostDetailPageVO, PostDetailVO} from "@/pages/model";
 
 const { Footer, Content } = Layout;
 const imgStyle: React.CSSProperties = {
@@ -55,71 +56,28 @@ const renderPost = (postDetailVO: PostDetailVO) => {
 
 export const getServerSideProps = (async () => {
     // Fetch data from external API
-    // const res = await fetch(`http://localhost:8000/open/post/all`)
-    // const postDetailVOList: PostDetailVO[] = await res.json()
+    const res = await fetch(`http://localhost:8000/open/post/all`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            page_index: 1,
+            page_size: 10
+        })
+    })
+    const postDetailPageVO: PostDetailPageVO = await res.json()
     // Pass data to the page via props
-    const postDetailVOList: PostDetailVO[] = [
-        {
-            id: 1,
-            title: 'Sed ipsum',
-            category: {id: 1, name: 'test class 1', type: 'post_category'},
-            tag_list: [],
-            create_time: '',
-            preview: 'Et sanctus ea delenit dolores rebum vero eos ad elitr sit kasd eleifend magna vero. Stet eu dolore vero ipsum magna dolor ea adipiscing dignissim eirmod consetetur lorem sit sit duo dolor dolore.',
-            content: '',
-            update_time: ''
-        },
-        {
-            id: 2,
-            title: 'Sed ipsum',
-            category: {id: 1, name: 'test class 1', type: 'post_category'},
-            tag_list: [],
-            create_time: '',
-            preview: 'Et sanctus ea delenit dolores rebum vero eos ad elitr sit kasd eleifend magna vero. Stet eu dolore vero ipsum magna dolor ea adipiscing dignissim eirmod consetetur lorem sit sit duo dolor dolore.',
-            content: '',
-            update_time: ''
-        },
-        {
-            id: 3,
-            title: 'Sed ipsum',
-            category: {id: 1, name: 'test class 1', type: 'post_category'},
-            tag_list: [],
-            create_time: '',
-            preview: 'Et sanctus ea delenit dolores rebum vero eos ad elitr sit kasd eleifend magna vero. Stet eu dolore vero ipsum magna dolor ea adipiscing dignissim eirmod consetetur lorem sit sit duo dolor dolore.',
-            content: '',
-            update_time: ''
-        },
-        {
-            id: 4,
-            title: 'Sed ipsum',
-            category: {id: 1, name: 'test class 1', type: 'post_category'},
-            tag_list: [],
-            create_time: '',
-            preview: 'Et sanctus ea delenit dolores rebum vero eos ad elitr sit kasd eleifend magna vero. Stet eu dolore vero ipsum magna dolor ea adipiscing dignissim eirmod consetetur lorem sit sit duo dolor dolore.',
-            content: '',
-            update_time: ''
-        },
-        {
-            id: 5,
-            title: 'Sed ipsum',
-            category: {id: 1, name: 'test class 1', type: 'post_category'},
-            tag_list: [],
-            create_time: '',
-            preview: 'Et sanctus ea delenit dolores rebum vero eos ad elitr sit kasd eleifend magna vero. Stet eu dolore vero ipsum magna dolor ea adipiscing dignissim eirmod consetetur lorem sit sit duo dolor dolore.',
-            content: '',
-            update_time: ''
-        },
-    ];
-    return { props: { postDetailVOList } }
-}) satisfies GetServerSideProps<{ postDetailVOList: PostDetailVO[] }>
+    return { props: { postDetailPageVO } }
+}) satisfies GetServerSideProps<{ postDetailPageVO: PostDetailPageVO }>
 
 
-export default function Home({ postDetailVOList }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function Home({ postDetailPageVO }: InferGetServerSidePropsType<typeof getServerSideProps>) {
     return (
         <Layout style={{ minHeight: "100vh" }}>
             <Content>
                 <Space direction="vertical" size={16} style={{ marginTop: "16px", width: '100%' }}>
-                    {postDetailVOList?.map(postDetailVO => renderPost(postDetailVO))}
+                    {postDetailPageVO?.post_details?.map(postDetailVO => renderPost(postDetailVO))}
                     <Pagination align="center" defaultCurrent={1} total={50}/>
                 </Space>
             </Content>

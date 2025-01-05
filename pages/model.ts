@@ -1,34 +1,34 @@
-enum PostResourceTypeEnum {
+export enum PostResourceTypeEnum {
     IMAGE = 'image',
     COVER_IMAGE = 'cover',
     COMMON = 'common'
 }
 
-enum TagTypeEnum {
+export enum TagTypeEnum {
     POST_TAG = 'post_tag',
     POST_CAT = 'post_category'
 }
 
-interface PostRequestRO {
+export interface PostRequestRO {
     page_index: number
     page_size: number
     tag_list?: number[]
     cat_id?: number
 }
 
-interface TagRequestRO {
+export interface TagRequestRO {
     page_index: number
     page_size: number
     type: TagTypeEnum
 }
 
-interface TagVO {
+export interface TagVO {
     id: number
     name: string
     type: string
 }
 
-interface PostResourceVO {
+export interface PostResourceVO {
     id: number
     name: string
     key: string
@@ -36,7 +36,7 @@ interface PostResourceVO {
     type: PostResourceTypeEnum
 }
 
-interface PostDetailVO {
+export interface PostDetailVO {
     id: number
     title: string
     cover?: PostResourceVO
@@ -46,4 +46,11 @@ interface PostDetailVO {
     tag_list: TagVO[]
     create_time: string
     update_time: string
+}
+
+export interface PostDetailPageVO {
+    page_index: number
+    page_size: number
+    count: number
+    post_details: PostDetailVO[]
 }
