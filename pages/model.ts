@@ -12,8 +12,8 @@ export enum TagTypeEnum {
 export interface PostRequestRO {
     page_index: number
     page_size: number
-    tag_list?: number[]
-    cat_id?: number
+    tag_list?: string[]
+    cat_id?: string
 }
 
 export interface TagRequestRO {

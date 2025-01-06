@@ -5,6 +5,7 @@ import {GetServerSideProps, InferGetServerSidePropsType} from "next"
 import {PostDetailPageVO, PostDetailVO} from "@/pages/model"
 import {GetAllBlogPosts} from "@/pages/api"
 import Image from 'next/image'
+import {useRouter} from "next/router";
 
 const { Footer, Content } = Layout
 const imgStyle: React.CSSProperties = {
@@ -58,21 +59,25 @@ const renderPost = (postDetailVO: PostDetailVO) => {
 
 export const getServerSideProps = (async (context) => {
     const { query } = context
-    const { page, tagIds, category} = query
-    console.log(page, tagIds, category)
-    const postDetailPageVO: PostDetailPageVO = await GetAllBlogPosts()
-    // Pass data to the page via props
+    const { page, tags, category} = query
+    const pageIndex = parseInt(page as string ?? '1')
+    const postDetailPageVO: PostDetailPageVO = await GetAllBlogPosts(pageIndex, category as string | undefined, tags as string[] | undefined)
     return { props: { postDetailPageVO } }
 }) satisfies GetServerSideProps<{ postDetailPageVO: PostDetailPageVO }>
 
-
 export default function Home({ postDetailPageVO }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+    const router = useRouter();
     return (
         <Layout style={{ minHeight: "100vh" }}>
             <Content>
                 <Space direction="vertical" size={16} style={{ marginTop: "16px", width: '100%' }}>
                     {postDetailPageVO?.post_details?.map(postDetailVO => renderPost(postDetailVO))}
-                    <Pagination align="center" defaultCurrent={1} total={50}/>
+                    <Pagination
+                        align="center"
+                        current={postDetailPageVO.page_index}
+                        total={postDetailPageVO.count}
+                        onChange={pageIndex => router.push(`?page=${pageIndex}`)}
+                    />
                 </Space>
             </Content>
             <Footer style={{ textAlign: 'center' }}>wwr.icu 2025</Footer>
