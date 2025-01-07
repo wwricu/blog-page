@@ -44,10 +44,18 @@ const renderPost = (postDetailVO: PostDetailVO) => {
                         </div>
                         <Flex justify="space-between" align='center' style={{width: '100%'}}>
                             <Typography.Text type={"secondary"}><ClockCircleOutlined/> {postDetailVO.create_time.slice(0, 10)}</Typography.Text>
-                            <Divider style={dividerStyle} type='vertical'/>
-                            <Typography.Text type={"secondary"}><BorderlessTableOutlined/> {postDetailVO.category?.name}</Typography.Text>
-                            <Divider style={dividerStyle} type='vertical'/>
-                            <Typography.Text type={"secondary"}><TagsOutlined/> {postDetailVO.category?.name}</Typography.Text>
+                            {postDetailVO.category ? (
+                                <>
+                                    <Divider style={dividerStyle} type='vertical'/>
+                                    <Typography.Text type={"secondary"}><BorderlessTableOutlined/> {postDetailVO.category?.name}</Typography.Text>
+                                </>
+                            ) : (<></>)}
+                            {postDetailVO.tag_list?.length ? (
+                                <>
+                                    <Divider style={dividerStyle} type='vertical'/>
+                                    <Typography.Text type={"secondary"}><TagsOutlined/> {postDetailVO.category?.name}</Typography.Text>
+                                </>
+                            ) : (<></>)}
                         </Flex>
                     </Flex>
                     <Image width={200} height={400} src={postDetailVO.cover?.url ?? `/covers/${Math.floor(Math.random() * 5).toString()}.jpg`} alt={postDetailVO.cover?.name ?? 'cover'} style={imgStyle}/>
