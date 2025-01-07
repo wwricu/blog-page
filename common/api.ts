@@ -1,4 +1,4 @@
-import {PostDetailPageVO} from "@/pages/model";
+import {PostDetailPageVO} from "@/common/model";
 
 const baseUrl = 'http://localhost:8000';
 

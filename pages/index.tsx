@@ -2,8 +2,8 @@ import React from 'react'
 import { Card, Divider, Flex, Layout, Pagination, Row, Space, Typography} from 'antd'
 import {BorderlessTableOutlined, ClockCircleOutlined, TagsOutlined} from "@ant-design/icons"
 import {GetServerSideProps, InferGetServerSidePropsType} from "next"
-import {PostDetailPageVO, PostDetailVO} from "@/pages/model"
-import {GetAllBlogPosts} from "@/pages/api"
+import {PostDetailPageVO, PostDetailVO} from "@/common/model"
+import {GetAllBlogPosts} from "@/common/api"
 import Image from 'next/image'
 import {useRouter} from "next/router";
 
