@@ -50,7 +50,7 @@ const renderPost = (postDetailVO: PostDetailVO) => {
                             <Typography.Text type={"secondary"}><TagsOutlined/> {postDetailVO.category?.name}</Typography.Text>
                         </Flex>
                     </Flex>
-                    <Image width={200} height={400} src={postDetailVO.cover?.url ?? ''} alt={postDetailVO.cover?.name ?? 'cover'} style={imgStyle}/>
+                    <Image width={200} height={400} src={postDetailVO.cover?.url ?? `/covers/${Math.floor(Math.random() * 5).toString()}.jpg`} alt={postDetailVO.cover?.name ?? 'cover'} style={imgStyle}/>
                 </Flex>
             </Card>
         </Row>
