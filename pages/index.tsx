@@ -34,15 +34,11 @@ const renderPost = (postDetailVO: PostDetailVO) => {
         <Row key={postDetailVO.id} justify="center">
             <Card style={cardStyle} styles={{body: cardBodyStyle}}>
                 <Flex justify="space-between" gap='small'>
-                    <Flex vertical justify='space-between' align='flex-start' style={{padding: 24}}>
-                        <Flex vertical justify='flex-start' align='flex-start'>
-                            <div style={{width: '100%'}}>
-                                <Typography.Title level={4}>{postDetailVO.title}</Typography.Title>
-                                <Divider style={dividerStyle}/>
-                            </div>
-                            <div style={{height: '30px', overflow: 'hidden', marginBottom: 10}}>
-                                <Typography.Paragraph>{postDetailVO.preview}</Typography.Paragraph>
-                            </div>
+                    <Flex vertical justify='space-between' align='flex-start' style={{padding: 24, width: '600px'}}>
+                        <Flex vertical justify='flex-start' align='flex-start' style={{width: '100%'}}>
+                            <Typography.Title level={4}>{postDetailVO.title}</Typography.Title>
+                            <Divider style={dividerStyle}/>
+                            <Typography.Paragraph style={{height: '50px', overflow: 'hidden'}}>{postDetailVO.preview}</Typography.Paragraph>
                         </Flex>
                         <Flex vertical justify='flex-end' align='flex-start'>
                             <Flex justify="space-between" align='center' style={{width: '100%'}}>
@@ -62,7 +58,7 @@ const renderPost = (postDetailVO: PostDetailVO) => {
                             </Flex>
                         </Flex>
                     </Flex>
-                    <Image width={200} height={400} src={postDetailVO.cover?.url ?? `/covers/${Math.floor(Math.random() * 5).toString()}.jpg`} alt={postDetailVO.cover?.name ?? 'cover'} style={imgStyle}/>
+                    <Image width={200} height={300} src={postDetailVO.cover?.url ?? `/covers/${Math.floor(Math.random() * 5).toString()}.jpg`} alt={postDetailVO.cover?.name ?? 'cover'} style={imgStyle}/>
                 </Flex>
             </Card>
         </Row>
