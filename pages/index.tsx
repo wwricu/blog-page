@@ -19,6 +19,18 @@ export const getServerSideProps = (async (context) => {
 
 export default function Home({ postDetailPageVO }: InferGetServerSidePropsType<typeof getServerSideProps>) {
     const router = useRouter();
+
+    const changePage = (pageIndex: number) => {
+        let url = `?page=${pageIndex}`
+        if (router.query.category) {
+            url += `&category=${router.query.category}`
+        }
+        if (router.query.tags) {
+            url += `&tags=${router.query.tags}`
+        }
+        router.push(url).then()
+    }
+
     return (
         <Layout style={{ minHeight: "100vh" }}>
             <Content>
@@ -28,7 +40,7 @@ export default function Home({ postDetailPageVO }: InferGetServerSidePropsType<t
                         align="center"
                         current={postDetailPageVO.page_index}
                         total={postDetailPageVO.count}
-                        onChange={pageIndex => router.push(`?page=${pageIndex}`)}
+                        onChange={changePage}
                     />
                 </Space>
             </Content>
