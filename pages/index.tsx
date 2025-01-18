@@ -34,28 +34,32 @@ const renderPost = (postDetailVO: PostDetailVO) => {
         <Row key={postDetailVO.id} justify="center">
             <Card style={cardStyle} styles={{body: cardBodyStyle}}>
                 <Flex justify="space-between" gap='small'>
-                    <Flex vertical justify='space-around' align='flex-start' style={{padding: 24}}>
-                        <div style={{width: '100%'}}>
-                            <Typography.Title level={4}>{postDetailVO.title}</Typography.Title>
-                            <Divider style={dividerStyle}/>
-                        </div>
-                        <div style={{height: '100px', overflow: 'hidden', marginBottom: 10}}>
-                            <Typography.Paragraph>{postDetailVO.preview}</Typography.Paragraph>
-                        </div>
-                        <Flex justify="space-between" align='center' style={{width: '100%'}}>
-                            <Typography.Text type={"secondary"}><ClockCircleOutlined/> {postDetailVO.create_time.slice(0, 10)}</Typography.Text>
-                            {postDetailVO.category ? (
-                                <>
-                                    <Divider style={dividerStyle} type='vertical'/>
-                                    <Typography.Text type={"secondary"}><BorderlessTableOutlined/> {postDetailVO.category?.name}</Typography.Text>
-                                </>
-                            ) : (<></>)}
-                            {postDetailVO.tag_list?.length ? (
-                                <>
-                                    <Divider style={dividerStyle} type='vertical'/>
-                                    <Typography.Text type={"secondary"}><TagsOutlined/> {postDetailVO.category?.name}</Typography.Text>
-                                </>
-                            ) : (<></>)}
+                    <Flex vertical justify='space-between' align='flex-start' style={{padding: 24}}>
+                        <Flex vertical justify='flex-start' align='flex-start'>
+                            <div style={{width: '100%'}}>
+                                <Typography.Title level={4}>{postDetailVO.title}</Typography.Title>
+                                <Divider style={dividerStyle}/>
+                            </div>
+                            <div style={{height: '30px', overflow: 'hidden', marginBottom: 10}}>
+                                <Typography.Paragraph>{postDetailVO.preview}</Typography.Paragraph>
+                            </div>
+                        </Flex>
+                        <Flex vertical justify='flex-end' align='flex-start'>
+                            <Flex justify="space-between" align='center' style={{width: '100%'}}>
+                                <Typography.Text type={"secondary"}><ClockCircleOutlined/> {postDetailVO.create_time.slice(0, 10)}</Typography.Text>
+                                {postDetailVO.category ? (
+                                    <>
+                                        <Divider style={dividerStyle} type='vertical'/>
+                                        <Typography.Text type={"secondary"}><BorderlessTableOutlined/> {postDetailVO.category?.name}</Typography.Text>
+                                    </>
+                                ) : (<></>)}
+                                {postDetailVO.tag_list?.length ? (
+                                    <>
+                                        <Divider style={dividerStyle} type='vertical'/>
+                                        <Typography.Text type={"secondary"}><TagsOutlined/> {postDetailVO.category?.name}</Typography.Text>
+                                    </>
+                                ) : (<></>)}
+                            </Flex>
                         </Flex>
                     </Flex>
                     <Image width={200} height={400} src={postDetailVO.cover?.url ?? `/covers/${Math.floor(Math.random() * 5).toString()}.jpg`} alt={postDetailVO.cover?.name ?? 'cover'} style={imgStyle}/>
