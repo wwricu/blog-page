@@ -1,0 +1,48 @@
+name: Release
+on:
+  push:
+    branches:
+      - 'release'
+    paths:
+      - 'version.txt'
+  workflow_dispatch:
+jobs:
+  github:
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.12.2
+          cache: 'npm'
+      - id: build
+        run: |
+          echo version=$(cat version.txt) >> $GITHUB_ENV
+          npm ci
+          npm run build --if-present
+          cd .next && tar -czf dist.tar.gz ./*
+          cp dist.tar.gz ../
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.version }}
+          files: .next/dist.tar.gz
+      - uses: actions/attest-build-provenance@v1
+        with:
+          subject-path: '.next/dist.tar.gz'
+  dockerhub:
+    runs-on: ubuntu-latest
+    permissions: write-all
+    needs: github
+    steps:
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with:
+          username: wwricu
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - uses: docker/build-push-action@v6
+        with:
+          push: true
+          sbom: true
+          provenance: mode=max
+          tags: wwricu/basic-service:${{ needs.github.outputs.version }}, wwricu/basic-service:latest
