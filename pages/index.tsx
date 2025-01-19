@@ -4,7 +4,7 @@ import {GetServerSideProps, InferGetServerSidePropsType} from "next"
 import {PostDetailPageVO} from "@/common/model"
 import {GetAllBlogPosts} from "@/common/api"
 import {useRouter} from "next/router";
-import PostCard from "@/pages/components/PostCard";
+import PostCard from "@/components/PostCard";
 
 const { Footer, Content } = Layout
 

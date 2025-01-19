@@ -1,6 +1,6 @@
 import {PostDetailPageVO, PostDetailVO} from "@/common/model";
 
-const baseUrl = 'http://localhost:8000';
+const baseUrl = process.env.BASE_URL
 
 export const GetAllBlogPosts = async (
     pageIndex: number = 1,
