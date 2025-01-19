@@ -1,4 +1,4 @@
-import {PostDetailPageVO} from "@/common/model";
+import {PostDetailPageVO, PostDetailVO} from "@/common/model";
 
 const baseUrl = 'http://localhost:8000';
 
@@ -20,4 +20,9 @@ export const GetAllBlogPosts = async (
         })
     })
     return await res.json() as PostDetailPageVO
+}
+
+export const GetPostDetailAPI = async (postId: number | string) => {
+    const res = await fetch(`${baseUrl}/open/post/detail/${postId}`, {method: 'GET'})
+    return await res.json() as PostDetailVO
 }
