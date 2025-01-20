@@ -47,9 +47,8 @@ jobs:
       - uses: docker/build-push-action@v6
         with:
           push: true
-          sbom: true
-          provenance: mode=max
-          tags: wwricu/blog-page:snapshot, wwricu/blog-page:latest
+          file: DockerfileDev
+          tags: wwricu/blog-page:snapshot
   deploy:
     runs-on: ubuntu-latest
     permissions: write-all
