@@ -31,9 +31,6 @@ jobs:
         with:
           tag_name: snapshot
           files: .next/dist.tar.gz
-      - uses: actions/attest-build-provenance@v1
-        with:
-          subject-path: '.next/dist.tar.gz'
   dockerhub:
     runs-on: ubuntu-latest
     permissions: write-all
