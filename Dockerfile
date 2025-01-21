@@ -11,6 +11,7 @@ WORKDIR /data
 COPY --from=builder /data/.next ./.next
 COPY --from=builder /data/node_modules ./node_modules
 COPY --from=builder /data/package.json ./
+COPY --from=builder /data/.env.production ./
 
 # 启动应用
 CMD ["npm", "run", "start"]
