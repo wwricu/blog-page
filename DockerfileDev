@@ -2,7 +2,7 @@ FROM node:20-alpine AS builder
 
 WORKDIR /data
 ADD https://github.com/wwricu/blog-page/releases/download/snapshot/dist.tar.gz .
-RUN tar -xzf dist.tar.gz && rm dist.tar.gz && npm ci && npm run build
+RUN tar -xzf dist.tar.gz && rm dist.tar.gz && npm ci
 
 FROM node:20-alpine
 
