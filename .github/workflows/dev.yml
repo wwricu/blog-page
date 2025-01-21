@@ -61,6 +61,6 @@ jobs:
           script: |
             docker stop blog-page
             docker rm blog-page
-            docker rmi blog-page:snapshot
+            docker rmi wwricu/blog-page:snapshot
             cd /deploy
             docker-compose -f docker-compose-dev.yml up -d
