@@ -3,7 +3,6 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
   reactStrictMode: true,
-  output: 'standalone',
   transpilePackages: [
     "antd",
     "@ant-design",
@@ -11,11 +10,7 @@ const nextConfig: NextConfig = {
     "rc-pagination",
     "rc-input",
     "rc-picker",
-  ],
-  env: {
-    BASE_URL: process.env.BASE_URL,
-    NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL
-  }
+  ]
 };
 
 export default nextConfig;
