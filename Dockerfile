@@ -1,4 +1,4 @@
-FROM node:20-alpine
+FROM node:20-alpine AS builder
 
 WORKDIR /data
 ADD https://github.com/wwricu/blog-page/releases/latest/download/dist.tar.gz .
