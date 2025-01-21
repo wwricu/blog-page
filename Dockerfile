@@ -13,5 +13,6 @@ COPY --from=builder /data/node_modules ./node_modules
 COPY --from=builder /data/package.json ./
 COPY --from=builder /data/.env.production ./
 
-# 启动应用
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' > /etc/timezone
+
 CMD ["npm", "run", "start"]
