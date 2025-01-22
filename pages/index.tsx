@@ -32,7 +32,10 @@ export default function Home({ postDetailPageVO }: InferGetServerSidePropsType<t
     }
 
     return (
-        <Layout style={{ minHeight: "100vh" }}>
+        <Layout style={{
+            backgroundImage: 'url("https://www.toptal.com/designers/subtlepatterns/uploads/leaves.png")',
+            minHeight: '100vh',
+        }}>
             <Content>
                 <Space direction="vertical" size={16} style={{ marginTop: "16px", width: '100%' }}>
                     {postDetailPageVO?.post_details?.map(postDetailVO => <PostCard key={postDetailVO.id} postDetailVO={postDetailVO}/>)}

@@ -14,7 +14,8 @@ const imgStyle: React.CSSProperties = {
 
 const cardBodyStyle: React.CSSProperties = {
     overflow: 'hidden',
-    padding: 0
+    padding: 0,
+    background: '#efe'
 }
 
 const cardStyle: React.CSSProperties = {
