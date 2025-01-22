@@ -64,28 +64,28 @@ const renderTag = (tagList: TagVO[]) => {
 
 export default function PostCard({postDetailVO}: PostCardProps) {
     return (
-        <a href={`/detail/${postDetailVO.id}`}>
-            <Row key={postDetailVO.id} justify='center'>
-                <Card style={cardStyle} styles={{body: cardBodyStyle}}>
-                    <Flex justify='space-between' gap='small'>
-                        <Flex vertical justify='space-between' align='flex-start' style={{padding: 24, width: '100%'}}>
-                            <Flex vertical justify='flex-start' align='flex-start' style={{width: '100%'}}>
-                                <Typography.Title level={4}>{postDetailVO.title}</Typography.Title>
-                                <Divider/>
-                                <Typography.Paragraph style={{height: '50px', overflow: 'hidden'}}>{postDetailVO.preview}</Typography.Paragraph>
-                            </Flex>
-                            <Flex vertical justify='flex-end' align='flex-start'>
-                                <Flex justify='space-between' align='center' style={{width: '100%'}}>
-                                    <Typography.Text type={'secondary'}><ClockCircleOutlined/> {postDetailVO.create_time.slice(0, 10)}</Typography.Text>
-                                    {renderCategory(postDetailVO?.category)}
-                                    {renderTag(postDetailVO.tag_list)}
-                                </Flex>
+        <Row key={postDetailVO.id} justify='center'>
+            <Card style={cardStyle} styles={{body: cardBodyStyle}}>
+                <a href={`/detail/${postDetailVO.id}`}>
+                <Flex justify='space-between' gap='small'>
+                    <Flex vertical justify='space-between' align='flex-start' style={{padding: 24, width: '100%'}}>
+                        <Flex vertical justify='flex-start' align='flex-start' style={{width: '100%'}}>
+                            <Typography.Title level={4}>{postDetailVO.title}</Typography.Title>
+                            <Divider/>
+                            <Typography.Paragraph style={{height: '50px', overflow: 'hidden'}}>{postDetailVO.preview}</Typography.Paragraph>
+                        </Flex>
+                        <Flex vertical justify='flex-end' align='flex-start'>
+                            <Flex justify='space-between' align='center' style={{width: '100%'}}>
+                                <Typography.Text type={'secondary'}><ClockCircleOutlined/> {postDetailVO.create_time.slice(0, 10)}</Typography.Text>
+                                {renderCategory(postDetailVO?.category)}
+                                {renderTag(postDetailVO.tag_list)}
                             </Flex>
                         </Flex>
-                        <Image width={400} height={600} src={postDetailVO.cover?.url ?? `https://picsum.photos/400/600?id=${postDetailVO.id}`} alt={postDetailVO.cover?.name ?? 'cover'} unoptimized style={imgStyle}/>
                     </Flex>
-                </Card>
-            </Row>
-        </a>
+                    <Image width={400} height={600} src={postDetailVO.cover?.url ?? `https://picsum.photos/400/600?id=${postDetailVO.id}`} alt={postDetailVO.cover?.name ?? 'cover'} unoptimized style={imgStyle}/>
+                </Flex>
+                </a>
+            </Card>
+        </Row>
     )
 }
