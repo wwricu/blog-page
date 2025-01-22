@@ -82,7 +82,7 @@ export default function PostCard({postDetailVO}: PostCardProps) {
                                 </Flex>
                             </Flex>
                         </Flex>
-                        <Image width={200} height={400} src={postDetailVO.cover?.url ?? `/covers/${Math.floor(Math.random() * 5).toString()}.jpg`} alt={postDetailVO.cover?.name ?? 'cover'} style={imgStyle}/>
+                        <Image width={400} height={600} src={postDetailVO.cover?.url ?? `https://picsum.photos/600/800?id=${postDetailVO.id}`} alt={postDetailVO.cover?.name ?? 'cover'} style={imgStyle}/>
                     </Flex>
                 </Card>
             </Row>
