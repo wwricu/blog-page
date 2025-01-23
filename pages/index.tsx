@@ -47,7 +47,7 @@ export default function Home({ postDetailPageVO }: InferGetServerSidePropsType<t
                     />
                 </Space>
             </Content>
-            <Footer style={{ textAlign: 'center' }}>wwr.icu 2025</Footer>
+            <Footer style={{ textAlign: 'center', background: 'transparent' }}>wwr.icu 2025</Footer>
         </Layout>
     )
 }
