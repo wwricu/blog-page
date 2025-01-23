@@ -6,8 +6,8 @@ import React from 'react';
 import Link from "next/link";
 
 const imgStyle: React.CSSProperties = {
-    height: '280px',
-    width: '180px',
+    height: '250px',
+    width: '200px',
     display: 'block',
     objectFit: 'cover'
 }
@@ -15,12 +15,15 @@ const imgStyle: React.CSSProperties = {
 const cardBodyStyle: React.CSSProperties = {
     overflow: 'hidden',
     padding: 0,
-    background: '#efe'
+    background: '#f0fff6'
 }
 
 const cardStyle: React.CSSProperties = {
     boxShadow: '5px 8px 24px 5px rgba(208, 216, 243, 0.6)',
-    width: '800px', padding: 0, overflow: 'hidden',
+    width: '800px',
+    padding: 0,
+    overflow: 'hidden',
+    opacity: 0.8
 }
 
 type PostCardProps = {
@@ -72,7 +75,7 @@ export default function PostCard({postDetailVO}: PostCardProps) {
                     <Flex vertical justify='space-between' align='flex-start' style={{padding: 24, width: '100%'}}>
                         <Flex vertical justify='flex-start' align='flex-start' style={{width: '100%'}}>
                             <Typography.Title level={4}>{postDetailVO.title}</Typography.Title>
-                            <Divider/>
+                            <Divider style={{margin: 10}}/>
                             <Typography.Paragraph style={{height: '50px', overflow: 'hidden'}}>{postDetailVO.preview}</Typography.Paragraph>
                         </Flex>
                         <Flex vertical justify='flex-end' align='flex-start'>
@@ -83,7 +86,7 @@ export default function PostCard({postDetailVO}: PostCardProps) {
                             </Flex>
                         </Flex>
                     </Flex>
-                    <Image width={400} height={600} src={postDetailVO.cover?.url ?? `https://picsum.photos/400/600?id=${postDetailVO.id}`} alt={postDetailVO.cover?.name ?? 'cover'} unoptimized style={imgStyle}/>
+                    <Image width={200} height={250} src={postDetailVO.cover?.url ?? `https://picsum.photos/200/250?id=${postDetailVO.id}`} alt={postDetailVO.cover?.name ?? 'cover'} unoptimized style={imgStyle}/>
                 </Flex>
                 </a>
             </Card>
