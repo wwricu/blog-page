@@ -2,6 +2,7 @@ import {PostDetailVO} from "@/common/model";
 import {GetPostDetailAPI} from "@/common/api";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
 import {Flex} from "antd";
+import React from "react";
 
 
 export const getServerSideProps = (async (context) => {
@@ -11,6 +12,11 @@ export const getServerSideProps = (async (context) => {
     return { props: { postDetailVO } }
 }) satisfies GetServerSideProps<{ postDetailVO: PostDetailVO }>
 
+const contentStyle: React.CSSProperties = {
+    width: '800px',
+    background: '#f0fff6',
+    opacity: 0.7
+}
 
 export default function PostDetailPage({ postDetailVO }: InferGetServerSidePropsType<typeof getServerSideProps>) {
     return (
@@ -21,7 +27,7 @@ export default function PostDetailPage({ postDetailVO }: InferGetServerSideProps
             height: '100vh',
             width: '100%',
         }}>
-            <div style={{width: '600px'}}>
+            <div style={contentStyle}>
                 <div>
                     <p>{postDetailVO.title}</p>
                 </div>
