@@ -14,7 +14,7 @@ export default function TagList() {
     return (
         <>
             {tagList.map((tag: TagVO) => (
-                <p>{tag.name}</p>
+                <p key={tag.id}>{tag.name}</p>
             ))}
         </>
     )

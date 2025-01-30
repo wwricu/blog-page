@@ -2,33 +2,34 @@ import React from 'react';
 import {AppstoreOutlined, HomeOutlined, TagsOutlined} from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
+import Link from "next/link";
 
 type MenuItem = Required<MenuProps>['items'][number];
 
 const items: MenuItem[] = [
     {
         label: (
-            <a href="/" rel="noopener noreferrer">
+            <Link href="/" rel="noopener noreferrer">
                 Home
-            </a>
+            </Link>
         ),
         key: 'home',
         icon: <HomeOutlined/>,
     },
     {
         label: (
-            <a href="/category" rel="noopener noreferrer">
+            <Link href="/category" rel="noopener noreferrer">
                 Category
-            </a>
+            </Link>
         ),
         key: 'category',
         icon: <AppstoreOutlined/>,
     },
     {
         label: (
-            <a href="/tag" rel="noopener noreferrer">
+            <Link href="/tag" rel="noopener noreferrer">
                 Tags
-            </a>
+            </Link>
         ),
         key: 'tags',
         icon: <TagsOutlined/>,
