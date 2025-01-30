@@ -9,9 +9,10 @@ import PostCard from "@/components/PostCard";
 
 export const getServerSideProps = (async (context) => {
     const { query } = context
-    const { page, tags, category} = query
+    const { page, tag, category} = query
     const pageIndex = parseInt(page as string ?? '1')
-    const postDetailPageVO: PostDetailPageVO = await GetAllBlogPosts(pageIndex, category as string | undefined, tags as string[] | undefined)
+    const tags = tag == null ? undefined : [tag as string]
+    const postDetailPageVO: PostDetailPageVO = await GetAllBlogPosts(pageIndex, category as string | undefined, tags)
     return { props: { postDetailPageVO } }
 }) satisfies GetServerSideProps<{ postDetailPageVO: PostDetailPageVO }>
 
@@ -23,8 +24,8 @@ export default function Home({ postDetailPageVO }: InferGetServerSidePropsType<t
         if (router.query.category) {
             url += `&category=${router.query.category}`
         }
-        if (router.query.tags) {
-            url += `&tags=${router.query.tags}`
+        if (router.query.tag) {
+            url += `&tag=${router.query.tag}`
         }
         router.push(url).then()
     }

@@ -55,11 +55,9 @@ const renderTag = (tagList: TagVO[]) => {
             <Divider type='vertical'/>
             <TagsOutlined/>
             {tagList.map((tag: TagVO) => (
-                <>
-                    <Typography.Text type={'secondary'} style={{marginLeft: 5}}>
-                        <Link href={`?tags=${tag.name}`}>{tag.name}</Link>
-                    </Typography.Text>
-                </>
+                <Typography.Text key={tag.id} type={'secondary'} style={{marginLeft: 5}}>
+                    <Link href={`?tags=${tag.name}`}>{tag.name}</Link>
+                </Typography.Text>
             ))}
         </>
     )
@@ -70,7 +68,7 @@ export default function PostCard({postDetailVO}: PostCardProps) {
     return (
         <Row key={postDetailVO.id} justify='center'>
             <Card style={cardStyle} styles={{body: cardBodyStyle}}>
-                <a href={`/detail/${postDetailVO.id}`}>
+                <Link href={`/detail/${postDetailVO.id}`}>
                 <Flex justify='space-between' gap='small'>
                     <Flex vertical justify='space-between' align='flex-start' style={{padding: 24, width: '100%'}}>
                         <Flex vertical justify='flex-start' align='flex-start' style={{width: '100%'}}>
@@ -88,7 +86,7 @@ export default function PostCard({postDetailVO}: PostCardProps) {
                     </Flex>
                     <Image width={200} height={250} src={postDetailVO.cover?.url ?? `https://picsum.photos/200/250?id=${postDetailVO.id}`} alt={postDetailVO.cover?.name ?? 'cover'} unoptimized style={imgStyle}/>
                 </Flex>
-                </a>
+                </Link>
             </Card>
         </Row>
     )
