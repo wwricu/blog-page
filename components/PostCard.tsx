@@ -15,7 +15,6 @@ const imgStyle: React.CSSProperties = {
 const cardBodyStyle: React.CSSProperties = {
     overflow: 'hidden',
     padding: 0,
-    background: '#f0fff6'
 }
 
 const cardStyle: React.CSSProperties = {
@@ -23,7 +22,7 @@ const cardStyle: React.CSSProperties = {
     width: '800px',
     padding: 0,
     overflow: 'hidden',
-    opacity: 0.8
+    background: 'rgba(240, 255, 246, 0.5)',
 }
 
 type PostCardProps = {

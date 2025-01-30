@@ -13,9 +13,10 @@ export const getServerSideProps = (async (context) => {
 }) satisfies GetServerSideProps<{ postDetailVO: PostDetailVO }>
 
 const contentStyle: React.CSSProperties = {
-    width: '800px',
-    background: '#f0fff6',
-    opacity: 0.7
+    boxShadow: '5px 8px 24px 5px rgba(208, 216, 243, 0.7)',
+    width: '900px',
+    background: 'rgba(240, 255, 246, 0.4)',
+    padding: 20
 }
 
 export default function PostDetailPage({ postDetailVO }: InferGetServerSidePropsType<typeof getServerSideProps>) {
@@ -24,8 +25,8 @@ export default function PostDetailPage({ postDetailVO }: InferGetServerSideProps
             justify='center'
             style={{
             backgroundImage: 'url("https://www.toptal.com/designers/subtlepatterns/uploads/leaves.png")',
-            height: '100vh',
             width: '100%',
+            minHeight: '100vh',
         }}>
             <div style={contentStyle}>
                 <div>

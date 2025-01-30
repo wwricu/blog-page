@@ -37,7 +37,7 @@ const items: MenuItem[] = [
 ];
 
 const Header: React.FC = () => {
-    return <Menu selectable={false} mode="horizontal" items={items} />;
+    return <Menu style={{background: 'rgba(240, 255, 246, 0.8)'}} mode="horizontal" items={items} />;
 };
 
 export default Header;
