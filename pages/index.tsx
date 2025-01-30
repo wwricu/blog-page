@@ -1,12 +1,10 @@
 import React from 'react'
-import { Layout, Pagination, Space} from 'antd'
+import { Pagination, Space} from 'antd'
 import {GetServerSideProps, InferGetServerSidePropsType} from "next"
 import {PostDetailPageVO} from "@/common/model"
 import {GetAllBlogPosts} from "@/common/api"
 import {useRouter} from "next/router";
 import PostCard from "@/components/PostCard";
-
-const { Footer, Content } = Layout
 
 
 export const getServerSideProps = (async (context) => {
@@ -32,22 +30,14 @@ export default function Home({ postDetailPageVO }: InferGetServerSidePropsType<t
     }
 
     return (
-        <Layout style={{
-            backgroundImage: 'url("https://www.toptal.com/designers/subtlepatterns/uploads/leaves.png")',
-            minHeight: '100vh',
-        }}>
-            <Content>
-                <Space direction="vertical" size={16} style={{ marginTop: "16px", width: '100%' }}>
-                    {postDetailPageVO?.post_details?.map(postDetailVO => <PostCard key={postDetailVO.id} postDetailVO={postDetailVO}/>)}
-                    <Pagination
-                        align="center"
-                        current={postDetailPageVO.page_index}
-                        total={postDetailPageVO.count}
-                        onChange={changePage}
-                    />
-                </Space>
-            </Content>
-            <Footer style={{ textAlign: 'center', background: 'transparent' }}>wwr.icu 2025</Footer>
-        </Layout>
+        <Space direction="vertical" size={16} style={{ marginTop: "16px", width: '100%' }}>
+            {postDetailPageVO?.post_details?.map(postDetailVO => <PostCard key={postDetailVO.id} postDetailVO={postDetailVO}/>)}
+            <Pagination
+                align="center"
+                current={postDetailPageVO.page_index}
+                total={postDetailPageVO.count}
+                onChange={changePage}
+            />
+        </Space>
     )
 }
