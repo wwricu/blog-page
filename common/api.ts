@@ -23,7 +23,8 @@ export const GetAllBlogPosts = async (
 }
 
 export const GetPostDetailAPI = async (postId: number | string) => {
-    const res = await fetch(`${baseUrl}/open/post/detail/${postId}`, {method: 'GET'})
+    const postNumId = parseInt(postId as string) // Fix user injection
+    const res = await fetch(`${baseUrl}/open/post/detail/${postNumId}`, {method: 'GET'})
     return await res.json() as PostDetailVO
 }
 
