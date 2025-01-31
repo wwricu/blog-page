@@ -35,9 +35,9 @@ const items: MenuItem[] = [
         icon: <TagsOutlined/>,
     },
 ];
-
+// f6f8fa 246 248 250
 const Header: React.FC = () => {
-    return <Menu style={{background: 'rgba(240, 255, 246, 0.8)'}} mode="horizontal" items={items} />;
+    return <Menu mode="horizontal" items={items} />;
 };
 
 export default Header;

@@ -12,11 +12,11 @@ export default function TagList({tags, type}: TagListProps) {
     const path = type === TagTypeEnum.POST_TAG ? '/?tag=' : '/?category=';
     return (
         <Row justify='center'>
-            <Flex style={{width: 1000, marginTop: 10}}>
+            <Flex className='mt-3 w-800px'>
                     {tags.map((tag: TagVO) => (
                         <Link key={tag.id} href={path + tag.name}>
                             <Card
-                                style={{width: 200, height: 150, margin: 10}}
+                                className='w-52 h-36 m-2'
                                 key={tag.id}
                                 title={tag.name}
                             >No description

@@ -31,7 +31,7 @@ export default function Home({ postDetailPageVO }: InferGetServerSidePropsType<t
     }
 
     return (
-        <Space direction="vertical" size={16} style={{ marginTop: "16px", width: '100%' }}>
+        <Space className='mt-3 w-full' direction="vertical" size={16}>
             {postDetailPageVO?.post_details?.map(postDetailVO => <PostCard key={postDetailVO.id} postDetailVO={postDetailVO}/>)}
             <Pagination
                 align="center"

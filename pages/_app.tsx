@@ -7,15 +7,12 @@ import {Content, Footer} from "antd/es/layout/layout";
 
 export default function App({Component, pageProps}: AppProps) {
     return (
-        <Layout style={{
-            backgroundImage: 'url("https://www.toptal.com/designers/subtlepatterns/uploads/leaves.png")',
-            minHeight: '100vh',
-        }}>
+        <Layout className='min-h-lvh bg-white'>
             <Content>
                 <Header/>
                 <Component {...pageProps} />
             </Content>
-            <Footer style={{ textAlign: 'center', background: 'transparent' }}>wwr.icu 2025</Footer>
+            <Footer className='text-center bg-transparent'>wwr.icu 2025</Footer>
         </Layout>
     )
 }
