@@ -1,9 +1,18 @@
-FROM node:20.12.2-slim
+FROM node:20-alpine AS builder
 
 WORKDIR /data
-ADD https://github.com/wwricu/basic-service/releases/download/snapshot/dist.tar.gz .
+ADD https://github.com/wwricu/blog-page/releases/download/snapshot/dist.tar.gz .
+RUN tar -xzf dist.tar.gz && rm dist.tar.gz && npm ci
 
-RUN tar -xzf dist.tar.gz && rm dist.tar.gz \
-&& ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' > /etc/timezone
+FROM node:20-alpine
 
-CMD ["node standalone/server.js"]
+WORKDIR /data
+
+COPY --from=builder /data/.next ./.next
+COPY --from=builder /data/node_modules ./node_modules
+COPY --from=builder /data/package.json ./
+COPY --from=builder /data/.env.production ./
+
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' > /etc/timezone
+
+CMD ["npm", "run", "start"]

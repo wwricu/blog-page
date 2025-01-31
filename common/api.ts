@@ -1,4 +1,4 @@
-import {PostDetailPageVO, PostDetailVO} from "@/common/model";
+import {PostDetailPageVO, PostDetailVO, TagTypeEnum, TagVO} from "@/common/model";
 
 const baseUrl = process.env.BASE_URL
 
@@ -23,6 +23,20 @@ export const GetAllBlogPosts = async (
 }
 
 export const GetPostDetailAPI = async (postId: number | string) => {
-    const res = await fetch(`${baseUrl}/open/post/detail/${postId}`, {method: 'GET'})
+    const postNumId = parseInt(postId as string) // Fix user injection
+    const res = await fetch(`${baseUrl}/open/post/detail/${postNumId}`, {method: 'GET'})
     return await res.json() as PostDetailVO
+}
+
+export const GetAllTagsAPI = async (tagTypeEnum: TagTypeEnum) => {
+    const res = await fetch(`${baseUrl}/open/tags`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            type: tagTypeEnum
+        })
+    })
+    return await res.json() as TagVO[]
 }
