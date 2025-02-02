@@ -1,10 +1,8 @@
 import React from 'react'
-import { Pagination, Space} from 'antd'
 import {GetServerSideProps, InferGetServerSidePropsType} from "next"
 import {PostDetailPageVO} from "@/common/model"
 import {GetAllBlogPosts} from "@/common/api"
-import {useRouter} from "next/router";
-import PostCard from "@/components/PostCard";
+import PostList from "@/components/PostList";
 
 
 export const getServerSideProps = (async (context) => {
@@ -17,28 +15,7 @@ export const getServerSideProps = (async (context) => {
 }) satisfies GetServerSideProps<{ postDetailPageVO: PostDetailPageVO }>
 
 export default function Home({ postDetailPageVO }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-    const router = useRouter();
-
-    const changePage = (pageIndex: number) => {
-        let url = `?page=${pageIndex}`
-        if (router.query.category) {
-            url += `&category=${router.query.category}`
-        }
-        if (router.query.tag) {
-            url += `&tag=${router.query.tag}`
-        }
-        router.push(url).then()
-    }
-
     return (
-        <Space className='mt-3 w-full' direction="vertical" size={16}>
-            {postDetailPageVO?.post_details?.map(postDetailVO => <PostCard key={postDetailVO.id} postDetailVO={postDetailVO}/>)}
-            <Pagination
-                align="center"
-                current={postDetailPageVO.page_index}
-                total={postDetailPageVO.count}
-                onChange={changePage}
-            />
-        </Space>
+        <PostList postDetailPageVO={postDetailPageVO}/>
     )
 }

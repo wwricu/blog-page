@@ -2,13 +2,18 @@ import "@/styles/globals.css"
 import type {AppProps} from "next/app"
 import Header from "@/components/Header";
 import React from "react";
-import {Layout} from "antd";
+import {Flex, Layout} from "antd";
 import {Content, Footer} from "antd/es/layout/layout";
+import Sider from "@/components/Sider";
 
 export default function App({Component, pageProps}: AppProps) {
     return (
         <Layout className='min-h-lvh bg-white'>
             <Content>
+                {/*<Flex justify='flex-start'>*/}
+                {/*    <Sider/>*/}
+                {/*    <Component {...pageProps} />*/}
+                {/*</Flex>*/}
                 <Header/>
                 <Component {...pageProps} />
             </Content>

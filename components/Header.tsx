@@ -11,10 +11,10 @@ const Header: React.FC = () => {
             <Link href="/" rel="noopener noreferrer">Home</Link>
         </Menu.Item>
         <Menu.Item key="categories" icon={(<AppstoreOutlined/>)}>
-            <Link href="/category" rel="noopener noreferrer">Category</Link>
+            <Link href="/categories" rel="noopener noreferrer">Category</Link>
         </Menu.Item>
         <Menu.Item key="tags" icon={(<TagsOutlined/>)}>
-            <Link href="/tag" rel="noopener noreferrer">Tags</Link>
+            <Link href="/tags" rel="noopener noreferrer">Tags</Link>
         </Menu.Item>
         <Menu.Item className='float-right' key="about" icon={(<InfoCircleOutlined/>)}>
             <Link href="/about" rel="noopener noreferrer">About</Link>
