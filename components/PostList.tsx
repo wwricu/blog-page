@@ -1,6 +1,6 @@
-import {PostDetailPageVO, PostDetailVO} from "@/common/model";
+import {PostDetailPageVO} from "@/common/model";
 import PostCard from "@/components/PostCard";
-import {Flex, Pagination, Space} from "antd";
+import {Flex, Pagination} from "antd";
 import React from "react";
 import {useRouter} from "next/router";
 
