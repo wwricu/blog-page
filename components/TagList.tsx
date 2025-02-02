@@ -9,7 +9,7 @@ type TagListProps = {
 
 // TODO: 1. Add post count 2. Add description
 export default function TagList({tags, type}: TagListProps) {
-    const path = type === TagTypeEnum.POST_TAG ? '/?tag=' : '/?category=';
+    const path = type === TagTypeEnum.POST_TAG ? '/tags/' : '/categories/';
     return (
         <Row justify='center'>
             <Flex className='mt-3 w-800px'>
