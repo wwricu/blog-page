@@ -29,6 +29,7 @@ export default function PostList({postDetailPageVO}: PostListProps) {
                 {postDetailPageVO?.post_details?.map(postDetailVO =>
                     <PostCard key={postDetailVO.id} postDetailVO={postDetailVO}/>)}
                 <Pagination
+                    className='mt-2'
                     align="center"
                     current={postDetailPageVO.page_index}
                     total={postDetailPageVO.count}

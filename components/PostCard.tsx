@@ -45,13 +45,13 @@ const renderTag = (tagList: TagVO[]) => {
 
 export default function PostCard({postDetailVO}: PostCardProps) {
     return (
-        <div className='my-2 p-0 shadow-lg bg-slate-100'>
+        <div className='my-2 p-0 min-h-48 shadow-lg bg-slate-100'>
             <Flex justify='space-between' gap='small'>
-                <Flex vertical justify='space-between' align='flex-start' className='p-5 w-full'>
+                <Flex vertical justify='space-between' align='flex-start' className='px-3 py-2 w-full'>
                     <Link className='w-full' href={`/detail/${postDetailVO.id}`}>
                         <Flex vertical justify='flex-start' align='flex-start' className='w-full'>
                             <Typography.Title level={4}>{postDetailVO.title}</Typography.Title>
-                            <Divider className='mt-2 p-0'/>
+                            <Divider className='mt-1 p-0'/>
                             <Typography.Paragraph className='h-10 overflow-hidden'>{postDetailVO.preview}</Typography.Paragraph>
                         </Flex>
                     </Link>
@@ -63,7 +63,12 @@ export default function PostCard({postDetailVO}: PostCardProps) {
                         </Flex>
                     </Flex>
                 </Flex>
-                <Image width={200} height={250} src={postDetailVO.cover?.url ?? `https://picsum.photos/200/250?id=${postDetailVO.id}`} alt={postDetailVO.cover?.name ?? 'cover'} unoptimized/>
+                <Image
+                    unoptimized
+                    width={250}
+                    height={200}
+                    src={postDetailVO.cover?.url ?? `https://picsum.photos/250/200?id=${postDetailVO.id}`} alt={postDetailVO.cover?.name ?? 'cover'}
+                />
             </Flex>
         </div>
     )
