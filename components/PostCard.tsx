@@ -48,7 +48,7 @@ export default function PostCard({postDetailVO}: PostCardProps) {
         <div className='my-2 p-0 shadow-lg bg-slate-100'>
             <Flex justify='space-between' gap='small'>
                 <Flex vertical justify='space-between' align='flex-start' className='p-5 w-full'>
-                    <Link href={`/detail/${postDetailVO.id}`}>
+                    <Link className='w-full' href={`/detail/${postDetailVO.id}`}>
                         <Flex vertical justify='flex-start' align='flex-start' className='w-full'>
                             <Typography.Title level={4}>{postDetailVO.title}</Typography.Title>
                             <Divider className='mt-2 p-0'/>
