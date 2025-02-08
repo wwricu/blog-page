@@ -1,5 +1,5 @@
 import {TagTypeEnum, TagVO} from "@/common/model";
-import {Card, Flex, Row} from "antd";
+import {Flex, Row, Typography} from "antd";
 import Link from "next/link";
 
 type TagListProps = {
@@ -15,12 +15,11 @@ export default function TagList({tags, type}: TagListProps) {
             <Flex className='mt-3 w-800px'>
                     {tags.map((tag: TagVO) => (
                         <Link key={tag.id} href={path + tag.name}>
-                            <Card
-                                className='w-52 h-36 m-2'
-                                key={tag.id}
-                                title={tag.name}
-                            >No description
-                            </Card>
+                            <div className='mx-2 my-1 min-w-24 text-slate-800 text-center w-20 border rounded-lg'>
+                                <Typography.Link className='text-base'>
+                                    {tag.name}
+                                </Typography.Link>
+                            </div>
                         </Link>
                     ))}
             </Flex>
