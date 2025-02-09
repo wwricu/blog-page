@@ -16,9 +16,9 @@ export default function App({Component, pageProps}: AppProps) {
                 <Header/>
                 <Component {...pageProps} />
             </Content>
-            <Footer className='text-center bg-transparent'>
+            <Footer className='text-center bg-transparent mt-0 pt-0'>
                 <>
-                    <Divider/>
+                    <Divider className='mt-0'/>
                     wwr.icu 2025
                 </>
             </Footer>
