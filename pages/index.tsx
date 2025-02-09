@@ -7,10 +7,9 @@ import PostList from "@/components/PostList";
 
 export const getServerSideProps = (async (context) => {
     const { query } = context
-    const { page, tag, category} = query
+    const { page } = query
     const pageIndex = parseInt(page as string ?? '1')
-    const tags = tag == null ? undefined : [tag as string]
-    const postDetailPageVO: PostDetailPageVO = await GetAllBlogPosts(pageIndex, category as string | undefined, tags)
+    const postDetailPageVO: PostDetailPageVO = await GetAllBlogPosts(pageIndex)
     return { props: { postDetailPageVO } }
 }) satisfies GetServerSideProps<{ postDetailPageVO: PostDetailPageVO }>
 

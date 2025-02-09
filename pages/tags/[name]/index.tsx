@@ -5,12 +5,14 @@ import PostList from "@/components/PostList";
 import React from "react";
 
 export const getServerSideProps = (async (context) => {
-    const pageIndex = parseInt((context.params?.page ?? '1') as string)
-    const category = context.params?.name ?? ''
-    const postDetailPageVO: PostDetailPageVO = await GetAllBlogPosts(pageIndex, category as string | undefined)
+    const { params } = context
+    const tag = params!.name ?? ''
+    const postDetailPageVO: PostDetailPageVO = await GetAllBlogPosts(1, undefined, tag as string | undefined)
     return { props: { postDetailPageVO } }
 }) satisfies GetServerSideProps<{ postDetailPageVO: PostDetailPageVO }>
 
-export default function Categories({ postDetailPageVO }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-    return <PostList postDetailPageVO={postDetailPageVO}/>
+export default function Home({ postDetailPageVO }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+    return (
+        <PostList postDetailPageVO={postDetailPageVO}/>
+    )
 }

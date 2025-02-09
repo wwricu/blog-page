@@ -5,7 +5,7 @@ const baseUrl = process.env.BASE_URL
 export const GetAllBlogPosts = async (
     pageIndex: number = 1,
     category: string | undefined = undefined,
-    tag_list: string[] | undefined = undefined
+    tag: string | undefined = undefined
 ) => {
     const res = await fetch(`${baseUrl}/open/post/all`, {
         method: 'POST',
@@ -16,7 +16,7 @@ export const GetAllBlogPosts = async (
             page_index: pageIndex,
             page_size: 10,
             category: category,
-            tag_list: tag_list
+            tag_list: tag ? [tag] : undefined,
         })
     })
     return await res.json() as PostDetailPageVO

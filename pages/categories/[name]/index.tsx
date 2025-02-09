@@ -5,9 +5,8 @@ import PostList from "@/components/PostList";
 import React from "react";
 
 export const getServerSideProps = (async (context) => {
-    const pageIndex = parseInt((context.params?.page ?? '1') as string)
     const category = context.params?.name ?? ''
-    const postDetailPageVO: PostDetailPageVO = await GetAllBlogPosts(pageIndex, category as string | undefined)
+    const postDetailPageVO: PostDetailPageVO = await GetAllBlogPosts(1, category as string | undefined)
     return { props: { postDetailPageVO } }
 }) satisfies GetServerSideProps<{ postDetailPageVO: PostDetailPageVO }>
 
