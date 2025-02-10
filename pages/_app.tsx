@@ -9,14 +9,12 @@ export default function App({Component, pageProps}: AppProps) {
     return (
         <Layout className='min-h-lvh bg-white'>
             <Content>
-                {/*<Flex justify='flex-start'>*/}
-                {/*    <Sider/>*/}
-                {/*    <Component {...pageProps} />*/}
-                {/*</Flex>*/}
                 <Header/>
-                <Component {...pageProps} />
+                <div className='bg-slate-100'>
+                    <Component {...pageProps} />
+                </div>
             </Content>
-            <Footer className='text-center bg-transparent mt-0 pt-0'>
+            <Footer className='shadow-md text-center bg-transparent mt-0 pt-0'>
                 <>
                     <Divider className='mt-0'/>
                     wwr.icu 2025
