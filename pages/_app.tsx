@@ -10,7 +10,7 @@ export default function App({Component, pageProps}: AppProps) {
         <Layout className='min-h-lvh bg-white'>
             <Content>
                 <Header/>
-                <div className='bg-slate-100'>
+                <div className='bg-slate-100 min-h-lvh'>
                     <Component {...pageProps} />
                 </div>
             </Content>
