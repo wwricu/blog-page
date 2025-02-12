@@ -13,14 +13,9 @@ export default function PostList({postDetailPageVO}: PostListProps) {
     const router = useRouter();
 
     const changePage = (pageIndex: number) => {
-        let url = `?page=${pageIndex}`
-        if (router.query.category) {
-            url += `&category=${router.query.category}`
-        }
-        if (router.query.tag) {
-            url += `&tag=${router.query.tag}`
-        }
-        router.push(url).then()
+        const { name } = router.query
+        const url = name ? `/${name}` : ''
+        router.push(`${url}/${pageIndex}`).then()
     }
 
     return (
