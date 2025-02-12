@@ -19,7 +19,7 @@ export default function PostList({postDetailPageVO}: PostListProps) {
     }
 
     return (
-        <Flex className='grow my-2' justify="center">
+        <Flex className='grow py-2' justify="center">
             <Flex className='w-800px' vertical>
                 {postDetailPageVO?.post_details?.map(postDetailVO =>
                     <PostCard key={postDetailVO.id} postDetailVO={postDetailVO}/>)}
