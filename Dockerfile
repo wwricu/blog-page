@@ -15,4 +15,4 @@ COPY --from=builder /data/.env.production ./
 
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' > /etc/timezone
 
-CMD ["npm", "run", "start"]
+CMD ["npx", "next", "start"]
