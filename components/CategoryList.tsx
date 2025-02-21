@@ -1,5 +1,5 @@
 import {TagVO} from "@/common/model";
-import {Flex, Row, Space, Typography} from "antd";
+import {Flex, Typography} from "antd";
 import Link from "next/link";
 
 type CategoryListProps = {
@@ -8,10 +8,10 @@ type CategoryListProps = {
 
 export default function CategoryList({tags}: CategoryListProps) {
     return <Flex className='w-full' justify='center'>
-        <div className='mt-4 px-6 shadow-lg bg-white rounded-md'>
+        <div className='mt-4 shadow-lg bg-white rounded-md'>
             {tags.map((tag: TagVO) => (
                 <Link key={tag.id} href={`/categories/${tag.name}`}>
-                    <Flex className='my-4 w-800px' justify='space-between'>
+                    <Flex justify='space-between' align='baseline' className='rounded-md py-3 px-5 w-800px hover:bg-slate-100 hover:shadow-md' >
                         <Typography.Text className='text-lg'>
                             {tag.name}
                         </Typography.Text>
