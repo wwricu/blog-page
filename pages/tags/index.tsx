@@ -10,5 +10,5 @@ export const getServerSideProps = (async () => {
 }) satisfies GetServerSideProps<{ tags: TagVO[] }>
 
 export default function category({ tags }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-    return <TagList tags={tags} type={TagTypeEnum.POST_TAG}/>
+    return <TagList tags={tags}/>
 }
