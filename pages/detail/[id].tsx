@@ -10,7 +10,6 @@ export const getServerSideProps = (async (context) => {
     const { params } = context;
     const postId = params!.id;
     const postDetailVO = await GetPostDetailAPI(postId as string)
-    postDetailVO.tag_list = []
     return { props: { postDetailVO } }
 }) satisfies GetServerSideProps<{ postDetailVO: PostDetailVO }>
 
@@ -20,7 +19,7 @@ const renderTags = (postDetailVO: PostDetailVO) => {
         return <></>
     }
     return <Typography.Text type='secondary'>
-        <TagsOutlined className='mr-1'/>
+        <TagsOutlined className='ml-1'/>
         {postDetailVO?.tag_list.map((tag: TagVO) => (
             <Typography.Link key={tag.id} href={`/tags/${tag.name}`} className='text-base mx-1'>
                 {tag.name}
@@ -34,7 +33,7 @@ const renderCategory = (postDetailVO: PostDetailVO) => {
         return <></>
     }
     return <Typography.Text type='secondary'>
-        <AppstoreOutlined className='mr-1'/>
+        <AppstoreOutlined className='ml-1'/>
         <Typography.Link href={`/categories/${postDetailVO?.category.name}`} className='text-base mx-1'>
             {postDetailVO?.category?.name}
         </Typography.Link>
@@ -50,7 +49,7 @@ export default function PostDetailPage({ postDetailVO }: InferGetServerSideProps
         >
             <div className='w-800px bg-white shadow-sm border-x p-4'>
                 <Typography.Title level={3}>{postDetailVO.title}</Typography.Title>
-                <Flex gap='small' className='my-6' align='baseline'>
+                <Flex gap='small' className='mt-6 mb-8' align='baseline'>
                     <Typography.Text type='secondary'>
                         <ClockCircleOutlined className='mr-1'/>
                         {postDetailVO.create_time?.slice(0, 10)}
