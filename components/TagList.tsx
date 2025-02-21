@@ -12,11 +12,14 @@ export default function TagList({tags, type}: TagListProps) {
     return <Row justify='center'>
         <Flex className='mt-3 w-800px'>
                 {tags.map((tag: TagVO) => (
-                    <Typography.Link key={tag.id} href={path + tag.name}>
-                        <div className='bg-white shadow-sm mx-2 my-1 min-w-24 text-lg text-center w-20 border rounded-lg'>
+                    <Flex key={tag.id} className='bg-white shadow-sm m-1 px-2 min-w-24 w-20 border rounded-lg' justify='space-between'>
+                        <Typography.Link className='text-lg' href={path + tag.name}>
                             {tag.name}
-                        </div>
-                    </Typography.Link>
+                        </Typography.Link>
+                        <Typography.Text type='secondary' className='text-lg'>
+                            {tag.count}
+                        </Typography.Text>
+                    </Flex>
                 ))}
         </Flex>
     </Row>
