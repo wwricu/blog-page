@@ -26,6 +26,7 @@ export interface TagVO {
     id: number
     name: string
     type: string
+    count: number
 }
 
 export interface PostResourceVO {

@@ -10,8 +10,7 @@ export const getServerSideProps = (async (context) => {
     const { params } = context;
     const postId = params!.id;
     const postDetailVO = await GetPostDetailAPI(postId as string)
-    postDetailVO.tag_list = [{id: 1, name: 'tag1', type: 'tag'}, {id: 2, name: 'tag2', type: 'tag'}];
-    postDetailVO.category = {id: 1, name: 'category', type: 'tag'}
+    postDetailVO.tag_list = []
     return { props: { postDetailVO } }
 }) satisfies GetServerSideProps<{ postDetailVO: PostDetailVO }>
 
