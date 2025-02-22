@@ -45,14 +45,14 @@ const renderTag = (tagList: TagVO[]) => {
 
 export default function PostCard({postDetailVO}: PostCardProps) {
     return (
-        <div className='my-2 p-0 min-h-48 shadow-lg bg-white rounded-md'>
+        <div className='my-2 p-0 min-h-48 shadow-lg bg-white rounded-md hover:drop-shadow-2xl hover:bg-slate-50'>
             <Flex justify='space-between' gap='small'>
                 <Flex vertical justify='space-between' align='flex-start' className='px-3 py-2 w-full'>
                     <Link className='w-full' href={`/detail/${postDetailVO.id}`}>
                         <Flex vertical justify='flex-start' align='flex-start' className='w-full'>
                             <Typography.Title level={4}>{postDetailVO.title}</Typography.Title>
                             <Divider className='mt-1 p-0'/>
-                            <Typography.Paragraph className='h-10 overflow-hidden'>{postDetailVO.preview}</Typography.Paragraph>
+                            <Typography.Paragraph className='h-16 overflow-hidden'>{postDetailVO.preview}</Typography.Paragraph>
                         </Flex>
                     </Link>
                     <Flex vertical justify='flex-end' align='flex-start'>
