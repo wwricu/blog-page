@@ -7,14 +7,12 @@ import {Content, Footer} from "antd/es/layout/layout";
 
 export default function App({Component, pageProps}: AppProps) {
     return (
-        <Layout className='min-h-lvh bg-white'>
+        <Layout className='min-h-lvh bg-slate-100'>
             <Content>
                 <Header/>
-                <div className='bg-slate-100 min-h-lvh'>
-                    <Component {...pageProps} />
-                </div>
+                <Component {...pageProps} />
             </Content>
-            <Footer className='shadow-md text-center bg-transparent mt-0 pt-0'>
+            <Footer className='shadow-md text-center bg-white mt-0 pt-0'>
                 <>
                     <Divider className='mt-0'/>
                     wwr.icu 2025
