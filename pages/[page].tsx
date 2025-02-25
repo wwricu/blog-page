@@ -3,6 +3,7 @@ import {GetServerSideProps, InferGetServerSidePropsType} from "next"
 import {PostDetailPageVO} from "@/common/model"
 import {GetAllBlogPosts} from "@/common/api"
 import PostList from "@/components/PostList";
+import {Flex} from "antd";
 
 
 export const getServerSideProps = (async (context) => {
@@ -12,7 +13,9 @@ export const getServerSideProps = (async (context) => {
 }) satisfies GetServerSideProps<{ postDetailPageVO: PostDetailPageVO }>
 
 export default function Home({ postDetailPageVO }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-    return (
-        <PostList postDetailPageVO={postDetailPageVO}/>
-    )
+    return <Flex className='grow py-2' justify="center">
+        <Flex vertical>
+            <PostList postDetailPageVO={postDetailPageVO}/>
+        </Flex>
+    </Flex>
 }
