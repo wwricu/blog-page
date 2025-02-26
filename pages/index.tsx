@@ -3,7 +3,7 @@ import {GetServerSideProps, InferGetServerSidePropsType} from "next"
 import {PostDetailPageVO} from "@/common/model"
 import {GetAllBlogPosts} from "@/common/api"
 import PostList from "@/components/PostList";
-import {Breadcrumb, Flex} from "antd";
+import {Flex} from "antd";
 
 
 export const getServerSideProps = (async () => {
