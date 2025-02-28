@@ -1,11 +1,19 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {AppstoreOutlined, HomeOutlined, InfoCircleOutlined, TagsOutlined} from '@ant-design/icons';
 import {Menu, Modal} from 'antd';
 import Link from "next/link";
+import {GetAboutAPI} from "@/common/api";
 
 
 const Header: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [about, setAbout] = useState<string>('')
+
+    useEffect(() => {
+        GetAboutAPI().then((res) => {
+            setAbout(res ?? '')
+        })
+    }, []);
 
     return <>
         <Menu className='leading-10 block' mode="horizontal">
@@ -29,9 +37,7 @@ const Header: React.FC = () => {
             onCancel={() => setIsModalOpen(false)}
             onOk={() => setIsModalOpen(false)}
         >
-            <p>Some contents...</p>
-            <p>Some contents...</p>
-            <p>Some contents...</p>
+            <div dangerouslySetInnerHTML={{__html: about}} ></div>
         </Modal>
     </>
 }

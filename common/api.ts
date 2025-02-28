@@ -40,3 +40,8 @@ export const GetAllTagsAPI = async (tagTypeEnum: TagTypeEnum) => {
     })
     return await res.json() as TagVO[]
 }
+
+export const GetAboutAPI = async () => {
+    const res = await fetch(`${baseUrl}/open/about`, {method: 'GET'})
+    return await res.text() as string | null
+}
