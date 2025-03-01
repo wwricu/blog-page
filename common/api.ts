@@ -1,6 +1,7 @@
 import {AboutVO, PostDetailPageVO, PostDetailVO, TagTypeEnum, TagVO} from "@/common/model";
 
 const baseUrl = process.env.BASE_URL
+const publicBaseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? ''
 
 export const GetAllBlogPosts = async (
     pageIndex: number = 1,
@@ -9,9 +10,7 @@ export const GetAllBlogPosts = async (
 ) => {
     const res = await fetch(`${baseUrl}/open/post/all`, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
+        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
             page_index: pageIndex,
             page_size: 10,
@@ -24,7 +23,7 @@ export const GetAllBlogPosts = async (
 
 export const GetPostDetailAPI = async (postId: number | string) => {
     const postNumId = parseInt(postId as string) // Fix user injection
-    const res = await fetch(`${baseUrl}/open/post/detail/${postNumId}`, {method: 'GET'})
+    const res = await fetch(`${baseUrl}/open/post/detail/${postNumId}`)
     return await res.json() as PostDetailVO
 }
 
@@ -42,6 +41,6 @@ export const GetAllTagsAPI = async (tagTypeEnum: TagTypeEnum) => {
 }
 
 export const GetAboutAPI = async () => {
-    const res = await fetch(`${baseUrl}/open/about`, {method: 'GET'})
+    const res = await fetch(`${publicBaseUrl}/open/about`)
     return await res.json() as AboutVO
 }
