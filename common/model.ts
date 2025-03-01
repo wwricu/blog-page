@@ -55,3 +55,10 @@ export interface PostDetailPageVO {
     count: number
     post_details: PostDetailVO[]
 }
+
+export interface AboutVO {
+    content: string
+    post_count: number
+    category_count: number
+    tag_count: number
+}

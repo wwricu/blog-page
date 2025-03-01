@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {AppstoreOutlined, HomeOutlined, InfoCircleOutlined, TagsOutlined} from '@ant-design/icons';
-import {Menu, Modal} from 'antd';
+import {Divider, Flex, Menu, Modal, Statistic} from 'antd';
 import Link from "next/link";
 import {GetAboutAPI} from "@/common/api";
 
@@ -8,10 +8,18 @@ import {GetAboutAPI} from "@/common/api";
 const Header: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [about, setAbout] = useState<string>('')
+    const [postCount, setPostCount] = useState<number>(0)
+    const [categoryCount, setCategoryCount] = useState<number>(0)
+    const [tagCount, setTagCount] = useState<number>(0)
+
+    const statisticClassName = 'text-sm text-center'
 
     useEffect(() => {
         GetAboutAPI().then((res) => {
-            setAbout(res ?? '')
+            setAbout(res.content)
+            setPostCount(res.post_count)
+            setCategoryCount(res.category_count)
+            setTagCount(res.tag_count)
         })
     }, []);
 
@@ -37,7 +45,14 @@ const Header: React.FC = () => {
             onCancel={() => setIsModalOpen(false)}
             onOk={() => setIsModalOpen(false)}
         >
-            <div dangerouslySetInnerHTML={{__html: about}} ></div>
+            <div dangerouslySetInnerHTML={{__html: about}} className='min-h-48'/>
+            <Divider/>
+            <Flex justify='space-around' >
+                <Statistic title="Post" value={postCount} className={statisticClassName}/>
+                <Statistic title="Category" value={categoryCount} className={statisticClassName}/>
+                <Statistic title="Tag" value={tagCount} className={statisticClassName}/>
+            </Flex>
+            <Divider/>
         </Modal>
     </>
 }

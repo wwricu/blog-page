@@ -1,4 +1,4 @@
-import {PostDetailPageVO, PostDetailVO, TagTypeEnum, TagVO} from "@/common/model";
+import {AboutVO, PostDetailPageVO, PostDetailVO, TagTypeEnum, TagVO} from "@/common/model";
 
 const baseUrl = process.env.BASE_URL
 
@@ -43,5 +43,5 @@ export const GetAllTagsAPI = async (tagTypeEnum: TagTypeEnum) => {
 
 export const GetAboutAPI = async () => {
     const res = await fetch(`${baseUrl}/open/about`, {method: 'GET'})
-    return await res.text() as string | null
+    return await res.json() as AboutVO
 }
