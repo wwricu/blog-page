@@ -19,7 +19,7 @@ const Header: React.FC = () => {
     const [tagCount, setTagCount] = useState<number>(0)
 
     const statisticClassName = 'text-sm text-center'
-    const menuItemClassName = 'rounded-xl border-0 shadow-none max-sm:px-1'
+    const menuItemClassName = 'rounded-xl border-0 shadow-none max-sm:px-2'
 
     useEffect(() => {
         GetAboutAPI().then((res) => {
@@ -31,7 +31,7 @@ const Header: React.FC = () => {
     }, []);
     return <>
         <Flex justify='space-between' align='center' className='sm:h-10 bg-white'>
-            {/*TODO: grid*/}
+            {/*TODO: grid for width narrower than 260px*/}
             <Flex justify='space-around'>
                 <Button href='/' className={menuItemClassName}>
                     <HomeOutlined/>Home
@@ -44,7 +44,10 @@ const Header: React.FC = () => {
                 </Button>
             </Flex>
             <Button onClick={() => setIsModalOpen(true)} className={menuItemClassName}>
-                <InfoCircleOutlined/>About
+                <InfoCircleOutlined/>
+                <span className='max-sm:hidden'>
+                    About
+                </span>
             </Button>
         </Flex>
         <Modal
