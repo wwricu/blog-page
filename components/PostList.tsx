@@ -19,11 +19,11 @@ export default function PostList({postDetailPageVO}: PostListProps) {
     }
 
     return (
-        <Flex className='w-800px' vertical>
+        <Flex vertical>
             {postDetailPageVO?.post_details?.map(postDetailVO =>
                 <PostCard key={postDetailVO.id} postDetailVO={postDetailVO}/>)}
             <Pagination
-                className='my-5'
+                className='my-5 max-sm:my-1'
                 align="center"
                 current={postDetailPageVO.page_index}
                 total={postDetailPageVO.count}

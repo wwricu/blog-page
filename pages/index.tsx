@@ -13,7 +13,7 @@ export const getServerSideProps = (async () => {
 
 export default function Home({ postDetailPageVO }: InferGetServerSidePropsType<typeof getServerSideProps>) {
     return <Flex className='grow py-2' justify="center">
-        <Flex vertical>
+        <Flex vertical className='max-md:w-full max-md:mx-2'>
             <PostList postDetailPageVO={postDetailPageVO}/>
         </Flex>
     </Flex>

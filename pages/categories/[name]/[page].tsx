@@ -16,7 +16,7 @@ export const getServerSideProps = (async (context) => {
 export default function Categories({ postDetailPageVO }: InferGetServerSidePropsType<typeof getServerSideProps>) {
     const router = useRouter()
     return <Flex className='grow py-2' justify="center">
-        <Flex vertical>
+        <Flex vertical className='max-md:w-full max-md:mx-2'>
             <Breadcrumb
                 className='m-1'
                 items={[
