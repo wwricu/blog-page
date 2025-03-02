@@ -53,18 +53,17 @@ const Header: React.FC = () => {
             onOk={() => setIsModalOpen(false)}
         >
             <div dangerouslySetInnerHTML={{__html: about}} className='min-h-48'/>
-            <Divider className='my-4'/>
-            <Flex justify='space-between'>
-            <Button type='primary' href='https://github.com/wwricu' target='_blank' className='m-2 grow'><GithubOutlined/>GitHub</Button>
-            <Button href='mailto:me@wwr.icu' className='m-2 grow'><MailOutlined/>Mail me</Button>
-            </Flex>
-            <Divider className='my-4'/>
+            <Divider className='mb-4'/>
             <Flex justify='space-around'>
                 <Statistic title="Post" value={postCount} className={statisticClassName}/>
                 <Statistic title="Category" value={categoryCount} className={statisticClassName}/>
                 <Statistic title="Tag" value={tagCount} className={statisticClassName}/>
             </Flex>
-            <Divider className='mt-4 mb-0'/>
+            <Divider className='my-4'/>
+            <Flex justify='space-between'>
+            <Button type='primary' href='https://github.com/wwricu' target='_blank' className='m-2 grow'><GithubOutlined/>GitHub</Button>
+            <Button href='mailto:me@wwr.icu' className='m-2 grow'><MailOutlined/>Mail me</Button>
+            </Flex>
         </Modal>
     </>
 }
