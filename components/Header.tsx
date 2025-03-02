@@ -39,7 +39,7 @@ const Header: React.FC = () => {
                 <Button href='/categories' className={menuItemClassName}>
                     <AppstoreOutlined/>Category
                 </Button>
-                <Button href='/categories' className={menuItemClassName}>
+                <Button href='/tags' className={menuItemClassName}>
                     <TagsOutlined/>Tags
                 </Button>
             </Flex>

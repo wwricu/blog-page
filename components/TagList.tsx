@@ -8,7 +8,7 @@ type TagListProps = {
 
 export default function TagList({tags}: TagListProps) {
     return <Row justify='center'>
-        <Flex className='mt-3 w-800px'>
+        <Flex className='mt-3 w-md'>
                 {tags.map((tag: TagVO) => (
                     <Link key={tag.id} href={`/tags/${tag.name}`}>
                         <Flex

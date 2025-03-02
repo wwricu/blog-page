@@ -13,7 +13,7 @@ export default {
         foreground: "var(--foreground)",
       },
       width: {
-        '800px': '768px',
+        'md': '768px',
       },
     },
   },
