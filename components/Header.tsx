@@ -1,6 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {AppstoreOutlined, HomeOutlined, InfoCircleOutlined, TagsOutlined} from '@ant-design/icons';
-import {Divider, Flex, Menu, Modal, Statistic} from 'antd';
+import {
+    AppstoreOutlined,
+    GithubOutlined,
+    HomeOutlined,
+    InfoCircleOutlined,
+    MailOutlined,
+    TagsOutlined
+} from '@ant-design/icons';
+import {Button, Divider, Flex, Menu, Modal, Statistic} from 'antd';
 import Link from "next/link";
 import {GetAboutAPI} from "@/common/api";
 
@@ -46,13 +53,18 @@ const Header: React.FC = () => {
             onOk={() => setIsModalOpen(false)}
         >
             <div dangerouslySetInnerHTML={{__html: about}} className='min-h-48'/>
-            <Divider/>
-            <Flex justify='space-around' >
+            <Divider className='my-4'/>
+            <Flex justify='space-between'>
+            <Button type='primary' href='https://github.com/wwricu' target='_blank' className='m-2 grow'><GithubOutlined/>GitHub</Button>
+            <Button href='mailto:me@wwr.icu' className='m-2 grow'><MailOutlined/>Mail me</Button>
+            </Flex>
+            <Divider className='my-4'/>
+            <Flex justify='space-around'>
                 <Statistic title="Post" value={postCount} className={statisticClassName}/>
                 <Statistic title="Category" value={categoryCount} className={statisticClassName}/>
                 <Statistic title="Tag" value={tagCount} className={statisticClassName}/>
             </Flex>
-            <Divider/>
+            <Divider className='mt-4 mb-0'/>
         </Modal>
     </>
 }
