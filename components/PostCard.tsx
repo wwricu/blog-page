@@ -55,7 +55,7 @@ export default function PostCard({postDetailVO}: PostCardProps) {
                                 <Typography.Text className='sm:hidden'>{postDetailVO.title}</Typography.Text>
                             </>
                             <Divider className='mt-1 p-0 max-sm:my-2'/>
-                            <Typography.Paragraph className='h-16 overflow-hidden max-sm:hidden'>{postDetailVO.preview}</Typography.Paragraph>
+                            <Typography.Paragraph className='h-16 overflow-hidden max-sm:h-8 max-sm:text-xs'>{postDetailVO.preview}</Typography.Paragraph>
                         </Flex>
                     </Link>
                     <Flex vertical justify='flex-end' align='flex-start'>
