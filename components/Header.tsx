@@ -7,8 +7,7 @@ import {
     MailOutlined,
     TagsOutlined
 } from '@ant-design/icons';
-import {Button, Divider, Flex, Menu, Modal, Statistic} from 'antd';
-import Link from "next/link";
+import {Button, Divider, Flex, Modal, Statistic} from 'antd';
 import {GetAboutAPI} from "@/common/api";
 
 
@@ -20,6 +19,7 @@ const Header: React.FC = () => {
     const [tagCount, setTagCount] = useState<number>(0)
 
     const statisticClassName = 'text-sm text-center'
+    const menuItemClassName = 'rounded-xl border-0 shadow-none max-sm:px-1'
 
     useEffect(() => {
         GetAboutAPI().then((res) => {
@@ -29,22 +29,24 @@ const Header: React.FC = () => {
             setTagCount(res.tag_count)
         })
     }, []);
-
     return <>
-        <Menu className='leading-10 block' mode="horizontal">
-            <Menu.Item key="home" icon={(<HomeOutlined/>)}>
-                <Link href="/" rel="noopener noreferrer">Home</Link>
-            </Menu.Item>
-            <Menu.Item key="categories" icon={(<AppstoreOutlined/>)}>
-                <Link href="/categories" rel="noopener noreferrer">Category</Link>
-            </Menu.Item>
-            <Menu.Item key="tags" icon={(<TagsOutlined/>)}>
-                <Link href="/tags" rel="noopener noreferrer">Tags</Link>
-            </Menu.Item>
-            <Menu.Item className='float-right' key="about" icon={(<InfoCircleOutlined/>)} onClick={() => setIsModalOpen(true)}>
-                About
-            </Menu.Item>
-        </Menu>
+        <Flex justify='space-between' align='center' className='sm:h-10 bg-white'>
+            {/*TODO: grid*/}
+            <Flex justify='space-around'>
+                <Button href='/' className={menuItemClassName}>
+                    <HomeOutlined/>Home
+                </Button>
+                <Button href='/categories' className={menuItemClassName}>
+                    <AppstoreOutlined/>Category
+                </Button>
+                <Button href='/categories' className={menuItemClassName}>
+                    <TagsOutlined/>Tags
+                </Button>
+            </Flex>
+            <Button onClick={() => setIsModalOpen(true)} className={menuItemClassName}>
+                <InfoCircleOutlined/>About
+            </Button>
+        </Flex>
         <Modal
             footer={null}
             closable={false}
