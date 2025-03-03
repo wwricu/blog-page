@@ -21,7 +21,7 @@ export default function Home({ postDetailPageVO }: InferGetServerSidePropsType<t
                 className='m-1'
                 items={[
                     {
-                        title: 'Categories',
+                        title: 'Tags',
                     },
                     {
                         title: ':name',

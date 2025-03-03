@@ -1,13 +1,32 @@
 import {PostDetailVO, TagVO} from '@/common/model';
-import {Divider, Flex, Typography} from 'antd';
+import {Divider, Flex, Tag, Typography} from 'antd';
 import {BorderlessTableOutlined, ClockCircleOutlined, TagsOutlined} from '@ant-design/icons';
 import Image from 'next/image';
 import React from 'react';
-import Link from "next/link";
+import Link from 'next/link';
 
 type PostCardProps = {
     postDetailVO: PostDetailVO
 }
+
+const tagColorList = [
+    'magenta',
+    'red',
+    'volcano',
+    'orange',
+    'gold',
+    'lime',
+    'green',
+    'cyan',
+    'blue',
+    'geekblue',
+    'purple'
+]
+
+const getTagColor = () => {
+    return tagColorList[Math.floor(Math.random() * tagColorList.length)]
+}
+
 
 const renderCategory = (tag: TagVO | undefined) => {
     if (!tag) {
@@ -15,13 +34,13 @@ const renderCategory = (tag: TagVO | undefined) => {
     }
 
     return (
-        <>
-            <Divider type='vertical'/>
-            <BorderlessTableOutlined/>
-            <Typography.Text type={'secondary'} className='ml-2'>
+        <span>
+            <Typography.Text type={'secondary'}>
+                <BorderlessTableOutlined className='mr-1'/>
                 <Link href={`?category=${tag.name}`}>{tag.name}</Link>
             </Typography.Text>
-        </>
+            <Divider type='vertical' className='ml-2 mr-0'/>
+        </span>
     )
 }
 
@@ -30,15 +49,18 @@ const renderTag = (tagList: TagVO[]) => {
         return <></>
     }
     return (
-        <>
-            <Divider type='vertical'/>
-            <TagsOutlined/>
-            {tagList.map((tag: TagVO) => (
-                <Typography.Text key={tag.id} type={'secondary'} className='ml-2'>
-                    <Link href={`?tags=${tag.name}`}>{tag.name}</Link>
-                </Typography.Text>
-            ))}
-        </>
+        <span>
+            <Typography.Text type={'secondary'}>
+                <TagsOutlined className='mr-1'/>
+                {tagList.map((tag: TagVO) => (
+                    <Link key={tag.id} href={`/tags/${tag.name}`}>
+                        <Tag color={getTagColor()}>
+                            {tag.name}
+                        </Tag>
+                    </Link>
+                ))}
+            </Typography.Text>
+        </span>
     )
 }
 
@@ -60,14 +82,18 @@ export default function PostCard({postDetailVO}: PostCardProps) {
                     </Link>
                     <Flex vertical justify='flex-end' align='flex-start'>
                         {/*TODO: grid + breakpoint*/}
-                        <Flex className='w-full' justify='space-between' align='center'>
-                            <Typography.Text type={'secondary'} className='max-sm:text-xs'><ClockCircleOutlined/> {postDetailVO.create_time.slice(0, 10)}</Typography.Text>
+                        <Flex className='w-full flex-wrap' justify='space-between' align='center' gap='small'>
+                            <span>
+                                <Typography.Text type={'secondary'} className='max-sm:text-xs'><ClockCircleOutlined/> {postDetailVO.create_time.slice(0, 10)}</Typography.Text>
+                                <Divider type='vertical' className='ml-2 mr-0'/>
+                            </span>
                             {renderCategory(postDetailVO?.category)}
                             {renderTag(postDetailVO.tag_list)}
                         </Flex>
                     </Flex>
                 </Flex>
                 <Image
+                    loading='lazy'
                     unoptimized
                     width={250}
                     height={200}
