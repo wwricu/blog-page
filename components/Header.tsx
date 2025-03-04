@@ -30,9 +30,9 @@ const Header: React.FC = () => {
         })
     }, []);
     return <>
-        <Flex justify='space-between' align='center' className='sm:h-10 bg-white'>
+        <Flex justify='space-between' align='center' className='sm:h-10 bg-white flex-wrap'>
             {/*TODO: grid for width narrower than 260px*/}
-            <Flex justify='space-around'>
+            <Flex justify='space-around' className='flex-wrap'>
                 <Button href='/' className={menuItemClassName}>
                     <HomeOutlined/>Home
                 </Button>

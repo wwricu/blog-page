@@ -12,9 +12,9 @@ export default function App({Component, pageProps}: AppProps) {
                 <Header/>
                 <Component {...pageProps} />
             </Content>
-            <Footer className='shadow-md text-center bg-white mt-0 pt-0 max-sm:h-6 max-sm:bg-transparent'>
+            <Footer className='shadow-md text-center bg-white mt-0 pt-0 sm:h-12 max-sm:h-6 max-sm:bg-transparent'>
                 <>
-                    <Divider className='mt-0 max-sm:hidden'/>
+                    <Divider className='mt-0 mb-3 max-sm:hidden'/>
                     wwr.icu 2025
                 </>
             </Footer>
