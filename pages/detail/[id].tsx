@@ -1,9 +1,9 @@
 import {PostDetailVO, TagVO} from "@/common/model";
 import {GetPostDetailAPI} from "@/common/api";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
-import {Flex, Typography} from "antd";
+import {Divider, Flex, Tag, Typography} from "antd";
 import React from "react";
-import {AppstoreOutlined, ClockCircleOutlined, TagsOutlined} from "@ant-design/icons";
+import {BorderlessTableOutlined, ClockCircleOutlined, TagsOutlined} from "@ant-design/icons";
 
 
 export const getServerSideProps = (async (context) => {
@@ -14,30 +14,60 @@ export const getServerSideProps = (async (context) => {
 }) satisfies GetServerSideProps<{ postDetailVO: PostDetailVO }>
 
 
+const tagColorList = [
+    'magenta',
+    'red',
+    'volcano',
+    'orange',
+    'gold',
+    'lime',
+    'green',
+    'cyan',
+    'blue',
+    'geekblue',
+    'purple'
+]
+
+const getTagColor = () => {
+    return tagColorList[Math.floor(Math.random() * tagColorList.length)]
+}
+
+
 const renderTags = (postDetailVO: PostDetailVO) => {
     if (postDetailVO?.tag_list == null || postDetailVO?.tag_list.length === 0) {
         return <></>
     }
-    return <Typography.Text type='secondary'>
-        <TagsOutlined className='ml-1'/>
-        {postDetailVO?.tag_list.map((tag: TagVO) => (
-            <Typography.Link key={tag.id} href={`/tags/${tag.name}`} className='text-base mx-1'>
-                {tag.name}
-            </Typography.Link>
-        ))}
-    </Typography.Text>
+    return (
+        <Flex justify='flex-start' className='flex-wrap'>
+            <Typography.Text type='secondary'>
+                <TagsOutlined className='mr-1'/>
+            </Typography.Text>
+            {postDetailVO?.tag_list.map((tag: TagVO) => (
+                <Typography.Link key={tag.id} href={`/tags/${tag.name}`} className='ml-1'>
+                    <Tag color={getTagColor()}>
+                        {tag.name}
+                    </Tag>
+                </Typography.Link>
+            ))}
+        </Flex>
+    )
 }
 
 const renderCategory = (postDetailVO: PostDetailVO) => {
     if (postDetailVO?.category == null) {
         return <></>
     }
-    return <Typography.Text type='secondary'>
-        <AppstoreOutlined className='ml-1'/>
-        <Typography.Link href={`/categories/${postDetailVO?.category.name}`} className='text-base mx-1'>
-            {postDetailVO?.category?.name}
-        </Typography.Link>
-    </Typography.Text>
+    return (
+        <Typography.Text type='secondary'>
+            <BorderlessTableOutlined className='mr-2'/>
+                <Typography.Link href={`/categories/${postDetailVO?.category.name}`}>
+                    <Tag>
+                        {postDetailVO?.category?.name}
+                    </Tag>
+                </Typography.Link>
+            <Divider type='vertical' orientation='center'/>
+        </Typography.Text>
+    )
 }
 
 
@@ -49,11 +79,12 @@ export default function PostDetailPage({ postDetailVO }: InferGetServerSideProps
         >
             <div className='w-md bg-white shadow-sm border-x p-4'>
                 <Typography.Title level={3}>{postDetailVO.title}</Typography.Title>
-                <Flex gap='small' className='mt-6 mb-8' align='baseline'>
+                <Flex gap='small' align='center' className='mt-6 mb-8 flex-wrap'>
                     <Typography.Text type='secondary'>
                         <ClockCircleOutlined className='mr-1'/>
                         {postDetailVO.create_time?.slice(0, 10)}
                     </Typography.Text>
+                    <Divider type='vertical' orientation='center'/>
                     {renderCategory(postDetailVO)}
                     {renderTags(postDetailVO)}
                 </Flex>

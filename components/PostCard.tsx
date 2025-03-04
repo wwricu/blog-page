@@ -37,7 +37,11 @@ const renderCategory = (tag: TagVO | undefined) => {
         <span>
             <Typography.Text type={'secondary'}>
                 <BorderlessTableOutlined className='mr-1'/>
-                <Link href={`?category=${tag.name}`}>{tag.name}</Link>
+                <Link href={`?category=${tag.name}`}>
+                    <Tag>
+                        {tag.name}
+                    </Tag>
+                </Link>
             </Typography.Text>
             <Divider type='vertical' className='ml-2 mr-0'/>
         </span>
