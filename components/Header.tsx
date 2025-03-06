@@ -9,6 +9,7 @@ import {
 } from '@ant-design/icons';
 import {Button, Divider, Flex, Modal, Statistic} from 'antd';
 import {GetAboutAPI} from "@/common/api";
+import {useRouter} from "next/router";
 
 
 const Header: React.FC = () => {
@@ -17,9 +18,11 @@ const Header: React.FC = () => {
     const [postCount, setPostCount] = useState<number>(0)
     const [categoryCount, setCategoryCount] = useState<number>(0)
     const [tagCount, setTagCount] = useState<number>(0)
+    const router = useRouter()
+    const [selected, setSelected] = useState<string>('/')
 
     const statisticClassName = 'text-sm text-center'
-    const menuItemClassName = 'rounded-xl border-0 shadow-none max-sm:px-2'
+    const menuItemClassName = 'h-full rounded-none border-0 shadow-none max-sm:px-2'
 
     useEffect(() => {
         GetAboutAPI().then((res) => {
@@ -29,21 +32,34 @@ const Header: React.FC = () => {
             setTagCount(res.tag_count)
         })
     }, []);
+
+
+    const getButtonStyle = (path: string) => {
+        if (isModalOpen) {
+            return ''
+        }
+        return path === selected ? ' bg-indigo-600 text-white hover:!bg-indigo-600 hover:!text-white' : ' hover:!bg-slate-300 hover:!text-black'
+    }
+
+    const onSelect = (path: string) => {
+        router.push(path).then(() => setSelected(path))
+    }
+
     return <>
         <Flex justify='space-between' align='center' className='sm:h-10 bg-white flex-wrap'>
             {/*TODO: grid for width narrower than 260px*/}
-            <Flex justify='flex-start' className='flex-wrap'>
-                <Button href='/' className={menuItemClassName}>
+            <Flex justify='flex-start' align='center' className='flex-wrap h-full'>
+                <Button className={menuItemClassName + getButtonStyle('/')} onClick={() => onSelect('/')}>
                     <HomeOutlined/>Home
                 </Button>
-                <Button href='/categories' className={menuItemClassName}>
+                <Button className={menuItemClassName + getButtonStyle('/categories')} onClick={() => onSelect('/categories')}>
                     <AppstoreOutlined/>Category
                 </Button>
-                <Button href='/tags' className={menuItemClassName}>
+                <Button className={menuItemClassName + getButtonStyle('/tags')} onClick={() => onSelect('/tags')}>
                     <TagsOutlined/>Tags
                 </Button>
             </Flex>
-            <Button onClick={() => setIsModalOpen(true)} className={menuItemClassName}>
+            <Button onClick={() => setIsModalOpen(true)} className={menuItemClassName + ' hover:!bg-slate-300 hover:!text-black ' + (isModalOpen ? ' bg-indigo-600 text-white' : '')}>
                 <InfoCircleOutlined/>
                 <span className='max-sm:hidden'>
                     About
