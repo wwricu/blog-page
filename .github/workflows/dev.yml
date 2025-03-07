@@ -24,9 +24,10 @@ jobs:
           cache: 'npm'
       - run: |
           echo NEXT_PUBLIC_BASE_URL=https://dev.wwr.icu/api >> .env.production
+          echo BASE_URL=http://basic-service:8000 >> .env.production
           npm ci
           npm run build --if-present
-          tar -czf dist.tar.gz package*.json .env* .next/*
+          tar -czf dist.tar.gz ./public .next/static -C .next/standalone .
       - uses: softprops/action-gh-release@v2
         with:
           tag_name: snapshot
