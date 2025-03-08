@@ -19,7 +19,6 @@ const Header: React.FC = () => {
     const [categoryCount, setCategoryCount] = useState<number>(0)
     const [tagCount, setTagCount] = useState<number>(0)
     const router = useRouter()
-    const [selected, setSelected] = useState<string>('/')
 
     const statisticClassName = 'text-sm text-center'
     const menuItemClassName = 'h-full rounded-none border-0 shadow-none max-sm:px-2'
@@ -38,24 +37,22 @@ const Header: React.FC = () => {
         if (isModalOpen) {
             return ''
         }
-        return path === selected ? ' bg-indigo-600 text-white hover:!bg-indigo-600 hover:!text-white' : ' hover:!bg-slate-300 hover:!text-black'
-    }
-
-    const onSelect = (path: string) => {
-        router.push(path).then(() => setSelected(path))
+        return router.pathname.replace(/\/\[.*]/g, "") === path ?
+            ' bg-indigo-600 text-white hover:!bg-indigo-600 hover:!text-white' :
+            ' hover:!bg-slate-300 hover:!text-black'
     }
 
     return <>
         <Flex justify='space-between' align='center' className='sm:h-10 bg-white flex-wrap'>
             {/*TODO: grid for width narrower than 260px*/}
             <Flex justify='flex-start' align='center' className='flex-wrap h-full'>
-                <Button className={menuItemClassName + getButtonStyle('/')} onClick={() => onSelect('/')}>
+                <Button href='/' className={menuItemClassName + getButtonStyle('/')}>
                     <HomeOutlined/>Home
                 </Button>
-                <Button className={menuItemClassName + getButtonStyle('/categories')} onClick={() => onSelect('/categories')}>
+                <Button href='/categories' className={menuItemClassName + getButtonStyle('/categories')}>
                     <AppstoreOutlined/>Category
                 </Button>
-                <Button className={menuItemClassName + getButtonStyle('/tags')} onClick={() => onSelect('/tags')}>
+                <Button href='/tags' className={menuItemClassName + getButtonStyle('/tags')}>
                     <TagsOutlined/>Tags
                 </Button>
             </Flex>
