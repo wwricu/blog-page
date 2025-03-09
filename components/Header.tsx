@@ -21,7 +21,7 @@ const Header: React.FC = () => {
     const router = useRouter()
 
     const statisticClassName = 'text-sm text-center'
-    const menuItemClassName = 'h-full rounded-none border-0 shadow-none max-sm:px-2'
+    const menuItemClassName = 'h-full rounded-none border-0 shadow-none max-sm:px-2 bg-transparent'
 
     useEffect(() => {
         GetAboutAPI().then((res) => {

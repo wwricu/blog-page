@@ -8,7 +8,7 @@ import {Content, Footer} from "antd/es/layout/layout";
 export default function App({Component, pageProps}: AppProps) {
     return (
         <Layout className='min-h-lvh bg-slate-100'>
-            <Content>
+            <Content className='bg-[url(/dust_scratches.webp)]'>
                 <Header/>
                 <Component {...pageProps} />
             </Content>
