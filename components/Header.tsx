@@ -46,13 +46,13 @@ const Header: React.FC = () => {
         <Flex justify='space-between' align='center' className='sm:h-10 bg-white flex-wrap'>
             {/*TODO: grid for width narrower than 260px*/}
             <Flex justify='flex-start' align='center' className='flex-wrap h-full'>
-                <Button href='/' className={menuItemClassName + getButtonStyle('/')}>
+                <Button onClick={() => router.push('/')} className={menuItemClassName + getButtonStyle('/')}>
                     <HomeOutlined/>Home
                 </Button>
-                <Button href='/categories' className={menuItemClassName + getButtonStyle('/categories')}>
+                <Button onClick={() => router.push('/categories')} className={menuItemClassName + getButtonStyle('/categories')}>
                     <AppstoreOutlined/>Category
                 </Button>
-                <Button href='/tags' className={menuItemClassName + getButtonStyle('/tags')}>
+                <Button onClick={() => router.push('/tags')} className={menuItemClassName + getButtonStyle('/tags')}>
                     <TagsOutlined/>Tags
                 </Button>
             </Flex>
