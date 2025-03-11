@@ -21,7 +21,7 @@ const Header: React.FC = () => {
     const router = useRouter()
 
     const statisticClassName = 'text-sm text-center'
-    const menuItemClassName = 'h-full rounded-none border-0 shadow-none max-sm:px-2 bg-transparent'
+    const menuItemClassName = 'h-full rounded-none border-0 shadow-none max-sm:px-2'
 
     useEffect(() => {
         GetAboutAPI().then((res) => {
@@ -39,11 +39,11 @@ const Header: React.FC = () => {
         }
         return router.pathname.replace(/\/\[.*]/g, "") === path ?
             ' bg-indigo-600 text-white hover:!bg-indigo-600 hover:!text-white' :
-            ' hover:!bg-slate-300 hover:!text-black'
+            ' hover:!bg-slate-300 bg-transparent hover:!text-black'
     }
 
     return <>
-        <Flex justify='space-between' align='center' className='sm:h-10 bg-white flex-wrap'>
+        <Flex justify='space-between' align='center' className='sm:h-10 bg-transparent flex-wrap border-solid border-b-2'>
             {/*TODO: grid for width narrower than 260px*/}
             <Flex justify='flex-start' align='center' className='flex-wrap h-full'>
                 <Button onClick={() => router.push('/')} className={menuItemClassName + getButtonStyle('/')}>
@@ -56,7 +56,7 @@ const Header: React.FC = () => {
                     <TagsOutlined/>Tags
                 </Button>
             </Flex>
-            <Button onClick={() => setIsModalOpen(true)} className={menuItemClassName + ' hover:!bg-slate-300 hover:!text-black ' + (isModalOpen ? ' bg-indigo-600 text-white' : '')}>
+            <Button onClick={() => setIsModalOpen(true)} className={menuItemClassName + ' hover:!bg-slate-300 hover:!text-black ' + (isModalOpen ? ' bg-indigo-600 text-white' : 'bg-transparent')}>
                 <InfoCircleOutlined/>
                 <span className='max-sm:hidden'>
                     About

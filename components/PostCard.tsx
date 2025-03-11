@@ -68,10 +68,9 @@ const renderTag = (tagList: TagVO[]) => {
     )
 }
 
-
 export default function PostCard({postDetailVO}: PostCardProps) {
     return (
-        <div className='my-2 p-0 sm:min-h-48 shadow-lg bg-white rounded-md hover:drop-shadow-2xl hover:bg-slate-50 w-md max-md:w-full max-sm:my-1'>
+        <div className='my-2 p-0 sm:min-h-48 shadow-lg rounded-md hover:drop-shadow-2xl bg-[rgba(240,240,240,0.3)] w-md max-md:w-full max-sm:my-1'>
             <Flex justify='space-between' gap='small'>
                 <Flex vertical justify='space-between' align='flex-start' className='px-3 py-2 w-full'>
                     <Link className='w-full' href={`/detail/${postDetailVO.id}`}>
