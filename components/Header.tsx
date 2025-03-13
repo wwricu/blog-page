@@ -10,6 +10,7 @@ import {
 import {Button, Divider, Flex, Modal, Statistic} from 'antd';
 import {GetAboutAPI} from "@/common/api";
 import {useRouter} from "next/router";
+import Link from "next/link";
 
 
 const Header: React.FC = () => {
@@ -21,7 +22,7 @@ const Header: React.FC = () => {
     const router = useRouter()
 
     const statisticClassName = 'text-sm text-center'
-    const menuItemClassName = 'h-full rounded-none border-0 shadow-none max-sm:px-2'
+    const menuItemClassName = 'h-full rounded-none border-0 shadow-none max-sm:px-2 text-text-prime'
 
     useEffect(() => {
         GetAboutAPI().then((res) => {
@@ -35,28 +36,34 @@ const Header: React.FC = () => {
 
     const getButtonStyle = (path: string) => {
         if (isModalOpen) {
-            return ''
+            return ' bg-transparent'
         }
         return router.pathname.replace(/\/\[.*]/g, "") === path ?
             ' bg-indigo-600 text-white hover:!bg-indigo-600 hover:!text-white' :
-            ' hover:!bg-slate-300 bg-transparent hover:!text-black'
+            ' hover:!bg-slate-300 bg-transparent hover:!text-text-prime'
     }
 
     return <>
         <Flex justify='space-between' align='center' className='sm:h-10 bg-transparent flex-wrap border-solid border-b-2'>
             {/*TODO: grid for width narrower than 260px*/}
             <Flex justify='flex-start' align='center' className='flex-wrap h-full'>
-                <Button onClick={() => router.push('/')} className={menuItemClassName + getButtonStyle('/')}>
-                    <HomeOutlined/>Home
-                </Button>
-                <Button onClick={() => router.push('/categories')} className={menuItemClassName + getButtonStyle('/categories')}>
-                    <AppstoreOutlined/>Category
-                </Button>
-                <Button onClick={() => router.push('/tags')} className={menuItemClassName + getButtonStyle('/tags')}>
-                    <TagsOutlined/>Tags
-                </Button>
+                <Link href='/' className='h-full'>
+                    <Button className={menuItemClassName + getButtonStyle('/')}>
+                        <HomeOutlined/>Home
+                    </Button>
+                </Link>
+                <Link href='/categories' className='h-full'>
+                    <Button className={menuItemClassName + getButtonStyle('/categories')}>
+                        <AppstoreOutlined/>Category
+                    </Button>
+                </Link>
+                <Link href='/tags' className='h-full'>
+                    <Button onClick={() => router.push('/tags')} className={menuItemClassName + getButtonStyle('/tags')}>
+                        <TagsOutlined/>Tags
+                    </Button>
+                </Link>
             </Flex>
-            <Button onClick={() => setIsModalOpen(true)} className={menuItemClassName + ' hover:!bg-slate-300 hover:!text-black ' + (isModalOpen ? ' bg-indigo-600 text-white' : 'bg-transparent')}>
+            <Button onClick={() => setIsModalOpen(true)} className={menuItemClassName + ' hover:!bg-slate-300 hover:!text-text-prime ' + (isModalOpen ? ' bg-indigo-600 text-white' : 'bg-transparent')}>
                 <InfoCircleOutlined/>
                 <span className='max-sm:hidden'>
                     About

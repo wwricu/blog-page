@@ -34,7 +34,7 @@ const renderCategory = (tag: TagVO | undefined) => {
     }
 
     return (
-        <span>
+        <span className='max-w-[100vw] overflow-hidden'>
             <Typography.Text type={'secondary'}>
                 <BorderlessTableOutlined className='mr-1'/>
                 <Link href={`?category=${tag.name}`}>
@@ -53,7 +53,7 @@ const renderTag = (tagList: TagVO[]) => {
         return <></>
     }
     return (
-        <span>
+        <span className='max-w-[100vw] overflow-hidden'>
             <Typography.Text type={'secondary'}>
                 <TagsOutlined className='mr-1'/>
                 {tagList.map((tag: TagVO) => (
@@ -70,7 +70,7 @@ const renderTag = (tagList: TagVO[]) => {
 
 export default function PostCard({postDetailVO}: PostCardProps) {
     return (
-        <div className='my-2 p-0 sm:min-h-48 shadow-lg rounded-md hover:drop-shadow-2xl bg-[rgba(240,240,240,0.3)] w-md max-md:w-full max-sm:my-1'>
+        <div className='my-2 p-0 sm:min-h-48 shadow-lg rounded-md hover:drop-shadow-2xl bg-[rgba(245,245,245,0.5)] w-md max-md:w-full max-sm:my-1'>
             <Flex justify='space-between' gap='small'>
                 <Flex vertical justify='space-between' align='flex-start' className='px-3 py-2 w-full'>
                     <Link className='w-full' href={`/detail/${postDetailVO.id}`}>
@@ -80,7 +80,7 @@ export default function PostCard({postDetailVO}: PostCardProps) {
                                 <Typography.Text className='sm:hidden'>{postDetailVO.title}</Typography.Text>
                             </>
                             <Divider className='mt-1 p-0 max-sm:my-2'/>
-                            <Typography.Paragraph className='h-16 overflow-hidden max-sm:h-8 max-sm:text-xs'>{postDetailVO.preview}</Typography.Paragraph>
+                            <Typography.Paragraph className='h-16 overflow-hidden max-sm:h-8 max-sm:text-xs text-text-second'>{postDetailVO.preview}</Typography.Paragraph>
                         </Flex>
                     </Link>
                     <Flex vertical justify='flex-end' align='flex-start'>

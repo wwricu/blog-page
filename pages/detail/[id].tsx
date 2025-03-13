@@ -77,7 +77,7 @@ export default function PostDetailPage({ postDetailVO }: InferGetServerSideProps
             className='min-h-lvh w-full '
             justify='center'
         >
-            <div className='w-md bg-[rgba(240,240,240,0.3)] shadow-sm border-x p-4'>
+            <div className='w-md bg-[rgba(240,240,240,0.5)] shadow-sm border-x p-4'>
                 <Typography.Title level={3}>{postDetailVO.title}</Typography.Title>
                 <Flex gap='small' align='center' className='mt-6 mb-8 flex-wrap'>
                     <Typography.Text type='secondary'>

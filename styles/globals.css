@@ -19,3 +19,7 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.ant-modal-content {
+  background: url("../public/dust_scratches.webp") !important;
+}
