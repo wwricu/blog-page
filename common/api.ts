@@ -1,6 +1,6 @@
 import {AboutVO, PostDetailPageVO, PostDetailVO, TagTypeEnum, TagVO} from "@/common/model";
 
-const baseUrl = process.env.BASE_URL
+const baseUrl = process.env.NEXT_BASE_URL
 const publicBaseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? ''
 
 export const GetAllBlogPosts = async (

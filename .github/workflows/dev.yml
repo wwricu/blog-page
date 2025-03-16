@@ -23,8 +23,6 @@ jobs:
           node-version: 20.12.2
           cache: 'npm'
       - run: |
-          echo NEXT_PUBLIC_BASE_URL=https://dev.wwr.icu/api >> .env.production
-          echo BASE_URL=http://basic-service:8000 >> .env.production
           npm ci
           npm run build --if-present
           tar -czf dist.tar.gz ./public .next/static -C .next/standalone .
