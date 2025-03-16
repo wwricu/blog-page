@@ -1,9 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  reactStrictMode: true,
   output: 'standalone',
+  reactStrictMode: true,
   transpilePackages: [
     "antd",
     "@ant-design",
@@ -12,6 +11,16 @@ const nextConfig: NextConfig = {
     "rc-input",
     "rc-picker",
   ],
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'picsum.photos',
+        port: '',
+        pathname: '**',
+      },
+    ],
+  }
 };
 
 export default nextConfig;

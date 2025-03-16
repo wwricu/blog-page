@@ -7,7 +7,6 @@ on:
       - '**.yml'
       - '**.md'
       - '**.sh'
-      - '**.json'
       - '**.txt'
       - '**.sql'
       - '**.csv'
@@ -26,14 +25,13 @@ jobs:
       - run: |
           npm ci
           npm run build --if-present
-          cd .next && tar -czf dist.tar.gz ./*
+          tar -czf dist.tar.gz ./public .next/static -C .next/standalone .
       - uses: softprops/action-gh-release@v2
         with:
           tag_name: snapshot
-          files: .next/dist.tar.gz
-      - uses: actions/attest-build-provenance@v1
-        with:
-          subject-path: '.next/dist.tar.gz'
+          files: dist.tar.gz
+          prerelease: true
+          make_latest: false
   dockerhub:
     runs-on: ubuntu-latest
     permissions: write-all
@@ -47,9 +45,8 @@ jobs:
       - uses: docker/build-push-action@v6
         with:
           push: true
-          sbom: true
-          provenance: mode=max
-          tags: wwricu/blog-page:snapshot, wwricu/blog-page:latest
+          file: DockerfileDev
+          tags: wwricu/blog-page:snapshot
   deploy:
     runs-on: ubuntu-latest
     permissions: write-all
@@ -64,6 +61,6 @@ jobs:
           script: |
             docker stop blog-page
             docker rm blog-page
-            docker rmi blog-page:snapshot
+            docker rmi wwricu/blog-page:snapshot
             cd /deploy
             docker-compose -f docker-compose-dev.yml up -d

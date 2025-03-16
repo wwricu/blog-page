@@ -1,28 +1,46 @@
-import {PostDetailPageVO, PostDetailVO} from "@/common/model";
+import {AboutVO, PostDetailPageVO, PostDetailVO, TagTypeEnum, TagVO} from "@/common/model";
 
-const baseUrl = process.env.BASE_URL
+const baseUrl = process.env.NEXT_BASE_URL
+const publicBaseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? '/api'
 
 export const GetAllBlogPosts = async (
     pageIndex: number = 1,
     category: string | undefined = undefined,
-    tag_list: string[] | undefined = undefined
+    tag: string | undefined = undefined
 ) => {
     const res = await fetch(`${baseUrl}/open/post/all`, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
+        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
             page_index: pageIndex,
             page_size: 10,
             category: category,
-            tag_list: tag_list
+            tag_list: tag ? [tag] : undefined,
         })
     })
     return await res.json() as PostDetailPageVO
 }
 
 export const GetPostDetailAPI = async (postId: number | string) => {
-    const res = await fetch(`${baseUrl}/open/post/detail/${postId}`, {method: 'GET'})
+    const postNumId = parseInt(postId as string) // Fix user injection
+    const res = await fetch(`${baseUrl}/open/post/detail/${postNumId}`)
     return await res.json() as PostDetailVO
+}
+
+export const GetAllTagsAPI = async (tagTypeEnum: TagTypeEnum) => {
+    const res = await fetch(`${baseUrl}/open/tags`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            type: tagTypeEnum
+        })
+    })
+    return await res.json() as TagVO[]
+}
+
+export const GetAboutAPI = async () => {
+    const res = await fetch(`${publicBaseUrl}/open/about`)
+    return await res.json() as AboutVO
 }

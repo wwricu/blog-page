@@ -26,6 +26,7 @@ export interface TagVO {
     id: number
     name: string
     type: string
+    count: number
 }
 
 export interface PostResourceVO {
@@ -53,4 +54,11 @@ export interface PostDetailPageVO {
     page_size: number
     count: number
     post_details: PostDetailVO[]
+}
+
+export interface AboutVO {
+    content: string
+    post_count: number
+    category_count: number
+    tag_count: number
 }

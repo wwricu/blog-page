@@ -6,8 +6,9 @@ import PostList from "@/components/PostList";
 import {Flex} from "antd";
 
 
-export const getServerSideProps = (async () => {
-    const postDetailPageVO: PostDetailPageVO = await GetAllBlogPosts(1)
+export const getServerSideProps = (async (context) => {
+    const pageIndex = parseInt((context.params?.page ?? '1') as string)
+    const postDetailPageVO: PostDetailPageVO = await GetAllBlogPosts(pageIndex)
     return { props: { postDetailPageVO } }
 }) satisfies GetServerSideProps<{ postDetailPageVO: PostDetailPageVO }>
 
