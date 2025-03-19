@@ -15,21 +15,23 @@ export const getServerSideProps = (async (context) => {
 
 export default function Home({ postDetailPageVO }: InferGetServerSidePropsType<typeof getServerSideProps>) {
     const router = useRouter()
-    return <Flex className='grow py-2' justify="center">
-        <Flex vertical className='max-md:w-full max-md:mx-2'>
-            <Breadcrumb
-                className='m-1'
-                items={[
-                    {
-                        title: 'Tags',
-                    },
-                    {
-                        title: ':name',
-                    },
-                ]}
-                params={{ name: router.query.name }}
-            />
-            <PostList postDetailPageVO={postDetailPageVO}/>
+    return (
+        <Flex className='grow py-2' justify="center">
+            <Flex vertical className='max-md:w-full max-md:mx-2'>
+                <Breadcrumb
+                    className='m-1'
+                    items={[
+                        {
+                            title: 'Tags',
+                        },
+                        {
+                            title: ':name',
+                        },
+                    ]}
+                    params={{ name: router.query.name }}
+                />
+                <PostList postDetailPageVO={postDetailPageVO}/>
+            </Flex>
         </Flex>
-    </Flex>
+    )
 }
