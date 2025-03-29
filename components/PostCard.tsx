@@ -70,17 +70,16 @@ const renderTag = (tagList: TagVO[]) => {
 
 export default function PostCard({postDetailVO}: PostCardProps) {
     return (
-        <div className='my-2 p-0 sm:min-h-48 shadow-lg rounded-md hover:drop-shadow-2xl bg-[rgba(245,245,245,0.5)] w-md max-md:w-full max-sm:my-1'>
+        <div className='my-2 p-0 sm:min-h-36 shadow-lg border rounded-md hover:drop-shadow-2xl bg-[rgba(245,245,245,0.5)] w-md max-md:w-full max-sm:my-1'>
             <Flex justify='space-between' gap='small'>
-                <Flex vertical justify='space-between' align='flex-start' className='px-3 py-2 w-full'>
+                <Flex vertical justify='space-between' align='flex-start' className='px-4 pt-4 pb-3 w-full h-40'>
                     <Link className='w-full' href={`/detail/${postDetailVO.id}`}>
                         <Flex vertical justify='flex-start' align='flex-start' className='w-full'>
                             <>
                                 <Typography.Title level={4} className='max-sm:hidden'>{postDetailVO.title}</Typography.Title>
                                 <Typography.Text className='sm:hidden'>{postDetailVO.title}</Typography.Text>
                             </>
-                            <Divider className='mt-1 p-0 max-sm:my-2'/>
-                            <Typography.Paragraph className='h-16 overflow-hidden max-sm:h-8 max-sm:text-xs text-text-second'>{postDetailVO.preview}</Typography.Paragraph>
+                            <Typography.Paragraph className='mt-2 max-h-10 overflow-hidden max-sm:h-8 max-sm:text-xs text-text-second'>{postDetailVO.preview}</Typography.Paragraph>
                         </Flex>
                     </Link>
                     <Flex vertical justify='flex-end' align='flex-start'>
@@ -99,8 +98,8 @@ export default function PostCard({postDetailVO}: PostCardProps) {
                     loading='lazy'
                     unoptimized
                     width={250}
-                    height={200}
-                    src={postDetailVO.cover?.url ?? `https://picsum.photos/250/200?id=${postDetailVO.id}`} alt={postDetailVO.cover?.name ?? 'cover'}
+                    height={100}
+                    src={postDetailVO.cover?.url ?? `https://picsum.photos/250/100?id=${postDetailVO.id}`} alt={postDetailVO.cover?.name ?? 'cover'}
                     className='max-sm:hidden'
                 />
             </Flex>

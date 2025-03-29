@@ -89,7 +89,7 @@ export default function PostDetailPage({ postDetailVO }: InferGetServerSideProps
                     {renderTags(postDetailVO)}
                 </Flex>
                 <Typography.Paragraph>
-                    <div dangerouslySetInnerHTML={{__html: postDetailVO.content}} ></div>
+                    <div dangerouslySetInnerHTML={{__html: postDetailVO.content}}/>
                 </Typography.Paragraph>
             </div>
         </Flex>
