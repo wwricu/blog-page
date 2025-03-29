@@ -1,30 +1,32 @@
-import {TagTypeEnum, TagVO} from "@/common/model";
-import {Card, Flex, Row} from "antd";
+import {TagVO} from "@/common/model";
+import {Flex, Row, Tag} from "antd";
 import Link from "next/link";
 
 type TagListProps = {
     tags: TagVO[]
-    type: TagTypeEnum
 }
 
-// TODO: 1. Add post count 2. Add description
-export default function TagList({tags, type}: TagListProps) {
-    const path = type === TagTypeEnum.POST_TAG ? '/?tag=' : '/?category=';
+export default function TagList({tags}: TagListProps) {
     return (
         <Row justify='center'>
-            <Flex className='mt-3 w-800px'>
-                    {tags.map((tag: TagVO) => (
-                        <Link key={tag.id} href={path + tag.name}>
-                            <Card
-                                className='w-52 h-36 m-2'
-                                key={tag.id}
-                                title={tag.name}
-                            >No description
-                            </Card>
-                        </Link>
-                    ))}
+            <Flex className='mt-3 w-md flex-wrap'>
+                {tags.map((tag: TagVO) => (
+                    <Link key={tag.id} href={`/tags/${tag.name}`}>
+                        <Tag
+                            className='bg-[rgba(255,255,255,0.3)] text-sm text-text-prime shadow-sm m-1 px-2 min-w-[50px] max-w-[100vw] border rounded-lg hover:shadow-md hover:bg-slate-100'
+                        >
+                            <Flex justify='space-between' gap='small' align='baseline'>
+                                <span className='overflow-hidden'>
+                                    {tag.name}
+                                </span>
+                                <span>
+                                    {tag.count}
+                                </span>
+                            </Flex>
+                        </Tag>
+                    </Link>
+                ))}
             </Flex>
         </Row>
-
     )
 }

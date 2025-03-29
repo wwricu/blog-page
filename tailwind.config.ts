@@ -11,9 +11,11 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        'text-prime': '#4A4A4A',
+        'text-second': '#666666',
       },
       width: {
-        '800px': '800px',
+        'md': '768px',
       },
     },
   },
