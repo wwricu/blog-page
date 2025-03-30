@@ -72,14 +72,14 @@ export default function PostCard({postDetailVO}: PostCardProps) {
     return (
         <div className='my-2 p-0 sm:min-h-36 shadow-lg border rounded-md hover:drop-shadow-2xl bg-[rgba(245,245,245,0.5)] w-md max-md:w-full max-sm:my-1'>
             <Flex justify='space-between' gap='small'>
-                <Flex vertical justify='space-between' align='flex-start' className='px-4 pt-4 pb-3 w-full h-40'>
+                <Flex vertical justify='space-between' align='flex-start' className='px-4 pt-4 pb-3 w-full sm:h-40'>
                     <Link className='w-full' href={`/detail/${postDetailVO.id}`}>
                         <Flex vertical justify='flex-start' align='flex-start' className='w-full'>
                             <>
                                 <Typography.Title level={4} className='max-sm:hidden'>{postDetailVO.title}</Typography.Title>
-                                <Typography.Text className='sm:hidden'>{postDetailVO.title}</Typography.Text>
+                                <Typography.Text className='sm:hidden mb-4'>{postDetailVO.title}</Typography.Text>
                             </>
-                            <Typography.Paragraph className='mt-2 max-h-10 overflow-hidden max-sm:h-8 max-sm:text-xs text-text-second'>{postDetailVO.preview}</Typography.Paragraph>
+                            <Typography.Paragraph className='mt-2 max-sm:hidden overflow-hidden max-sm:h-8 sm:h-10 max-sm:text-xs text-text-second'>{postDetailVO.preview}</Typography.Paragraph>
                         </Flex>
                     </Link>
                     <Flex vertical justify='flex-end' align='flex-start'>
