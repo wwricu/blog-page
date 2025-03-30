@@ -47,20 +47,3 @@ jobs:
           push: true
           file: DockerfileDev
           tags: wwricu/blog-page:snapshot
-  deploy:
-    runs-on: ubuntu-latest
-    permissions: write-all
-    continue-on-error: true
-    needs: dockerhub
-    steps:
-      - uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.DEV_HOSTNAME }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.DEPLOY_KEY }}
-          script: |
-            docker stop blog-page
-            docker rm blog-page
-            docker rmi wwricu/blog-page:snapshot
-            cd /deploy
-            docker-compose -f docker-compose-dev.yml up -d
