@@ -83,7 +83,6 @@ export default function PostCard({postDetailVO}: PostCardProps) {
                         </Flex>
                     </Link>
                     <Flex vertical justify='flex-end' align='flex-start'>
-                        {/*TODO: grid + breakpoint*/}
                         <Flex className='w-full flex-wrap' justify='space-between' align='center' gap='small'>
                             <span>
                                 <Typography.Text type={'secondary'} className='max-sm:text-xs'><ClockCircleOutlined/> {postDetailVO.create_time.slice(0, 10)}</Typography.Text>
