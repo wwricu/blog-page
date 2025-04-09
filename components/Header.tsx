@@ -44,7 +44,6 @@ const Header: React.FC = () => {
     return (
         <>
             <Flex justify='space-between' align='center' className='sm:h-10 bg-transparent flex-wrap border-solid border-b-2'>
-                {/*TODO: grid for width narrower than 260px*/}
                 <Flex justify='flex-start' align='center' className='flex-wrap h-full'>
                     <Link href='/' className='h-full'>
                         <Button className={menuItemClassName + getButtonStyle('/')}>
