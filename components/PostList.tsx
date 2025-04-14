@@ -1,8 +1,9 @@
 import {PostDetailPageVO} from "@/common/model";
 import PostCard from "@/components/PostCard";
 import {Flex, Pagination} from "antd";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {useRouter} from "next/router";
+import Link from "next/link";
 
 
 type PostListProps = {
@@ -11,11 +12,28 @@ type PostListProps = {
 
 export default function PostList({postDetailPageVO}: PostListProps) {
     const router = useRouter();
+    const [useLink, setUseLink] = useState<boolean>();
+
+    useEffect(() => {
+        const { name } = router.query;
+        setUseLink(!name);
+    }, [router])
+
+    const itemRender = (
+        page: number,
+        type: 'page' | 'prev' | 'next' | 'jump-prev' | 'jump-next',
+        element: React.ReactNode
+    ) => {
+        return (
+            <Link href={`/${page}`}>
+                {type === 'page' ? page : element}
+            </Link>
+        )
+    }
 
     const changePage = (pageIndex: number) => {
         const { name } = router.query
-        const url = name ? `/${name}` : ''
-        router.push(`${url}/${pageIndex}`).then()
+        router.push(`${name ? `/${name}` : ''}/${pageIndex}`).then()
     }
 
     return (
@@ -27,7 +45,8 @@ export default function PostList({postDetailPageVO}: PostListProps) {
                 align="center"
                 current={postDetailPageVO.page_index}
                 total={postDetailPageVO.count}
-                onChange={changePage}
+                itemRender={useLink ? itemRender : undefined}
+                onChange={useLink ? undefined : changePage}
             />
         </Flex>
     )
