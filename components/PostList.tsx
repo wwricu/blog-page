@@ -3,6 +3,7 @@ import PostCard from "@/components/PostCard";
 import {Flex, Pagination} from "antd";
 import React from "react";
 import {useRouter} from "next/router";
+import Link from "next/link";
 
 
 type PostListProps = {
@@ -12,10 +13,17 @@ type PostListProps = {
 export default function PostList({postDetailPageVO}: PostListProps) {
     const router = useRouter();
 
-    const changePage = (pageIndex: number) => {
-        const { name } = router.query
-        const url = name ? `/${name}` : ''
-        router.push(`${url}/${pageIndex}`).then()
+    const itemRender = (
+        page: number,
+        type: 'page' | 'prev' | 'next' | 'jump-prev' | 'jump-next',
+        element: React.ReactNode
+    ) => {
+        const { name } = router.query;
+        return (
+            <Link href={router.pathname.replace('[name]', `${name}`).replace('[page]', `${page}`)}>
+                {type === 'page' ? page : element}
+            </Link>
+        )
     }
 
     return (
@@ -27,7 +35,7 @@ export default function PostList({postDetailPageVO}: PostListProps) {
                 align="center"
                 current={postDetailPageVO.page_index}
                 total={postDetailPageVO.count}
-                onChange={changePage}
+                itemRender={itemRender}
             />
         </Flex>
     )
