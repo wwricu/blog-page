@@ -12,13 +12,15 @@ type PostListProps = {
 
 export default function PostList({postDetailPageVO}: PostListProps) {
     const router = useRouter();
+    const [current, setCurrent] = React.useState<number>(1);
 
     const getUrl = (page: number) => {
         const pathname = router.pathname
         if (pathname.includes('[page]')) {
             return pathname.replace('[page]', page.toString())
         }
-        return `${pathname}/${page}`
+        const split = pathname.endsWith('/') ? '' : '/'
+        return `${pathname}${split}${page}`
     }
 
     const itemRender = (
@@ -40,9 +42,10 @@ export default function PostList({postDetailPageVO}: PostListProps) {
             <Pagination
                 className='my-5 max-sm:my-1'
                 align="center"
-                current={postDetailPageVO.page_index}
+                current={current}
                 total={postDetailPageVO.count}
                 itemRender={itemRender}
+                onChange={setCurrent}
             />
         </Flex>
     )
