@@ -1,7 +1,7 @@
 import {PostDetailPageVO} from "@/common/model";
 import PostCard from "@/components/PostCard";
 import {Flex, Pagination} from "antd";
-import React from "react";
+import React, {useEffect} from "react";
 import {useRouter} from "next/router";
 import Link from "next/link";
 
@@ -13,6 +13,17 @@ type PostListProps = {
 export default function PostList({postDetailPageVO}: PostListProps) {
     const router = useRouter();
     const [current, setCurrent] = React.useState<number>(1);
+
+    /*
+    * Since we use itemRender to assign page url to each button,
+    * onChange is not reliable anymore because it is invoked on click before goto new page by url on buttons.
+    * Next.js does not refresh the entire page under the same router so the page number behaves correctly
+    * when user jump between pages while the page was fully loaded when user click page button on the index page
+    * that router changes, so I suggest to use useEffect hoot to ensure everyone sees correct page number.
+    */
+    useEffect(() => {
+        setCurrent(postDetailPageVO.page_index)
+    })
 
     const getUrl = (page: number) => {
         const pathname = router.pathname
@@ -45,7 +56,6 @@ export default function PostList({postDetailPageVO}: PostListProps) {
                 current={current}
                 total={postDetailPageVO.count}
                 itemRender={itemRender}
-                onChange={setCurrent}
             />
         </Flex>
     )
