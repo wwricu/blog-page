@@ -48,7 +48,7 @@ export default function PostList({postDetailPageVO}: PostListProps) {
 
     return (
         <Flex vertical>
-            {postDetailPageVO?.post_details?.map(postDetailVO =>
+            {postDetailPageVO?.data?.map(postDetailVO =>
                 <PostCard key={postDetailVO.id} postDetailVO={postDetailVO}/>)}
             <Pagination
                 className='my-5 max-sm:my-1'
