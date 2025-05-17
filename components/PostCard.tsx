@@ -27,7 +27,6 @@ const getTagColor = () => {
     return tagColorList[Math.floor(Math.random() * tagColorList.length)]
 }
 
-
 const renderCategory = (tag: TagVO | undefined) => {
     if (!tag) {
         return <></>
@@ -37,7 +36,7 @@ const renderCategory = (tag: TagVO | undefined) => {
         <span className='max-w-[100vw] overflow-hidden'>
             <Typography.Text type={'secondary'}>
                 <BorderlessTableOutlined className='mr-1'/>
-                <Link href={`?category=${tag.name}`}>
+                <Link href={`/categories/${tag.name}`}>
                     <Tag>
                         {tag.name}
                     </Tag>

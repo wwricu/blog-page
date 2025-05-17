@@ -53,7 +53,7 @@ export interface PostDetailPageVO {
     page_index: number
     page_size: number
     count: number
-    post_details: PostDetailVO[]
+    data: PostDetailVO[]
 }
 
 export interface AboutVO {
