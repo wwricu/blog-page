@@ -23,7 +23,7 @@ export default function PostList({postDetailPageVO}: PostListProps) {
     */
     useEffect(() => {
         setCurrent(postDetailPageVO.page_index)
-    })
+    }, [postDetailPageVO.page_index])
 
     const getUrl = (page: number) => {
         const pathname = router.pathname
