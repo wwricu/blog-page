@@ -77,13 +77,13 @@ const Header: React.FC = () => {
             >
                 <div dangerouslySetInnerHTML={{__html: about}} className='min-h-48'/>
                 <Divider className='mb-4'/>
-                <div className='justify-around'>
+                <div className='flex justify-around'>
                     <Statistic title="Post" value={postCount} className={statisticClassName}/>
                     <Statistic title="Category" value={categoryCount} className={statisticClassName}/>
                     <Statistic title="Tag" value={tagCount} className={statisticClassName}/>
                 </div>
                 <Divider className='my-4'/>
-                <div className='justify-between'>
+                <div className='flex justify-between'>
                     <Button type='primary' href='https://github.com/wwricu' target='_blank' className='m-2 grow'><GithubOutlined/>GitHub</Button>
                     <Button href='mailto:me@wwr.icu' className='m-2 grow'><MailOutlined/>Mail me</Button>
                 </div>
