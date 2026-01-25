@@ -1,5 +1,5 @@
 import {PostDetailVO, TagVO} from '@/common/model';
-import {Divider, Tag, Typography} from 'antd';
+import {Divider, Tag} from 'antd';
 import {BorderlessTableOutlined, ClockCircleOutlined, TagsOutlined} from '@ant-design/icons';
 import Image from 'next/image';
 import React from 'react';
@@ -34,14 +34,14 @@ const renderCategory = (tag: TagVO | undefined) => {
 
     return (
         <span className='max-w-[100vw] overflow-hidden'>
-            <Typography.Text type={'secondary'}>
+            <span className='text-gray-500'>
                 <BorderlessTableOutlined className='mr-1'/>
                 <Link href={`/categories/${tag.name}`}>
                     <Tag>
                         {tag.name}
                     </Tag>
                 </Link>
-            </Typography.Text>
+            </span>
             <Divider type='vertical' className='ml-2 mr-0'/>
         </span>
     )
@@ -53,7 +53,7 @@ const renderTag = (tagList: TagVO[]) => {
     }
     return (
         <span className='max-w-[100vw] overflow-hidden'>
-            <Typography.Text type={'secondary'}>
+            <span className='text-gray-500'>
                 <TagsOutlined className='mr-1'/>
                 {tagList.map((tag: TagVO) => (
                     <Link key={tag.id} href={`/tags/${tag.name}`}>
@@ -62,7 +62,7 @@ const renderTag = (tagList: TagVO[]) => {
                         </Tag>
                     </Link>
                 ))}
-            </Typography.Text>
+            </span>
         </span>
     )
 }
@@ -75,16 +75,16 @@ export default function PostCard({postDetailVO}: PostCardProps) {
                     <Link className='w-full' href={`/detail/${postDetailVO.id}`}>
                         <div className='flex flex-col justify-start items-start w-full'>
                             <>
-                                <Typography.Title level={4} className='max-sm:hidden'>{postDetailVO.title}</Typography.Title>
-                                <Typography.Text className='sm:hidden mb-5'>{postDetailVO.title}</Typography.Text>
+                                <h4 className='text-xl font-semibold mb-3 max-sm:hidden'>{postDetailVO.title}</h4>
+                                <p className='sm:hidden mb-5'>{postDetailVO.title}</p>
                             </>
-                            <Typography.Paragraph className='mt-2 max-sm:hidden overflow-hidden sm:h-10 max-sm:text-xs text-text-second'>{postDetailVO.preview}</Typography.Paragraph>
+                            <p className='mt-2 max-sm:hidden overflow-hidden sm:h-10 max-sm:text-xs text-text-second'>{postDetailVO.preview}</p>
                         </div>
                     </Link>
                     <div className='flex flex-col justify-end items-start'>
                         <div className='flex justify-between items-center gap-2 w-full flex-wrap'>
                             <span>
-                                <Typography.Text type={'secondary'} className='max-sm:text-xs'><ClockCircleOutlined/> {postDetailVO.create_time.slice(0, 10)}</Typography.Text>
+                                <span className='text-gray-500 max-sm:text-xs'><ClockCircleOutlined/> {postDetailVO.create_time.slice(0, 10)}</span>
                                 <Divider type='vertical' className='ml-2 mr-0'/>
                             </span>
                             {renderCategory(postDetailVO?.category)}

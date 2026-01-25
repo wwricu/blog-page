@@ -1,7 +1,7 @@
 import {PostDetailVO, TagVO} from "@/common/model";
 import {GetPostDetailAPI} from "@/common/api";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
-import {Divider, Tag, Typography} from "antd";
+import {Divider, Tag} from "antd";
 import React from "react";
 import {BorderlessTableOutlined, ClockCircleOutlined, TagsOutlined} from "@ant-design/icons";
 
@@ -39,15 +39,13 @@ const renderTags = (postDetailVO: PostDetailVO) => {
     }
     return (
         <div className='flex justify-start flex-wrap'>
-            <Typography.Text type='secondary'>
-                <TagsOutlined className='mr-1'/>
-            </Typography.Text>
+            <TagsOutlined className='text-gray-500 mr-1 '/>
             {postDetailVO?.tag_list.map((tag: TagVO) => (
-                <Typography.Link key={tag.id} href={`/tags/${tag.name}`} className='ml-1'>
+                <a key={tag.id} href={`/tags/${tag.name}`} className='ml-1'>
                     <Tag color={getTagColor()}>
                         {tag.name}
                     </Tag>
-                </Typography.Link>
+                </a>
             ))}
         </div>
     )
@@ -58,15 +56,15 @@ const renderCategory = (postDetailVO: PostDetailVO) => {
         return <></>
     }
     return (
-        <Typography.Text type='secondary'>
+        <p className='text-gray-500'>
             <BorderlessTableOutlined className='mr-2'/>
-                <Typography.Link href={`/categories/${postDetailVO?.category.name}`}>
+                <a href={`/categories/${postDetailVO?.category.name}`}>
                     <Tag>
                         {postDetailVO?.category?.name}
                     </Tag>
-                </Typography.Link>
+                </a>
             <Divider type='vertical' orientation='center'/>
-        </Typography.Text>
+        </p>
     )
 }
 
@@ -75,19 +73,17 @@ export default function PostDetailPage({ postDetailVO }: InferGetServerSideProps
     return (
         <div className='flex justify-center min-h-lvh w-full '>
             <div className='w-md bg-[rgba(240,240,240,0.5)] shadow-sm border-x p-4'>
-                <Typography.Title level={3}>{postDetailVO.title}</Typography.Title>
+                <h1 className='text-2xl font-semibold'>{postDetailVO.title}</h1>
                 <div className='flex items-center gap-2 mt-6 mb-8 flex-wrap'>
-                    <Typography.Text type='secondary'>
+                    <p className='text-gray-500'>
                         <ClockCircleOutlined className='mr-1'/>
                         {postDetailVO.create_time?.slice(0, 10)}
-                    </Typography.Text>
+                    </p>
                     <Divider type='vertical' orientation='center'/>
                     {renderCategory(postDetailVO)}
                     {renderTags(postDetailVO)}
                 </div>
-                <Typography.Paragraph>
-                    <div dangerouslySetInnerHTML={{__html: postDetailVO.content}}/>
-                </Typography.Paragraph>
+                <div className='prose prose-sm max-w-full' dangerouslySetInnerHTML={{__html: postDetailVO.content}}/>
             </div>
         </div>
     )

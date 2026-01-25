@@ -1,5 +1,4 @@
 import {TagVO} from "@/common/model";
-import {Typography} from "antd";
 import Link from "next/link";
 
 type CategoryListProps = {
@@ -13,12 +12,12 @@ export default function CategoryList({tags}: CategoryListProps) {
                 {tags.map((tag: TagVO) => (
                     <Link key={tag.id} href={`/categories/${tag.name}`}>
                         <div className='flex justify-between items-baseline rounded-md py-3 px-5 w-md max-md:w-full hover:bg-slate-200 hover:shadow-md' >
-                            <Typography.Text className='text-text-prime'>
+                            <p className='text-text-prime'>
                                 {tag.name}
-                            </Typography.Text>
-                            <Typography.Text type='secondary'>
+                            </p>
+                            <p className='text-gray-500'>
                                 {tag.count}
-                            </Typography.Text>
+                            </p>
                         </div>
                     </Link>
                 ))}
