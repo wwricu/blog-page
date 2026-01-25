@@ -1,5 +1,5 @@
 import {PostDetailVO, TagVO} from '@/common/model';
-import {Divider, Flex, Tag, Typography} from 'antd';
+import {Divider, Tag, Typography} from 'antd';
 import {BorderlessTableOutlined, ClockCircleOutlined, TagsOutlined} from '@ant-design/icons';
 import Image from 'next/image';
 import React from 'react';
@@ -70,28 +70,28 @@ const renderTag = (tagList: TagVO[]) => {
 export default function PostCard({postDetailVO}: PostCardProps) {
     return (
         <div className='my-2 p-0 sm:min-h-36 shadow-lg border rounded-md hover:drop-shadow-2xl bg-[rgba(245,245,245,0.5)] w-md max-md:w-full max-sm:my-1'>
-            <Flex justify='space-between' gap='small'>
-                <Flex vertical justify='space-between' align='flex-start' className='px-4 pt-4 pb-3 w-full sm:h-40'>
+            <div className='flex justify-between gap-2'>
+                <div className='flex flex-col justify-between items-start px-4 pt-4 pb-3 w-full sm:h-40'>
                     <Link className='w-full' href={`/detail/${postDetailVO.id}`}>
-                        <Flex vertical justify='flex-start' align='flex-start' className='w-full'>
+                        <div className='flex flex-col justify-start items-start w-full'>
                             <>
                                 <Typography.Title level={4} className='max-sm:hidden'>{postDetailVO.title}</Typography.Title>
                                 <Typography.Text className='sm:hidden mb-5'>{postDetailVO.title}</Typography.Text>
                             </>
                             <Typography.Paragraph className='mt-2 max-sm:hidden overflow-hidden sm:h-10 max-sm:text-xs text-text-second'>{postDetailVO.preview}</Typography.Paragraph>
-                        </Flex>
+                        </div>
                     </Link>
-                    <Flex vertical justify='flex-end' align='flex-start'>
-                        <Flex className='w-full flex-wrap' justify='space-between' align='center' gap='small'>
+                    <div className='flex flex-col justify-end items-start'>
+                        <div className='flex justify-between items-center gap-2 w-full flex-wrap'>
                             <span>
                                 <Typography.Text type={'secondary'} className='max-sm:text-xs'><ClockCircleOutlined/> {postDetailVO.create_time.slice(0, 10)}</Typography.Text>
                                 <Divider type='vertical' className='ml-2 mr-0'/>
                             </span>
                             {renderCategory(postDetailVO?.category)}
                             {renderTag(postDetailVO.tag_list)}
-                        </Flex>
-                    </Flex>
-                </Flex>
+                        </div>
+                    </div>
+                </div>
                 <Image
                     loading='lazy'
                     unoptimized
@@ -100,7 +100,7 @@ export default function PostCard({postDetailVO}: PostCardProps) {
                     src={postDetailVO.cover?.url ?? `https://picsum.photos/250/100?id=${postDetailVO.id}`} alt={postDetailVO.cover?.name ?? 'cover'}
                     className='max-sm:hidden'
                 />
-            </Flex>
+            </div>
         </div>
     )
 }

@@ -7,7 +7,7 @@ import {
     MailOutlined,
     TagsOutlined
 } from '@ant-design/icons';
-import {Button, Divider, Flex, Modal, Statistic} from 'antd';
+import {Button, Divider, Modal, Statistic} from 'antd';
 import {GetAboutAPI} from "@/common/api";
 import {useRouter} from "next/router";
 import Link from "next/link";
@@ -43,8 +43,8 @@ const Header: React.FC = () => {
 
     return (
         <>
-            <Flex justify='space-between' align='center' className='sm:h-10 bg-transparent flex-wrap border-solid border-b-2'>
-                <Flex justify='flex-start' align='center' className='flex-wrap h-full'>
+            <div className='flex justify-between items-center sm:h-10 bg-transparent flex-wrap border-solid border-b-2'>
+                <div className='flex justify-start items-center flex-wrap h-full'>
                     <Link href='/' className='h-full'>
                         <Button className={menuItemClassName + getButtonStyle('/')}>
                             <HomeOutlined/>Home
@@ -60,14 +60,14 @@ const Header: React.FC = () => {
                             <TagsOutlined/>Tags
                         </Button>
                     </Link>
-                </Flex>
+                </div>
                 <Button onClick={() => setIsModalOpen(true)} className={menuItemClassName + ' hover:!bg-slate-300 hover:!text-text-prime ' + (isModalOpen ? ' bg-indigo-600 text-white' : 'bg-transparent')}>
                     <InfoCircleOutlined/>
                     <span className='max-sm:hidden'>
                     About
                 </span>
                 </Button>
-            </Flex>
+            </div>
             <Modal
                 footer={null}
                 closable={false}
@@ -77,16 +77,16 @@ const Header: React.FC = () => {
             >
                 <div dangerouslySetInnerHTML={{__html: about}} className='min-h-48'/>
                 <Divider className='mb-4'/>
-                <Flex justify='space-around'>
+                <div className='justify-around'>
                     <Statistic title="Post" value={postCount} className={statisticClassName}/>
                     <Statistic title="Category" value={categoryCount} className={statisticClassName}/>
                     <Statistic title="Tag" value={tagCount} className={statisticClassName}/>
-                </Flex>
+                </div>
                 <Divider className='my-4'/>
-                <Flex justify='space-between'>
+                <div className='justify-between'>
                     <Button type='primary' href='https://github.com/wwricu' target='_blank' className='m-2 grow'><GithubOutlined/>GitHub</Button>
                     <Button href='mailto:me@wwr.icu' className='m-2 grow'><MailOutlined/>Mail me</Button>
-                </Flex>
+                </div>
             </Modal>
         </>
     )

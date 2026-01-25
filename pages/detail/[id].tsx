@@ -1,7 +1,7 @@
 import {PostDetailVO, TagVO} from "@/common/model";
 import {GetPostDetailAPI} from "@/common/api";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
-import {Divider, Flex, Tag, Typography} from "antd";
+import {Divider, Tag, Typography} from "antd";
 import React from "react";
 import {BorderlessTableOutlined, ClockCircleOutlined, TagsOutlined} from "@ant-design/icons";
 
@@ -38,7 +38,7 @@ const renderTags = (postDetailVO: PostDetailVO) => {
         return <></>
     }
     return (
-        <Flex justify='flex-start' className='flex-wrap'>
+        <div className='flex justify-start flex-wrap'>
             <Typography.Text type='secondary'>
                 <TagsOutlined className='mr-1'/>
             </Typography.Text>
@@ -49,7 +49,7 @@ const renderTags = (postDetailVO: PostDetailVO) => {
                     </Tag>
                 </Typography.Link>
             ))}
-        </Flex>
+        </div>
     )
 }
 
@@ -73,13 +73,10 @@ const renderCategory = (postDetailVO: PostDetailVO) => {
 
 export default function PostDetailPage({ postDetailVO }: InferGetServerSidePropsType<typeof getServerSideProps>) {
     return (
-        <Flex
-            className='min-h-lvh w-full '
-            justify='center'
-        >
+        <div className='flex justify-center min-h-lvh w-full '>
             <div className='w-md bg-[rgba(240,240,240,0.5)] shadow-sm border-x p-4'>
                 <Typography.Title level={3}>{postDetailVO.title}</Typography.Title>
-                <Flex gap='small' align='center' className='mt-6 mb-8 flex-wrap'>
+                <div className='flex items-center gap-2 mt-6 mb-8 flex-wrap'>
                     <Typography.Text type='secondary'>
                         <ClockCircleOutlined className='mr-1'/>
                         {postDetailVO.create_time?.slice(0, 10)}
@@ -87,11 +84,11 @@ export default function PostDetailPage({ postDetailVO }: InferGetServerSideProps
                     <Divider type='vertical' orientation='center'/>
                     {renderCategory(postDetailVO)}
                     {renderTags(postDetailVO)}
-                </Flex>
+                </div>
                 <Typography.Paragraph>
                     <div dangerouslySetInnerHTML={{__html: postDetailVO.content}}/>
                 </Typography.Paragraph>
             </div>
-        </Flex>
+        </div>
     )
 }
