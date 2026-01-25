@@ -1,5 +1,5 @@
 import {TagVO} from "@/common/model";
-import {Row, Tag} from "antd";
+import {Tag} from "antd";
 import Link from "next/link";
 
 type TagListProps = {
@@ -8,7 +8,7 @@ type TagListProps = {
 
 export default function TagList({tags}: TagListProps) {
     return (
-        <Row justify='center'>
+        <div className="flex flex-wrap justify-center">
             <div className='flex mt-3 w-md flex-wrap'>
                 {tags.map((tag: TagVO) => (
                     <Link key={tag.id} href={`/tags/${tag.name}`}>
@@ -27,6 +27,6 @@ export default function TagList({tags}: TagListProps) {
                     </Link>
                 ))}
             </div>
-        </Row>
+        </div>
     )
 }
