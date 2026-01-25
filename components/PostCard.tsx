@@ -1,5 +1,5 @@
 import {PostDetailVO, TagVO} from '@/common/model';
-import {Divider, Tag} from 'antd';
+import {Tag} from 'antd';
 import {BorderlessTableOutlined, ClockCircleOutlined, TagsOutlined} from '@ant-design/icons';
 import Image from 'next/image';
 import React from 'react';
@@ -42,7 +42,7 @@ const renderCategory = (tag: TagVO | undefined) => {
                     </Tag>
                 </Link>
             </span>
-            <Divider type='vertical' className='ml-2 mr-0'/>
+            <div className='divider-horizontal ml-2 mr-0'/>
         </span>
     )
 }
@@ -85,7 +85,7 @@ export default function PostCard({postDetailVO}: PostCardProps) {
                         <div className='flex justify-between items-center gap-2 w-full flex-wrap'>
                             <span>
                                 <span className='text-gray-500 max-sm:text-xs'><ClockCircleOutlined/> {postDetailVO.create_time.slice(0, 10)}</span>
-                                <Divider type='vertical' className='ml-2 mr-0'/>
+                                <div className='divider-horizontal ml-2 mr-0'/>
                             </span>
                             {renderCategory(postDetailVO?.category)}
                             {renderTag(postDetailVO.tag_list)}

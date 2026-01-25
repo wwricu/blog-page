@@ -7,7 +7,7 @@ import {
     MailOutlined,
     TagsOutlined
 } from '@ant-design/icons';
-import {Button, Divider, Modal, Statistic} from 'antd';
+import {Button, Modal, Statistic} from 'antd';
 import {GetAboutAPI} from "@/common/api";
 import {useRouter} from "next/router";
 import Link from "next/link";
@@ -76,13 +76,13 @@ const Header: React.FC = () => {
                 onOk={() => setIsModalOpen(false)}
             >
                 <div dangerouslySetInnerHTML={{__html: about}} className='min-h-48'/>
-                <Divider className='mb-4'/>
+                <div className='divider mb-4'/>
                 <div className='flex justify-around'>
                     <Statistic title="Post" value={postCount} className={statisticClassName}/>
                     <Statistic title="Category" value={categoryCount} className={statisticClassName}/>
                     <Statistic title="Tag" value={tagCount} className={statisticClassName}/>
                 </div>
-                <Divider className='my-4'/>
+                <div className='divider my-4'/>
                 <div className='flex justify-between'>
                     <Button type='primary' href='https://github.com/wwricu' target='_blank' className='m-2 grow'><GithubOutlined/>GitHub</Button>
                     <Button href='mailto:me@wwr.icu' className='m-2 grow'><MailOutlined/>Mail me</Button>

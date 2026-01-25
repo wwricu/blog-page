@@ -1,7 +1,7 @@
 import {PostDetailVO, TagVO} from "@/common/model";
 import {GetPostDetailAPI} from "@/common/api";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
-import {Divider, Tag} from "antd";
+import {Tag} from "antd";
 import React from "react";
 import {BorderlessTableOutlined, ClockCircleOutlined, TagsOutlined} from "@ant-design/icons";
 
@@ -63,7 +63,7 @@ const renderCategory = (postDetailVO: PostDetailVO) => {
                         {postDetailVO?.category?.name}
                     </Tag>
                 </a>
-            <Divider type='vertical' orientation='center'/>
+            <div className='divider-horizontal'/>
         </p>
     )
 }
@@ -79,7 +79,7 @@ export default function PostDetailPage({ postDetailVO }: InferGetServerSideProps
                         <ClockCircleOutlined className='mr-1'/>
                         {postDetailVO.create_time?.slice(0, 10)}
                     </p>
-                    <Divider type='vertical' orientation='center'/>
+                    <div className='divider-horizontal'/>
                     {renderCategory(postDetailVO)}
                     {renderTags(postDetailVO)}
                 </div>

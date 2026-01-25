@@ -2,7 +2,6 @@ import "@/styles/globals.css"
 import type {AppProps} from "next/app"
 import Header from "@/components/Header";
 import React from "react";
-import {Divider} from "antd";
 
 export default function App({Component, pageProps}: AppProps) {
     return (
@@ -10,7 +9,7 @@ export default function App({Component, pageProps}: AppProps) {
             <Header/>
             <Component {...pageProps} />
             <div className='shadow-md text-center bg-transparent mt-0 pt-0 sm:h-12 max-sm:h-6'>
-                <Divider className='mt-0 mb-3 max-sm:hidden'/>
+                <div className='divider mt-0 mb-3 max-sm:hidden'/>
                 wwr.icu {new Date().getFullYear()}
             </div>
         </div>
