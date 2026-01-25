@@ -1,10 +1,9 @@
-name: Deploy dev
+name: Publish dev
 on:
   push:
     branches:
       - dev
     paths-ignore:
-      - '**.yml'
       - '**.md'
       - '**.sh'
       - '**.txt'
