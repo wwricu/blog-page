@@ -1,7 +1,7 @@
 import {PostDetailVO, TagVO} from "@/common/model";
 import {GetPostDetailAPI} from "@/common/api";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
-import {Divider, Flex, Tag, Typography} from "antd";
+import {Tag} from "antd";
 import React from "react";
 import {BorderlessTableOutlined, ClockCircleOutlined, TagsOutlined} from "@ant-design/icons";
 
@@ -38,18 +38,16 @@ const renderTags = (postDetailVO: PostDetailVO) => {
         return <></>
     }
     return (
-        <Flex justify='flex-start' className='flex-wrap'>
-            <Typography.Text type='secondary'>
-                <TagsOutlined className='mr-1'/>
-            </Typography.Text>
+        <div className='flex justify-start flex-wrap'>
+            <TagsOutlined className='text-gray-500 mr-1 '/>
             {postDetailVO?.tag_list.map((tag: TagVO) => (
-                <Typography.Link key={tag.id} href={`/tags/${tag.name}`} className='ml-1'>
+                <a key={tag.id} href={`/tags/${tag.name}`} className='ml-1'>
                     <Tag color={getTagColor()}>
                         {tag.name}
                     </Tag>
-                </Typography.Link>
+                </a>
             ))}
-        </Flex>
+        </div>
     )
 }
 
@@ -58,40 +56,35 @@ const renderCategory = (postDetailVO: PostDetailVO) => {
         return <></>
     }
     return (
-        <Typography.Text type='secondary'>
+        <p className='text-gray-500'>
             <BorderlessTableOutlined className='mr-2'/>
-                <Typography.Link href={`/categories/${postDetailVO?.category.name}`}>
+                <a href={`/categories/${postDetailVO?.category.name}`}>
                     <Tag>
                         {postDetailVO?.category?.name}
                     </Tag>
-                </Typography.Link>
-            <Divider type='vertical' orientation='center'/>
-        </Typography.Text>
+                </a>
+            <div className='divider-horizontal'/>
+        </p>
     )
 }
 
 
 export default function PostDetailPage({ postDetailVO }: InferGetServerSidePropsType<typeof getServerSideProps>) {
     return (
-        <Flex
-            className='min-h-lvh w-full '
-            justify='center'
-        >
+        <div className='flex justify-center min-h-lvh w-full '>
             <div className='w-md bg-[rgba(240,240,240,0.5)] shadow-sm border-x p-4'>
-                <Typography.Title level={3}>{postDetailVO.title}</Typography.Title>
-                <Flex gap='small' align='center' className='mt-6 mb-8 flex-wrap'>
-                    <Typography.Text type='secondary'>
+                <h1 className='text-2xl font-semibold'>{postDetailVO.title}</h1>
+                <div className='flex items-center gap-2 mt-6 mb-8 flex-wrap'>
+                    <p className='text-gray-500'>
                         <ClockCircleOutlined className='mr-1'/>
                         {postDetailVO.create_time?.slice(0, 10)}
-                    </Typography.Text>
-                    <Divider type='vertical' orientation='center'/>
+                    </p>
+                    <div className='divider-horizontal'/>
                     {renderCategory(postDetailVO)}
                     {renderTags(postDetailVO)}
-                </Flex>
-                <Typography.Paragraph>
-                    <div dangerouslySetInnerHTML={{__html: postDetailVO.content}}/>
-                </Typography.Paragraph>
+                </div>
+                <div className='prose prose-sm max-w-full' dangerouslySetInnerHTML={{__html: postDetailVO.content}}/>
             </div>
-        </Flex>
+        </div>
     )
 }
