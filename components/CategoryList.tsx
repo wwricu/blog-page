@@ -1,5 +1,4 @@
 import {TagVO} from "@/common/model";
-import {Flex, Typography} from "antd";
 import Link from "next/link";
 
 type CategoryListProps = {
@@ -8,21 +7,21 @@ type CategoryListProps = {
 
 export default function CategoryList({tags}: CategoryListProps) {
     return (
-        <Flex className='w-full' justify='center'>
+        <div className='flex justify-center w-full'>
             <div className='mt-4 shadow-lg bg-[rgba(240,240,240,0.5)] rounded-md'>
                 {tags.map((tag: TagVO) => (
                     <Link key={tag.id} href={`/categories/${tag.name}`}>
-                        <Flex justify='space-between' align='baseline' className='rounded-md py-3 px-5 w-md max-md:w-full hover:bg-slate-200 hover:shadow-md' >
-                            <Typography.Text className='text-text-prime'>
+                        <div className='flex justify-between items-baseline rounded-md py-3 px-5 w-md max-md:w-full hover:bg-slate-200 hover:shadow-md' >
+                            <p className='text-text-prime'>
                                 {tag.name}
-                            </Typography.Text>
-                            <Typography.Text type='secondary'>
+                            </p>
+                            <p className='text-gray-500'>
                                 {tag.count}
-                            </Typography.Text>
-                        </Flex>
+                            </p>
+                        </div>
                     </Link>
                 ))}
             </div>
-        </Flex>
+        </div>
     )
 }

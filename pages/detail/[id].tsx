@@ -1,10 +1,8 @@
 import {PostDetailVO, TagVO} from "@/common/model";
 import {GetPostDetailAPI} from "@/common/api";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
-import {Divider, Flex, Tag, Typography} from "antd";
 import React from "react";
-import {BorderlessTableOutlined, ClockCircleOutlined, TagsOutlined} from "@ant-design/icons";
-
+import {Clock, Hash, Tags} from 'lucide-react'
 
 export const getServerSideProps = (async (context) => {
     const { params } = context;
@@ -13,43 +11,34 @@ export const getServerSideProps = (async (context) => {
     return { props: { postDetailVO } }
 }) satisfies GetServerSideProps<{ postDetailVO: PostDetailVO }>
 
-
-const tagColorList = [
-    'magenta',
-    'red',
-    'volcano',
-    'orange',
-    'gold',
-    'lime',
-    'green',
-    'cyan',
-    'blue',
-    'geekblue',
-    'purple'
+const tagColorClassList = [
+    ' badge-secondary',
+    ' badge-accent',
+    ' badge-info',
+    ' badge-success',
+    ' badge-warning',
+    ' badge-error',
 ]
 
-const getTagColor = () => {
-    return tagColorList[Math.floor(Math.random() * tagColorList.length)]
+const getTagClass = () => {
+    return tagColorClassList[Math.floor(Math.random() * tagColorClassList.length)]
 }
-
 
 const renderTags = (postDetailVO: PostDetailVO) => {
     if (postDetailVO?.tag_list == null || postDetailVO?.tag_list.length === 0) {
         return <></>
     }
     return (
-        <Flex justify='flex-start' className='flex-wrap'>
-            <Typography.Text type='secondary'>
-                <TagsOutlined className='mr-1'/>
-            </Typography.Text>
+        <div className='flex justify-start flex-wrap'>
+            <Tags className='inline text-gray-500 mr-1' size={16} color="#757575" strokeWidth={2}/>
             {postDetailVO?.tag_list.map((tag: TagVO) => (
-                <Typography.Link key={tag.id} href={`/tags/${tag.name}`} className='ml-1'>
-                    <Tag color={getTagColor()}>
+                <a key={tag.id} href={`/tags/${tag.name}`} className='ml-1'>
+                    <div className={'badge badge-sm rounded' + getTagClass()}>
                         {tag.name}
-                    </Tag>
-                </Typography.Link>
+                    </div>
+                </a>
             ))}
-        </Flex>
+        </div>
     )
 }
 
@@ -58,40 +47,35 @@ const renderCategory = (postDetailVO: PostDetailVO) => {
         return <></>
     }
     return (
-        <Typography.Text type='secondary'>
-            <BorderlessTableOutlined className='mr-2'/>
-                <Typography.Link href={`/categories/${postDetailVO?.category.name}`}>
-                    <Tag>
-                        {postDetailVO?.category?.name}
-                    </Tag>
-                </Typography.Link>
-            <Divider type='vertical' orientation='center'/>
-        </Typography.Text>
+        <p className='text-gray-500'>
+            <Hash className='inline mr-2' size={16} color="#757575" strokeWidth={2}/>
+            <a href={`/categories/${postDetailVO?.category.name}`}>
+                <div className='badge badge-neutral badge-sm badge-outline rounded bg-white text-gray-400'>
+                    {postDetailVO?.category?.name}
+                </div>
+            </a>
+            <div className='divider-horizontal'/>
+        </p>
     )
 }
 
 
 export default function PostDetailPage({ postDetailVO }: InferGetServerSidePropsType<typeof getServerSideProps>) {
     return (
-        <Flex
-            className='min-h-lvh w-full '
-            justify='center'
-        >
+        <div className='flex justify-center min-h-lvh w-full '>
             <div className='w-md bg-[rgba(240,240,240,0.5)] shadow-sm border-x p-4'>
-                <Typography.Title level={3}>{postDetailVO.title}</Typography.Title>
-                <Flex gap='small' align='center' className='mt-6 mb-8 flex-wrap'>
-                    <Typography.Text type='secondary'>
-                        <ClockCircleOutlined className='mr-1'/>
+                <h1 className='text-2xl font-semibold'>{postDetailVO.title}</h1>
+                <div className='flex items-center gap-2 mt-6 mb-8 flex-wrap'>
+                    <p className='text-gray-500'>
+                        <Clock className='inline mr-1' size={16} color="#757575" strokeWidth={2}/>
                         {postDetailVO.create_time?.slice(0, 10)}
-                    </Typography.Text>
-                    <Divider type='vertical' orientation='center'/>
+                    </p>
+                    <div className='divider-horizontal'/>
                     {renderCategory(postDetailVO)}
                     {renderTags(postDetailVO)}
-                </Flex>
-                <Typography.Paragraph>
-                    <div dangerouslySetInnerHTML={{__html: postDetailVO.content}}/>
-                </Typography.Paragraph>
+                </div>
+                <div className='prose prose-sm max-w-full' dangerouslySetInnerHTML={{__html: postDetailVO.content}}/>
             </div>
-        </Flex>
+        </div>
     )
 }

@@ -1,6 +1,5 @@
 import {PostDetailPageVO} from "@/common/model";
 import PostCard from "@/components/PostCard";
-import {Flex, Pagination} from "antd";
 import React, {useEffect} from "react";
 import {useRouter} from "next/router";
 import Link from "next/link";
@@ -45,18 +44,13 @@ export default function PostList({postDetailPageVO}: PostListProps) {
             </Link>
         )
     }
+    void itemRender
+    void current
 
     return (
-        <Flex vertical>
+        <div className='flex flex-col items-center'>
             {postDetailPageVO?.data?.map(postDetailVO =>
                 <PostCard key={postDetailVO.id} postDetailVO={postDetailVO}/>)}
-            <Pagination
-                className='my-5 max-sm:my-1'
-                align="center"
-                current={current}
-                total={postDetailPageVO.count}
-                itemRender={itemRender}
-            />
-        </Flex>
+        </div>
     )
 }

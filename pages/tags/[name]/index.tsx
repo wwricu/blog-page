@@ -3,8 +3,6 @@ import {GetAllBlogPosts} from "@/common/api";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
 import PostList from "@/components/PostList";
 import React from "react";
-import {useRouter} from "next/router";
-import {Breadcrumb, Flex} from "antd";
 
 export const getServerSideProps = (async (context) => {
     const { params } = context
@@ -14,24 +12,11 @@ export const getServerSideProps = (async (context) => {
 }) satisfies GetServerSideProps<{ postDetailPageVO: PostDetailPageVO }>
 
 export default function Home({ postDetailPageVO }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-    const router = useRouter()
     return (
-        <Flex className='grow py-2' justify="center">
-            <Flex vertical className='max-md:w-full max-md:mx-2'>
-                <Breadcrumb
-                    className='m-1'
-                    items={[
-                        {
-                            title: 'Tags',
-                        },
-                        {
-                            title: ':name',
-                        },
-                    ]}
-                    params={{ name: router.query.name }}
-                />
+        <div className='flex justify-center grow py-2'>
+            <div className='flex flex-col max-md:w-full max-md:mx-2'>
                 <PostList postDetailPageVO={postDetailPageVO}/>
-            </Flex>
-        </Flex>
+            </div>
+        </div>
     )
 }
