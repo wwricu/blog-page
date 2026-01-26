@@ -14,13 +14,9 @@ export default {
         'text-prime': '#4A4A4A',
         'text-second': '#666666',
       },
-      width: {
-        'md': '768px',
-      },
     },
   },
   plugins: [
-    require('daisyui'),
     require('@tailwindcss/typography')
   ],
 } satisfies Config;
