@@ -1,5 +1,5 @@
 import {PostDetailVO, TagVO} from '@/common/model';
-import {BorderlessTableOutlined, ClockCircleOutlined, TagsOutlined} from '@ant-design/icons';
+import {Clock, Hash, Tags} from 'lucide-react'
 import Image from 'next/image';
 import React from 'react';
 import Link from 'next/link';
@@ -29,7 +29,7 @@ const renderCategory = (tag: TagVO | undefined) => {
     return (
         <span className='max-w-[100vw] overflow-hidden'>
             <span className='text-gray-500'>
-                <BorderlessTableOutlined className='mr-1'/>
+                <Hash className='inline mr-1' size={16} color="#757575" strokeWidth={2}/>
                 <Link href={`/categories/${tag.name}`}>
                     <div className='badge badge-neutral badge-sm badge-outline rounded bg-white text-gray-400'>{tag.name}</div>
                 </Link>
@@ -46,7 +46,7 @@ const renderTag = (tagList: TagVO[]) => {
     return (
         <span className='max-w-[100vw] overflow-hidden'>
             <span className='text-gray-500'>
-                <TagsOutlined className='mr-1'/>
+                <Tags className='inline mr-1' size={16} color="#757575" strokeWidth={2}/>
                 {tagList.map((tag: TagVO) => (
                     <Link key={tag.id} href={`/tags/${tag.name}`}>
                         <div className={'badge badge-sm rounded mx-0.5' + getTagClass()}>
@@ -76,7 +76,9 @@ export default function PostCard({postDetailVO}: PostCardProps) {
                     <div className='flex flex-col justify-end items-start'>
                         <div className='flex justify-start items-center gap-2 w-full flex-wrap'>
                             <span>
-                                <span className='text-gray-500 max-sm:text-xs'><ClockCircleOutlined/> {postDetailVO.create_time.slice(0, 10)}</span>
+                                <span className='text-gray-500 max-sm:text-xs'>
+                                    <Clock className="inline" size={16} color="#757575" strokeWidth={2}/> {postDetailVO.create_time.slice(0, 10)}
+                                </span>
                                 <div className='divider-horizontal ml-2 mr-0'/>
                             </span>
                             {renderCategory(postDetailVO?.category)}
