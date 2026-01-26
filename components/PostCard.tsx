@@ -3,22 +3,10 @@ import {Clock, Hash, Tags} from 'lucide-react'
 import Image from 'next/image';
 import React from 'react';
 import Link from 'next/link';
+import {getTagColorClass} from "@/common/common";
 
 type PostCardProps = {
     postDetailVO: PostDetailVO
-}
-
-const tagColorClassList = [
-    ' badge-secondary',
-    ' badge-accent',
-    ' badge-info',
-    ' badge-success',
-    ' badge-warning',
-    ' badge-error',
-]
-
-const getTagClass = () => {
-    return tagColorClassList[Math.floor(Math.random() * tagColorClassList.length)]
 }
 
 const renderCategory = (tag: TagVO | undefined) => {
@@ -49,7 +37,7 @@ const renderTag = (tagList: TagVO[]) => {
                 <Tags className='inline mr-1' size={16} color="#757575" strokeWidth={2}/>
                 {tagList.map((tag: TagVO) => (
                     <Link key={tag.id} href={`/tags/${tag.name}`}>
-                        <div className={'badge badge-sm rounded mx-0.5' + getTagClass()}>{tag.name}</div>
+                        <div className={'badge badge-sm rounded mx-0.5' + getTagColorClass()}>{tag.name}</div>
                     </Link>
                 ))}
             </span>
