@@ -4,7 +4,6 @@ import React, {useEffect} from "react";
 import {useRouter} from "next/router";
 import Link from "next/link";
 
-
 type PostListProps = {
     postDetailPageVO: PostDetailPageVO;
 }
@@ -38,11 +37,7 @@ export default function PostList({postDetailPageVO}: PostListProps) {
         type: 'page' | 'prev' | 'next' | 'jump-prev' | 'jump-next',
         element: React.ReactNode
     ) => {
-        return (
-            <Link href={getUrl(page)}>
-                {type === 'page' ? page : element}
-            </Link>
-        )
+        return <Link href={getUrl(page)}>{type === 'page' ? page : element}</Link>
     }
     void itemRender
     void current

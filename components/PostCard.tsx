@@ -49,9 +49,7 @@ const renderTag = (tagList: TagVO[]) => {
                 <Tags className='inline mr-1' size={16} color="#757575" strokeWidth={2}/>
                 {tagList.map((tag: TagVO) => (
                     <Link key={tag.id} href={`/tags/${tag.name}`}>
-                        <div className={'badge badge-sm rounded mx-0.5' + getTagClass()}>
-                            {tag.name}
-                        </div>
+                        <div className={'badge badge-sm rounded mx-0.5' + getTagClass()}>{tag.name}</div>
                     </Link>
                 ))}
             </span>

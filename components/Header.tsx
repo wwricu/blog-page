@@ -55,7 +55,6 @@ const Header: React.FC = () => {
                         <div className="stat-value text-2xl font-light">{stat.value}</div>
                     </div>
                 ))}
-
             </>
         )
     }

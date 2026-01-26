@@ -4,7 +4,6 @@ import {PostDetailPageVO} from "@/common/model"
 import {GetAllBlogPosts} from "@/common/api"
 import PostList from "@/components/PostList";
 
-
 export const getServerSideProps = (async (context) => {
     const pageIndex = parseInt((context.params?.page ?? '1') as string)
     const postDetailPageVO: PostDetailPageVO = await GetAllBlogPosts(pageIndex)
