@@ -3,6 +3,7 @@ import {GetPostDetailAPI} from "@/common/api";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
 import React from "react";
 import {Clock, Hash, Tags} from 'lucide-react'
+import {getTagColorClass} from "@/common/common";
 
 export const getServerSideProps = (async (context) => {
     const { params } = context;
@@ -10,19 +11,6 @@ export const getServerSideProps = (async (context) => {
     const postDetailVO = await GetPostDetailAPI(postId as string)
     return { props: { postDetailVO } }
 }) satisfies GetServerSideProps<{ postDetailVO: PostDetailVO }>
-
-const tagColorClassList = [
-    ' badge-secondary',
-    ' badge-accent',
-    ' badge-info',
-    ' badge-success',
-    ' badge-warning',
-    ' badge-error',
-]
-
-const getTagClass = () => {
-    return tagColorClassList[Math.floor(Math.random() * tagColorClassList.length)]
-}
 
 const renderTags = (postDetailVO: PostDetailVO) => {
     if (postDetailVO?.tag_list == null || postDetailVO?.tag_list.length === 0) {
@@ -33,7 +21,7 @@ const renderTags = (postDetailVO: PostDetailVO) => {
             <Tags className='inline text-gray-500 mr-1' size={16} color="#757575" strokeWidth={2}/>
             {postDetailVO?.tag_list.map((tag: TagVO) => (
                 <a key={tag.id} href={`/tags/${tag.name}`} className='ml-1'>
-                    <div className={'badge badge-sm rounded' + getTagClass()}>
+                    <div className={'badge badge-sm rounded' + getTagColorClass()}>
                         {tag.name}
                     </div>
                 </a>
