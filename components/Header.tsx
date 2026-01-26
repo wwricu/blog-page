@@ -2,7 +2,6 @@ import React, {useEffect, useRef, useState} from 'react';
 import {
     House,
     LayoutGrid,
-    Github,
     Info,
     Mail,
     Tag
@@ -10,13 +9,12 @@ import {
 import {GetAboutAPI} from "@/common/api";
 import {useRouter} from "next/router";
 import Link from "next/link";
-
+import GithubIcon from "@/components/GithubIcon";
 
 type StatProps = {
     title: string
     value: number
 }
-
 
 const Header: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -112,7 +110,7 @@ const Header: React.FC = () => {
                     <div className='flex justify-between'>
                         <Link href='https://github.com/wwricu'>
                             <button className='btn btn-active btn-neutral btn-sm m-2 rounded grow'>
-                                <Github size={16} color="#757575" strokeWidth={2}/>GitHub
+                                <GithubIcon size={16} color="#B4B4B4" strokeWidth={2}/>GitHub
                             </button>
                         </Link>
                         <Link href='mailto:me@wwr.icu'>
