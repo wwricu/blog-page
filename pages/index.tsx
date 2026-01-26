@@ -4,7 +4,6 @@ import {PostDetailPageVO} from "@/common/model"
 import {GetAllBlogPosts} from "@/common/api"
 import PostList from "@/components/PostList";
 
-
 export const getServerSideProps = (async () => {
     const postDetailPageVO: PostDetailPageVO = await GetAllBlogPosts(1)
     return { props: { postDetailPageVO } }

@@ -3,7 +3,6 @@ import {GetAllTagsAPI} from "@/common/api";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
 import CategoryList from "@/components/CategoryList";
 
-
 export const getServerSideProps = (async () => {
     const tags: TagVO[] = await GetAllTagsAPI(TagTypeEnum.POST_CAT)
     return { props: { tags } }
