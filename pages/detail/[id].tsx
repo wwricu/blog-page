@@ -1,7 +1,6 @@
 import {PostDetailVO, TagVO} from "@/common/model";
 import {GetPostDetailAPI} from "@/common/api";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
-import {Tag} from "antd";
 import React from "react";
 import {BorderlessTableOutlined, ClockCircleOutlined, TagsOutlined} from "@ant-design/icons";
 
@@ -13,25 +12,18 @@ export const getServerSideProps = (async (context) => {
     return { props: { postDetailVO } }
 }) satisfies GetServerSideProps<{ postDetailVO: PostDetailVO }>
 
-
-const tagColorList = [
-    'magenta',
-    'red',
-    'volcano',
-    'orange',
-    'gold',
-    'lime',
-    'green',
-    'cyan',
-    'blue',
-    'geekblue',
-    'purple'
+const tagColorClassList = [
+    ' badge-secondary',
+    ' badge-accent',
+    ' badge-info',
+    ' badge-success',
+    ' badge-warning',
+    ' badge-error',
 ]
 
-const getTagColor = () => {
-    return tagColorList[Math.floor(Math.random() * tagColorList.length)]
+const getTagClass = () => {
+    return tagColorClassList[Math.floor(Math.random() * tagColorClassList.length)]
 }
-
 
 const renderTags = (postDetailVO: PostDetailVO) => {
     if (postDetailVO?.tag_list == null || postDetailVO?.tag_list.length === 0) {
@@ -42,9 +34,9 @@ const renderTags = (postDetailVO: PostDetailVO) => {
             <TagsOutlined className='text-gray-500 mr-1 '/>
             {postDetailVO?.tag_list.map((tag: TagVO) => (
                 <a key={tag.id} href={`/tags/${tag.name}`} className='ml-1'>
-                    <Tag color={getTagColor()}>
+                    <div className={'badge badge-sm rounded' + getTagClass()}>
                         {tag.name}
-                    </Tag>
+                    </div>
                 </a>
             ))}
         </div>
@@ -58,11 +50,11 @@ const renderCategory = (postDetailVO: PostDetailVO) => {
     return (
         <p className='text-gray-500'>
             <BorderlessTableOutlined className='mr-2'/>
-                <a href={`/categories/${postDetailVO?.category.name}`}>
-                    <Tag>
-                        {postDetailVO?.category?.name}
-                    </Tag>
-                </a>
+            <a href={`/categories/${postDetailVO?.category.name}`}>
+                <div className='badge badge-neutral badge-sm badge-outline rounded bg-white text-gray-400'>
+                    {postDetailVO?.category?.name}
+                </div>
+            </a>
             <div className='divider-horizontal'/>
         </p>
     )
