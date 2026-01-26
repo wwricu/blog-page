@@ -108,13 +108,13 @@ const Header: React.FC = () => {
                     </div>
                     <div className='divider my-4'/>
                     <div className='flex justify-between'>
-                        <Link href='https://github.com/wwricu'>
-                            <button className='btn btn-active btn-neutral btn-sm m-2 rounded grow'>
+                        <Link className='grow mr-2 my-1' href='https://github.com/wwricu' target='_blank'>
+                            <button className='btn btn-active btn-neutral btn-sm rounded w-full'>
                                 <GithubIcon size={16} color="#B4B4B4" strokeWidth={2}/>GitHub
                             </button>
                         </Link>
-                        <Link href='mailto:me@wwr.icu'>
-                            <button className='btn bg-white text-black border-[#e5e5e5] rounded-s btn-sm rounded m-2 grow'>
+                        <Link className='grow ml-2 my-1' href='mailto:me@wwr.icu'>
+                            <button className='btn bg-white text-black border-[#e5e5e5] rounded-s btn-sm rounded w-full'>
                                 <Mail size={16} color="#757575" strokeWidth={2}/>Mail me
                             </button>
                         </Link>
