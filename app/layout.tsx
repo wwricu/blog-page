@@ -1,11 +1,12 @@
-import React from "react";
-import '../styles/globals.css'
-import Header from "@/components/Header";
+import React from "react"
+import '@/styles/globals.css'
+import Header from "@/components/Header"
+
+export const dynamic = 'force-dynamic'
 
 export default function RootLayout({children}: {
-    children: React.ReactNode;
+    children: React.ReactNode
 }) {
-
 
     return (
         <html>
