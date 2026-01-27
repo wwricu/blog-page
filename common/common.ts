@@ -1,6 +1,14 @@
 import { NextResponse } from 'next/server';
 import {headers} from "next/headers";
 
+export type AsyncPathParams = {
+    params: Promise<{
+        id?: string
+        page?: string
+        name?: string
+    }>
+}
+
 const tagColorClassList = [
     ' badge-secondary',
     ' badge-accent',
