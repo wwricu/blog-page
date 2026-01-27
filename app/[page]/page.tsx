@@ -1,17 +1,13 @@
 import React from 'react'
-import {GetServerSideProps, InferGetServerSidePropsType} from "next"
 import {PostDetailPageVO} from "@/common/model"
 import {GetAllBlogPosts} from "@/common/api"
 import PostList from "@/components/PostList";
+import {AsyncPathParams} from '@/common/common'
 
-
-export const getServerSideProps = (async (context) => {
-    const pageIndex = parseInt((context.params?.page ?? '1') as string)
+export default async function Home({ params }: AsyncPathParams) {
+    const { page } = await params;
+    const pageIndex = parseInt(page ?? '1')
     const postDetailPageVO: PostDetailPageVO = await GetAllBlogPosts(pageIndex)
-    return { props: { postDetailPageVO } }
-}) satisfies GetServerSideProps<{ postDetailPageVO: PostDetailPageVO }>
-
-export default function Home({ postDetailPageVO }: InferGetServerSidePropsType<typeof getServerSideProps>) {
     return (
         <div className='flex justify-center grow py-2'>
             <div className='flex flex-col max-md:w-full max-md:mx-2'>

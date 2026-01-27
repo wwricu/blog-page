@@ -3,23 +3,7 @@ import {Clock, Hash, Tags} from 'lucide-react'
 import Image from 'next/image';
 import React from 'react';
 import Link from 'next/link';
-
-type PostCardProps = {
-    postDetailVO: PostDetailVO
-}
-
-const tagColorClassList = [
-    ' badge-secondary',
-    ' badge-accent',
-    ' badge-info',
-    ' badge-success',
-    ' badge-warning',
-    ' badge-error',
-]
-
-const getTagClass = () => {
-    return tagColorClassList[Math.floor(Math.random() * tagColorClassList.length)]
-}
+import {getTagColorClass} from "@/common/common";
 
 const renderCategory = (tag: TagVO | undefined) => {
     if (!tag) {
@@ -49,9 +33,7 @@ const renderTag = (tagList: TagVO[]) => {
                 <Tags className='inline mr-1' size={16} color="#757575" strokeWidth={2}/>
                 {tagList.map((tag: TagVO) => (
                     <Link key={tag.id} href={`/tags/${tag.name}`}>
-                        <div className={'badge badge-sm rounded mx-0.5' + getTagClass()}>
-                            {tag.name}
-                        </div>
+                        <div className={'badge badge-sm rounded mx-0.5' + getTagColorClass()}>{tag.name}</div>
                     </Link>
                 ))}
             </span>
@@ -59,9 +41,9 @@ const renderTag = (tagList: TagVO[]) => {
     )
 }
 
-export default function PostCard({postDetailVO}: PostCardProps) {
+export default function PostCard({postDetailVO}: { postDetailVO: PostDetailVO }) {
     return (
-        <div className='my-2 p-0 shadow-lg border rounded-md hover:drop-shadow-2xl bg-[rgba(245,245,245,0.5)] sm:min-h-36 w-md max-md:w-full max-sm:my-1'>
+        <div className='my-2 p-0 shadow-lg border-gray-400 rounded-md hover:drop-shadow-2xl bg-[rgba(245,245,245,0.5)] sm:min-h-36 w-3xl max-md:w-full max-sm:my-1'>
             <div className='flex justify-between gap-2'>
                 <div className='flex flex-col justify-between items-start px-4 pt-4 pb-3 w-full sm:min-h-40'>
                     <Link className='w-full' href={`/detail/${postDetailVO.id}`}>
