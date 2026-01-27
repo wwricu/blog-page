@@ -1,12 +1,12 @@
-import React from "react";
-import Link from "next/link";
+import React from "react"
+import Link from "next/link"
 
 type PaginationProps = {
     total: number,
-    current: number,
+    current: number
     getHref: (page: number) => Promise<string>
-    pageSize?: number,
-    className?: string,
+    pageSize?: number
+    className?: string
 }
 
 export default async function Pagination({ current = 1, total, getHref, pageSize = 10, className }: PaginationProps) {
@@ -59,25 +59,34 @@ export default async function Pagination({ current = 1, total, getHref, pageSize
             pages.push(pageCount)
         }
 
-        return pages;
+        return pages
+    }
+
+    const buttons = getButtonValues()
+    const buttonProps = []
+
+    for (let i = 0; i < buttons.length; i++) {
+        const value = buttons[i]
+        let status = ''
+        if (value === '...') {
+            status = 'bg-transparent'
+        } else if (value === current) {
+            status = 'btn-active'
+        }
+        buttonProps.push({
+            value: value,
+            href: value === '...' ? '' : await getHref(Number(value)),
+            status: status
+        })
     }
 
     return (
         <div className={`join ${className}`}>
             {
-                getButtonValues().map((value, i) => {
-                    let buttonStatus = ""
-                    if (value === '...') {
-                        buttonStatus = 'bg-transparent'
-                    } else if (value === current) {
-                        buttonStatus = 'btn-active'
-                    }
-                    const item = <button key={i} className={"join-item btn btn-soft btn-neutral btn-sm " + buttonStatus}>{value}</button>
-                    if (value === '...') {
-                        return item
-                    }
-                    return <Link key={i} href={''} >{item}</Link>
-                    // return <Link key={i} href={await getHref(Number(value))}>{item}</Link>
+                buttonProps.map((item, i) => {
+                    return <Link key={i} href={item.href}>
+                        <button key={i} className={"join-item btn btn-soft btn-neutral btn-sm " + item.status}>{item.value}</button>
+                    </Link>
                 })
             }
         </div>
