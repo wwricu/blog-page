@@ -27,7 +27,7 @@ const renderCategory = (postDetailVO: PostDetailVO) => {
         return <></>
     }
     return (
-        <p className='text-gray-500'>
+        <div className='text-gray-500'>
             <Hash className='inline mr-2' size={16} color="#757575" strokeWidth={2}/>
             <a href={`/categories/${postDetailVO?.category.name}`}>
                 <div className='badge badge-neutral badge-sm badge-outline rounded bg-white text-gray-400'>
@@ -35,7 +35,7 @@ const renderCategory = (postDetailVO: PostDetailVO) => {
                 </div>
             </a>
             <div className='divider-horizontal'/>
-        </p>
+        </div>
     )
 }
 
