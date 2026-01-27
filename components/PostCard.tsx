@@ -5,10 +5,6 @@ import React from 'react';
 import Link from 'next/link';
 import {getTagColorClass} from "@/common/common";
 
-type PostCardProps = {
-    postDetailVO: PostDetailVO
-}
-
 const renderCategory = (tag: TagVO | undefined) => {
     if (!tag) {
         return <></>
@@ -45,7 +41,7 @@ const renderTag = (tagList: TagVO[]) => {
     )
 }
 
-export default function PostCard({postDetailVO}: PostCardProps) {
+export default function PostCard({postDetailVO}: { postDetailVO: PostDetailVO }) {
     return (
         <div className='my-2 p-0 shadow-lg border-gray-400 rounded-md hover:drop-shadow-2xl bg-[rgba(245,245,245,0.5)] sm:min-h-36 w-3xl max-md:w-full max-sm:my-1'>
             <div className='flex justify-between gap-2'>
