@@ -1,21 +1,21 @@
-import React, {useState} from "react";
+import React from "react";
 import Link from "next/link";
 
 type PaginationProps = {
     total: number,
     current: number,
-    getHref: (page: number) => string
+    getHref: (page: number) => Promise<string>
     pageSize?: number,
     className?: string,
 }
 
-export default function Pagination({ current = 1, total, getHref, pageSize = 10, className }: PaginationProps) {
-    const [delta, _] = useState(1);
+export default async function Pagination({ current = 1, total, getHref, pageSize = 10, className }: PaginationProps) {
+    const delta = 1
 
     if (total < 0) {
         total = 0
     }
-    const pageCount = Math.ceil(total / pageSize);
+    const pageCount = Math.ceil(total / pageSize)
 
     if (current < 1) {
         current = 1
@@ -76,7 +76,8 @@ export default function Pagination({ current = 1, total, getHref, pageSize = 10,
                     if (value === '...') {
                         return item
                     }
-                    return <Link href={getHref(Number(value))}>{item}</Link>
+                    return <Link key={i} href={''} >{item}</Link>
+                    // return <Link key={i} href={await getHref(Number(value))}>{item}</Link>
                 })
             }
         </div>

@@ -1,16 +1,8 @@
 import {PostDetailVO, TagVO} from "@/common/model";
 import {GetPostDetailAPI} from "@/common/api";
-import {GetServerSideProps, InferGetServerSidePropsType} from "next";
 import React from "react";
 import {Clock, Hash, Tags} from 'lucide-react'
 import {getTagColorClass} from "@/common/common";
-
-export const getServerSideProps = (async (context) => {
-    const { params } = context;
-    const postId = params!.id;
-    const postDetailVO = await GetPostDetailAPI(postId as string)
-    return { props: { postDetailVO } }
-}) satisfies GetServerSideProps<{ postDetailVO: PostDetailVO }>
 
 const renderTags = (postDetailVO: PostDetailVO) => {
     if (postDetailVO?.tag_list == null || postDetailVO?.tag_list.length === 0) {
@@ -47,8 +39,9 @@ const renderCategory = (postDetailVO: PostDetailVO) => {
     )
 }
 
-
-export default function PostDetailPage({ postDetailVO }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default async function PostDetailPage({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params;
+    const postDetailVO = await GetPostDetailAPI(id)
     return (
         <div className='flex justify-center min-h-lvh w-full '>
             <div className='w-3xl bg-[rgba(240,240,240,0.5)] shadow-sm border-x border-gray-200 p-4'>

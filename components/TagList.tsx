@@ -1,11 +1,7 @@
 import {TagVO} from "@/common/model";
 import Link from "next/link";
 
-type TagListProps = {
-    tags: TagVO[]
-}
-
-export default function TagList({tags}: TagListProps) {
+export default function TagList({tags}: { tags: TagVO[] }) {
     return (
         <div className="flex flex-wrap justify-center">
             <div className='flex mt-3 w-3xl flex-wrap'>
