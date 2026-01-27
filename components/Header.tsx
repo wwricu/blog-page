@@ -1,3 +1,5 @@
+'use client'
+
 import React, {useEffect, useRef, useState} from 'react';
 import {
     House,
@@ -7,7 +9,7 @@ import {
     Tag
 } from 'lucide-react'
 import {GetAboutAPI} from "@/common/api";
-import {useRouter} from "next/router";
+import {usePathname, useRouter} from "next/navigation";
 import Link from "next/link";
 import GithubIcon from "@/components/GithubIcon";
 
@@ -17,7 +19,7 @@ type StatProps = {
 }
 
 const Header: React.FC = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false)
     const [about, setAbout] = useState<string>('')
     const [postCount, setPostCount] = useState<number>(0)
     const [categoryCount, setCategoryCount] = useState<number>(0)
@@ -40,7 +42,7 @@ const Header: React.FC = () => {
         if (isModalOpen) {
             return ' bg-transparent'
         }
-        return router.pathname.replace(/\/\[.*]/g, "") === path ?
+        return usePathname()?.replace(/\/\[.*]/g, "") === path ?
             ' bg-indigo-600 text-white hover:!bg-indigo-600 hover:!text-white' :
             ' hover:!bg-slate-300 bg-transparent hover:!text-text-prime'
     }
@@ -80,7 +82,7 @@ const Header: React.FC = () => {
                     </Link>
                 </div>
                 <button
-                    className={menuItemClassName + ' hover:!bg-slate-300 hover:!text-text-prime ' + (isModalOpen ? ' bg-indigo-600 text-white' : 'bg-transparent')}
+                    className={menuItemClassName + ' hover:bg-slate-300! hover:text-text-prime! ' + (isModalOpen ? ' bg-indigo-600 text-white' : 'bg-transparent')}
                     onClick={() => {
                         modalRef?.current?.showModal()
                         setIsModalOpen(true)
