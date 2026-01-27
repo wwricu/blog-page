@@ -2,9 +2,9 @@ import React from 'react'
 import {PostDetailPageVO} from "@/common/model"
 import {GetAllBlogPosts} from "@/common/api"
 import PostList from "@/components/PostList";
+import {AsyncPathParams} from '@/common/common'
 
-
-export default async function Home({ params }: { params: Promise<{ page: string }> }) {
+export default async function Home({ params }: AsyncPathParams) {
     const { page } = await params;
     const pageIndex = parseInt(page ?? '1')
     const postDetailPageVO: PostDetailPageVO = await GetAllBlogPosts(pageIndex)

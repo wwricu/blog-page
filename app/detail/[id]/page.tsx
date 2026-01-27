@@ -2,7 +2,7 @@ import {PostDetailVO, TagVO} from "@/common/model";
 import {GetPostDetailAPI} from "@/common/api";
 import React from "react";
 import {Clock, Hash, Tags} from 'lucide-react'
-import {getTagColorClass} from "@/common/common";
+import {AsyncPathParams, getTagColorClass} from "@/common/common";
 
 const renderTags = (postDetailVO: PostDetailVO) => {
     if (postDetailVO?.tag_list == null || postDetailVO?.tag_list.length === 0) {
@@ -39,9 +39,9 @@ const renderCategory = (postDetailVO: PostDetailVO) => {
     )
 }
 
-export default async function PostDetailPage({ params }: { params: Promise<{ id: string }> }) {
+export default async function PostDetailPage({ params }: AsyncPathParams) {
     const { id } = await params;
-    const postDetailVO = await GetPostDetailAPI(id)
+    const postDetailVO = await GetPostDetailAPI(id!!)
     return (
         <div className='flex justify-center min-h-lvh w-full '>
             <div className='w-3xl bg-[rgba(240,240,240,0.5)] shadow-sm border-x border-gray-200 p-4'>

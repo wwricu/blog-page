@@ -2,10 +2,11 @@ import {PostDetailPageVO} from "@/common/model";
 import {GetAllBlogPosts} from "@/common/api";
 import PostList from "@/components/PostList";
 import React from "react";
+import {AsyncPathParams} from "@/common/common";
 
-export default async function Home({ params }: { params: Promise<{ name: string, page: string }> }) {
+export default async function Home({ params }: AsyncPathParams) {
     const { name, page } = await params
-    const postDetailPageVO: PostDetailPageVO = await GetAllBlogPosts(parseInt(page ?? 1), undefined, name)
+    const postDetailPageVO: PostDetailPageVO = await GetAllBlogPosts(parseInt(page ?? '1'), undefined, name)
     return (
         <div className='flex justify-center grow py-2'>
             <div className='flex flex-col max-md:w-full max-md:mx-2'>
