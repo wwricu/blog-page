@@ -8,6 +8,11 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['PingFang SC', 'sans-serif'],
+        heading: ['Inter', 'sans-serif'],
+        code: ['Fira Code', 'monospace'],
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
