@@ -46,7 +46,7 @@ const renderCategory = (postDetailVO: PostDetailVO) => {
 }
 
 export default async function PostDetailPage({ params }: AsyncPathParams) {
-    const { id } = await params
+    const id = (await params)!!.id
     const postDetailVO = await GetPostDetailAPI(id!!)
     return (
         <div className='flex justify-center min-h-lvh w-full '>
