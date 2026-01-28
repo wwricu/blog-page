@@ -9,7 +9,7 @@ type PaginationProps = {
     className?: string
 }
 
-export default async function Pagination({ current = 1, total, getHref, pageSize = 10, className }: PaginationProps) {
+export const Pagination = async ({ current = 1, total, getHref, pageSize = 10, className }: PaginationProps) => {
     const delta = 1
 
     if (total < 0) {
@@ -91,4 +91,8 @@ export default async function Pagination({ current = 1, total, getHref, pageSize
             }
         </div>
     )
+}
+
+export const VerticalDivider = () => {
+    return <div className='border-l h-4 inline-block align-middle border-gray-400'/>
 }

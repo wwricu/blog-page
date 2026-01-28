@@ -1,8 +1,8 @@
-import {PostDetailPageVO} from "@/common/model";
-import PostCard from "@/components/PostCard";
-import React from "react";
-import Pagination from "@/components/Pagination";
-import {getPathname} from "@/common/common";
+import {PostDetailPageVO} from "@/common/model"
+import PostCard from "@/components/PostCard"
+import React from "react"
+import {Pagination} from "@/components/Common"
+import {getPathname} from "@/common/common"
 
 export default async function PostList({postDetailPageVO}: { postDetailPageVO: PostDetailPageVO }) {
     const current = postDetailPageVO.page_index ?? 1
@@ -18,7 +18,7 @@ export default async function PostList({postDetailPageVO}: { postDetailPageVO: P
             {postDetailPageVO?.data?.map(postDetailVO =>
                 <PostCard key={postDetailVO.id} postDetailVO={postDetailVO}/>)}
             <Pagination
-                className='mt-5 mb-3'
+                className='mt-6 mb-4'
                 current={current}
                 total={postDetailPageVO.count}
                 getHref={getUrl}
