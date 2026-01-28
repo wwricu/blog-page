@@ -44,7 +44,7 @@ export default async function PostDetailPage({ params }: AsyncPathParams) {
     const postDetailVO = await GetPostDetailAPI(id!!)
     return (
         <div className='flex justify-center min-h-lvh w-full '>
-            <div className='w-3xl bg-[rgba(240,240,240,0.5)] shadow-sm border-x border-gray-200 p-4'>
+            <div className='w-3xl bg-[rgba(240,240,240,0.5)] shadow-xs border-x border-gray-200 p-4'>
                 <h1 className='text-2xl font-semibold'>{postDetailVO.title}</h1>
                 <div className='flex items-center gap-2 mt-6 mb-8 flex-wrap'>
                     <span>
