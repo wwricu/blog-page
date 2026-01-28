@@ -10,7 +10,8 @@ export type AsyncPathParams = {
 }
 
 const tagColorClassList = [
-    ' badge-secondary',
+    // ' badge-primary',
+    // ' badge-secondary',
     ' badge-accent',
     ' badge-info',
     ' badge-success',

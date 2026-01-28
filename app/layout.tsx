@@ -8,7 +8,7 @@ export default function RootLayout({children}: { children: React.ReactNode }) {
     return (
         <html>
             <body>
-                <div className='flex flex-col min-h-screen bg-gray-50'>
+                <div className='flex flex-col min-h-screen bg-gray-100'>
                     <Header/>
                     <main className='flex-1'>{children}</main>
                     <div className='flex flex-col justify-between items-center bg-slate-50 sm:h-14 max-sm:h-6'>
