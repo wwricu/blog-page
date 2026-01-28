@@ -12,12 +12,10 @@ const renderCategory = (tag: TagVO | undefined) => {
 
     return (
         <span className='max-w-[100vw] overflow-hidden'>
-            <span className='text-gray-500'>
-                <Hash className='inline mr-1' size={16} color="#757575" strokeWidth={2}/>
-                <Link href={`/categories/${tag.name}`}>
-                    <div className='badge badge-neutral badge-sm badge-outline rounded bg-white text-gray-400'>{tag.name}</div>
-                </Link>
-            </span>
+            <Hash className='inline mr-1' size={15} color="#757575" strokeWidth={2}/>
+            <Link href={`/categories/${tag.name}`}>
+                <div className='badge badge-neutral badge-sm badge-outline rounded bg-white text-gray-600'>{tag.name}</div>
+            </Link>
             <div className='divider-horizontal ml-2 mr-0'/>
         </span>
     )
@@ -29,14 +27,12 @@ const renderTags = (tagList: TagVO[]) => {
     }
     return (
         <span className='max-w-[100vw] overflow-hidden'>
-            <span className='text-gray-500'>
-                <Tags className='inline mr-1' size={16} color="#757575" strokeWidth={2}/>
-                {tagList.map((tag: TagVO) => (
-                    <Link key={tag.id} href={`/tags/${tag.name}`}>
-                        <div className={'badge badge-sm rounded mx-0.5' + getTagColorClass()}>{tag.name}</div>
-                    </Link>
-                ))}
-            </span>
+            <Tags className='inline mr-1' size={15} color="#757575" strokeWidth={2}/>
+            {tagList.map((tag: TagVO) => (
+                <Link key={tag.id} href={`/tags/${tag.name}`}>
+                    <div className={'badge badge-sm rounded mx-0.5 text-gray-800' + getTagColorClass()}>{tag.name}</div>
+                </Link>
+            ))}
         </span>
     )
 }
@@ -49,19 +45,20 @@ export default function PostCard({postDetailVO}: { postDetailVO: PostDetailVO })
                     <Link className='w-full' href={`/detail/${postDetailVO.id}`}>
                         <div className='flex flex-col justify-start items-start w-full'>
                             <>
-                                <h4 className='text-xl font-semibold mb-3 max-sm:hidden overflow-hidden'>{postDetailVO.title}</h4>
-                                <p className='sm:hidden mb-5 overflow-hidden'>{postDetailVO.title}</p>
+                                <h4 className='text-xl font-extrabold mb-1 max-sm:hidden overflow-hidden'>{postDetailVO.title}</h4>
+                                <p className='sm:hidden mb-2 overflow-hidden'>{postDetailVO.title}</p>
                             </>
-                            <p className='mt-2 text-text-second overflow-hidden sm:h-16 sm:text-sm max-sm:text-xs max-sm:hidden '>{postDetailVO.preview}</p>
+                            <p className='my-2 overflow-hidden font-lignt text-gray-600 max-h-16 md:min-h-10 sm:text-sm max-sm:text-xs max-sm:hidden'>{postDetailVO.preview}</p>
                         </div>
                     </Link>
-                    <div className='flex flex-col justify-end items-start'>
-                        <div className='flex justify-start items-center gap-2 w-full flex-wrap'>
+                    <div className='flex flex-col justify-end items-start mt-2'>
+                        <div className='flex justify-start items-baseline gap-2 w-full flex-wrap'>
                             <span>
-                                <span className='text-gray-500 max-sm:text-xs'>
-                                    <Clock className="inline" size={16} color="#757575" strokeWidth={2}/> {postDetailVO.create_time.slice(0, 10)}
+                                {/*TODO: How to remove this span?*/}
+                                <Clock className="inline mr-1" size={15} color="#757575" strokeWidth={2}/>
+                                <span className='text-sm text-gray-600 font-light max-sm:text-xs align-[-1]'>
+                                    {postDetailVO.create_time.slice(0, 10)}
                                 </span>
-                                <div className='divider-horizontal ml-2 mr-0'/>
                             </span>
                             {renderCategory(postDetailVO?.category)}
                             {renderTags(postDetailVO.tag_list)}
