@@ -16,8 +16,7 @@ export default function RootLayout({children}: {
                         <Header/>
                         {children}
                     </main>
-                    <div className='text-gray-500 text-center bg-transparent sm:h-12 max-sm:h-6'>
-                        <div className='divider mt-0 mb-0 max-sm:hidden'/>
+                    <div className='flex flex-col justify-center items-center text-gray-500 text-center border-solid border shadow-md border-gray-200 bg-transparent sm:h-12 max-sm:h-6'>
                         wwr.icu {new Date().getFullYear()}
                     </div>
                 </div>
