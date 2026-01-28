@@ -22,7 +22,7 @@ const Header: React.FC = () => {
     const router = useRouter()
     const modalRef = useRef<HTMLDialogElement>(null)
 
-    const menuItemClassName = 'btn btn-sm h-full font-light rounded-none border-0 shadow-none max-sm:px-2 text-text-prime'
+    const menuItemClassName = 'btn btn-sm h-full rounded-none border-0 shadow-none max-sm:px-2'
 
     useEffect(() => {
         GetAboutAPI().then((res) => {
@@ -39,7 +39,7 @@ const Header: React.FC = () => {
         }
         return usePathname()?.replace(/\/\[.*]/g, "") === path ?
             ' btn-active' :
-            ' hover:!bg-slate-300 bg-transparent hover:!text-text-prime'
+            ' hover:!bg-slate-300 bg-transparent'
     }
 
     const renderStat = (
@@ -48,7 +48,6 @@ const Header: React.FC = () => {
             value: number
         }[]
     ) => {
-        {/*TODO: font light does not work*/}
         return (
             <>
                 {statList.map((stat) => (
@@ -82,7 +81,7 @@ const Header: React.FC = () => {
                     </Link>
                 </div>
                 <button
-                    className={menuItemClassName + ' hover:bg-slate-300! hover:text-text-prime! ' + (isModalOpen ? ' btn-active' : 'bg-transparent')}
+                    className={menuItemClassName + ' hover:bg-slate-300! ' + (isModalOpen ? ' btn-active' : 'bg-transparent')}
                     onClick={() => {
                         modalRef?.current?.showModal()
                         setIsModalOpen(true)
