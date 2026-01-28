@@ -11,7 +11,7 @@ import {
 import {GetAboutAPI} from "@/common/api"
 import {usePathname, useRouter} from "next/navigation"
 import Link from "next/link"
-import GithubIcon from "@/components/GithubIcon"
+import {GithubIcon} from "@/components/Common";
 
 const Header: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -53,7 +53,7 @@ const Header: React.FC = () => {
                 {statList.map((stat) => (
                     <div key={stat.title} className='stat place-items-center'>
                         <div className="stat-title text-sm text-gray-400">{stat.title}</div>
-                        <div className="stat-value text-2xl font-light">{stat.value}</div>
+                        <div className="stat-value text-3xl font-light">{stat.value}</div>
                     </div>
                 ))}
             </>
@@ -110,12 +110,12 @@ const Header: React.FC = () => {
                     <div className='flex justify-between'>
                         <Link className='grow mr-2 my-1' href='https://github.com/wwricu' target='_blank'>
                             <button className='btn btn-active btn-neutral btn-sm rounded w-full'>
-                                <GithubIcon size={15} color="#B4B4B4" strokeWidth={2}/>GitHub
+                                <GithubIcon size={15} strokeWidth={2} className={'invert'}/>GitHub
                             </button>
                         </Link>
                         <Link className='grow ml-2 my-1' href='mailto:me@wwr.icu'>
                             <button className='btn bg-white text-black border-[#e5e5e5] rounded-s btn-sm rounded w-full'>
-                                <Mail size={15} color="#757575" strokeWidth={2}/>Mail me
+                                <Mail size={15} color="#222222" strokeWidth={2}/>Mail me
                             </button>
                         </Link>
                     </div>
