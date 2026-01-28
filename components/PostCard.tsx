@@ -44,18 +44,28 @@ const renderTags = (tagList: TagVO[]) => {
 }
 
 export default function PostCard({postDetailVO}: { postDetailVO: PostDetailVO }) {
+    const hasCover = postDetailVO.cover?.url != null
+    const cardHeight = hasCover ? 'h-45' : 'min-h-45'
+    const bodyRightPadding = hasCover ? '' : 'pr-6'
     return (
-        <div className='my-2 p-0 shadow-lg border-gray-400 rounded-md hover:drop-shadow-2xl bg-[rgba(245,245,245,0.5)] sm:min-h-36 w-3xl max-md:w-full max-sm:my-1'>
-            <div className='flex justify-between gap-2'>
-                <div className='flex flex-col justify-between items-start px-4 pt-4 pb-3 w-full sm:min-h-40'>
+        <div className={
+            `${cardHeight} w-3xl my-2 p-0 shadow-lg 
+            border-gray-400 rounded-md bg-[rgba(245,245,245,0.5)]
+            hover:drop-shadow-2xl sm:min-h-36 max-md:w-full max-sm:my-1`
+        }>
+            <div className='flex h-full justify-between gap-2'>
+                <div className={
+                    `flex flex-col flex-1 justify-between items-start 
+                    pl-6 ${bodyRightPadding} pt-6 pb-5 w-full sm:min-h-40`
+                }>
                     <Link className='w-full' href={`/detail/${postDetailVO.id}`}>
-                        <div className='flex flex-col justify-start items-start w-full'>
-                            <>
-                                <h4 className='text-xl font-semibold mb-1 overflow-hidden max-sm:hidden'>{postDetailVO.title}</h4>
-                                <p className='font-semibold mb-2 overflow-hidden sm:hidden'>{postDetailVO.title}</p>
-                            </>
-                            <p className='my-2 overflow-hidden font-light text-gray-600 max-h-16 md:min-h-10 sm:text-sm max-sm:text-xs max-sm:hidden'>{postDetailVO.preview}</p>
-                        </div>
+                        <>
+                            <h4 className='text-xl font-semibold mb-1 line-clamp-1 max-sm:hidden'>{postDetailVO.title}</h4>
+                            <p className='font-semibold mb-2 line-clamp-1 sm:hidden'>{postDetailVO.title}</p>
+                        </>
+                        <p className='line-clamp-2 my-2 font-light text-gray-500 max-h-16 min-h-0 sm:text-md max-sm:text-xs max-sm:hidden'>
+                            {postDetailVO.preview}
+                        </p>
                     </Link>
                     <div className='flex flex-col justify-end items-start mt-2'>
                         <div className='flex justify-start items-baseline gap-x-2.5 w-full flex-wrap'>
@@ -71,14 +81,16 @@ export default function PostCard({postDetailVO}: { postDetailVO: PostDetailVO })
                         </div>
                     </div>
                 </div>
-                <Image
-                    loading='lazy'
-                    unoptimized
-                    width={250}
-                    height={100}
-                    src={postDetailVO.cover?.url ?? `https://picsum.photos/250/100?id=${postDetailVO.id}`} alt={postDetailVO.cover?.name ?? 'cover'}
-                    className='max-sm:hidden'
-                />
+                {
+                    hasCover ? <Image
+                        loading='lazy'
+                        unoptimized
+                        width={300}
+                        height={180}
+                        src={postDetailVO.cover?.url ?? `https://picsum.photos/250/100?id=${postDetailVO.id}`} alt={postDetailVO.cover?.name ?? 'cover'}
+                        className='object-cover max-sm:hidden'
+                    /> : <></>
+                }
             </div>
         </div>
     )
