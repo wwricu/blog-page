@@ -1,22 +1,17 @@
 'use client'
 
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react'
 import {
     House,
     LayoutGrid,
     Info,
     Mail,
-    Tag
+    Tags
 } from 'lucide-react'
-import {GetAboutAPI} from "@/common/api";
-import {usePathname, useRouter} from "next/navigation";
-import Link from "next/link";
-import GithubIcon from "@/components/GithubIcon";
-
-type StatProps = {
-    title: string
-    value: number
-}
+import {GetAboutAPI} from "@/common/api"
+import {usePathname, useRouter} from "next/navigation"
+import Link from "next/link"
+import {GithubIcon} from "@/components/Common";
 
 const Header: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -27,7 +22,7 @@ const Header: React.FC = () => {
     const router = useRouter()
     const modalRef = useRef<HTMLDialogElement>(null)
 
-    const menuItemClassName = 'btn btn-sm h-full font-light rounded-none border-0 shadow-none max-sm:px-2 text-text-prime'
+    const menuItemClassName = 'btn btn-sm h-full rounded-none border-0 shadow-none max-sm:px-2'
 
     useEffect(() => {
         GetAboutAPI().then((res) => {
@@ -36,25 +31,29 @@ const Header: React.FC = () => {
             setCategoryCount(res.category_count)
             setTagCount(res.tag_count)
         })
-    }, []);
+    }, [])
 
     const getButtonStyle = (path: string) => {
         if (isModalOpen) {
             return ' bg-transparent'
         }
         return usePathname()?.replace(/\/\[.*]/g, "") === path ?
-            ' bg-indigo-600 text-white hover:!bg-indigo-600 hover:!text-white' :
-            ' hover:!bg-slate-300 bg-transparent hover:!text-text-prime'
+            ' btn-active' :
+            ' hover:!bg-slate-300 bg-transparent'
     }
 
-    const renderStat = (statList: StatProps[]) => {
-        {/*TODO: font light does not work*/}
+    const renderStat = (
+        statList: {
+            title: string
+            value: number
+        }[]
+    ) => {
         return (
             <>
-                {statList.map((stat: StatProps) => (
+                {statList.map((stat) => (
                     <div key={stat.title} className='stat place-items-center'>
                         <div className="stat-title text-sm text-gray-400">{stat.title}</div>
-                        <div className="stat-value text-2xl font-light">{stat.value}</div>
+                        <div className="stat-value text-3xl font-light">{stat.value}</div>
                     </div>
                 ))}
             </>
@@ -63,39 +62,39 @@ const Header: React.FC = () => {
 
     return (
         <>
-            <div className='flex justify-between items-center sm:h-10 bg-transparent flex-wrap border-solid border-b-2 border-gray-200'>
+            <div className='flex justify-between items-center bg-slate-50 flex-wrap border-solid border-b shadow-xs border-gray-200 sm:h-10'>
                 <div className='flex justify-start items-center flex-wrap h-full'>
                     <Link href='/' className='h-full'>
                         <button className={menuItemClassName + getButtonStyle('/')}>
-                            <House size={16} color="#757575" strokeWidth={2}/>Home
+                            <House size={15} color="#757575" strokeWidth={2}/>Home
                         </button>
                     </Link>
                     <Link href='/categories' className='h-full'>
                         <button className={menuItemClassName + getButtonStyle('/categories')}>
-                            <LayoutGrid size={16} color="#757575" strokeWidth={2}/>Category
+                            <LayoutGrid size={15} color="#757575" strokeWidth={2}/>Category
                         </button>
                     </Link>
                     <Link href='/tags' className='h-full'>
                         <button onClick={() => router.push('/tags')} className={menuItemClassName + getButtonStyle('/tags')}>
-                            <Tag size={16} color="#757575" strokeWidth={2}/>Tags
+                            <Tags size={15} color="#757575" strokeWidth={2}/>Tags
                         </button>
                     </Link>
                 </div>
                 <button
-                    className={menuItemClassName + ' hover:bg-slate-300! hover:text-text-prime! ' + (isModalOpen ? ' bg-indigo-600 text-white' : 'bg-transparent')}
+                    className={menuItemClassName + ' hover:bg-slate-300! ' + (isModalOpen ? ' btn-active' : 'bg-transparent')}
                     onClick={() => {
                         modalRef?.current?.showModal()
                         setIsModalOpen(true)
                     }}
                 >
-                    <Info size={16} color="#757575" strokeWidth={2}/>
+                    <Info size={15} color="#757575" strokeWidth={2}/>
                     <span className='max-sm:hidden'>
                     About
                 </span>
                 </button>
             </div>
             <dialog className='modal' ref={modalRef} onClose={() => setIsModalOpen(false)} >
-                <div className="modal-box bg-[url(/dust_scratches.webp)]">
+                <div className="modal-box bg-slate-100">
                     <div dangerouslySetInnerHTML={{__html: about}} className='min-h-48'/>
                     <div className='divider mb-4'/>
                     <div className='flex justify-around'>
@@ -111,12 +110,12 @@ const Header: React.FC = () => {
                     <div className='flex justify-between'>
                         <Link className='grow mr-2 my-1' href='https://github.com/wwricu' target='_blank'>
                             <button className='btn btn-active btn-neutral btn-sm rounded w-full'>
-                                <GithubIcon size={16} color="#B4B4B4" strokeWidth={2}/>GitHub
+                                <GithubIcon size={15} strokeWidth={2} className={'invert'}/>GitHub
                             </button>
                         </Link>
                         <Link className='grow ml-2 my-1' href='mailto:me@wwr.icu'>
                             <button className='btn bg-white text-black border-[#e5e5e5] rounded-s btn-sm rounded w-full'>
-                                <Mail size={16} color="#757575" strokeWidth={2}/>Mail me
+                                <Mail size={15} color="#222222" strokeWidth={2}/>Mail me
                             </button>
                         </Link>
                     </div>
@@ -129,4 +128,4 @@ const Header: React.FC = () => {
     )
 }
 
-export default Header;
+export default Header
