@@ -20,8 +20,5 @@ export default {
         'text-second': '#666666',
       },
     },
-  },
-  plugins: [
-    require('@tailwindcss/typography')
-  ],
+  }
 } satisfies Config;
