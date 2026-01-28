@@ -85,7 +85,7 @@ export default async function Pagination({ current = 1, total, getHref, pageSize
             {
                 buttonProps.map((item, i) => {
                     return <Link key={i} href={item.href}>
-                        <button key={i} className={"join-item btn btn-soft btn-neutral btn-sm " + item.status}>{item.value}</button>
+                        <button className={"join-item btn btn-soft btn-neutral btn-md " + item.status}>{item.value}</button>
                     </Link>
                 })
             }
