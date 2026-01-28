@@ -1,9 +1,9 @@
-import {PostDetailVO, TagVO} from '@/common/model';
+import {PostDetailVO, TagVO} from '@/common/model'
 import {Clock, Hash, Tags} from 'lucide-react'
-import Image from 'next/image';
-import React from 'react';
-import Link from 'next/link';
-import {getTagColorClass} from "@/common/common";
+import Image from 'next/image'
+import React from 'react'
+import Link from 'next/link'
+import {getTagColorClass} from "@/common/common"
 
 const renderCategory = (tag: TagVO | undefined) => {
     if (!tag) {
@@ -23,7 +23,7 @@ const renderCategory = (tag: TagVO | undefined) => {
     )
 }
 
-const renderTag = (tagList: TagVO[]) => {
+const renderTags = (tagList: TagVO[]) => {
     if (!tagList || tagList.length === 0) {
         return <></>
     }
@@ -49,10 +49,10 @@ export default function PostCard({postDetailVO}: { postDetailVO: PostDetailVO })
                     <Link className='w-full' href={`/detail/${postDetailVO.id}`}>
                         <div className='flex flex-col justify-start items-start w-full'>
                             <>
-                                <h4 className='text-xl font-semibold mb-3 max-sm:hidden'>{postDetailVO.title}</h4>
-                                <p className='sm:hidden mb-5'>{postDetailVO.title}</p>
+                                <h4 className='text-xl font-semibold mb-3 max-sm:hidden overflow-hidden'>{postDetailVO.title}</h4>
+                                <p className='sm:hidden mb-5 overflow-hidden'>{postDetailVO.title}</p>
                             </>
-                            <p className='mt-2 text-text-second truncate sm:h-16 sm:text-sm max-sm:text-xs max-sm:hidden '>{postDetailVO.preview}</p>
+                            <p className='mt-2 text-text-second overflow-hidden sm:h-16 sm:text-sm max-sm:text-xs max-sm:hidden '>{postDetailVO.preview}</p>
                         </div>
                     </Link>
                     <div className='flex flex-col justify-end items-start'>
@@ -64,7 +64,7 @@ export default function PostCard({postDetailVO}: { postDetailVO: PostDetailVO })
                                 <div className='divider-horizontal ml-2 mr-0'/>
                             </span>
                             {renderCategory(postDetailVO?.category)}
-                            {renderTag(postDetailVO.tag_list)}
+                            {renderTags(postDetailVO.tag_list)}
                         </div>
                     </div>
                 </div>
