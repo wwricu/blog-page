@@ -1,22 +1,17 @@
 'use client'
 
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react'
 import {
     House,
     LayoutGrid,
     Info,
     Mail,
-    Tag
+    Tags
 } from 'lucide-react'
-import {GetAboutAPI} from "@/common/api";
-import {usePathname, useRouter} from "next/navigation";
-import Link from "next/link";
-import GithubIcon from "@/components/GithubIcon";
-
-type StatProps = {
-    title: string
-    value: number
-}
+import {GetAboutAPI} from "@/common/api"
+import {usePathname, useRouter} from "next/navigation"
+import Link from "next/link"
+import GithubIcon from "@/components/GithubIcon"
 
 const Header: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -36,7 +31,7 @@ const Header: React.FC = () => {
             setCategoryCount(res.category_count)
             setTagCount(res.tag_count)
         })
-    }, []);
+    }, [])
 
     const getButtonStyle = (path: string) => {
         if (isModalOpen) {
@@ -47,11 +42,16 @@ const Header: React.FC = () => {
             ' hover:!bg-slate-300 bg-transparent hover:!text-text-prime'
     }
 
-    const renderStat = (statList: StatProps[]) => {
+    const renderStat = (
+        statList: {
+            title: string
+            value: number
+        }[]
+    ) => {
         {/*TODO: font light does not work*/}
         return (
             <>
-                {statList.map((stat: StatProps) => (
+                {statList.map((stat) => (
                     <div key={stat.title} className='stat place-items-center'>
                         <div className="stat-title text-sm text-gray-400">{stat.title}</div>
                         <div className="stat-value text-2xl font-light">{stat.value}</div>
@@ -67,17 +67,17 @@ const Header: React.FC = () => {
                 <div className='flex justify-start items-center flex-wrap h-full'>
                     <Link href='/' className='h-full'>
                         <button className={menuItemClassName + getButtonStyle('/')}>
-                            <House size={16} color="#757575" strokeWidth={2}/>Home
+                            <House size={15} color="#757575" strokeWidth={2}/>Home
                         </button>
                     </Link>
                     <Link href='/categories' className='h-full'>
                         <button className={menuItemClassName + getButtonStyle('/categories')}>
-                            <LayoutGrid size={16} color="#757575" strokeWidth={2}/>Category
+                            <LayoutGrid size={15} color="#757575" strokeWidth={2}/>Category
                         </button>
                     </Link>
                     <Link href='/tags' className='h-full'>
                         <button onClick={() => router.push('/tags')} className={menuItemClassName + getButtonStyle('/tags')}>
-                            <Tag size={16} color="#757575" strokeWidth={2}/>Tags
+                            <Tags size={15} color="#757575" strokeWidth={2}/>Tags
                         </button>
                     </Link>
                 </div>
@@ -88,7 +88,7 @@ const Header: React.FC = () => {
                         setIsModalOpen(true)
                     }}
                 >
-                    <Info size={16} color="#757575" strokeWidth={2}/>
+                    <Info size={15} color="#757575" strokeWidth={2}/>
                     <span className='max-sm:hidden'>
                     About
                 </span>
@@ -111,12 +111,12 @@ const Header: React.FC = () => {
                     <div className='flex justify-between'>
                         <Link className='grow mr-2 my-1' href='https://github.com/wwricu' target='_blank'>
                             <button className='btn btn-active btn-neutral btn-sm rounded w-full'>
-                                <GithubIcon size={16} color="#B4B4B4" strokeWidth={2}/>GitHub
+                                <GithubIcon size={15} color="#B4B4B4" strokeWidth={2}/>GitHub
                             </button>
                         </Link>
                         <Link className='grow ml-2 my-1' href='mailto:me@wwr.icu'>
                             <button className='btn bg-white text-black border-[#e5e5e5] rounded-s btn-sm rounded w-full'>
-                                <Mail size={16} color="#757575" strokeWidth={2}/>Mail me
+                                <Mail size={15} color="#757575" strokeWidth={2}/>Mail me
                             </button>
                         </Link>
                     </div>
@@ -129,4 +129,4 @@ const Header: React.FC = () => {
     )
 }
 
-export default Header;
+export default Header
