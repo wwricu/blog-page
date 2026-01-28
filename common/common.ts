@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import {headers} from "next/headers";
 
 export type AsyncPathParams = {
-    params: Promise<{
+    params?: Promise<{
         id?: string
         page?: string
         name?: string
