@@ -38,7 +38,7 @@ const Header: React.FC = () => {
             return ' bg-transparent'
         }
         return usePathname()?.replace(/\/\[.*]/g, "") === path ?
-            ' bg-indigo-600 text-white hover:!bg-indigo-600 hover:!text-white' :
+            ' btn-active' :
             ' hover:!bg-slate-300 bg-transparent hover:!text-text-prime'
     }
 
@@ -63,7 +63,7 @@ const Header: React.FC = () => {
 
     return (
         <>
-            <div className='flex justify-between items-center sm:h-10 bg-transparent flex-wrap border-solid border-b-2 border-gray-200'>
+            <div className='flex justify-between items-center bg-slate-50 flex-wrap border-solid border-b shadow-xs border-gray-200 sm:h-10'>
                 <div className='flex justify-start items-center flex-wrap h-full'>
                     <Link href='/' className='h-full'>
                         <button className={menuItemClassName + getButtonStyle('/')}>
@@ -82,7 +82,7 @@ const Header: React.FC = () => {
                     </Link>
                 </div>
                 <button
-                    className={menuItemClassName + ' hover:bg-slate-300! hover:text-text-prime! ' + (isModalOpen ? ' bg-indigo-600 text-white' : 'bg-transparent')}
+                    className={menuItemClassName + ' hover:bg-slate-300! hover:text-text-prime! ' + (isModalOpen ? ' btn-active' : 'bg-transparent')}
                     onClick={() => {
                         modalRef?.current?.showModal()
                         setIsModalOpen(true)
@@ -95,7 +95,7 @@ const Header: React.FC = () => {
                 </button>
             </div>
             <dialog className='modal' ref={modalRef} onClose={() => setIsModalOpen(false)} >
-                <div className="modal-box bg-[url(/dust_scratches.webp)]">
+                <div className="modal-box bg-slate-100">
                     <div dangerouslySetInnerHTML={{__html: about}} className='min-h-48'/>
                     <div className='divider mb-4'/>
                     <div className='flex justify-around'>
