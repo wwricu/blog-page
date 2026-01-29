@@ -4,5 +4,5 @@ import {GetAllTagsAPI} from "@/common/api";
 
 export default async function category() {
     const tags: TagVO[] = await GetAllTagsAPI(TagTypeEnum.POST_TAG)
-    return <TagList tags={tags}/>
+    return <TagList tags={tags} tagType={TagTypeEnum.POST_TAG} />
 }

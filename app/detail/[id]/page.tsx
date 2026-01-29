@@ -49,19 +49,17 @@ export default async function PostDetailPage({ params }: AsyncPathParams) {
     const id = (await params)!!.id
     const postDetailVO = await GetPostDetailAPI(id!!)
     return (
-        <div className='flex justify-center min-h-screen w-full'>
-            <div className='w-3xl bg-[rgba(240,240,240,0.5)] shadow-xs border-x border-gray-200 p-4 pb-6'>
-                <h1 className='text-2xl font-semibold'>{postDetailVO.title}</h1>
-                <div className='flex items-center gap-2.5 mt-6 mb-8 flex-wrap'>
-                    <span>
-                        <Clock className='inline mr-1' size={16} color="#757575" strokeWidth={2}/>
-                        <span className='text-sm font-light mr-0.5 text-gray-600 align-middle'>{postDetailVO.create_time?.slice(0, 10)}</span>
-                    </span>
-                    {renderCategory(postDetailVO)}
-                    {renderTags(postDetailVO)}
-                </div>
-                <div className='prose prose-sm max-w-full' dangerouslySetInnerHTML={{__html: postDetailVO.content}}/>
+        <div className='flex-1 w-3xl bg-[rgba(240,240,240,0.5)] shadow-xs border-x border-gray-200 p-4 pb-6'>
+            <h1 className='text-2xl font-semibold'>{postDetailVO.title}</h1>
+            <div className='flex items-center gap-2.5 mt-6 mb-8 flex-wrap'>
+                <span>
+                    <Clock className='inline mr-1' size={16} color="#757575" strokeWidth={2}/>
+                    <span className='text-sm font-light mr-0.5 text-gray-600 align-middle'>{postDetailVO.create_time?.slice(0, 10)}</span>
+                </span>
+                {renderCategory(postDetailVO)}
+                {renderTags(postDetailVO)}
             </div>
+            <div className='prose prose-sm max-w-full' dangerouslySetInnerHTML={{__html: postDetailVO.content}}/>
         </div>
     )
 }

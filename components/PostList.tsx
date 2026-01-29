@@ -14,7 +14,7 @@ export default async function PostList({postDetailPageVO}: { postDetailPageVO: P
     }
 
     return (
-        <div className='flex flex-col items-center'>
+        <div className='max-sm:px-2 max-md:px-4'>
             {postDetailPageVO?.data?.map(postDetailVO =>
                 <PostCard key={postDetailVO.id} postDetailVO={postDetailVO}/>)}
             <Pagination
