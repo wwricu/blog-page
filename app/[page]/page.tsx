@@ -8,10 +8,5 @@ export default async function PostPage({ params }: AsyncPathParams) {
     const { page } = (await params) ?? { page: '1'}
     const pageIndex = parseInt(page!!)
     const postDetailPageVO: PostDetailPageVO = await GetAllBlogPosts(pageIndex)
-
-    return (
-        <div className='flex flex-col flex-1 py-2 max-md:w-full max-md:mx-2'>
-            <PostList postDetailPageVO={postDetailPageVO}/>
-        </div>
-    )
+    return <PostList postDetailPageVO={postDetailPageVO}/>
 }

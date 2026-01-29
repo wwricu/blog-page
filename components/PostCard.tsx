@@ -56,7 +56,7 @@ export default function PostCard({postDetailVO}: { postDetailVO: PostDetailVO })
                 `flex flex-col flex-1 justify-between items-start w-full
                  max-sm:p-2 sm:p-4 md:px-6 md:py-4`
             }>
-                <Link className='w-full' href={`/detail/${postDetailVO.id}`}>
+                <Link className='flex-1 w-full' href={`/detail/${postDetailVO.id}`}>
                     <h4 className='font-semibold mb-1 line-clamp-1 sm:text-lg md:text-xl'>{postDetailVO.title}</h4>
                     <p className='line-clamp-2 font-light text-gray-500 max-h-16 min-h-0 max-sm:text-xs max-md:my-2 my-4'>
                         {postDetailVO.preview}

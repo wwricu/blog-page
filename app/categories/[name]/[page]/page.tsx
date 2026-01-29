@@ -7,9 +7,5 @@ import {AsyncPathParams} from "@/common/common"
 export default async function Categories({ params }: AsyncPathParams) {
     const { name, page } = (await params) ?? { page: '1' }
     const postDetailPageVO: PostDetailPageVO = await GetAllBlogPosts(parseInt(page ?? '1'), name ? decodeURI(name) : undefined)
-    return (
-        <div className='flex flex-col max-md:w-full max-md:mx-2'>
-            <PostList postDetailPageVO={postDetailPageVO}/>
-        </div>
-    )
+    return <PostList postDetailPageVO={postDetailPageVO}/>
 }

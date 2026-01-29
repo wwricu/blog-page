@@ -14,11 +14,11 @@ export default async function PostList({postDetailPageVO}: { postDetailPageVO: P
     }
 
     return (
-        <div className='max-sm:px-2 max-md:px-4'>
+        <div className='flex flex-col items-center max-sm:px-2 max-md:px-4 md:mt-2'>
             {postDetailPageVO?.data?.map(postDetailVO =>
                 <PostCard key={postDetailVO.id} postDetailVO={postDetailVO}/>)}
             <Pagination
-                className='max-sm:mt-3 max-sm:mb-2 sm:mt-6 sm:mb-4'
+                className='max-sm:my-3 sm:my-6'
                 current={current}
                 total={postDetailPageVO.count}
                 getHref={getUrl}
