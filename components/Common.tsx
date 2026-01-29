@@ -122,7 +122,7 @@ export async function BreadCrumb({ params }: AsyncPathParams) {
                 <ul>
                     <li><a href={'/'}>Home</a></li>
                     <li><a href={`/${filter}`}>{filter}</a></li>
-                    <li>{name}</li>
+                    <li>{decodeURI(name)}</li>
                 </ul>
             </div>
         )
