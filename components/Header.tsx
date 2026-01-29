@@ -22,7 +22,7 @@ const Header: React.FC = () => {
     const router = useRouter()
     const modalRef = useRef<HTMLDialogElement>(null)
 
-    const menuItemClassName = 'btn btn-sm h-full rounded-none border-0 shadow-none max-sm:px-2'
+    const menuItemClassName = 'btn btn-sm text-gray-700 h-full rounded-none border-0 shadow-none max-sm:px-2'
 
     useEffect(() => {
         GetAboutAPI().then((res) => {

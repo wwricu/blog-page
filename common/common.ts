@@ -1,6 +1,3 @@
-import { NextResponse } from 'next/server';
-import {headers} from "next/headers";
-
 export type AsyncPathParams = {
     params?: Promise<{
         id?: string
@@ -19,28 +16,10 @@ const tagColorClassList = [
     ' badge-warning',
     ' badge-error',
 ]
-const pathnameHeader = 'x-full-url'
 export const TagsUrl = 'tags'
 export const CategoriesURL = 'categories'
 
 
 export const getTagColorClass = () => {
     return tagColorClassList[Math.floor(Math.random() * tagColorClassList.length)]
-}
-
-export function middleware(request: Request) {
-
-    const requestHeaders = new Headers(request.headers);
-    requestHeaders.set(pathnameHeader, request.url);
-
-    return NextResponse.next({
-        request: {
-            headers: requestHeaders,
-        }
-    });
-}
-
-export async function getPathname() {
-    const headersList = await headers();
-    return headersList.get(pathnameHeader) || "";
 }

@@ -49,9 +49,9 @@ export default function PostCard({postDetailVO}: { postDetailVO: PostDetailVO })
     const cardHeight = hasCover ? 'md:h-45' : 'md:min-h-45'
     return (
         <div className={
-            `flex flex-1 justify-between gap-2 w-3xl p-0 shadow-lg 
-            border-gray-400 rounded-md bg-[rgba(240,240,240,0.5)] hover:drop-shadow-2xl
-            max-sm:my-1 max-sm:min-h-16 sm:my-2 max-md:min-h-20 max-md:w-full ${cardHeight}`
+            `flex flex-1 justify-between gap-2 p-0 shadow-lg border w-full
+            border-gray-200 rounded-md bg-[rgba(240,240,240,0.5)] hover:drop-shadow-2xl
+            max-sm:my-1 max-sm:min-h-16 sm:my-2 max-md:min-h-20 ${cardHeight}`
         }>
             <div className={
                 `flex flex-col flex-1 justify-between items-start w-full
