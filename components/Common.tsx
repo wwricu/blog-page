@@ -1,6 +1,6 @@
 import React from "react"
 import Link from "next/link"
-import {AsyncPathParams, CategoriesURL, TagsUrl} from "@/common/common";
+import {CategoriesURL, PathParams, TagsUrl} from "@/common/common"
 
 type PaginationProps = {
     total: number,
@@ -114,8 +114,7 @@ export const GithubIcon = ({ size=16, strokeWidth=2, className='invert', }) => {
     );
 }
 
-export async function BreadCrumb({ params }: AsyncPathParams) {
-    const { filter, name } = (await params) ?? {}
+export async function BreadCrumb({ filter, name }: PathParams) {
     if ((filter === CategoriesURL || filter === TagsUrl) && name) {
         return (
             <div className="breadcrumbs text-gray-700 text-sm w-full py-1 pl-2">

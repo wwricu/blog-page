@@ -3,7 +3,7 @@ import {GetAllTagsAPI} from "@/common/api"
 import TagList from "@/components/TagList"
 import {AsyncPathParams, CategoriesURL, TagsUrl} from "@/common/common"
 import React from "react"
-import PostPage from "@/app/[filter]/[name]/[index]/page"
+import PostView from "@/components/PostList"
 
 export default async function FilterPage({ params }: AsyncPathParams) {
     const filter = (await params)?.filter
@@ -16,5 +16,5 @@ export default async function FilterPage({ params }: AsyncPathParams) {
         return <TagList tags={tags} tagType={TagTypeEnum.POST_TAG} />
     }
 
-    return <PostPage params={params}/>
+    return <PostView index={filter}/>
 }
