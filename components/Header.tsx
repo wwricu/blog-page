@@ -22,7 +22,7 @@ const Header: React.FC = () => {
     const router = useRouter()
     const modalRef = useRef<HTMLDialogElement>(null)
 
-    const menuItemClassName = 'btn btn-sm text-gray-700 h-full rounded-none border-0 shadow-none max-sm:px-2'
+    const menuItemClassName = 'btn btn-sm font-medium h-full rounded-none border-0 shadow-none max-sm:px-2'
 
     useEffect(() => {
         GetAboutAPI().then((res) => {
@@ -35,11 +35,11 @@ const Header: React.FC = () => {
 
     const getButtonStyle = (path: string) => {
         if (isModalOpen) {
-            return ' bg-transparent'
+            return ' btn-ghost'
         }
         return usePathname()?.replace(/\/\[.*]/g, "") === path ?
-            ' btn-active' :
-            ' hover:!bg-slate-300 bg-transparent'
+            ' btn-active text-primary' :
+            ' btn-ghost'
     }
 
     const renderStat = (
@@ -52,8 +52,8 @@ const Header: React.FC = () => {
             <>
                 {statList.map((stat) => (
                     <div key={stat.title} className='stat place-items-center'>
-                        <div className="stat-title text-sm text-gray-400">{stat.title}</div>
-                        <div className="stat-value text-3xl font-light">{stat.value}</div>
+                        <div className="stat-title text-sm font-medium text-base-content/60">{stat.title}</div>
+                        <div className="stat-value text-3xl font-normal text-base-content">{stat.value}</div>
                     </div>
                 ))}
             </>
@@ -62,7 +62,7 @@ const Header: React.FC = () => {
 
     return (
         <>
-            <div className='flex justify-between items-center sticky top-0 bg-slate-50 flex-wrap border-solid border-b shadow-xs border-gray-200 h-10'>
+            <div className='flex justify-between items-center sticky top-0 bg-base-100 shadow-sm flex-wrap h-10'>
                 <div className='flex justify-start items-center flex-wrap h-full'>
                     <Link href='/' className='h-full'>
                         <button className={menuItemClassName + getButtonStyle('/')}>
@@ -81,7 +81,7 @@ const Header: React.FC = () => {
                     </Link>
                 </div>
                 <button
-                    className={menuItemClassName + ' hover:bg-slate-300! ' + (isModalOpen ? ' btn-active' : 'bg-transparent')}
+                    className={menuItemClassName + (isModalOpen ? ' btn-active text-primary' : ' btn-ghost')}
                     onClick={() => {
                         modalRef?.current?.showModal()
                         setIsModalOpen(true)
@@ -94,7 +94,7 @@ const Header: React.FC = () => {
                 </button>
             </div>
             <dialog className='modal' ref={modalRef} onClose={() => setIsModalOpen(false)} >
-                <div className="modal-box bg-slate-100">
+                <div className="modal-box bg-base-200">
                     <div dangerouslySetInnerHTML={{__html: about}} className='min-h-48'/>
                     <div className='divider mb-4'/>
                     <div className='flex justify-around'>
@@ -114,7 +114,7 @@ const Header: React.FC = () => {
                             </button>
                         </Link>
                         <Link className='grow ml-2 my-1' href='mailto:me@wwr.icu'>
-                            <button className='btn bg-white text-black border-[#e5e5e5] rounded-s btn-sm rounded w-full'>
+                            <button className='btn bg-base-100 text-base-content border-[#e5e5e5] rounded-s btn-sm rounded w-full'>
                                 <Mail size={15} color="#222222" strokeWidth={2}/>Mail me
                             </button>
                         </Link>

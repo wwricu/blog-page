@@ -117,10 +117,10 @@ export const GithubIcon = ({ size=16, strokeWidth=2, className='invert', }) => {
 export async function BreadCrumb({ filter, name }: PathParams) {
     if ((filter === CategoriesURL || filter === TagsUrl) && name) {
         return (
-            <div className="breadcrumbs text-gray-700 text-sm w-full py-1 pl-2">
+            <div className="breadcrumbs text-base-content/50 text-sm w-full py-1 pl-2">
                 <ul>
-                    <li><a href={'/'}>Home</a></li>
-                    <li><a href={`/${filter}`}>{filter}</a></li>
+                    <li><a className='hover:text-primary' href={'/'}>Home</a></li>
+                    <li><a className='hover:text-primary' href={`/${filter}`}>{filter}</a></li>
                     <li>{decodeURI(name)}</li>
                 </ul>
             </div>
