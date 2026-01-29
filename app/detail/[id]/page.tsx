@@ -2,7 +2,7 @@ import {PostDetailVO, TagVO} from "@/common/model"
 import {GetPostDetailAPI} from "@/common/api"
 import React from "react"
 import {Clock, Hash, Tags} from 'lucide-react'
-import {AsyncPathParams, getTagColorClass} from "@/common/common"
+import {AsyncPathParams} from "@/common/common"
 import {VerticalDivider} from "@/components/Common";
 
 const renderTags = (postDetailVO: PostDetailVO) => {

@@ -3,7 +3,6 @@ import {Clock, Hash, Tags} from 'lucide-react'
 import Image from 'next/image'
 import React from 'react'
 import Link from 'next/link'
-import {getTagColorClass} from "@/common/common"
 import {VerticalDivider} from "@/components/Common"
 
 const renderCategory = (tag: TagVO | undefined) => {
