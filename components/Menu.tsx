@@ -58,7 +58,7 @@ export default function Menu({ className }: { className?: string }) {
     return (
         <div className={`py-10 px-5 h-full ${className}`}>
             <div className={`
-                flex flex-col p-5 rounded-4xl bg-gray-100 justify-start shadow-xs h-full
+                flex flex-col p-5 shadow-xl rounded-4xl bg-gray-100 justify-between h-full
             `}>
                 <ul className="menu w-full gap-3">
                     <li>
@@ -76,6 +76,9 @@ export default function Menu({ className }: { className?: string }) {
                             <Tags size={15} color="#757575" strokeWidth={2}/>Tags
                         </Link>
                     </li>
+
+                </ul>
+                <ul className="menu w-full">
                     <li>
                         <button
                             className={`rounded-4xl ${isModalOpen && ' menu-active'}`}
