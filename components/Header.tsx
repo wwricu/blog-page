@@ -94,9 +94,9 @@ const Header: React.FC = () => {
                 </button>
             </div>
             <dialog className='modal' ref={modalRef} onClose={() => setIsModalOpen(false)} >
-                <div className="modal-box bg-base-200">
+                <div className="modal-box bg-base-100">
                     <div dangerouslySetInnerHTML={{__html: about}} className='min-h-48'/>
-                    <div className='divider mb-4'/>
+                    <div className='border-t border-base-content/30 mb-4'/>
                     <div className='flex justify-around'>
                         {
                             renderStat([
@@ -106,14 +106,14 @@ const Header: React.FC = () => {
                             ])
                         }
                     </div>
-                    <div className='divider my-4'/>
-                    <div className='flex justify-between'>
-                        <Link className='grow mr-2 my-1' href='https://github.com/wwricu' target='_blank'>
+                    <div className='border-t border-base-content/30 mt-4 mb-8'/>
+                    <div className='flex justify-between my-4'>
+                        <Link className='flex-1 mr-2 my-1' href='https://github.com/wwricu' target='_blank'>
                             <button className='btn btn-active btn-neutral btn-sm rounded w-full'>
                                 <GithubIcon size={15} strokeWidth={2} className={'invert'}/>GitHub
                             </button>
                         </Link>
-                        <Link className='grow ml-2 my-1' href='mailto:me@wwr.icu'>
+                        <Link className='flex-1 ml-2 my-1' href='mailto:me@wwr.icu'>
                             <button className='btn bg-base-100 text-base-content border-[#e5e5e5] rounded-s btn-sm rounded w-full'>
                                 <Mail size={15} color="#222222" strokeWidth={2}/>Mail me
                             </button>

@@ -17,7 +17,7 @@ const renderCategory = (tag: TagVO | undefined) => {
             <span className='max-w-[100vw] overflow-hidden'>
                 <Hash className='inline mr-1' size={15} color="#757575" strokeWidth={2}/>
                 <Link href={`/categories/${tag.name}`}>
-                    <div className='badge badge-neutral badge-outline rounded bg-base-100 text-base-content/50 max-sm:badge-xs sm:badge-sm'>{tag.name}</div>
+                    <div className='badge badge-neutral badge-outline rounded bg-base-100 text-base-content/70 hover:bg-primary hover:text-primary-content max-sm:badge-xs sm:badge-sm'>{tag.name}</div>
                 </Link>
             </span>
         </>
@@ -35,7 +35,7 @@ const renderTags = (tagList: TagVO[]) => {
                 <Tags className='inline mr-1' size={15} color="#757575" strokeWidth={2}/>
                 {tagList.map((tag: TagVO) => (
                     <Link key={tag.id} href={`/tags/${tag.name}`}>
-                        <div className={`badge rounded mx-0.5 text-base-content/50 max-sm:badge-xs sm:badge-sm ${getTagColorClass()}`}>{tag.name}</div>
+                        <div className={`badge rounded mx-0.5 bg-base-300 text-base-content/70 hover:bg-primary hover:text-primary-content max-sm:badge-xs sm:badge-sm`}>{tag.name}</div>
                     </Link>
                 ))}
             </span>
@@ -49,16 +49,16 @@ export default function PostCard({postDetailVO}: { postDetailVO: PostDetailVO })
     const cardHeight = hasCover ? 'md:h-45' : 'md:min-h-45'
     return (
         <div className={
-            `flex flex-1 justify-between gap-2 p-0 border w-full 
-            border-gray-200 rounded-box bg-base-100 shadow-xl hover:drop-shadow-2xl
+            `flex flex-1 justify-between gap-2 p-0 w-full 
+            rounded-box bg-base-100 shadow-xl
             max-sm:my-1 max-sm:min-h-16 sm:my-2 max-md:min-h-20 ${cardHeight}`
         }>
             <div className={
                 `flex flex-col flex-1 justify-between items-start w-full
                  max-sm:p-2 sm:p-4 md:px-6 md:py-4`
             }>
-                <Link className='flex-1 w-full' href={`/detail/${postDetailVO.id}`}>
-                    <h4 className='text-base-content font-bold mb-1 line-clamp-1 sm:text-lg md:text-xl'>{postDetailVO.title}</h4>
+                <Link className='flex-1 w-full hover:text-primary-content' href={`/detail/${postDetailVO.id}`}>
+                    <h4 className='hover:text-primary text-base-content font-bold mb-1 line-clamp-1 sm:text-lg md:text-xl'>{postDetailVO.title}</h4>
                     <p className='text-base-content/70 line-clamp-2 font-normal max-h-16 min-h-0 max-sm:text-xs max-md:my-2 my-4'>
                         {postDetailVO.preview}
                     </p>

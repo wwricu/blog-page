@@ -68,9 +68,9 @@ export const Pagination = async ({ current = 1, total, getHref, pageSize = 10, c
 
     for (let i = 0; i < buttons.length; i++) {
         const value = buttons[i]
-        let status = ''
+        let status = 'btn-ghost'
         if (value === '...') {
-            status = 'bg-transparent'
+            status = 'btn-ghost'
         } else if (value === current) {
             status = 'btn-active'
         }
@@ -86,7 +86,7 @@ export const Pagination = async ({ current = 1, total, getHref, pageSize = 10, c
             {
                 buttonProps.map((item, i) => {
                     return <Link key={i} href={item.href}>
-                        <button className={`join-item btn btn-soft btn-neutral max-md:btn-sm md:btn-md ${item.status}`}>{item.value}</button>
+                        <button className={`join-item btn btn-outline border-base-300 text-base-content/80 max-md:btn-sm md:btn-md ${item.status}`}>{item.value}</button>
                     </Link>
                 })
             }
@@ -95,7 +95,7 @@ export const Pagination = async ({ current = 1, total, getHref, pageSize = 10, c
 }
 
 export const VerticalDivider = () => {
-    return <div className='border-l h-4 inline-block align-middle border-gray-400'/>
+    return <div className='border-l h-4 inline-block align-middle border-neutral/60'/>
 }
 
 export const GithubIcon = ({ size=16, strokeWidth=2, className='invert', }) => {
