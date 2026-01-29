@@ -17,7 +17,7 @@ const renderCategory = (tag: TagVO | undefined) => {
             <span className='max-w-[100vw] overflow-hidden'>
                 <Hash className='inline mr-1' size={15} color="#757575" strokeWidth={2}/>
                 <Link href={`/categories/${tag.name}`}>
-                    <div className='badge badge-neutral badge-sm badge-outline rounded bg-white text-gray-600'>{tag.name}</div>
+                    <div className='badge badge-neutral badge-outline rounded bg-white text-gray-600 max-sm:badge-xs sm:badge-sm'>{tag.name}</div>
                 </Link>
             </span>
         </>
@@ -35,7 +35,7 @@ const renderTags = (tagList: TagVO[]) => {
                 <Tags className='inline mr-1' size={15} color="#757575" strokeWidth={2}/>
                 {tagList.map((tag: TagVO) => (
                     <Link key={tag.id} href={`/tags/${tag.name}`}>
-                        <div className={'badge badge-sm rounded mx-0.5 text-gray-800' + getTagColorClass()}>{tag.name}</div>
+                        <div className={`badge rounded mx-0.5 text-gray-800 max-sm: badge-xs sm:badge-sm ${getTagColorClass()}`}>{tag.name}</div>
                     </Link>
                 ))}
             </span>
@@ -45,34 +45,29 @@ const renderTags = (tagList: TagVO[]) => {
 
 export default function PostCard({postDetailVO}: { postDetailVO: PostDetailVO }) {
     const hasCover = postDetailVO.cover?.url != null
-    const cardHeight = hasCover ? 'h-45' : 'min-h-45'
-    const bodyRightPadding = hasCover ? '' : 'pr-6'
+    const cardHeight = hasCover ? 'md:h-45' : 'md:min-h-45'  // cover shown after md
     return (
         <div className={
-            `${cardHeight} w-3xl my-2 p-0 shadow-lg 
-            border-gray-400 rounded-md bg-[rgba(245,245,245,0.5)]
-            hover:drop-shadow-2xl sm:min-h-36 max-md:w-full max-sm:my-1`
+            `w-3xl p-0 shadow-lg 
+            border-gray-400 rounded-md bg-[rgba(245,245,245,0.5)]hover:drop-shadow-2xl
+            max-sm:my-1 max-sm:min-h-16 sm:my-2 max-md:min-h-20 max-md:w-full ${cardHeight}`
         }>
             <div className='flex h-full justify-between gap-2'>
                 <div className={
-                    `flex flex-col flex-1 justify-between items-start 
-                    pl-6 ${bodyRightPadding} pt-6 pb-5 w-full sm:min-h-40`
+                    `flex flex-col flex-1 justify-between items-start w-full
+                     max-sm:p-2 sm:p-4 md:px-6 md:py-4`
                 }>
                     <Link className='w-full' href={`/detail/${postDetailVO.id}`}>
-                        <>
-                            <h4 className='text-xl font-semibold mb-1 line-clamp-1 max-sm:hidden'>{postDetailVO.title}</h4>
-                            <p className='font-semibold mb-2 line-clamp-1 sm:hidden'>{postDetailVO.title}</p>
-                        </>
-                        <p className='line-clamp-2 my-2 font-light text-gray-500 max-h-16 min-h-0 sm:text-md max-sm:text-xs max-sm:hidden'>
+                        <h4 className=' font-semibold mb-1 line-clamp-1 sm:text-lg md:text-xl'>{postDetailVO.title}</h4>
+                        <p className='line-clamp-2 my-2 font-light text-gray-500 max-h-16 min-h-0 max-sm:text-xs'>
                             {postDetailVO.preview}
                         </p>
                     </Link>
                     <div className='flex flex-col justify-end items-start mt-2'>
                         <div className='flex justify-start items-baseline gap-x-2.5 w-full flex-wrap'>
                             <span>
-                                {/*TODO: How to remove this span?*/}
                                 <Clock className="inline mr-1" size={15} color="#757575" strokeWidth={2}/>
-                                <span className='text-sm text-gray-600 font-light align-middle mr-0.5 max-sm:text-xs'>
+                                <span className='text-gray-600 font-light align-middle mr-0.5 max-sm:text-xs sm:text-sm'>
                                     {postDetailVO.create_time.slice(0, 10)}
                                 </span>
                             </span>
@@ -88,7 +83,7 @@ export default function PostCard({postDetailVO}: { postDetailVO: PostDetailVO })
                         width={300}
                         height={180}
                         src={postDetailVO.cover?.url ?? `https://picsum.photos/250/100?id=${postDetailVO.id}`} alt={postDetailVO.cover?.name ?? 'cover'}
-                        className='object-cover max-sm:hidden'
+                        className='object-cover max-md:hidden'
                     /> : <></>
                 }
             </div>
