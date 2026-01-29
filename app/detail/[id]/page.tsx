@@ -49,7 +49,7 @@ export default async function PostDetailPage({ params }: AsyncPathParams) {
     const id = (await params)!!.id
     const postDetailVO = await GetPostDetailAPI(id!!)
     return (
-        <div className='flex-1 max-md:w-full md:w-3xl bg-[rgba(240,240,240,0.5)] shadow-xs border-x border-gray-200 p-4 pb-6'>
+        <div className='flex-1 bg-[rgba(240,240,240,0.5)] shadow-xs border-x border-gray-200 max-sm:p-2 max-md:py-4 max-md:px-4 max-md:w-full md:w-3xl md:py-6 md:px-8 '>
             <h1 className='text-2xl font-semibold'>{postDetailVO.title}</h1>
             <div className='flex items-center gap-2.5 mt-6 mb-8 flex-wrap'>
                 <span>
@@ -59,7 +59,7 @@ export default async function PostDetailPage({ params }: AsyncPathParams) {
                 {renderCategory(postDetailVO)}
                 {renderTags(postDetailVO)}
             </div>
-            <div className='prose max-md:prose-sm md:prose max-w-full' dangerouslySetInnerHTML={{__html: postDetailVO.content}}/>
+            <div className='prose max-w-none! max-md:prose-sm' dangerouslySetInnerHTML={{__html: postDetailVO.content}}/>
         </div>
     )
 }
