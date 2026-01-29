@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic'
 
 export default function RootLayout({children}: { children: React.ReactNode }) {
     return (
-        <html>
+        <html lang="zh-cn">
             <body>
                 <div className='flex flex-col min-h-screen bg-gray-100'>
                     <Header/>
