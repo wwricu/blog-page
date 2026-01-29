@@ -45,7 +45,8 @@ const renderTags = (tagList: TagVO[]) => {
 
 export default function PostCard({postDetailVO}: { postDetailVO: PostDetailVO }) {
     const hasCover = postDetailVO.cover?.url != null
-    const cardHeight = hasCover ? 'md:h-45' : 'md:min-h-45'  // cover shown after md
+    // cover shown after md, h-45==180(image height)
+    const cardHeight = hasCover ? 'md:h-45' : 'md:min-h-45'
     return (
         <div className={
             `flex flex-1 justify-between gap-2 w-3xl p-0 shadow-lg 
@@ -81,7 +82,7 @@ export default function PostCard({postDetailVO}: { postDetailVO: PostDetailVO })
                     unoptimized
                     width={300}
                     height={180}
-                    src={postDetailVO.cover?.url ?? `https://picsum.photos/250/100?id=${postDetailVO.id}`} alt={postDetailVO.cover?.name ?? 'cover'}
+                    src={postDetailVO.cover?.url ?? `https://picsum.photos/300/180?id=${postDetailVO.id}`} alt={postDetailVO.cover?.name ?? 'cover'}
                     className='object-cover max-md:hidden'
                 /> : <></>
             }
