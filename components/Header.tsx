@@ -1,27 +1,28 @@
-import React, {useEffect, useState} from 'react';
+'use client'
+
+import React, {useEffect, useRef, useState} from 'react'
 import {
-    AppstoreOutlined,
-    GithubOutlined,
-    HomeOutlined,
-    InfoCircleOutlined,
-    MailOutlined,
-    TagsOutlined
-} from '@ant-design/icons';
-import {Button, Divider, Flex, Modal, Statistic} from 'antd';
-import {GetAboutAPI} from "@/common/api";
-import {useRouter} from "next/router";
-import Link from "next/link";
+    House,
+    LayoutGrid,
+    Info,
+    Mail,
+    Tags
+} from 'lucide-react'
+import {GetAboutAPI} from "@/common/api"
+import {usePathname, useRouter} from "next/navigation"
+import Link from "next/link"
+import {GithubIcon} from "@/components/Common";
 
 const Header: React.FC = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false)
     const [about, setAbout] = useState<string>('')
     const [postCount, setPostCount] = useState<number>(0)
     const [categoryCount, setCategoryCount] = useState<number>(0)
     const [tagCount, setTagCount] = useState<number>(0)
     const router = useRouter()
+    const modalRef = useRef<HTMLDialogElement>(null)
 
-    const statisticClassName = 'text-sm text-center'
-    const menuItemClassName = 'h-full rounded-none border-0 shadow-none max-sm:px-2 text-text-prime'
+    const menuItemClassName = 'btn btn-sm text-gray-700 h-full rounded-none border-0 shadow-none max-sm:px-2'
 
     useEffect(() => {
         GetAboutAPI().then((res) => {
@@ -30,66 +31,101 @@ const Header: React.FC = () => {
             setCategoryCount(res.category_count)
             setTagCount(res.tag_count)
         })
-    }, []);
+    }, [])
 
     const getButtonStyle = (path: string) => {
         if (isModalOpen) {
             return ' bg-transparent'
         }
-        return router.pathname.replace(/\/\[.*]/g, "") === path ?
-            ' bg-indigo-600 text-white hover:!bg-indigo-600 hover:!text-white' :
-            ' hover:!bg-slate-300 bg-transparent hover:!text-text-prime'
+        return usePathname()?.replace(/\/\[.*]/g, "") === path ?
+            ' btn-active' :
+            ' hover:!bg-slate-300 bg-transparent'
+    }
+
+    const renderStat = (
+        statList: {
+            title: string
+            value: number
+        }[]
+    ) => {
+        return (
+            <>
+                {statList.map((stat) => (
+                    <div key={stat.title} className='stat place-items-center'>
+                        <div className="stat-title text-sm text-gray-400">{stat.title}</div>
+                        <div className="stat-value text-3xl font-light">{stat.value}</div>
+                    </div>
+                ))}
+            </>
+        )
     }
 
     return (
         <>
-            <Flex justify='space-between' align='center' className='sm:h-10 bg-transparent flex-wrap border-solid border-b-2'>
-                <Flex justify='flex-start' align='center' className='flex-wrap h-full'>
+            <div className='flex justify-between items-center sticky top-0 bg-slate-50 flex-wrap border-solid border-b shadow-xs border-gray-200 h-10'>
+                <div className='flex justify-start items-center flex-wrap h-full'>
                     <Link href='/' className='h-full'>
-                        <Button className={menuItemClassName + getButtonStyle('/')}>
-                            <HomeOutlined/>Home
-                        </Button>
+                        <button className={menuItemClassName + getButtonStyle('/')}>
+                            <House size={15} color="#757575" strokeWidth={2}/>Home
+                        </button>
                     </Link>
                     <Link href='/categories' className='h-full'>
-                        <Button className={menuItemClassName + getButtonStyle('/categories')}>
-                            <AppstoreOutlined/>Category
-                        </Button>
+                        <button className={menuItemClassName + getButtonStyle('/categories')}>
+                            <LayoutGrid size={15} color="#757575" strokeWidth={2}/>Category
+                        </button>
                     </Link>
                     <Link href='/tags' className='h-full'>
-                        <Button onClick={() => router.push('/tags')} className={menuItemClassName + getButtonStyle('/tags')}>
-                            <TagsOutlined/>Tags
-                        </Button>
+                        <button onClick={() => router.push('/tags')} className={menuItemClassName + getButtonStyle('/tags')}>
+                            <Tags size={15} color="#757575" strokeWidth={2}/>Tags
+                        </button>
                     </Link>
-                </Flex>
-                <Button onClick={() => setIsModalOpen(true)} className={menuItemClassName + ' hover:!bg-slate-300 hover:!text-text-prime ' + (isModalOpen ? ' bg-indigo-600 text-white' : 'bg-transparent')}>
-                    <InfoCircleOutlined/>
+                </div>
+                <button
+                    className={menuItemClassName + ' hover:bg-slate-300! ' + (isModalOpen ? ' btn-active' : 'bg-transparent')}
+                    onClick={() => {
+                        modalRef?.current?.showModal()
+                        setIsModalOpen(true)
+                    }}
+                >
+                    <Info size={15} color="#757575" strokeWidth={2}/>
                     <span className='max-sm:hidden'>
                     About
                 </span>
-                </Button>
-            </Flex>
-            <Modal
-                footer={null}
-                closable={false}
-                open={isModalOpen}
-                onCancel={() => setIsModalOpen(false)}
-                onOk={() => setIsModalOpen(false)}
-            >
-                <div dangerouslySetInnerHTML={{__html: about}} className='min-h-48'/>
-                <Divider className='mb-4'/>
-                <Flex justify='space-around'>
-                    <Statistic title="Post" value={postCount} className={statisticClassName}/>
-                    <Statistic title="Category" value={categoryCount} className={statisticClassName}/>
-                    <Statistic title="Tag" value={tagCount} className={statisticClassName}/>
-                </Flex>
-                <Divider className='my-4'/>
-                <Flex justify='space-between'>
-                    <Button type='primary' href='https://github.com/wwricu' target='_blank' className='m-2 grow'><GithubOutlined/>GitHub</Button>
-                    <Button href='mailto:me@wwr.icu' className='m-2 grow'><MailOutlined/>Mail me</Button>
-                </Flex>
-            </Modal>
+                </button>
+            </div>
+            <dialog className='modal' ref={modalRef} onClose={() => setIsModalOpen(false)} >
+                <div className="modal-box bg-slate-100">
+                    <div dangerouslySetInnerHTML={{__html: about}} className='min-h-48'/>
+                    <div className='divider mb-4'/>
+                    <div className='flex justify-around'>
+                        {
+                            renderStat([
+                                {title: 'Post', value: postCount},
+                                {title: 'Category', value: categoryCount},
+                                {title: 'Tag', value: tagCount},
+                            ])
+                        }
+                    </div>
+                    <div className='divider my-4'/>
+                    <div className='flex justify-between'>
+                        <Link className='grow mr-2 my-1' href='https://github.com/wwricu' target='_blank'>
+                            <button className='btn btn-active btn-neutral btn-sm rounded w-full'>
+                                <GithubIcon size={15} strokeWidth={2} className={'invert'}/>GitHub
+                            </button>
+                        </Link>
+                        <Link className='grow ml-2 my-1' href='mailto:me@wwr.icu'>
+                            <button className='btn bg-white text-black border-[#e5e5e5] rounded-s btn-sm rounded w-full'>
+                                <Mail size={15} color="#222222" strokeWidth={2}/>Mail me
+                            </button>
+                        </Link>
+                    </div>
+                </div>
+                <form method="dialog" className="modal-backdrop">
+                    <button>close</button>
+                </form>
+            </dialog>
         </>
     )
 }
 
-export default Header;
+export default Header
