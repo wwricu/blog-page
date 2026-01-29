@@ -1,10 +1,12 @@
+export type PathParams = {
+    id?: string
+    filter?: string
+    name?: string
+    index?: string
+}
+
 export type AsyncPathParams = {
-    params?: Promise<{
-        id?: string
-        filter?: string
-        name?: string
-        index?: string
-    }>
+    params?: Promise<PathParams>
 }
 
 const tagColorClassList = [
@@ -18,7 +20,6 @@ const tagColorClassList = [
 ]
 export const TagsUrl = 'tags'
 export const CategoriesURL = 'categories'
-
 
 export const getTagColorClass = () => {
     return tagColorClassList[Math.floor(Math.random() * tagColorClassList.length)]

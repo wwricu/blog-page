@@ -1,7 +1,7 @@
 import {TagTypeEnum, TagVO} from "@/common/model"
 import Link from "next/link"
 
-export default function TagList({ tags, tagType}: {tags: TagVO[], tagType: TagTypeEnum}) {
+export default function TagView({ tags, tagType}: {tags: TagVO[], tagType: TagTypeEnum}) {
     return (
         <div className='flex flex-col flex-1 w-full gap-6 pt-6 px-6 bg-[rgba(240,240,240,0.5)] shadow-xs border-x border-gray-200 max-md:w-full md:w-3xl'>
         {tags.map((tag: TagVO) => (
