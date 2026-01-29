@@ -4,8 +4,9 @@ import {headers} from "next/headers";
 export type AsyncPathParams = {
     params?: Promise<{
         id?: string
-        page?: string
+        filter?: string
         name?: string
+        index?: string
     }>
 }
 
@@ -19,6 +20,9 @@ const tagColorClassList = [
     ' badge-error',
 ]
 const pathnameHeader = 'x-full-url'
+export const TagsUrl = 'tags'
+export const CategoriesURL = 'categories'
+
 
 export const getTagColorClass = () => {
     return tagColorClassList[Math.floor(Math.random() * tagColorClassList.length)]
