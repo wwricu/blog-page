@@ -8,7 +8,7 @@ export default async function Categories({ params }: AsyncPathParams) {
     const name = (await params)?.name
     const postDetailPageVO: PostDetailPageVO = await GetAllBlogPosts(1, name ? decodeURI(name) : undefined)
     return (
-        <div className='flex justify-center grow py-2'>
+        <div className='flex justify-center py-2'>
             <div className='flex flex-col max-md:w-full max-md:mx-2'>
                 <PostList postDetailPageVO={postDetailPageVO}/>
             </div>

@@ -1,20 +1,21 @@
-import {TagVO} from "@/common/model";
-import Link from "next/link";
-import {getTagColorClass} from "@/common/common";
+import {TagVO} from "@/common/model"
+import Link from "next/link"
 
-export default function TagList({tags}: { tags: TagVO[] }) {
+export default function TagList({tags}: {tags: TagVO[]}) {
     return (
-        <div className="flex flex-wrap justify-center">
-            <div className='flex mt-3 w-3xl flex-wrap'>
+        <div className='flex flex-col items-center flex-1 w-full'>
+            <div className='flex flex-col flex-1 gap-6 pt-6 px-6 bg-[rgba(240,240,240,0.5)] shadow-xs border-x border-gray-200 max-md:w-full md:w-3xl'>
                 {tags.map((tag: TagVO) => (
-                    <Link key={tag.id} href={`/tags/${tag.name}`}>
-                        <div className={'badge badge-sm badge-soft text-sm text-text-prime shadow-sm m-1 px-2 min-w-12.5 max-w-[100vw] border-gray-200 rounded-lg hover:shadow-md hover:bg-slate-100 ' + getTagColorClass()}>
-                            <div className='justify-between items-baseline gap-2'>
-                                <span className='overflow-hidden'>{tag.name}</span>
-                                <span>{tag.count}</span>
-                            </div>
+                        <div key={tag.id} className='flex justify-between items-baseline '>
+                            <Link className='link text-gray-800 hover:text-cyan-600' href={`/categories/${tag.name}`}>
+                                <p >
+                                    {tag.name}
+                                </p>
+                            </Link>
+                            <p className='text-gray-600'>
+                                {tag.count}
+                            </p>
                         </div>
-                    </Link>
                 ))}
             </div>
         </div>

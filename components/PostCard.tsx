@@ -49,7 +49,7 @@ export default function PostCard({postDetailVO}: { postDetailVO: PostDetailVO })
     return (
         <div className={
             `w-3xl p-0 shadow-lg 
-            border-gray-400 rounded-md bg-[rgba(245,245,245,0.5)]hover:drop-shadow-2xl
+            border-gray-400 rounded-md bg-[rgba(240,240,240,0.5)] hover:drop-shadow-2xl
             max-sm:my-1 max-sm:min-h-16 sm:my-2 max-md:min-h-20 max-md:w-full ${cardHeight}`
         }>
             <div className='flex h-full justify-between gap-2'>
