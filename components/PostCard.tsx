@@ -1,31 +1,10 @@
-import {PostDetailVO, TagVO} from '@/common/model';
-import {Divider, Flex, Tag, Typography} from 'antd';
-import {BorderlessTableOutlined, ClockCircleOutlined, TagsOutlined} from '@ant-design/icons';
-import Image from 'next/image';
-import React from 'react';
-import Link from 'next/link';
-
-type PostCardProps = {
-    postDetailVO: PostDetailVO
-}
-
-const tagColorList = [
-    'magenta',
-    'red',
-    'volcano',
-    'orange',
-    'gold',
-    'lime',
-    'green',
-    'cyan',
-    'blue',
-    'geekblue',
-    'purple'
-]
-
-const getTagColor = () => {
-    return tagColorList[Math.floor(Math.random() * tagColorList.length)]
-}
+import {PostDetailVO, TagVO} from '@/common/model'
+import {Clock, Hash, Tags} from 'lucide-react'
+import Image from 'next/image'
+import React from 'react'
+import Link from 'next/link'
+import {getTagColorClass} from "@/common/common"
+import {VerticalDivider} from "@/components/Common"
 
 const renderCategory = (tag: TagVO | undefined) => {
     if (!tag) {
@@ -33,74 +12,80 @@ const renderCategory = (tag: TagVO | undefined) => {
     }
 
     return (
-        <span className='max-w-[100vw] overflow-hidden'>
-            <Typography.Text type={'secondary'}>
-                <BorderlessTableOutlined className='mr-1'/>
+        <>
+            <span><VerticalDivider/></span>
+            <span className='max-w-[100vw] overflow-hidden'>
+                <Hash className='inline mr-1' size={15} color="#757575" strokeWidth={2}/>
                 <Link href={`/categories/${tag.name}`}>
-                    <Tag>
-                        {tag.name}
-                    </Tag>
+                    <div className='badge badge-neutral badge-outline rounded bg-white text-gray-600 max-sm:badge-xs sm:badge-sm'>{tag.name}</div>
                 </Link>
-            </Typography.Text>
-            <Divider type='vertical' className='ml-2 mr-0'/>
-        </span>
+            </span>
+        </>
     )
 }
 
-const renderTag = (tagList: TagVO[]) => {
+const renderTags = (tagList: TagVO[]) => {
     if (!tagList || tagList.length === 0) {
         return <></>
     }
     return (
-        <span className='max-w-[100vw] overflow-hidden'>
-            <Typography.Text type={'secondary'}>
-                <TagsOutlined className='mr-1'/>
+        <>
+            <span><VerticalDivider/></span>
+            <span className='max-w-[100vw] overflow-hidden'>
+                <Tags className='inline mr-1' size={15} color="#757575" strokeWidth={2}/>
                 {tagList.map((tag: TagVO) => (
                     <Link key={tag.id} href={`/tags/${tag.name}`}>
-                        <Tag color={getTagColor()}>
-                            {tag.name}
-                        </Tag>
+                        <div className={`badge rounded mx-0.5 text-gray-800 max-sm: badge-xs sm:badge-sm ${getTagColorClass()}`}>{tag.name}</div>
                     </Link>
                 ))}
-            </Typography.Text>
-        </span>
+            </span>
+        </>
     )
 }
 
-export default function PostCard({postDetailVO}: PostCardProps) {
+export default function PostCard({postDetailVO}: { postDetailVO: PostDetailVO }) {
+    const hasCover = postDetailVO.cover?.url != null
+    // cover shown after md, h-45==180(image height)
+    const cardHeight = hasCover ? 'md:h-45' : 'md:min-h-45'
     return (
-        <div className='my-2 p-0 sm:min-h-36 shadow-lg border rounded-md hover:drop-shadow-2xl bg-[rgba(245,245,245,0.5)] w-md max-md:w-full max-sm:my-1'>
-            <Flex justify='space-between' gap='small'>
-                <Flex vertical justify='space-between' align='flex-start' className='px-4 pt-4 pb-3 w-full sm:h-40'>
-                    <Link className='w-full' href={`/detail/${postDetailVO.id}`}>
-                        <Flex vertical justify='flex-start' align='flex-start' className='w-full'>
-                            <>
-                                <Typography.Title level={4} className='max-sm:hidden'>{postDetailVO.title}</Typography.Title>
-                                <Typography.Text className='sm:hidden mb-5'>{postDetailVO.title}</Typography.Text>
-                            </>
-                            <Typography.Paragraph className='mt-2 max-sm:hidden overflow-hidden sm:h-10 max-sm:text-xs text-text-second'>{postDetailVO.preview}</Typography.Paragraph>
-                        </Flex>
-                    </Link>
-                    <Flex vertical justify='flex-end' align='flex-start'>
-                        <Flex className='w-full flex-wrap' justify='space-between' align='center' gap='small'>
-                            <span>
-                                <Typography.Text type={'secondary'} className='max-sm:text-xs'><ClockCircleOutlined/> {postDetailVO.create_time.slice(0, 10)}</Typography.Text>
-                                <Divider type='vertical' className='ml-2 mr-0'/>
+        <div className={
+            `flex flex-1 justify-between gap-2 p-0 shadow-lg border w-full
+            border-gray-200 rounded-md bg-[rgba(240,240,240,0.5)] hover:drop-shadow-2xl
+            max-sm:my-1 max-sm:min-h-16 sm:my-2 max-md:min-h-20 ${cardHeight}`
+        }>
+            <div className={
+                `flex flex-col flex-1 justify-between items-start w-full
+                 max-sm:p-2 sm:p-4 md:px-6 md:py-4`
+            }>
+                <Link className='flex-1 w-full' href={`/detail/${postDetailVO.id}`}>
+                    <h4 className='font-semibold mb-1 line-clamp-1 sm:text-lg md:text-xl'>{postDetailVO.title}</h4>
+                    <p className='line-clamp-2 font-light text-gray-500 max-h-16 min-h-0 max-sm:text-xs max-md:my-2 my-4'>
+                        {postDetailVO.preview}
+                    </p>
+                </Link>
+                <div className='flex flex-col justify-end items-start'>
+                    <div className='flex justify-start items-baseline gap-x-2.5 w-full flex-wrap'>
+                        <span>
+                            <Clock className="inline mr-1" size={15} color="#757575" strokeWidth={2}/>
+                            <span className='text-gray-600 font-light align-middle mr-0.5 max-sm:text-xs sm:text-sm'>
+                                {postDetailVO.create_time.slice(0, 10)}
                             </span>
-                            {renderCategory(postDetailVO?.category)}
-                            {renderTag(postDetailVO.tag_list)}
-                        </Flex>
-                    </Flex>
-                </Flex>
-                <Image
+                        </span>
+                        {renderCategory(postDetailVO?.category)}
+                        {renderTags(postDetailVO.tag_list)}
+                    </div>
+                </div>
+            </div>
+            {
+                hasCover ? <Image
                     loading='lazy'
                     unoptimized
-                    width={250}
-                    height={100}
-                    src={postDetailVO.cover?.url ?? `https://picsum.photos/250/100?id=${postDetailVO.id}`} alt={postDetailVO.cover?.name ?? 'cover'}
-                    className='max-sm:hidden'
-                />
-            </Flex>
+                    width={300}
+                    height={180}
+                    src={postDetailVO.cover?.url ?? `https://picsum.photos/300/180?id=${postDetailVO.id}`} alt={postDetailVO.cover?.name ?? 'cover'}
+                    className='object-cover max-md:hidden'
+                /> : <></>
+            }
         </div>
     )
 }

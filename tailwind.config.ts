@@ -8,16 +8,17 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['PingFang SC', 'sans-serif'],
+        heading: ['Inter', 'sans-serif'],
+        code: ['Fira Code', 'monospace'],
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
         'text-prime': '#4A4A4A',
         'text-second': '#666666',
       },
-      width: {
-        'md': '768px',
-      },
     },
-  },
-  plugins: [],
+  }
 } satisfies Config;

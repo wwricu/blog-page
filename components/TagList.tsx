@@ -1,32 +1,22 @@
-import {TagVO} from "@/common/model";
-import {Flex, Row, Tag} from "antd";
-import Link from "next/link";
+import {TagTypeEnum, TagVO} from "@/common/model"
+import Link from "next/link"
 
-type TagListProps = {
-    tags: TagVO[]
-}
-
-export default function TagList({tags}: TagListProps) {
+export default function TagList({ tags, tagType}: {tags: TagVO[], tagType: TagTypeEnum}) {
     return (
-        <Row justify='center'>
-            <Flex className='mt-3 w-md flex-wrap'>
-                {tags.map((tag: TagVO) => (
-                    <Link key={tag.id} href={`/tags/${tag.name}`}>
-                        <Tag
-                            className='bg-[rgba(255,255,255,0.3)] text-sm text-text-prime shadow-sm m-1 px-2 min-w-[50px] max-w-[100vw] border rounded-lg hover:shadow-md hover:bg-slate-100'
-                        >
-                            <Flex justify='space-between' gap='small' align='baseline'>
-                                <span className='overflow-hidden'>
-                                    {tag.name}
-                                </span>
-                                <span>
-                                    {tag.count}
-                                </span>
-                            </Flex>
-                        </Tag>
-                    </Link>
-                ))}
-            </Flex>
-        </Row>
+        <div className='flex flex-col flex-1 w-full gap-6 pt-6 px-6 bg-[rgba(240,240,240,0.5)] shadow-xs border-x border-gray-200 max-md:w-full md:w-3xl'>
+        {tags.map((tag: TagVO) => (
+            <div key={tag.id} className='flex justify-between items-baseline'>
+                <Link
+                    className='link text-gray-800 hover:text-cyan-600'
+                    href={`/${tagType === TagTypeEnum.POST_CAT ? 'categories' : 'tags'}/${tag.name}`}
+                >
+                    {tag.name}
+                </Link>
+                <p className='text-gray-600'>
+                    {tag.count}
+                </p>
+            </div>
+        ))}
+        </div>
     )
 }
