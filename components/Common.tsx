@@ -85,7 +85,7 @@ export const Pagination = async ({ current = 1, total, getHref, pageSize = 10, c
             {
                 buttonProps.map((item, i) => {
                     return <Link key={i} href={item.href}>
-                        <button className={"join-item btn btn-soft btn-neutral btn-md " + item.status}>{item.value}</button>
+                        <button className={`join-item btn btn-soft btn-neutral max-md:btn-sm md:btn-md ${item.status}`}>{item.value}</button>
                     </Link>
                 })
             }

@@ -18,7 +18,7 @@ export default async function PostList({postDetailPageVO}: { postDetailPageVO: P
             {postDetailPageVO?.data?.map(postDetailVO =>
                 <PostCard key={postDetailVO.id} postDetailVO={postDetailVO}/>)}
             <Pagination
-                className='mt-6 mb-4'
+                className='max-sm:mt-3 max-sm:mb-2 sm:mt-6 sm:mb-4'
                 current={current}
                 total={postDetailPageVO.count}
                 getHref={getUrl}

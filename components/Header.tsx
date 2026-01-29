@@ -62,7 +62,7 @@ const Header: React.FC = () => {
 
     return (
         <>
-            <div className='flex justify-between items-center bg-slate-50 flex-wrap border-solid border-b shadow-xs border-gray-200 sm:h-10'>
+            <div className='flex justify-between items-center sticky top-0 bg-slate-50 flex-wrap border-solid border-b shadow-xs border-gray-200 h-10'>
                 <div className='flex justify-start items-center flex-wrap h-full'>
                     <Link href='/' className='h-full'>
                         <button className={menuItemClassName + getButtonStyle('/')}>

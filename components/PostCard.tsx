@@ -58,12 +58,12 @@ export default function PostCard({postDetailVO}: { postDetailVO: PostDetailVO })
                      max-sm:p-2 sm:p-4 md:px-6 md:py-4`
                 }>
                     <Link className='w-full' href={`/detail/${postDetailVO.id}`}>
-                        <h4 className=' font-semibold mb-1 line-clamp-1 sm:text-lg md:text-xl'>{postDetailVO.title}</h4>
-                        <p className='line-clamp-2 my-2 font-light text-gray-500 max-h-16 min-h-0 max-sm:text-xs'>
+                        <h4 className='font-semibold mb-1 line-clamp-1 sm:text-lg md:text-xl'>{postDetailVO.title}</h4>
+                        <p className='line-clamp-2 font-light text-gray-500 max-h-16 min-h-0 max-sm:text-xs max-md:my-2 my-4'>
                             {postDetailVO.preview}
                         </p>
                     </Link>
-                    <div className='flex flex-col justify-end items-start mt-2'>
+                    <div className='flex flex-col justify-end items-start'>
                         <div className='flex justify-start items-baseline gap-x-2.5 w-full flex-wrap'>
                             <span>
                                 <Clock className="inline mr-1" size={15} color="#757575" strokeWidth={2}/>
