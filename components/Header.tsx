@@ -23,7 +23,7 @@ const Header: React.FC = () => {
     const [currentRoute, setCurrentRoute] = useState<string>('')
     const modalRef = useRef<HTMLDialogElement>(null)
 
-    const menuItemClassName = 'btn btn-sm font-medium h-full text-base-content rounded-none border-0 shadow-none max-sm:px-2'
+    const menuItemClassName = 'btn btn-sm font-semibold h-full text-base-content rounded-none border-0 shadow-none max-sm:px-2'
     const menuIconClassName = 'stroke-2 w-3.75 h-3.75'
 
     useEffect(() => {
