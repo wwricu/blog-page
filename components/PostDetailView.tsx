@@ -52,7 +52,7 @@ export default async function PostDetailView({ id }: { id: number | string }) {
             <div className='flex items-center gap-2.5 mt-6 mb-8 flex-wrap'>
                 <span>
                     <Clock className='inline mr-1' size={16} color="#757575" strokeWidth={2}/>
-                    <span className='font-medium mr-0.5 text-base-content/50 align-middle max-sm:text-xs sm:text-sm'>{postDetailVO.create_time?.slice(0, 10)}</span>
+                    <span className='font-medium mr-0.5 text-base-content/60 align-middle max-sm:text-xs sm:text-sm'>{postDetailVO.create_time?.slice(0, 10)}</span>
                 </span>
                 {renderCategory(postDetailVO)}
                 {renderTags(postDetailVO)}
