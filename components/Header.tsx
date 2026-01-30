@@ -9,37 +9,45 @@ import {
     Tags
 } from 'lucide-react'
 import {GetAboutAPI} from "@/common/api"
-import {usePathname, useRouter} from "next/navigation"
+import {usePathname} from "next/navigation"
 import Link from "next/link"
 import {GithubIcon} from "@/components/Common";
 
 const Header: React.FC = () => {
+    const pathname = usePathname()
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [about, setAbout] = useState<string>('')
     const [postCount, setPostCount] = useState<number>(0)
     const [categoryCount, setCategoryCount] = useState<number>(0)
     const [tagCount, setTagCount] = useState<number>(0)
-    const router = useRouter()
+    const [currentRoute, setCurrentRoute] = useState<string>('')
     const modalRef = useRef<HTMLDialogElement>(null)
 
-    const menuItemClassName = 'btn btn-sm text-gray-700 h-full rounded-none border-0 shadow-none max-sm:px-2'
+    const menuItemClassName = 'btn btn-sm font-medium h-full text-base-content rounded-none border-0 shadow-none max-sm:px-2'
+    const menuIconClassName = 'stroke-2 w-3.75 h-3.75'
 
     useEffect(() => {
+        setCurrentRoute(pathname?.replace(/\/\[.*]/g, "") || '/')
         GetAboutAPI().then((res) => {
             setAbout(res.content)
             setPostCount(res.post_count)
             setCategoryCount(res.category_count)
             setTagCount(res.tag_count)
         })
-    }, [])
+    }, [pathname])
 
-    const getButtonStyle = (path: string) => {
-        if (isModalOpen) {
-            return ' bg-transparent'
+    const getButtonStyle = (path: string | undefined = undefined) => {
+        if ((isModalOpen && path == null) || !isModalOpen && currentRoute === path) {
+            return `${menuItemClassName} btn-active text-primary`
         }
-        return usePathname()?.replace(/\/\[.*]/g, "") === path ?
-            ' btn-active' :
-            ' hover:!bg-slate-300 bg-transparent'
+        return `${menuItemClassName} btn-ghost`
+    }
+
+    const getIconStyle = (path: string | undefined = undefined) => {
+        if ((isModalOpen && path == null) || !isModalOpen && currentRoute === path) {
+            return `${menuIconClassName} stroke-base-primary`
+        }
+        return `${menuIconClassName} stroke-base-content`
     }
 
     const renderStat = (
@@ -52,8 +60,8 @@ const Header: React.FC = () => {
             <>
                 {statList.map((stat) => (
                     <div key={stat.title} className='stat place-items-center'>
-                        <div className="stat-title text-sm text-gray-400">{stat.title}</div>
-                        <div className="stat-value text-3xl font-light">{stat.value}</div>
+                        <div className="stat-title text-sm font-medium text-base-content/60">{stat.title}</div>
+                        <div className="stat-value text-3xl font-normal text-base-content">{stat.value}</div>
                     </div>
                 ))}
             </>
@@ -62,41 +70,33 @@ const Header: React.FC = () => {
 
     return (
         <>
-            <div className='flex justify-between items-center sticky top-0 bg-slate-50 flex-wrap border-solid border-b shadow-xs border-gray-200 h-10'>
+            <div className='flex justify-between items-center sticky top-0 bg-base-100 shadow-sm flex-wrap h-10'>
                 <div className='flex justify-start items-center flex-wrap h-full'>
-                    <Link href='/' className='h-full'>
-                        <button className={menuItemClassName + getButtonStyle('/')}>
-                            <House size={15} color="#757575" strokeWidth={2}/>Home
-                        </button>
+                    <Link href='/' className={getButtonStyle('/')}>
+                        <House className={getIconStyle('/')}/>Home
                     </Link>
-                    <Link href='/categories' className='h-full'>
-                        <button className={menuItemClassName + getButtonStyle('/categories')}>
-                            <LayoutGrid size={15} color="#757575" strokeWidth={2}/>Category
-                        </button>
+                    <Link href='/categories' className={getButtonStyle('/categories')}>
+                        <LayoutGrid className={getIconStyle('/categories')}/>Category
                     </Link>
-                    <Link href='/tags' className='h-full'>
-                        <button onClick={() => router.push('/tags')} className={menuItemClassName + getButtonStyle('/tags')}>
-                            <Tags size={15} color="#757575" strokeWidth={2}/>Tags
-                        </button>
+                    <Link href='/tags' className={getButtonStyle('/tags')}>
+                        <Tags className={getIconStyle('/tags')}/>Tags
                     </Link>
                 </div>
                 <button
-                    className={menuItemClassName + ' hover:bg-slate-300! ' + (isModalOpen ? ' btn-active' : 'bg-transparent')}
+                    className={getButtonStyle()}
                     onClick={() => {
                         modalRef?.current?.showModal()
                         setIsModalOpen(true)
                     }}
                 >
-                    <Info size={15} color="#757575" strokeWidth={2}/>
-                    <span className='max-sm:hidden'>
-                    About
-                </span>
+                    <Info className={getIconStyle()}/>
+                    <span className='max-sm:hidden'>About</span>
                 </button>
             </div>
             <dialog className='modal' ref={modalRef} onClose={() => setIsModalOpen(false)} >
-                <div className="modal-box bg-slate-100">
+                <div className="modal-box bg-base-100">
                     <div dangerouslySetInnerHTML={{__html: about}} className='min-h-48'/>
-                    <div className='divider mb-4'/>
+                    <div className='border-t border-base-content/30 mb-4'/>
                     <div className='flex justify-around'>
                         {
                             renderStat([
@@ -106,16 +106,16 @@ const Header: React.FC = () => {
                             ])
                         }
                     </div>
-                    <div className='divider my-4'/>
-                    <div className='flex justify-between'>
-                        <Link className='grow mr-2 my-1' href='https://github.com/wwricu' target='_blank'>
-                            <button className='btn btn-active btn-neutral btn-sm rounded w-full'>
-                                <GithubIcon size={15} strokeWidth={2} className={'invert'}/>GitHub
+                    <div className='border-t border-base-content/30 mt-4 mb-8'/>
+                    <div className='flex justify-between my-4'>
+                        <Link className='flex-1 mr-2 my-1' href='https://github.com/wwricu' target='_blank'>
+                            <button className='btn btn-active btn-primary btn-sm text-base-100 rounded w-full'>
+                                <GithubIcon className={menuIconClassName}/>GitHub
                             </button>
                         </Link>
-                        <Link className='grow ml-2 my-1' href='mailto:me@wwr.icu'>
-                            <button className='btn bg-white text-black border-[#e5e5e5] rounded-s btn-sm rounded w-full'>
-                                <Mail size={15} color="#222222" strokeWidth={2}/>Mail me
+                        <Link className='flex-1 ml-2 my-1' href='mailto:me@wwr.icu'>
+                            <button className='btn bg-base-100 text-base-content border-primary rounded-s btn-sm rounded w-full'>
+                                <Mail className={`${menuIconClassName} stroke-base-primary`}/>Mail me
                             </button>
                         </Link>
                     </div>
