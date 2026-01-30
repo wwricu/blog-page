@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 @plugin "daisyui" {
-  themes: dim --default, coffee --prefersdark;
+  themes: lemonade --default, dim --prefersdark, nord, dracula, sunset;
 }
 body {
   font-family: 'PingFang UI', 'Microsoft JhengHei', Helvetica, sans-serif;

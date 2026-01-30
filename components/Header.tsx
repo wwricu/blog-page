@@ -24,7 +24,7 @@ const Header: React.FC = () => {
     const modalRef = useRef<HTMLDialogElement>(null)
 
     const menuItemClassName = 'btn btn-sm font-medium h-full text-base-content rounded-none border-0 shadow-none max-sm:px-2'
-    const menuIconClassName = 'stroke-2 w-3.75'
+    const menuIconClassName = 'stroke-2 w-3.75 h-3.75'
 
     useEffect(() => {
         setCurrentRoute(pathname?.replace(/\/\[.*]/g, "") || '/')
@@ -109,13 +109,13 @@ const Header: React.FC = () => {
                     <div className='border-t border-base-content/30 mt-4 mb-8'/>
                     <div className='flex justify-between my-4'>
                         <Link className='flex-1 mr-2 my-1' href='https://github.com/wwricu' target='_blank'>
-                            <button className='btn btn-active btn-primary btn-sm rounded w-full'>
-                                <GithubIcon className='text-primary' size={15} strokeWidth={2}/>GitHub
+                            <button className='btn btn-active btn-primary btn-sm text-base-100 rounded w-full'>
+                                <GithubIcon className={menuIconClassName}/>GitHub
                             </button>
                         </Link>
                         <Link className='flex-1 ml-2 my-1' href='mailto:me@wwr.icu'>
-                            <button className='btn bg-base-100 text-base-content border-[#e5e5e5] rounded-s btn-sm rounded w-full'>
-                                <Mail className={menuIconClassName}/>Mail me
+                            <button className='btn bg-base-100 text-base-content border-primary rounded-s btn-sm rounded w-full'>
+                                <Mail className={`${menuIconClassName} stroke-base-primary`}/>Mail me
                             </button>
                         </Link>
                     </div>
