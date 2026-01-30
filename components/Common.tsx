@@ -72,7 +72,7 @@ export const Pagination = async ({ current = 1, total, getHref, pageSize = 10, c
         if (value === '...') {
             status = 'btn-ghost'
         } else if (value === current) {
-            status = 'btn-active'
+            status = 'btn-active btn-primary text-neutral'
         }
         buttonProps.push({
             value: value,
