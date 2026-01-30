@@ -89,12 +89,11 @@ const Header: React.FC = () => {
                         setIsModalOpen(true)
                     }}
                 >
-                    <Info className={getIconStyle()}/>
-                    <span className='max-sm:hidden'>About</span>
+                    <Info className={getIconStyle()}/>About
                 </button>
             </div>
             <dialog className='modal' ref={modalRef} onClose={() => setIsModalOpen(false)} >
-                <div className="modal-box bg-base-100">
+                <div className="modal-box bg-base-100 max-h-screen">
                     <div dangerouslySetInnerHTML={{__html: about}} className='min-h-48'/>
                     <div className='border-t border-base-content/30 mb-4'/>
                     <div className='flex justify-around'>
@@ -106,14 +105,14 @@ const Header: React.FC = () => {
                             ])
                         }
                     </div>
-                    <div className='border-t border-base-content/30 mt-4 mb-8'/>
-                    <div className='flex justify-between my-4'>
-                        <Link className='flex-1 mr-2 my-1' href='https://github.com/wwricu' target='_blank'>
+                    <div className='border-t border-base-content/30 mt-4 mb-6'/>
+                    <div className='flex justify-between'>
+                        <Link className='flex-1 mr-2' href='https://github.com/wwricu' target='_blank'>
                             <button className='btn btn-active btn-primary btn-sm text-base-100 rounded w-full'>
                                 <GithubIcon className={menuIconClassName}/>GitHub
                             </button>
                         </Link>
-                        <Link className='flex-1 ml-2 my-1' href='mailto:me@wwr.icu'>
+                        <Link className='flex-1 ml-2' href='mailto:me@wwr.icu'>
                             <button className='btn bg-base-100 text-base-content border-primary rounded-s btn-sm rounded w-full'>
                                 <Mail className={`${menuIconClassName} stroke-base-primary`}/>Mail me
                             </button>
