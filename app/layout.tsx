@@ -6,18 +6,16 @@ export const dynamic = 'force-dynamic'
 
 export default function RootLayout({children}: { children: React.ReactNode }) {
     return (
-        <html>
-            <body>
-                <div className='flex flex-col min-h-screen bg-gray-100'>
-                    <Header/>
-                    <main className='flex flex-col flex-1 items-center'>{children}</main>
-                    <div className='flex flex-col justify-between items-center bg-slate-50 h-14'>
-                        <div className='w-full border-t border-gray-200'/>
-                        <div className='text-sm text-center text-gray-500'>
-                            wwr.icu {new Date().getFullYear()}
-                        </div>
-                        <div/>
+        <html lang="zh-CN">
+            <body className='flex flex-col min-h-screen bg-base-200'>
+                <Header/>
+                <main className='flex flex-col flex-1 items-center'>{children}</main>
+                <div className='flex flex-col justify-between items-center bg-base-100 text-base-content/50 h-14'>
+                    <div className='w-full border-t border-base-300'/>
+                    <div className='text-sm text-center'>
+                        wwr.icu {new Date().getFullYear()}
                     </div>
+                    <div/>
                 </div>
             </body>
         </html>
