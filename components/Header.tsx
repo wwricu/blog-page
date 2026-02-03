@@ -3,9 +3,9 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {
     House,
-    LayoutGrid,
     Info,
     Mail,
+    List,
     Tags
 } from 'lucide-react'
 import {GetAboutAPI} from "@/common/api"
@@ -76,7 +76,7 @@ const Header: React.FC = () => {
                         <House className={getIconStyle('/')}/>Home
                     </Link>
                     <Link href='/categories' className={getButtonStyle('/categories')}>
-                        <LayoutGrid className={getIconStyle('/categories')}/>Category
+                        <List className={getIconStyle('/categories')}/>Category
                     </Link>
                     <Link href='/tags' className={getButtonStyle('/tags')}>
                         <Tags className={getIconStyle('/tags')}/>Tags
