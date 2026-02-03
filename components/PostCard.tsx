@@ -14,7 +14,7 @@ const renderCategory = (tag: TagVO | undefined) => {
         <>
             <span><VerticalDivider/></span>
             <span className='max-w-[100vw] overflow-hidden'>
-                <Hash className='inline mr-1' size={15} color="#757575" strokeWidth={2}/>
+                <Hash className='inline mr-0.75' size={15} color="#757575" strokeWidth={2}/>
                 <Link href={`/categories/${tag.name}`}>
                     <div className='badge badge-neutral badge-outline rounded bg-base-100 text-base-content/70 hover:bg-primary hover:text-primary-content max-sm:badge-xs sm:badge-sm'>{tag.name}</div>
                 </Link>
@@ -31,7 +31,7 @@ const renderTags = (tagList: TagVO[]) => {
         <>
             <span><VerticalDivider/></span>
             <span className='max-w-[100vw] overflow-hidden'>
-                <Tags className='inline mr-1' size={15} color="#757575" strokeWidth={2}/>
+                <Tags className='inline mr-0.5' size={15} color="#757575" strokeWidth={2}/>
                 {tagList.map((tag: TagVO) => (
                     <Link key={tag.id} href={`/tags/${tag.name}`}>
                         <div className={`badge rounded mx-0.5 bg-base-300 text-base-content/70 hover:bg-primary hover:text-primary-content max-sm:badge-xs sm:badge-sm`}>{tag.name}</div>
@@ -52,10 +52,7 @@ export default function PostCard({postDetailVO}: { postDetailVO: PostDetailVO })
             rounded-box bg-base-100 shadow-xl
             max-sm:my-1 max-sm:min-h-16 sm:my-2 max-md:min-h-20 ${cardHeight}`
         }>
-            <div className={
-                `flex flex-col flex-1 justify-between items-start w-full
-                 max-sm:p-2 sm:p-4 md:px-6 md:py-4`
-            }>
+            <div className={`flex flex-col flex-1 justify-between items-start w-full max-sm:p-2 sm:p-4`}>
                 <Link className='flex-1 w-full hover:text-primary-content' href={`/detail/${postDetailVO.id}`}>
                     <h4 className='hover:text-primary text-base-content font-bold mb-1 line-clamp-1 sm:text-lg md:text-xl'>{postDetailVO.title}</h4>
                     <p className='text-base-content/70 line-clamp-2 font-normal max-h-16 min-h-0 max-sm:text-xs max-md:my-2 my-4'>
@@ -63,10 +60,10 @@ export default function PostCard({postDetailVO}: { postDetailVO: PostDetailVO })
                     </p>
                 </Link>
                 <div className='flex flex-col justify-end items-start'>
-                    <div className='flex justify-start items-baseline gap-x-2.5 w-full flex-wrap'>
+                    <div className='flex justify-start items-baseline gap-x-2 w-full flex-wrap'>
                         <span>
-                            <Clock className="inline mr-1" size={15} color="#757575" strokeWidth={2}/>
-                            <span className='text-base-content/50 font-medium align-middle mr-0.5 max-sm:text-xs sm:text-sm'>
+                            <Clock className="inline mr-0.75" size={15} color="#757575" strokeWidth={2}/>
+                            <span className='text-base-content/50 font-medium align-middle max-sm:text-xs sm:text-sm'>
                                 {postDetailVO.create_time.slice(0, 10)}
                             </span>
                         </span>
