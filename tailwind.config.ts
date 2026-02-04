@@ -6,17 +6,4 @@ export default {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  theme: {
-    extend: {
-      fontFamily: {
-        sans: ['PingFang SC', 'sans-serif'],
-        heading: ['Inter', 'sans-serif'],
-        code: ['Fira Code', 'monospace'],
-      },
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-      },
-    },
-  }
 } satisfies Config;

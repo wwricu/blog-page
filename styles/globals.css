@@ -1,8 +1,15 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 @plugin "daisyui" {
-  themes: lemonade --default, dim --prefersdark, nord, dracula, sunset;
+  themes: lemonade --default, dim --prefersdark, nord, dracula, sunset, abyss;
 }
+
 body {
   font-family: 'PingFang UI', 'Microsoft JhengHei', Helvetica, sans-serif;
+}
+
+.prose table {
+  display: block;
+  overflow-x: auto;
+  width: 100%;
 }

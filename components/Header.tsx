@@ -3,15 +3,15 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {
     House,
-    LayoutGrid,
     Info,
     Mail,
+    List,
     Tags
 } from 'lucide-react'
 import {GetAboutAPI} from "@/common/api"
 import {usePathname} from "next/navigation"
 import Link from "next/link"
-import {GithubIcon} from "@/components/Common";
+import {GithubIcon} from "@/components/Common"
 
 const Header: React.FC = () => {
     const pathname = usePathname()
@@ -23,7 +23,7 @@ const Header: React.FC = () => {
     const [currentRoute, setCurrentRoute] = useState<string>('')
     const modalRef = useRef<HTMLDialogElement>(null)
 
-    const menuItemClassName = 'btn btn-sm font-medium h-full text-base-content rounded-none border-0 shadow-none max-sm:px-2'
+    const menuItemClassName = 'btn btn-sm font-semibold h-full text-base-content rounded-none border-0 shadow-none max-sm:px-2'
     const menuIconClassName = 'stroke-2 w-3.75 h-3.75'
 
     useEffect(() => {
@@ -76,7 +76,7 @@ const Header: React.FC = () => {
                         <House className={getIconStyle('/')}/>Home
                     </Link>
                     <Link href='/categories' className={getButtonStyle('/categories')}>
-                        <LayoutGrid className={getIconStyle('/categories')}/>Category
+                        <List className={getIconStyle('/categories')}/>Category
                     </Link>
                     <Link href='/tags' className={getButtonStyle('/tags')}>
                         <Tags className={getIconStyle('/tags')}/>Tags
@@ -89,14 +89,13 @@ const Header: React.FC = () => {
                         setIsModalOpen(true)
                     }}
                 >
-                    <Info className={getIconStyle()}/>
-                    <span className='max-sm:hidden'>About</span>
+                    <Info className={getIconStyle()}/>About
                 </button>
             </div>
             <dialog className='modal' ref={modalRef} onClose={() => setIsModalOpen(false)} >
-                <div className="modal-box bg-base-100">
+                <div className="modal-box bg-base-100 max-h-screen">
                     <div dangerouslySetInnerHTML={{__html: about}} className='min-h-48'/>
-                    <div className='border-t border-base-content/30 mb-4'/>
+                    <div className='border-t border-base-content/30 mt-6 mb-4'/>
                     <div className='flex justify-around'>
                         {
                             renderStat([
@@ -106,14 +105,14 @@ const Header: React.FC = () => {
                             ])
                         }
                     </div>
-                    <div className='border-t border-base-content/30 mt-4 mb-8'/>
-                    <div className='flex justify-between my-4'>
-                        <Link className='flex-1 mr-2 my-1' href='https://github.com/wwricu' target='_blank'>
+                    <div className='border-t border-base-content/30 mt-4 mb-6'/>
+                    <div className='flex justify-between'>
+                        <Link className='flex-1 mr-2' href='https://github.com/wwricu' target='_blank'>
                             <button className='btn btn-active btn-primary btn-sm text-base-100 rounded w-full'>
                                 <GithubIcon className={menuIconClassName}/>GitHub
                             </button>
                         </Link>
-                        <Link className='flex-1 ml-2 my-1' href='mailto:me@wwr.icu'>
+                        <Link className='flex-1 ml-2' href='mailto:me@wwr.icu'>
                             <button className='btn bg-base-100 text-base-content border-primary rounded-s btn-sm rounded w-full'>
                                 <Mail className={`${menuIconClassName} stroke-base-primary`}/>Mail me
                             </button>
