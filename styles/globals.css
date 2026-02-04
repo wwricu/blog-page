@@ -7,3 +7,9 @@
 body {
   font-family: 'PingFang UI', 'Microsoft JhengHei', Helvetica, sans-serif;
 }
+
+.prose table {
+  display: block;
+  overflow-x: auto;
+  width: 100%;
+}
