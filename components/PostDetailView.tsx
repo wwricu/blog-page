@@ -47,9 +47,9 @@ const renderCategory = (postDetailVO: PostDetailVO) => {
 export default async function PostDetailView({ id }: { id: number | string }) {
     const postDetailVO = await GetPostDetailAPI(id!!)
     return (
-        <div className='flex-1 bg-base-100 shadow-xl max-sm:p-2 max-md:py-4 max-md:px-4 max-md:w-full md:w-3xl md:py-6 md:px-8 '>
+        <div className='flex-1 bg-base-100 shadow-xl max-sm:p-2 max-md:py-4 max-md:px-4 max-md:w-full md:w-3xl md:py-6 md:px-8'>
             <h1 className='text-base-content text-2xl font-bold'>{postDetailVO.title}</h1>
-            <div className='flex items-center gap-2.5 mt-6 mb-8 flex-wrap'>
+            <div className='flex items-center max-sm:gap-1 max-sm:mt-2 max-sm:mb-4 sm:gap-2 sm:mt-4 sm:mb-6 md:mt-6 md:mb-8 flex-wrap'>
                 <span>
                     <Clock className='inline mr-1' size={16} color="#757575" strokeWidth={2}/>
                     <span className='font-medium mr-0.5 text-base-content/60 align-middle max-sm:text-xs sm:text-sm'>{postDetailVO.create_time?.slice(0, 10)}</span>

@@ -132,7 +132,7 @@ export async function BreadCrumb({ filter, name }: PathParams) {
 
 export async function Footer() {
     return (
-        <div className='flex flex-col justify-between items-center bg-base-100 text-base-content/60 h-14'>
+        <div className='flex flex-col justify-between items-center bg-base-100 text-base-content/60 max-md:h-10 md:h-14'>
             <div className='w-full border-t border-base-300'/>
             <div className='text-sm text-center'>
                 wwr.icu {new Date().getFullYear()}
