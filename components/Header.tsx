@@ -3,15 +3,15 @@
 import React, {useEffect, useRef, useState} from 'react'
 import {
     House,
-    LayoutGrid,
     Info,
     Mail,
+    List,
     Tags
 } from 'lucide-react'
 import {GetAboutAPI} from "@/common/api"
 import {usePathname} from "next/navigation"
 import Link from "next/link"
-import {GithubIcon} from "@/components/Common";
+import {GithubIcon} from "@/components/Common"
 
 const Header: React.FC = () => {
     const pathname = usePathname()
@@ -76,7 +76,7 @@ const Header: React.FC = () => {
                         <House className={getIconStyle('/')}/>Home
                     </Link>
                     <Link href='/categories' className={getButtonStyle('/categories')}>
-                        <LayoutGrid className={getIconStyle('/categories')}/>Category
+                        <List className={getIconStyle('/categories')}/>Category
                     </Link>
                     <Link href='/tags' className={getButtonStyle('/tags')}>
                         <Tags className={getIconStyle('/tags')}/>Tags
@@ -95,7 +95,7 @@ const Header: React.FC = () => {
             <dialog className='modal' ref={modalRef} onClose={() => setIsModalOpen(false)} >
                 <div className="modal-box bg-base-100 max-h-screen">
                     <div dangerouslySetInnerHTML={{__html: about}} className='min-h-48'/>
-                    <div className='border-t border-base-content/30 mb-4'/>
+                    <div className='border-t border-base-content/30 mt-6 mb-4'/>
                     <div className='flex justify-around'>
                         {
                             renderStat([
