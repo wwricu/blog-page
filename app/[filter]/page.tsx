@@ -4,6 +4,23 @@ import TagView from "@/components/TagView"
 import {AsyncPathParams, CategoriesURL, TagsUrl} from "@/common/common"
 import React from "react"
 import PostView from "@/components/PostView"
+import {Metadata} from "next";
+
+export async function generateMetadata({ params }: AsyncPathParams): Promise<Metadata> {
+    const filter = (await params).filter
+
+    const metadata: Metadata = {
+        title: `${filter} | wwr.icu`,
+        description: `Explore all posts organized by ${filter}`
+    }
+
+    if (filter !== CategoriesURL && filter !== TagsUrl) {
+        metadata.title = `Page ${filter} | wwr.icu`
+        metadata.description = `Explore all posts on ${filter}th page `
+    }
+
+    return metadata
+}
 
 export default async function FilterPage({ params }: AsyncPathParams) {
     const filter = (await params)?.filter
