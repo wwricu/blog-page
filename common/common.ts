@@ -6,7 +6,7 @@ export type PathParams = {
 }
 
 export type AsyncPathParams = {
-    params?: Promise<PathParams>
+    params: Promise<PathParams>
 }
 
 export const TagsUrl = 'tags'

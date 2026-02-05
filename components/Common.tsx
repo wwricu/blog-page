@@ -123,7 +123,7 @@ export async function BreadCrumb({ filter, name }: PathParams) {
                 <ul>
                     <li><a className='hover:text-primary' href={'/'}>Home</a></li>
                     <li><a className='hover:text-primary' href={`/${filter}`}>{filter}</a></li>
-                    <li>{decodeURI(name)}</li>
+                    <li>{decodeURIComponent(name)}</li>
                 </ul>
             </div>
         )
