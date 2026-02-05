@@ -15,7 +15,7 @@ const renderCategory = (tag: TagVO | undefined) => {
             <span><VerticalDivider/></span>
             <span className='max-w-[100vw] overflow-hidden'>
                 <Hash className='inline mr-0.75' size={15} color="#757575" strokeWidth={2}/>
-                <Link href={`/categories/${tag.name}`}>
+                <Link href={`/categories/${encodeURIComponent(tag.name)}`}>
                     <div className='badge badge-neutral badge-outline rounded bg-base-100 text-base-content/70 hover:bg-primary hover:text-primary-content max-sm:badge-xs sm:badge-sm'>{tag.name}</div>
                 </Link>
             </span>
@@ -33,7 +33,7 @@ const renderTags = (tagList: TagVO[]) => {
             <span className='max-w-[100vw] overflow-hidden'>
                 <Tags className='inline mr-0.5' size={15} color="#757575" strokeWidth={2}/>
                 {tagList.map((tag: TagVO) => (
-                    <Link key={tag.id} href={`/tags/${tag.name}`}>
+                    <Link key={tag.id} href={`/tags/${encodeURIComponent(tag.name)}`}>
                         <div className={`badge rounded mx-0.5 bg-base-300 text-base-content/70 hover:bg-primary hover:text-primary-content max-sm:badge-xs sm:badge-sm`}>{tag.name}</div>
                     </Link>
                 ))}

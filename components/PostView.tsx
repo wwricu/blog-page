@@ -9,9 +9,9 @@ import {CategoriesURL, PathParams, TagsUrl} from "@/common/common"
 export default async function PostView({ filter, name, index = '1' }: PathParams) {
     const apiParams: { index: number, category?: string, tag?: string } = { index: parseInt(index) }
     if (filter === CategoriesURL) {
-        apiParams.category = name ? decodeURI(name) : undefined
+        apiParams.category = name ? decodeURIComponent(name) : undefined
     } else if (filter === TagsUrl) {
-        apiParams.tag = name ? decodeURI(name) : undefined
+        apiParams.tag = name ? decodeURIComponent(name) : undefined
     } else if (filter && name) {
         return <></>
     }
