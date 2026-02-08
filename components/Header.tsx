@@ -12,8 +12,14 @@ import {GetAboutAPI} from "@/common/api"
 import {usePathname} from "next/navigation"
 import Link from "next/link"
 import {GithubIcon} from "@/components/Common"
+import {JetBrains_Mono} from "next/font/google";
 
-const Header: React.FC = () => {
+const jetBrainsMono = JetBrains_Mono({
+    subsets: ['latin', 'latin-ext'],
+    display: 'swap',
+})
+
+export default function Header() {
     const pathname = usePathname()
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [about, setAbout] = useState<string>('')
@@ -23,7 +29,7 @@ const Header: React.FC = () => {
     const [currentRoute, setCurrentRoute] = useState<string>('')
     const modalRef = useRef<HTMLDialogElement>(null)
 
-    const menuItemClassName = 'btn btn-sm font-semibold h-full text-base-content rounded-none border-0 shadow-none max-sm:px-2'
+    const menuItemClassName = `btn btn-sm font-semibold ${jetBrainsMono.className} h-full text-base-content rounded-none border-0 shadow-none max-sm:px-2`
     const menuIconClassName = 'stroke-2 w-3.75 h-3.75'
 
     useEffect(() => {
@@ -58,12 +64,14 @@ const Header: React.FC = () => {
     ) => {
         return (
             <>
-                {statList.map((stat) => (
-                    <div key={stat.title} className='stat place-items-center'>
-                        <div className="stat-title text-sm font-medium text-base-content/60">{stat.title}</div>
-                        <div className="stat-value text-3xl font-normal text-base-content">{stat.value}</div>
-                    </div>
-                ))}
+                {
+                    statList.map((stat) => (
+                        <div key={stat.title} className='stat place-items-center'>
+                            <div className="stat-title text-sm font-medium text-base-content/60">{stat.title}</div>
+                            <div className="stat-value text-3xl font-normal text-base-content">{stat.value}</div>
+                        </div>
+                    ))
+                }
             </>
         )
     }
@@ -106,7 +114,7 @@ const Header: React.FC = () => {
                         }
                     </div>
                     <div className='border-t border-base-content/30 mt-4 mb-6'/>
-                    <div className='flex justify-between'>
+                    <div className={`flex justify-between ${jetBrainsMono.className}`}>
                         <Link className='flex-1 mr-2' href='https://github.com/wwricu' target='_blank'>
                             <button className='btn btn-active btn-primary btn-sm text-base-100 rounded w-full'>
                                 <GithubIcon className={menuIconClassName}/>GitHub
@@ -126,5 +134,3 @@ const Header: React.FC = () => {
         </>
     )
 }
-
-export default Header

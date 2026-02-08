@@ -7,7 +7,7 @@ import {VerticalDivider} from "@/components/Common"
 
 const renderCategory = (tag: TagVO | undefined) => {
     if (!tag) {
-        return <></>
+        return null
     }
 
     return (
@@ -25,18 +25,20 @@ const renderCategory = (tag: TagVO | undefined) => {
 
 const renderTags = (tagList: TagVO[]) => {
     if (!tagList || tagList.length === 0) {
-        return <></>
+        return null
     }
     return (
         <>
             <span><VerticalDivider/></span>
             <span className='max-w-[100vw] overflow-hidden'>
                 <Tags className='inline mr-0.5' size={15} color="#757575" strokeWidth={2}/>
-                {tagList.map((tag: TagVO) => (
-                    <Link key={tag.id} href={`/tags/${encodeURIComponent(tag.name)}`}>
-                        <div className={`badge rounded mx-0.5 bg-base-300 text-base-content/70 hover:bg-primary hover:text-primary-content max-sm:badge-xs sm:badge-sm`}>{tag.name}</div>
-                    </Link>
-                ))}
+                {
+                    tagList.map((tag: TagVO) => (
+                        <Link key={tag.id} href={`/tags/${encodeURIComponent(tag.name)}`}>
+                            <div className={`badge rounded mx-0.5 bg-base-300 text-base-content/70 hover:bg-primary hover:text-primary-content max-sm:badge-xs sm:badge-sm`}>{tag.name}</div>
+                        </Link>
+                    ))
+                }
             </span>
         </>
     )
@@ -54,7 +56,7 @@ export default function PostCard({postDetailVO}: { postDetailVO: PostDetailVO })
         }>
             <div className={`flex flex-col flex-1 justify-between items-start w-full max-sm:p-2 sm:p-4`}>
                 <Link className='flex-1 w-full hover:text-primary-content' href={`/detail/${postDetailVO.id}`}>
-                    <h4 className='hover:text-primary text-base-content font-bold mb-1 line-clamp-1 sm:text-lg md:text-xl'>{postDetailVO.title}</h4>
+                    <h4 className='hover:text-primary text-base-content font-medium mb-1 line-clamp-1 sm:text-lg md:text-xl'>{postDetailVO.title}</h4>
                     <p className='text-base-content/70 line-clamp-2 font-normal max-h-16 min-h-0 max-sm:text-xs max-md:my-2 my-4'>
                         {postDetailVO.preview}
                     </p>
@@ -73,14 +75,16 @@ export default function PostCard({postDetailVO}: { postDetailVO: PostDetailVO })
                 </div>
             </div>
             {
-                hasCover ? <Image
+                hasCover ?
+                <Image
                     loading='lazy'
                     unoptimized
                     width={300}
                     height={180}
                     src={postDetailVO.cover?.url ?? `https://picsum.photos/300/180?id=${postDetailVO.id}`} alt={postDetailVO.cover?.name ?? 'cover'}
                     className='object-cover max-md:hidden'
-                /> : <></>
+                /> :
+                null
             }
         </div>
     )
