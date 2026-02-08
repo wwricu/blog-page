@@ -5,20 +5,22 @@ import {VerticalDivider} from "@/components/Common"
 
 const renderTags = (postDetailVO: PostDetailVO) => {
     if (postDetailVO?.tag_list == null || postDetailVO?.tag_list.length === 0) {
-        return <></>
+        return null
     }
     return (
         <>
             <span><VerticalDivider/></span>
             <span className='flex-wrap'>
                 <Tags className='inline text-base-content/50 mr-1' size={16} color="#757575" strokeWidth={2}/>
-                {postDetailVO?.tag_list.map((tag: TagVO) => (
-                    <a key={tag.id} href={`/tags/${encodeURIComponent(tag.name)}`} className='ml-1'>
-                        <div className={'badge rounded bg-base-300 text-base-content/70 hover:bg-primary hover:text-primary-content max-sm:badge-xs sm:badge-sm'}>
-                            {tag.name}
-                        </div>
-                    </a>
-                ))}
+                {
+                    postDetailVO?.tag_list.map((tag: TagVO) => (
+                        <a key={tag.id} href={`/tags/${encodeURIComponent(tag.name)}`} className='ml-1'>
+                            <div className={'badge rounded bg-base-300 text-base-content/70 hover:bg-primary hover:text-primary-content max-sm:badge-xs sm:badge-sm'}>
+                                {tag.name}
+                            </div>
+                        </a>
+                    ))
+                }
             </span>
         </>
     )
@@ -26,7 +28,7 @@ const renderTags = (postDetailVO: PostDetailVO) => {
 
 const renderCategory = (postDetailVO: PostDetailVO) => {
     if (postDetailVO?.category == null) {
-        return <></>
+        return null
     }
     return (
         <>

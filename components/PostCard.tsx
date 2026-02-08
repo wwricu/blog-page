@@ -7,7 +7,7 @@ import {VerticalDivider} from "@/components/Common"
 
 const renderCategory = (tag: TagVO | undefined) => {
     if (!tag) {
-        return <></>
+        return null
     }
 
     return (
@@ -25,7 +25,7 @@ const renderCategory = (tag: TagVO | undefined) => {
 
 const renderTags = (tagList: TagVO[]) => {
     if (!tagList || tagList.length === 0) {
-        return <></>
+        return null
     }
     return (
         <>
@@ -84,7 +84,7 @@ export default function PostCard({postDetailVO}: { postDetailVO: PostDetailVO })
                     src={postDetailVO.cover?.url ?? `https://picsum.photos/300/180?id=${postDetailVO.id}`} alt={postDetailVO.cover?.name ?? 'cover'}
                     className='object-cover max-md:hidden'
                 /> :
-                <></>
+                null
             }
         </div>
     )
