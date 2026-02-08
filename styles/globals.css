@@ -2,10 +2,10 @@
 @plugin "@tailwindcss/typography";
 @plugin "daisyui" {
   themes: lemonade --default, dim --prefersdark, nord, dracula, sunset, abyss;
-}
-
-body {
-  font-family: 'PingFang UI', 'Microsoft JhengHei', Helvetica, sans-serif;
+  @theme {
+    --font-sans: Inter, sans-serif;
+    --font-mono: 'Jetbrains Mono', monospace;
+  }
 }
 
 .prose table {
