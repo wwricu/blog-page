@@ -23,7 +23,7 @@ const Header: React.FC = () => {
     const [currentRoute, setCurrentRoute] = useState<string>('')
     const modalRef = useRef<HTMLDialogElement>(null)
 
-    const menuItemClassName = 'btn btn-sm font-semibold h-full text-base-content rounded-none border-0 shadow-none max-sm:px-2'
+    const menuItemClassName = 'btn btn-sm font-semibold font-mono h-full text-base-content rounded-none border-0 shadow-none max-sm:px-2'
     const menuIconClassName = 'stroke-2 w-3.75 h-3.75'
 
     useEffect(() => {
@@ -58,12 +58,14 @@ const Header: React.FC = () => {
     ) => {
         return (
             <>
-                {statList.map((stat) => (
-                    <div key={stat.title} className='stat place-items-center'>
-                        <div className="stat-title text-sm font-medium text-base-content/60">{stat.title}</div>
-                        <div className="stat-value text-3xl font-normal text-base-content">{stat.value}</div>
-                    </div>
-                ))}
+                {
+                    statList.map((stat) => (
+                        <div key={stat.title} className='stat place-items-center'>
+                            <div className="stat-title text-sm font-medium text-base-content/60">{stat.title}</div>
+                            <div className="stat-value text-3xl font-normal text-base-content">{stat.value}</div>
+                        </div>
+                    ))
+                }
             </>
         )
     }
