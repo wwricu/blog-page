@@ -13,7 +13,7 @@ import {usePathname} from "next/navigation"
 import Link from "next/link"
 import {GithubIcon} from "@/components/Common"
 
-const Header: React.FC = () => {
+export default function Header() {
     const pathname = usePathname()
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [about, setAbout] = useState<string>('')
@@ -128,5 +128,3 @@ const Header: React.FC = () => {
         </>
     )
 }
-
-export default Header
