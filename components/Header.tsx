@@ -12,6 +12,12 @@ import {GetAboutAPI} from "@/common/api"
 import {usePathname} from "next/navigation"
 import Link from "next/link"
 import {GithubIcon} from "@/components/Common"
+import {JetBrains_Mono} from "next/font/google";
+
+const jetBrainsMono = JetBrains_Mono({
+    subsets: ['latin', 'latin-ext'],
+    display: 'swap',
+})
 
 export default function Header() {
     const pathname = usePathname()
@@ -23,7 +29,7 @@ export default function Header() {
     const [currentRoute, setCurrentRoute] = useState<string>('')
     const modalRef = useRef<HTMLDialogElement>(null)
 
-    const menuItemClassName = 'btn btn-sm font-semibold font-mono h-full text-base-content rounded-none border-0 shadow-none max-sm:px-2'
+    const menuItemClassName = `btn btn-sm font-semibold ${jetBrainsMono.className} h-full text-base-content rounded-none border-0 shadow-none max-sm:px-2`
     const menuIconClassName = 'stroke-2 w-3.75 h-3.75'
 
     useEffect(() => {
@@ -108,7 +114,7 @@ export default function Header() {
                         }
                     </div>
                     <div className='border-t border-base-content/30 mt-4 mb-6'/>
-                    <div className='flex justify-between'>
+                    <div className={`flex justify-between ${jetBrainsMono.className}`}>
                         <Link className='flex-1 mr-2' href='https://github.com/wwricu' target='_blank'>
                             <button className='btn btn-active btn-primary btn-sm text-base-100 rounded w-full'>
                                 <GithubIcon className={menuIconClassName}/>GitHub
