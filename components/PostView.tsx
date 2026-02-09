@@ -2,7 +2,6 @@ import {PostDetailPageVO} from "@/common/model"
 import PostCard from "@/components/PostCard"
 import React from "react"
 import {BreadCrumb, Pagination} from "@/components/Common"
-import {getPathname} from "@/common/middleware"
 import {GetAllBlogPosts} from "@/common/api"
 import {CategoriesURL, PathParams, TagsUrl} from "@/common/common"
 
@@ -12,18 +11,12 @@ export default async function PostView({ filter, name, index = '1' }: PathParams
         apiParams.category = name ? decodeURIComponent(name) : undefined
     } else if (filter === TagsUrl) {
         apiParams.tag = name ? decodeURIComponent(name) : undefined
-    } else if (filter && name) {
+    } else if (name) {
         return null
     }
 
     const postDetailPageVO: PostDetailPageVO = await GetAllBlogPosts(apiParams.index, apiParams.category, apiParams.tag)
     const current = postDetailPageVO.page_index ?? 1
-
-    const getUrl = async (page: number) => {
-        const pathname = await getPathname()
-        const split = pathname.endsWith('/') ? '' : '/'
-        return `${pathname}${split}${page}`
-    }
 
     return (
         <div className={`
@@ -42,7 +35,7 @@ export default async function PostView({ filter, name, index = '1' }: PathParams
                 className='max-sm:mt-1 max-sm:mb-2 sm:mt-2 sm:mb-4 md:mt-3 md:mb-6'
                 current={current}
                 total={postDetailPageVO.count}
-                getHref={getUrl}
+                baseUrl={ (filter && name) ? `/${filter}/${name}` : '/' }
             />
         </div>
     )

@@ -5,17 +5,17 @@ import {CategoriesURL, PathParams, TagsUrl} from "@/common/common"
 type PaginationProps = {
     total: number,
     current: number
-    getHref: (page: number) => Promise<string>
     pageSize?: number
     className?: string
+    baseUrl: string
 }
 
-export const Pagination = async ({ current = 1, total, getHref, pageSize = 10, className }: PaginationProps) => {
-    const delta = 1
-
+export const Pagination = ({ current = 1, total, pageSize = 10, baseUrl, className }: PaginationProps) => {
     if (total < 0) {
         total = 0
     }
+
+    const delta = 1
     const pageCount = Math.ceil(total / pageSize)
 
     if (current < 1) {
@@ -63,40 +63,29 @@ export const Pagination = async ({ current = 1, total, getHref, pageSize = 10, c
         return pages
     }
 
-    const buttons = getButtonValues()
-    const buttonProps = []
-
-    for (let i = 0; i < buttons.length; i++) {
-        const value = buttons[i]
-        let status = 'btn-ghost'
-        if (value === '...') {
-            status = 'btn-ghost'
-        } else if (value === current) {
-            status = 'btn-active btn-primary text-primary-content'
+    const getUrl = (page: string) => {
+        if (page === '1') {
+            return baseUrl
         }
-        buttonProps.push({
-            value: value,
-            href: value === '...' ? '' : await getHref(Number(value)),
-            status: status
-        })
+        // split for unexpected tailing slash
+        return `${baseUrl}${baseUrl.endsWith('/') ? '' : '/'}${page}`
     }
 
     return (
         <div className={`join ${className}`}>
             {
-                buttonProps.map((item, i) => (
-                    <Link
-                        key={i}
-                        href={item.href}
-                        className={`
-                            join-item btn btn-outline
-                            border-base-300 text-base-content
-                            max-md:btn-sm md:btn-md ${item.status}
-                        `}
-                    >
-                        {item.value}
-                    </Link>
-                ))
+                getButtonValues().map((value, i) => {
+                    const status = value === current ? 'btn-active btn-primary text-primary-content' : 'btn-ghost'
+                    return (
+                        <Link
+                            key={i}
+                            href={value === '...' ? '' : getUrl(value.toString())}
+                            className={`join-item btn btn-outline border-base-300 text-base-content max-md:btn-sm md:btn-md ${status}`}
+                        >
+                            {value}
+                        </Link>
+                    )
+                })
             }
         </div>
     )
