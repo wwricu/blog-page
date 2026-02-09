@@ -7,7 +7,7 @@ import {PostCategory, PostCreateTime, PostTagList} from "@/components/PostMeta"
 export default function PostCard({postDetailVO}: { postDetailVO: PostDetailVO }) {
     return (
         <div className={
-            `flex justify-between gap-2 p-0 w-full
+            `flex justify-between gap-2 p-0 w-full overflow-x-auto
             rounded-lg sm:rounded-xl md:rounded-box bg-base-100 shadow-xl
             max-sm:min-h-16 max-md:min-h-20 md:min-h-45`
         }>

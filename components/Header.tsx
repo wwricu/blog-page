@@ -9,7 +9,7 @@ import {GithubIcon} from "@/components/Common"
 import {iconClassNames, monospace} from "@/common/common"
 
 const menuItemClassName = `btn btn-sm btn-ghost transition-all rounded-none border-0 shadow-none h-full text-base-content
-                           border-b-2 pt-0.5 hover:bg-primary/10 max-sm:px-2`
+                           border-b-2 pt-0.5 hover:bg-primary/10 max-sm:pl-2`
 
 const headers = [
     { url: '/', label: 'Home', Icon: House},
@@ -53,8 +53,8 @@ export default function Header() {
 
     return (
         <>
-            <div className='flex justify-between items-center sticky top-0 bg-base-100 shadow-xs flex-wrap h-10'>
-                <div className='flex justify-start items-center flex-wrap h-full'>
+            <div className='flex justify-between items-center sticky top-0 bg-base-100 shadow-xs h-10 overflow-auto'>
+                <div className='flex justify-start items-center h-full'>
                     {
                         headers.map(({url, label, Icon}) =>
                             <Link key={url} href={url} className={getButtonStyle(url)}>
