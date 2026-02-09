@@ -12,9 +12,9 @@ const menuItemClassName = `btn btn-sm btn-ghost transition-all rounded-none bord
                            border-b-2 pt-0.5 hover:bg-primary/10 max-sm:pl-2`
 
 const headers = [
-    { url: '/', label: 'Home', Icon: House},
-    { url: '/categories', label: 'Category', Icon: List},
-    { url: '/tags', label: 'Tag', Icon: Tags},
+    { url: '/', label: 'Home', Icon: House },
+    { url: '/categories', label: 'Category', Icon: List },
+    { url: '/tags', label: 'Tag', Icon: Tags, iconClassName: 'relative top-[0.75px]'},
 ]
 
 export default function Header() {
@@ -56,9 +56,9 @@ export default function Header() {
             <div className='flex justify-between items-center sticky top-0 bg-base-100 shadow-xs h-10 overflow-auto'>
                 <div className='flex justify-start items-center h-full'>
                     {
-                        headers.map(({url, label, Icon}) =>
+                        headers.map(({url, label, Icon, iconClassName}) =>
                             <Link key={url} href={url} className={getButtonStyle(url)}>
-                                <Icon className={getIconStyle(url)}/>
+                                <Icon className={`${getIconStyle(url)} ${iconClassName}`}/>
                                 {label}
                             </Link>
                         )
