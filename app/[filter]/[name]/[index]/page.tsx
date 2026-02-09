@@ -3,7 +3,7 @@ import {AsyncPathParams} from "@/common/common"
 import {Metadata} from "next"
 import {permanentRedirect} from "next/navigation"
 
-export async function generateMetadata({ params }: AsyncPathParams): Promise<Metadata> {
+export const generateMetadata = async ({ params }: AsyncPathParams): Promise<Metadata> => {
     const { filter, name, index } = await params
     return {
         title: `Page ${index} | ${name} | wwr.icu`,

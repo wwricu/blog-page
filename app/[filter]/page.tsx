@@ -4,10 +4,10 @@ import TagView from "@/components/TagView"
 import {AsyncPathParams, CategoriesURL, TagsUrl} from "@/common/common"
 import React from "react"
 import PostView from "@/components/PostView"
-import {Metadata} from "next";
+import {Metadata} from "next"
 import {permanentRedirect} from "next/navigation"
 
-export async function generateMetadata({ params }: AsyncPathParams): Promise<Metadata> {
+export const generateMetadata = async ({ params }: AsyncPathParams): Promise<Metadata> => {
     const filter = (await params).filter
 
     const metadata: Metadata = {

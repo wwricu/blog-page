@@ -118,7 +118,7 @@ export const GithubIcon = ({ className='', }) => {
     )
 }
 
-export async function BreadCrumb({ filter, name, className }: PathParams) {
+export const BreadCrumb = async ({ filter, name, className }: PathParams)=> {
     if ((filter === CategoriesURL || filter === TagsUrl) && name) {
         return (
             <div className={`breadcrumbs text-base-content/70 text-sm w-full ${className}`}>
@@ -132,7 +132,7 @@ export async function BreadCrumb({ filter, name, className }: PathParams) {
     }
 }
 
-export async function Footer() {
+export const Footer = async () => {
     return (
         <div className='flex flex-col justify-between items-center bg-base-100 text-base-content/70 max-md:h-10 md:h-14'>
             <div className='w-full border-t border-base-300'/>

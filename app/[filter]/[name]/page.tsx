@@ -2,7 +2,7 @@ import {AsyncPathParams} from "@/common/common"
 import PostView from "@/components/PostView"
 import {Metadata} from "next"
 
-export async function generateMetadata({ params }: AsyncPathParams): Promise<Metadata> {
+export const generateMetadata = async ({ params }: AsyncPathParams): Promise<Metadata> => {
     const { filter, name } = await params
     return {
         title: `${name} | wwr.icu`,
