@@ -5,6 +5,7 @@ export type PathParams = {
     filter?: string
     name?: string
     index?: string
+    className?: string
 }
 
 export type AsyncPathParams = {

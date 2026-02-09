@@ -13,7 +13,7 @@ const renderCategory = (tag: TagVO | undefined) => {
     return (
         <>
             <span><VerticalDivider/></span>
-            <span className='max-w-[100vw] overflow-hidden'>
+            <span className='max-w-screen overflow-hidden'>
                 <Hash className='inline mr-0.75' size={15} color="#757575" strokeWidth={2}/>
                 <Link href={`/categories/${encodeURIComponent(tag.name)}`}>
                     <div className='badge badge-neutral badge-outline rounded bg-base-100 text-base-content/70 hover:bg-primary hover:text-primary-content max-sm:badge-xs sm:badge-sm'>{tag.name}</div>
@@ -30,7 +30,7 @@ const renderTags = (tagList: TagVO[]) => {
     return (
         <>
             <span><VerticalDivider/></span>
-            <span className='max-w-[100vw] overflow-hidden'>
+            <span className='max-w-screen overflow-hidden'>
                 <Tags className='inline mr-0.5' size={15} color="#757575" strokeWidth={2}/>
                 {
                     tagList.map((tag: TagVO) => (
@@ -50,7 +50,7 @@ export default function PostCard({postDetailVO}: { postDetailVO: PostDetailVO })
     const cardHeight = hasCover ? 'md:h-45' : 'md:min-h-45'
     return (
         <div className={
-            `flex flex-1 justify-between gap-2 p-0 w-full 
+            `flex flex-1 justify-between gap-2 p-0 w-full
             rounded-lg sm:rounded-xl md:rounded-box bg-base-100 shadow-xl
             max-sm:min-h-16 max-md:min-h-20 ${cardHeight}`
         }>
@@ -82,7 +82,7 @@ export default function PostCard({postDetailVO}: { postDetailVO: PostDetailVO })
                     width={300}
                     height={180}
                     src={postDetailVO.cover?.url ?? `https://picsum.photos/300/180?id=${postDetailVO.id}`} alt={postDetailVO.cover?.name ?? 'cover'}
-                    className='object-cover max-md:hidden'
+                    className='object-cover max-md:hidden rounded-r-box'
                 /> :
                 null
             }
