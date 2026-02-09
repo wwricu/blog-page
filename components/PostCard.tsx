@@ -45,14 +45,11 @@ const renderTags = (tagList: TagVO[]) => {
 }
 
 export default function PostCard({postDetailVO}: { postDetailVO: PostDetailVO }) {
-    const hasCover = postDetailVO.cover?.url != null
-    // cover shown after md, h-45==180(image height)
-    const cardHeight = hasCover ? 'md:h-45' : 'md:min-h-45'
     return (
         <div className={
-            `flex flex-1 justify-between gap-2 p-0 w-full
+            `flex justify-between gap-2 p-0 w-full
             rounded-lg sm:rounded-xl md:rounded-box bg-base-100 shadow-xl
-            max-sm:min-h-16 max-md:min-h-20 ${cardHeight}`
+            max-sm:min-h-16 max-md:min-h-20 md:min-h-45`
         }>
             <div className={`flex flex-col flex-1 justify-between items-start w-full max-sm:p-2 sm:p-4`}>
                 <Link className='flex-1 w-full hover:text-primary-content' href={`/detail/${postDetailVO.id}`}>
@@ -75,16 +72,19 @@ export default function PostCard({postDetailVO}: { postDetailVO: PostDetailVO })
                 </div>
             </div>
             {
-                hasCover ?
-                <Image
-                    loading='lazy'
-                    unoptimized
-                    width={300}
-                    height={180}
-                    src={postDetailVO.cover?.url ?? `https://picsum.photos/300/180?id=${postDetailVO.id}`} alt={postDetailVO.cover?.name ?? 'cover'}
-                    className='object-cover max-md:hidden rounded-r-box'
-                /> :
-                null
+                postDetailVO.cover?.url != null && postDetailVO.cover?.name != null ? (
+                    <div className="relative max-md:hidden">
+                        <Image
+                            loading='lazy'
+                            width={300}
+                            height={180}
+                            alt={postDetailVO.cover?.name!!}
+                            src={postDetailVO.cover?.url!!}
+                            className='object-cover rounded-r-box h-full'
+                        />
+                        <div className='absolute inset-0 bg-black/40 dark:block hidden rounded-r-box'/>
+                    </div>
+                ) : null
             }
         </div>
     )

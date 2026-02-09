@@ -15,7 +15,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'picsum.photos',
+        hostname: 's3.**.amazonaws.com',
         port: '',
         pathname: '**',
       },
