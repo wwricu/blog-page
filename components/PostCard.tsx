@@ -5,9 +5,10 @@ import Link from 'next/link'
 import {PostCategory, PostCreateTime, PostTagList} from "@/components/PostMeta"
 
 export default function PostCard({postDetailVO}: { postDetailVO: PostDetailVO }) {
+    const hasCover = postDetailVO.cover?.url != null && postDetailVO.cover?.name != null
     return (
         <div className={
-            `flex justify-between gap-2 p-0 w-full overflow-x-auto
+            `flex justify-between p-0 w-full overflow-x-auto
             rounded-lg sm:rounded-xl md:rounded-box bg-base-100 shadow-xl
             max-sm:min-h-16 max-md:min-h-20 md:min-h-45`
         }>
@@ -18,25 +19,25 @@ export default function PostCard({postDetailVO}: { postDetailVO: PostDetailVO })
                         {postDetailVO.preview}
                     </p>
                 </Link>
-                <div className='flex justify-start items-baseline gap-x-4 gap-y-1 flex-wrap'>
+                <div className={`flex justify-stretch items-baseline gap-y-1 gap-x-4 flex-wrap`}>
                     <PostCreateTime createTime={postDetailVO?.create_time}/>
                     <PostCategory category={postDetailVO?.category}/>
                     <PostTagList tagList={postDetailVO?.tag_list}/>
                 </div>
             </div>
             {
-                postDetailVO.cover?.url != null && postDetailVO.cover?.name != null ? (
-                    <div className="relative w-75 max-md:hidden">
+                hasCover ? (
+                    <Link className="relative w-60 max-md:hidden" href={`/detail/${postDetailVO.id}`}>
                         <Image
                             loading='lazy'
-                            width={300}
+                            width={240}
                             height={180}
                             alt={postDetailVO.cover?.name!!}
                             src={postDetailVO.cover?.url!!}
                             className='object-cover rounded-r-box h-full'
                         />
                         <div className='absolute inset-0 bg-black/40 dark:block hidden rounded-r-box'/>
-                    </div>
+                    </Link>
                 ) : null
             }
         </div>

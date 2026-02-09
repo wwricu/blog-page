@@ -14,7 +14,7 @@ const menuItemClassName = `btn btn-sm btn-ghost transition-all rounded-none bord
 const headers = [
     { url: '/', label: 'Home', Icon: House },
     { url: '/categories', label: 'Category', Icon: List },
-    { url: '/tags', label: 'Tag', Icon: Tags, iconClassName: 'relative top-[0.75px]'},
+    { url: '/tags', label: 'Tag', Icon: Tags, iconClassName: 'relative top-[0.75px] transform scale-x-[-1]'},
 ]
 
 export default function Header() {

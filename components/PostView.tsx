@@ -21,9 +21,9 @@ export default async function PostView({ filter, name, index = '1' }: PathParams
     return (
         <div className={`
             flex flex-col items-center
-            max-sm:gap-1 max-sm:px-1 max-sm:mt-1
-            sm:gap-2 sm:mt-2 sm:px-2 max-md:w-full
-            md:gap-3 md:mt-3 md:w-3xl`
+            max-sm:gap-y-1 max-sm:px-1 max-sm:mt-1
+            sm:gap-y-2 sm:mt-2 sm:px-2 max-md:w-full
+            md:p-0 md:gap-y-3 md:mt-3 md:w-3xl`
         }>
             <BreadCrumb className='py-0 max-sm:pl-2 sm:pl-4' filter={filter} name={name}/>
             {
