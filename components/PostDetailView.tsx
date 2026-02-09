@@ -1,6 +1,6 @@
 import {PostDetailVO} from "@/common/model"
 import React from "react"
-import {PostCategory, PostCreateTime, PostTagList} from "@/components/PostMeta";
+import {PostCategory, PostCreateTime, PostTagList} from "@/components/PostMeta"
 
 export default async function PostDetailView({ postDetailVO }: { postDetailVO: PostDetailVO }) {
     return (

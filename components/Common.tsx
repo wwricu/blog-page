@@ -121,7 +121,7 @@ export const GithubIcon = ({ className='', }) => {
 export async function BreadCrumb({ filter, name, className }: PathParams) {
     if ((filter === CategoriesURL || filter === TagsUrl) && name) {
         return (
-            <div className={`breadcrumbs text-base-content/50 text-sm w-full ${className}`}>
+            <div className={`breadcrumbs text-base-content/70 text-sm w-full ${className}`}>
                 <ul>
                     <li><a className='hover:text-primary' href={'/'}>Home</a></li>
                     <li><a className='hover:text-primary' href={`/${filter}`}>{filter}</a></li>
