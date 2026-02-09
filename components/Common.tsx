@@ -72,7 +72,7 @@ export const Pagination = async ({ current = 1, total, getHref, pageSize = 10, c
         if (value === '...') {
             status = 'btn-ghost'
         } else if (value === current) {
-            status = 'btn-active btn-primary text-neutral'
+            status = 'btn-active btn-primary text-primary-content'
         }
         buttonProps.push({
             value: value,
@@ -84,22 +84,24 @@ export const Pagination = async ({ current = 1, total, getHref, pageSize = 10, c
     return (
         <div className={`join ${className}`}>
             {
-                buttonProps.map((item, i) => {
-                    return <Link
+                buttonProps.map((item, i) => (
+                    <Link
                         key={i} href={item.href}
                         className={`
-                            join-item btn btn-outline
-                            border-base-300 text-base-content
-                            max-md:btn-sm md:btn-md ${item.status}`}
-                    >{item.value}</Link>
-                })
+                        join-item btn btn-outline
+                        border-base-300 text-base-content
+                        max-md:btn-sm md:btn-md ${item.status}`}
+                    >
+                        {item.value}
+                    </Link>
+                ))
             }
         </div>
     )
 }
 
 export const VerticalDivider = () => {
-    return <div className='border-l h-4 inline-block align-middle border-neutral/60'/>
+    return <div className='border-l h-4 inline-block align-middle border-base-content/40'/>
 }
 
 export const GithubIcon = ({ className='', }) => {
@@ -116,10 +118,10 @@ export const GithubIcon = ({ className='', }) => {
     )
 }
 
-export async function BreadCrumb({ filter, name }: PathParams) {
+export async function BreadCrumb({ filter, name, className }: PathParams) {
     if ((filter === CategoriesURL || filter === TagsUrl) && name) {
         return (
-            <div className="breadcrumbs text-base-content/50 text-sm w-full py-1 pl-2">
+            <div className={`breadcrumbs text-base-content/70 text-sm w-full ${className}`}>
                 <ul>
                     <li><a className='hover:text-primary' href={'/'}>Home</a></li>
                     <li><a className='hover:text-primary' href={`/${filter}`}>{filter}</a></li>
@@ -141,3 +143,5 @@ export async function Footer() {
         </div>
     )
 }
+
+

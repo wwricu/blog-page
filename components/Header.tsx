@@ -1,23 +1,20 @@
 'use client'
 
 import React, {useEffect, useRef, useState} from 'react'
-import {
-    House,
-    Info,
-    Mail,
-    List,
-    Tags
-} from 'lucide-react'
+import {House, Info, Mail, List, Tags} from 'lucide-react'
 import {GetAboutAPI} from "@/common/api"
 import {usePathname} from "next/navigation"
 import Link from "next/link"
 import {GithubIcon} from "@/components/Common"
-import {JetBrains_Mono} from "next/font/google";
+import {iconClassNames, monospace} from "@/common/common"
 
-const jetBrainsMono = JetBrains_Mono({
-    subsets: ['latin', 'latin-ext'],
-    display: 'swap',
-})
+const menuItemClassName = `btn btn-sm font-semibold transition-all h-full text-base-content rounded-none border-0 shadow-none max-sm:px-2`
+
+const headers = [
+    { url: '/', label: 'Home', Icon: House},
+    { url: '/categories', label: 'Category', Icon: List},
+    { url: '/tags', label: 'Tag', Icon: Tags},
+]
 
 export default function Header() {
     const pathname = usePathname()
@@ -28,9 +25,6 @@ export default function Header() {
     const [tagCount, setTagCount] = useState<number>(0)
     const [currentRoute, setCurrentRoute] = useState<string>('')
     const modalRef = useRef<HTMLDialogElement>(null)
-
-    const menuItemClassName = `btn btn-sm font-semibold ${jetBrainsMono.className} h-full text-base-content rounded-none border-0 shadow-none max-sm:px-2`
-    const menuIconClassName = 'stroke-2 w-3.75 h-3.75'
 
     useEffect(() => {
         setCurrentRoute(pathname?.replace(/\/\[.*]/g, "") || '/')
@@ -51,44 +45,23 @@ export default function Header() {
 
     const getIconStyle = (path: string | undefined = undefined) => {
         if ((isModalOpen && path == null) || !isModalOpen && currentRoute === path) {
-            return `${menuIconClassName} stroke-base-primary`
+            return `${iconClassNames} stroke-base-primary`
         }
-        return `${menuIconClassName} stroke-base-content`
-    }
-
-    const renderStat = (
-        statList: {
-            title: string
-            value: number
-        }[]
-    ) => {
-        return (
-            <>
-                {
-                    statList.map((stat) => (
-                        <div key={stat.title} className='stat place-items-center'>
-                            <div className="stat-title text-sm font-medium text-base-content/60">{stat.title}</div>
-                            <div className="stat-value text-3xl font-normal text-base-content">{stat.value}</div>
-                        </div>
-                    ))
-                }
-            </>
-        )
+        return `${iconClassNames} stroke-base-content`
     }
 
     return (
         <>
             <div className='flex justify-between items-center sticky top-0 bg-base-100 shadow-sm flex-wrap h-10'>
                 <div className='flex justify-start items-center flex-wrap h-full'>
-                    <Link href='/' className={getButtonStyle('/')}>
-                        <House className={getIconStyle('/')}/>Home
-                    </Link>
-                    <Link href='/categories' className={getButtonStyle('/categories')}>
-                        <List className={getIconStyle('/categories')}/>Category
-                    </Link>
-                    <Link href='/tags' className={getButtonStyle('/tags')}>
-                        <Tags className={getIconStyle('/tags')}/>Tags
-                    </Link>
+                    {
+                        headers.map(({url, label, Icon}) =>
+                            <Link key={url} href={url} className={getButtonStyle(url)}>
+                                <Icon className={getIconStyle(url)}/>
+                                {label}
+                            </Link>
+                        )
+                    }
                 </div>
                 <button
                     className={getButtonStyle()}
@@ -106,23 +79,30 @@ export default function Header() {
                     <div className='border-t border-base-content/30 mt-6 mb-4'/>
                     <div className='flex justify-around'>
                         {
-                            renderStat([
+                            [
                                 {title: 'Post', value: postCount},
                                 {title: 'Category', value: categoryCount},
                                 {title: 'Tag', value: tagCount},
-                            ])
+                            ].map(
+                                (stat) => (
+                                    <div key={stat.title} className='stat place-items-center'>
+                                        <div className="stat-title text-sm font-medium text-base-content/60">{stat.title}</div>
+                                        <div className="stat-value text-3xl font-normal text-base-content">{stat.value}</div>
+                                    </div>
+                                )
+                            )
                         }
                     </div>
                     <div className='border-t border-base-content/30 mt-4 mb-6'/>
-                    <div className={`flex justify-between ${jetBrainsMono.className}`}>
+                    <div className={`flex justify-between ${monospace.className}`}>
                         <Link className='flex-1 mr-2' href='https://github.com/wwricu' target='_blank'>
-                            <button className='btn btn-active btn-primary btn-sm text-base-100 rounded w-full'>
-                                <GithubIcon className={menuIconClassName}/>GitHub
+                            <button className='transition-all btn btn-active btn-primary btn-sm text-primary-content rounded w-full hover:btn-accent hover:text-accent-content'>
+                                <GithubIcon className={`invert ${iconClassNames}`}/>GitHub
                             </button>
                         </Link>
                         <Link className='flex-1 ml-2' href='mailto:me@wwr.icu'>
-                            <button className='btn bg-base-100 text-base-content border-primary rounded-s btn-sm rounded w-full'>
-                                <Mail className={`${menuIconClassName} stroke-base-primary`}/>Mail me
+                            <button className='transition-all btn btn-ghost text-base-content border-primary rounded-s btn-sm rounded w-full hover:btn-accent hover:border-none'>
+                                <Mail className={`${iconClassNames} stroke-base-primary`}/>Mail me
                             </button>
                         </Link>
                     </div>
