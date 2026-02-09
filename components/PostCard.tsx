@@ -51,8 +51,8 @@ export default function PostCard({postDetailVO}: { postDetailVO: PostDetailVO })
     return (
         <div className={
             `flex flex-1 justify-between gap-2 p-0 w-full 
-            rounded-box bg-base-100 shadow-xl
-            max-sm:my-1 max-sm:min-h-16 sm:my-2 max-md:min-h-20 ${cardHeight}`
+            rounded-lg sm:rounded-xl md:rounded-box bg-base-100 shadow-xl
+            max-sm:min-h-16 max-md:min-h-20 ${cardHeight}`
         }>
             <div className={`flex flex-col flex-1 justify-between items-start w-full max-sm:p-2 sm:p-4`}>
                 <Link className='flex-1 w-full hover:text-primary-content' href={`/detail/${postDetailVO.id}`}>
