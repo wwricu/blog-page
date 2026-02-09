@@ -12,12 +12,7 @@ import {GetAboutAPI} from "@/common/api"
 import {usePathname} from "next/navigation"
 import Link from "next/link"
 import {GithubIcon} from "@/components/Common"
-import {JetBrains_Mono} from "next/font/google";
-
-const jetBrainsMono = JetBrains_Mono({
-    subsets: ['latin', 'latin-ext'],
-    display: 'swap',
-})
+import {monospace} from "@/common/common"
 
 export default function Header() {
     const pathname = usePathname()
@@ -29,8 +24,14 @@ export default function Header() {
     const [currentRoute, setCurrentRoute] = useState<string>('')
     const modalRef = useRef<HTMLDialogElement>(null)
 
-    const menuItemClassName = `btn btn-sm font-semibold ${jetBrainsMono.className} h-full text-base-content rounded-none border-0 shadow-none max-sm:px-2`
+    const menuItemClassName = `btn btn-sm font-semibold h-full text-base-content rounded-none border-0 shadow-none max-sm:px-2`
     const menuIconClassName = 'stroke-2 w-3.75 h-3.75'
+
+    const headers = [
+        { url: '/', label: 'Home', Icon: House},
+        { url: '/categories', label: 'Category', Icon: List},
+        { url: '/tags', label: 'Tag', Icon: Tags},
+    ]
 
     useEffect(() => {
         setCurrentRoute(pathname?.replace(/\/\[.*]/g, "") || '/')
@@ -80,15 +81,14 @@ export default function Header() {
         <>
             <div className='flex justify-between items-center sticky top-0 bg-base-100 shadow-sm flex-wrap h-10'>
                 <div className='flex justify-start items-center flex-wrap h-full'>
-                    <Link href='/' className={getButtonStyle('/')}>
-                        <House className={getIconStyle('/')}/>Home
-                    </Link>
-                    <Link href='/categories' className={getButtonStyle('/categories')}>
-                        <List className={getIconStyle('/categories')}/>Category
-                    </Link>
-                    <Link href='/tags' className={getButtonStyle('/tags')}>
-                        <Tags className={getIconStyle('/tags')}/>Tags
-                    </Link>
+                    {
+                        headers.map(({url, label, Icon}) =>
+                            <Link key={url} href={url} className={getButtonStyle(url)}>
+                                <Icon className={getIconStyle(url)}/>
+                                {label}
+                            </Link>
+                        )
+                    }
                 </div>
                 <button
                     className={getButtonStyle()}
@@ -114,7 +114,7 @@ export default function Header() {
                         }
                     </div>
                     <div className='border-t border-base-content/30 mt-4 mb-6'/>
-                    <div className={`flex justify-between ${jetBrainsMono.className}`}>
+                    <div className={`flex justify-between ${monospace.className}`}>
                         <Link className='flex-1 mr-2' href='https://github.com/wwricu' target='_blank'>
                             <button className='btn btn-active btn-primary btn-sm text-base-100 rounded w-full'>
                                 <GithubIcon className={menuIconClassName}/>GitHub

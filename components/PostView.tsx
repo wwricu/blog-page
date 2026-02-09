@@ -26,7 +26,12 @@ export default async function PostView({ filter, name, index = '1' }: PathParams
     }
 
     return (
-        <div className='flex flex-col items-center max-sm:px-2 max-md:px-4 max-md:w-full md:mt-2 md:w-3xl'>
+        <div className={`
+            flex flex-col items-center
+            max-sm:gap-1 max-sm:px-1 max-sm:mt-1
+            sm:gap-2 sm:mt-2 sm:px-2 max-md:w-full
+            md:gap-3 md:mt-3 md:w-3xl`
+        }>
             <BreadCrumb filter={filter} name={name}/>
             {
                 postDetailPageVO?.data?.map(postDetailVO =>
@@ -34,7 +39,7 @@ export default async function PostView({ filter, name, index = '1' }: PathParams
                 )
             }
             <Pagination
-                className='max-sm:my-3 sm:my-6'
+                className='max-sm:mt-1 max-sm:mb-2 sm:mt-2 sm:mb-4 md:mt-3 md:mb-6'
                 current={current}
                 total={postDetailPageVO.count}
                 getHref={getUrl}
