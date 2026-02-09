@@ -8,12 +8,13 @@ import Link from "next/link"
 import {GithubIcon} from "@/components/Common"
 import {iconClassNames, monospace} from "@/common/common"
 
-const menuItemClassName = `btn btn-sm font-semibold transition-all h-full text-base-content rounded-none border-0 shadow-none max-sm:px-2`
+const menuItemClassName = `btn btn-sm btn-ghost transition-all rounded-none border-0 shadow-none h-full text-base-content
+                           border-b-2 pt-0.5 hover:bg-primary/10 max-sm:pl-2`
 
 const headers = [
-    { url: '/', label: 'Home', Icon: House},
-    { url: '/categories', label: 'Category', Icon: List},
-    { url: '/tags', label: 'Tag', Icon: Tags},
+    { url: '/', label: 'Home', Icon: House },
+    { url: '/categories', label: 'Category', Icon: List },
+    { url: '/tags', label: 'Tag', Icon: Tags, iconClassName: 'relative top-[0.75px] transform scale-x-[-1]'},
 ]
 
 export default function Header() {
@@ -38,9 +39,9 @@ export default function Header() {
 
     const getButtonStyle = (path: string | undefined = undefined) => {
         if ((isModalOpen && path == null) || !isModalOpen && currentRoute === path) {
-            return `${menuItemClassName} btn-active text-primary`
+            return `${menuItemClassName} border-primary text-primary font-bold`
         }
-        return `${menuItemClassName} btn-ghost`
+        return `${menuItemClassName} border-transparent font-semibold`
     }
 
     const getIconStyle = (path: string | undefined = undefined) => {
@@ -52,12 +53,12 @@ export default function Header() {
 
     return (
         <>
-            <div className='flex justify-between items-center sticky top-0 bg-base-100 shadow-sm flex-wrap h-10'>
-                <div className='flex justify-start items-center flex-wrap h-full'>
+            <div className='flex justify-between items-center sticky top-0 bg-base-100 shadow-xs h-10 overflow-auto'>
+                <div className='flex justify-start items-center h-full'>
                     {
-                        headers.map(({url, label, Icon}) =>
+                        headers.map(({url, label, Icon, iconClassName}) =>
                             <Link key={url} href={url} className={getButtonStyle(url)}>
-                                <Icon className={getIconStyle(url)}/>
+                                <Icon className={`${getIconStyle(url)} ${iconClassName}`}/>
                                 {label}
                             </Link>
                         )

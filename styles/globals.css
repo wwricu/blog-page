@@ -5,6 +5,8 @@
   @theme {
     --font-sans: 'Noto Sans', sans-serif;
     --font-mono: 'Jetbrains Mono', monospace;
+    --active-border: 'inset 0 -2px 0 0 #000000';
+    --shadow-3xl: 0 35px 35px rgba(0, 0, 0, 1);
   }
 }
 

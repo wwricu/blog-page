@@ -1,8 +1,8 @@
 import React from "react"
 import {AsyncPathParams} from "@/common/common"
 import PostDetailView from "@/components/PostDetailView"
-import {GetPostDetailAPI} from "@/common/api";
-import {Metadata} from "next";
+import {GetPostDetailAPI} from "@/common/api"
+import {Metadata} from "next"
 
 /**
  * Response from fetch request with exactly same parameter would be cached during a React server component rendering;
@@ -10,7 +10,7 @@ import {Metadata} from "next";
  * This is NOT affected by 'export const dynamic = 'force-dynamic'
  * More to see: https://nextjs.org/docs/app/guides/caching#request-memoization
  */
-export async function generateMetadata({ params }: AsyncPathParams): Promise<Metadata> {
+export const generateMetadata = async ({ params }: AsyncPathParams): Promise<Metadata> => {
     const postId = (await params).id
     if (!postId) {
         return {}
