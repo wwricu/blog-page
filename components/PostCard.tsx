@@ -1,53 +1,8 @@
-import {PostDetailVO, TagVO} from '@/common/model'
-import {Clock, Hash, Tags} from 'lucide-react'
+import {PostDetailVO} from '@/common/model'
 import Image from 'next/image'
 import React from 'react'
 import Link from 'next/link'
-import {VerticalDivider} from "@/components/Common"
-
-
-const iconClassNames = 'inline mr-0.75 stroke-2 w-3.75 h-3.75'
-
-const renderCategory = (tag: TagVO | undefined) => {
-    if (!tag) {
-        return null
-    }
-
-    return (
-        <>
-            <span><VerticalDivider/></span>
-            <span className='max-w-screen overflow-hidden'>
-                <Hash className={`${iconClassNames} stroke-primary/70`}/>
-                <Link href={`/categories/${encodeURIComponent(tag.name)}`}>
-                    <div className='badge rounded bg-primary/15 text-primary hover:bg-primary hover:text-primary-content max-sm:badge-xs sm:badge-sm'>
-                        {tag.name}
-                    </div>
-                </Link>
-            </span>
-        </>
-    )
-}
-
-const renderTags = (tagList: TagVO[]) => {
-    if (!tagList || tagList.length === 0) {
-        return null
-    }
-    return (
-        <>
-            <span><VerticalDivider/></span>
-            <span className='max-w-screen overflow-hidden'>
-                <Tags className={`${iconClassNames} stroke-secondary/70`}/>
-                {
-                    tagList.map((tag: TagVO) => (
-                        <Link key={tag.id} href={`/tags/${encodeURIComponent(tag.name)}`}>
-                            <div className={`badge rounded mx-0.5 badge-secondary badge-outline hover:bg-secondary hover:text-secondary-content max-sm:badge-xs sm:badge-sm`}>{tag.name}</div>
-                        </Link>
-                    ))
-                }
-            </span>
-        </>
-    )
-}
+import {PostCategory, PostCreateTime, PostTagList} from "@/components/PostMeta";
 
 export default function PostCard({postDetailVO}: { postDetailVO: PostDetailVO }) {
     return (
@@ -65,14 +20,9 @@ export default function PostCard({postDetailVO}: { postDetailVO: PostDetailVO })
                 </Link>
                 <div className='flex flex-col justify-end items-start'>
                     <div className='flex justify-start items-baseline gap-x-2 w-full flex-wrap'>
-                        <span>
-                            <Clock className={`${iconClassNames} stroke-base-content/70`}/>
-                            <span className='text-base-content/70 font-medium align-middle max-sm:text-xs sm:text-sm'>
-                                {postDetailVO.create_time.slice(0, 10)}
-                            </span>
-                        </span>
-                        {renderCategory(postDetailVO?.category)}
-                        {renderTags(postDetailVO.tag_list)}
+                        <PostCreateTime createTime={postDetailVO?.create_time}/>
+                        <PostCategory category={postDetailVO?.category}/>
+                        <PostTagList tagList={postDetailVO?.tag_list}/>
                     </div>
                 </div>
             </div>

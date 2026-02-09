@@ -14,6 +14,7 @@ export type AsyncPathParams = {
 
 export const TagsUrl = 'tags'
 export const CategoriesURL = 'categories'
+export const iconClassNames = 'inline stroke-2 w-3.75 h-3.75'
 
 export const sansSerif = Noto_Sans({
     subsets: ['latin', 'latin-ext', 'greek', 'cyrillic'],
