@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 @plugin "daisyui" {
-  themes: lemonade --default, dim --prefersdark, nord, dracula, sunset, abyss;
+  themes: fantasy --default, abyss --prefersdark;
   @theme {
     --font-sans: 'Noto Sans', sans-serif;
     --font-mono: 'Jetbrains Mono', monospace;
