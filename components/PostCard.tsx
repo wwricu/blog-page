@@ -4,7 +4,7 @@ import React from 'react'
 import Link from 'next/link'
 import {PostCategory, PostCreateTime, PostTagList} from "@/components/PostMeta"
 
-export default function PostCard({postDetailVO}: { postDetailVO: PostDetailVO }) {
+export default function PostCard({ postDetailVO, index }: { postDetailVO: PostDetailVO, index: number }) {
     const hasCover = postDetailVO.cover?.url != null && postDetailVO.cover?.name != null
     return (
         <div className={
@@ -29,7 +29,8 @@ export default function PostCard({postDetailVO}: { postDetailVO: PostDetailVO })
                 hasCover ? (
                     <Link className="relative w-60 max-md:hidden" href={`/detail/${postDetailVO.id}`}>
                         <Image
-                            loading='lazy'
+                            preload={index <= 3}
+                            quality={75}
                             width={240}
                             height={180}
                             alt={postDetailVO.cover?.name!!}
