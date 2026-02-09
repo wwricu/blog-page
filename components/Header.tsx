@@ -116,12 +116,12 @@ export default function Header() {
                     <div className='border-t border-base-content/30 mt-4 mb-6'/>
                     <div className={`flex justify-between ${monospace.className}`}>
                         <Link className='flex-1 mr-2' href='https://github.com/wwricu' target='_blank'>
-                            <button className='btn btn-active btn-primary btn-sm text-base-100 rounded w-full'>
+                            <button className='btn btn-active btn-accent btn-sm text-base-100 rounded w-full'>
                                 <GithubIcon className={menuIconClassName}/>GitHub
                             </button>
                         </Link>
                         <Link className='flex-1 ml-2' href='mailto:me@wwr.icu'>
-                            <button className='btn bg-base-100 text-base-content border-primary rounded-s btn-sm rounded w-full'>
+                            <button className='btn bg-base-100 text-base-content border-accent rounded-s btn-sm rounded w-full'>
                                 <Mail className={`${menuIconClassName} stroke-base-primary`}/>Mail me
                             </button>
                         </Link>

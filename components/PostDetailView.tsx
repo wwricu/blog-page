@@ -15,7 +15,7 @@ const renderTags = (postDetailVO: PostDetailVO) => {
                 {
                     postDetailVO?.tag_list.map((tag: TagVO) => (
                         <a key={tag.id} href={`/tags/${encodeURIComponent(tag.name)}`} className='ml-1'>
-                            <div className={'badge rounded bg-base-300 text-base-content/70 hover:bg-primary hover:text-primary-content max-sm:badge-xs sm:badge-sm'}>
+                            <div className={'badge rounded bg-base-300 text-base-content/70 hover:bg-secondary hover:text-secondary-content max-sm:badge-xs sm:badge-sm'}>
                                 {tag.name}
                             </div>
                         </a>
@@ -36,7 +36,7 @@ const renderCategory = (postDetailVO: PostDetailVO) => {
             <span>
                 <Hash className='inline mr-1' size={16} color="#757575" strokeWidth={2}/>
                 <a className='text-base-content/60' href={`/categories/${encodeURIComponent(postDetailVO?.category.name)}`}>
-                    <div className='badge badge-neutral badge-outline rounded bg-base-300 text-base-content/70 max-sm:badge-xs sm:badge-sm'>
+                    <div className='badge badge-neutral badge-outline rounded bg-base-300 text-base-content/70 hover:bg-secondary hover:text-secondary-content max-sm:badge-xs sm:badge-sm'>
                         {postDetailVO?.category?.name}
                     </div>
                 </a>
