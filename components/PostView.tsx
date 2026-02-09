@@ -34,8 +34,8 @@ export default async function PostView({ filter, name, index = '1' }: PathParams
         }>
             <BreadCrumb className='py-0 max-sm:pl-2 sm:pl-4' filter={filter} name={name}/>
             {
-                postDetailPageVO?.data?.map(postDetailVO =>
-                    <PostCard key={postDetailVO.id} postDetailVO={postDetailVO}/>
+                postDetailPageVO?.data?.map(
+                    postDetailVO => <PostCard key={postDetailVO.id} postDetailVO={postDetailVO}/>
                 )
             }
             <Pagination
