@@ -8,7 +8,7 @@ export default function TagView({ tags, tagType}: {tags: TagVO[], tagType: TagTy
             tags.map((tag: TagVO) => (
                 <div key={tag.id} className='flex justify-between items-baseline'>
                     <Link
-                        className='link transition-all text-base-content/80 hover:text-primary'
+                        className='link text-base-content/80 transition-colors hover:text-primary'
                         href={`/${tagType === TagTypeEnum.POST_CAT ? 'categories' : 'tags'}/${tag.name}`}
                     >
                         {tag.name}
