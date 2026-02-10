@@ -18,8 +18,22 @@ export const generateMetadata = async ({ params }: AsyncPathParams): Promise<Met
 
     const postDetailVO = await GetPostDetailAPI(postId)
     return {
-        title: `${postDetailVO.title} | wwr.icu`,
-        description: postDetailVO.preview
+        title: `${postDetailVO.title} - wwr.icu`,
+        description: postDetailVO.preview,
+        openGraph: {
+            siteName: 'wwr.icu',
+            title: postDetailVO.title,
+            description: postDetailVO.preview,
+            url: `${process.env.NEXT_SITE_URL}/detail/${postDetailVO.id}`,
+            images: postDetailVO.cover && [
+                {
+                    url: postDetailVO?.cover?.url,
+                    alt: postDetailVO?.cover?.name,
+                    width: 240,
+                    height: 180,
+                }
+            ],
+        }
     }
 }
 
