@@ -5,6 +5,7 @@ import React from "react"
 import PostView from "@/components/PostView"
 import {Metadata} from "next"
 import {permanentRedirect} from "next/navigation"
+import { NotFound } from "@/components/Common"
 
 export const generateMetadata = async ({ params }: AsyncPathParams): Promise<Metadata> => {
     const filter = (await params).filter
@@ -35,6 +36,8 @@ export default async function FilterPage({ params }: AsyncPathParams) {
         return <TagView tagType={TagTypeEnum.POST_CAT} />
     } else if (filter === TagsUrl) {
         return <TagView tagType={TagTypeEnum.POST_TAG} />
+    } else if (!Number.isSafeInteger(Number(filter))) {
+        return <NotFound/>
     }
 
     if (filter === '1') {
