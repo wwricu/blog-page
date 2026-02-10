@@ -28,7 +28,7 @@ export const PostCategory = ({ category }: { category?: TagVO }) => {
             <span>
                 <Hash className={`${iconClassNames} mr-0.5 stroke-primary/70`}/>
                 <Link href={`/categories/${encodeURIComponent(category.name)}`}>
-                    <div className='badge rounded transition-all bg-primary/10 text-primary px-2 hover:bg-primary hover:text-primary-content max-sm:badge-xs sm:badge-sm'>
+                    <div className='badge rounded bg-primary/10 text-primary px-2 transition-colors hover:bg-primary hover:text-primary-content max-sm:badge-xs sm:badge-sm'>
                         {category.name}
                     </div>
                 </Link>
@@ -48,7 +48,7 @@ export const PostTagList = ({ tagList }: { tagList?: TagVO[] }) => {
                 {
                     tagList.map((tag: TagVO) => (
                         <Link key={tag.id} href={`/tags/${encodeURIComponent(tag.name)}`}>
-                            <div className={`badge rounded mx-0.5 transition-all badge-secondary badge-outline px-2 hover:bg-secondary hover:text-secondary-content max-sm:badge-xs sm:badge-sm`}>{tag.name}</div>
+                            <div className={`badge rounded mx-0.5 transition-colors badge-secondary badge-outline px-2 hover:bg-secondary hover:text-secondary-content max-sm:badge-xs sm:badge-sm`}>{tag.name}</div>
                         </Link>
                     ))
                 }
