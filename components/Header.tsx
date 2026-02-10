@@ -8,7 +8,7 @@ import Link from "next/link"
 import {GithubIcon} from "@/components/Common"
 import {iconClassNames, monospace} from "@/common/common"
 
-const menuItemClassName = `btn btn-sm btn-ghost transition-all rounded-none border-0 shadow-none h-full text-base-content
+const menuItemClassName = `btn btn-sm btn-ghost rounded-none border-0 shadow-none h-full text-base-content
                            border-b-2 pt-0.5 hover:bg-primary/10 max-sm:pl-2`
 
 const headers = [
@@ -97,12 +97,12 @@ export default function Header() {
                     <div className='border-t border-base-content/30 mt-4 mb-6'/>
                     <div className={`flex justify-between ${monospace.className}`}>
                         <Link className='flex-1 mr-2' href='https://github.com/wwricu' target='_blank'>
-                            <button className='transition-all btn btn-active btn-primary btn-sm text-primary-content rounded w-full hover:btn-accent hover:text-accent-content'>
+                            <button className='btn btn-active btn-primary btn-sm text-primary-content rounded w-full transition-colors hover:btn-accent hover:text-accent-content'>
                                 <GithubIcon className={`invert ${iconClassNames}`}/>GitHub
                             </button>
                         </Link>
                         <Link className='flex-1 ml-2' href='mailto:me@wwr.icu'>
-                            <button className='transition-all btn btn-ghost text-base-content border-primary rounded-s btn-sm rounded w-full hover:btn-accent hover:border-none'>
+                            <button className='btn btn-ghost text-base-content border-primary rounded-s btn-sm rounded w-full transition-colors hover:btn-accent hover:border-none'>
                                 <Mail className={`${iconClassNames} stroke-base-primary`}/>Mail me
                             </button>
                         </Link>
