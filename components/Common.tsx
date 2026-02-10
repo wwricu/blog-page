@@ -144,4 +144,36 @@ export const Footer = async () => {
     )
 }
 
+export const NotFound = () => {
+  // By Google Gemini 3
+  return (
+    <div className="grow flex flex-col items-center justify-center min-h-[70vh] px-4 overflow-x-auto">
+      <div className="relative group text-center">
+        <div className="absolute -inset-10 bg-primary/5 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none" />
 
+        <h1 className="relative text-xs sm:text-sm font-light tracking-[0.8em] uppercase text-base-content/40 transition-all duration-1000 group-hover:text-base-content/80 group-hover:tracking-[1em]">
+          The resonance of this page has vanished
+        </h1>
+
+        <div className="mt-12 flex justify-center items-center gap-4">
+          <div className="h-px w-12 bg-linear-to-r from-transparent to-base-content/20"></div>
+          <span className="loading loading-xs loading-feather text-base-content/20 group-hover:text-primary/40 transition-colors duration-700"></span>
+          <div className="h-px w-12 bg-linear-to-l from-transparent to-base-content/20"></div>
+        </div>
+      </div>
+
+      <div className="mt-20">
+        <Link
+          href="/"
+          className="link link-hover text-[10px] tracking-[0.4em] uppercase text-base-content/30 hover:text-primary transition-all duration-500 italic"
+        >
+          [ Return to consciousness ]
+        </Link>
+      </div>
+
+      <span className="fixed bottom-8 text-[8px] tracking-[2em] text-base-content/5 uppercase opacity-20 pointer-events-none select-none">
+        Null Vector
+      </span>
+    </div>
+  )
+}
