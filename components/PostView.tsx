@@ -4,19 +4,29 @@ import React from "react"
 import {BreadCrumb, Pagination} from "@/components/Common"
 import {GetAllBlogPosts} from "@/common/api"
 import {CategoriesURL, PathParams, TagsUrl} from "@/common/common"
+import NotFound from "next/dist/client/components/builtin/not-found"
 
 export default async function PostView({ filter, name, index = '1' }: PathParams) {
-    const apiParams: { index: number, category?: string, tag?: string } = { index: parseInt(index) }
+    const apiParams: { index: number, category?: string, tag?: string } = { index: Number(index) }
+    const pageSize = 10
+
+    if (!Number.isSafeInteger(apiParams.index) || apiParams.index <= 0) {
+        return <NotFound/>
+    }
+
     if (filter === CategoriesURL) {
         apiParams.category = name ? decodeURIComponent(name) : undefined
     } else if (filter === TagsUrl) {
         apiParams.tag = name ? decodeURIComponent(name) : undefined
-    } else if (name) {
-        return null
+    } else if (filter || name) {
+        return <NotFound/>
     }
 
-    const postDetailPageVO: PostDetailPageVO = await GetAllBlogPosts(apiParams.index, apiParams.category, apiParams.tag)
-    const current = postDetailPageVO.page_index ?? 1
+    const postDetailPageVO: PostDetailPageVO = await GetAllBlogPosts(apiParams.index, pageSize, apiParams.category, apiParams.tag)
+    const pageCount = Math.ceil(postDetailPageVO.count / pageSize)
+    if (postDetailPageVO.page_index > pageCount) {
+        return <NotFound/>
+    }
 
     return (
         <div className={`
@@ -33,7 +43,7 @@ export default async function PostView({ filter, name, index = '1' }: PathParams
             }
             <Pagination
                 className='max-sm:mt-1 max-sm:mb-2 sm:mt-2 sm:mb-4 md:mt-3 md:mb-6'
-                current={current}
+                current={postDetailPageVO.page_index}
                 total={postDetailPageVO.count}
                 baseUrl={ (filter && name) ? `/${filter}/${name}` : '/' }
             />
