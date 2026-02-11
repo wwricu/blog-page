@@ -17,6 +17,10 @@ export const generateMetadata = async ({ params }: AsyncPathParams): Promise<Met
     }
 
     const postDetailVO = await GetPostDetailAPI(postId)
+    if (!postDetailVO) {
+        return {}
+    }
+
     return {
         title: `${postDetailVO.title} - wwr.icu`,
         description: postDetailVO.preview,
@@ -39,9 +43,6 @@ export const generateMetadata = async ({ params }: AsyncPathParams): Promise<Met
 
 export default async function PostDetailPage({ params }: AsyncPathParams) {
     const postId = (await params).id
-    if (!postId) {
-        return null
-    }
-    const postDetailVO = await GetPostDetailAPI(postId)
+    const postDetailVO = await GetPostDetailAPI(postId!!)
     return <PostDetailView postDetailVO={postDetailVO}/>
 }

@@ -11,17 +11,10 @@ type PaginationProps = {
 }
 
 export const Pagination = ({ current = 1, total, pageSize = 10, baseUrl, className }: PaginationProps) => {
-    if (total < 0) {
-        total = 0
-    }
-
     const delta = 1
     const pageCount = Math.ceil(total / pageSize)
-
-    if (current < 1) {
-        current = 1
-    } else if (current > pageCount) {
-        current = pageCount
+    if (total <= 0 || current <= 0 || current > pageCount) {
+        return null
     }
 
     const getButtonValues = () => {
@@ -89,10 +82,6 @@ export const Pagination = ({ current = 1, total, pageSize = 10, baseUrl, classNa
             }
         </div>
     )
-}
-
-export const VerticalDivider = () => {
-    return <div className='border-l h-4 inline-block align-middle border-base-content/40'/>
 }
 
 export const GithubIcon = ({ className='', }) => {

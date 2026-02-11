@@ -1,8 +1,13 @@
 import {PostDetailVO} from "@/common/model"
 import React from "react"
 import {PostCategory, PostCreateTime, PostTagList} from "@/components/PostMeta"
+import NotFound from "next/dist/client/components/builtin/not-found";
 
-export default async function PostDetailView({ postDetailVO }: { postDetailVO: PostDetailVO }) {
+export default async function PostDetailView({ postDetailVO }: { postDetailVO: PostDetailVO | null }) {
+    if (!postDetailVO) {
+        return <NotFound/>
+    }
+
     return (
         <div className='flex-1 bg-base-100 shadow-xl max-sm:p-2 max-md:p-4 max-md:w-full md:w-3xl md:p-6'>
             <h1 className='text-base-content text-2xl font-medium font-title'>{postDetailVO.title}</h1>
