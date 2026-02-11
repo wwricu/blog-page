@@ -91,10 +91,6 @@ export const Pagination = ({ current = 1, total, pageSize = 10, baseUrl, classNa
     )
 }
 
-export const VerticalDivider = () => {
-    return <div className='border-l h-4 inline-block align-middle border-base-content/40'/>
-}
-
 export const GithubIcon = ({ className='', }) => {
     return (
         <svg

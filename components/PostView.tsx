@@ -16,7 +16,9 @@ export default async function PostView({ filter, name, index = '1' }: PathParams
     }
 
     const postDetailPageVO: PostDetailPageVO = await GetAllBlogPosts(apiParams.index, apiParams.category, apiParams.tag)
-    const current = postDetailPageVO.page_index ?? 1
+    if (postDetailPageVO.page_index >= postDetailPageVO.page_size || postDetailPageVO.data.length === 0) {
+        return null
+    }
 
     return (
         <div className={`
@@ -33,7 +35,7 @@ export default async function PostView({ filter, name, index = '1' }: PathParams
             }
             <Pagination
                 className='max-sm:mt-1 max-sm:mb-2 sm:mt-2 sm:mb-4 md:mt-3 md:mb-6'
-                current={current}
+                current={postDetailPageVO.page_index}
                 total={postDetailPageVO.count}
                 baseUrl={ (filter && name) ? `/${filter}/${name}` : '/' }
             />
