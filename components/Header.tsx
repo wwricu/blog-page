@@ -95,7 +95,7 @@ export default function Header() {
                         <div className={`flex justify-between ${monospace.className}`}>
                             <Link className='flex-1 mr-2' href='https://github.com/wwricu' target='_blank'>
                                 <button className='btn btn-active btn-primary btn-sm text-primary-content rounded w-full transition-colors hover:btn-accent hover:text-accent-content'>
-                                    <GithubIcon className={`invert ${iconClassNames}`}/>GitHub
+                                    <GithubIcon className={`invert dark:invert-0 ${iconClassNames}`}/>GitHub
                                 </button>
                             </Link>
                             <Link className='flex-1 ml-2' href='mailto:me@wwr.icu'>
