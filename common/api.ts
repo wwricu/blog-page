@@ -1,7 +1,7 @@
 import {AboutVO, PostDetailPageVO, PostDetailVO, TagTypeEnum, TagVO} from "@/common/model";
 
-const baseUrl = process.env.NEXT_BASE_URL
 const publicBaseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? '/api'
+const baseUrl = process.env.NEXT_BASE_URL ?? publicBaseUrl
 
 export const GetAllBlogPosts = async (
     pageIndex: number = 1,
@@ -44,6 +44,6 @@ export const GetAllTagsAPI = async (tagTypeEnum: TagTypeEnum) => {
 }
 
 export const GetAboutAPI = async () => {
-    const res = await fetch(`${publicBaseUrl}/open/about`)
+    const res = await fetch(`${baseUrl}/open/about`)
     return await res.json() as AboutVO
 }
