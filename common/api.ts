@@ -5,6 +5,7 @@ const publicBaseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? '/api'
 
 export const GetAllBlogPosts = async (
     pageIndex: number = 1,
+    pageSize: number = 10,
     category: string | undefined = undefined,
     tag: string | undefined = undefined
 ) => {
@@ -13,7 +14,7 @@ export const GetAllBlogPosts = async (
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
             page_index: pageIndex,
-            page_size: 10,
+            page_size: pageSize,
             category: category,
             tag_list: tag ? [tag] : undefined,
         })
@@ -22,20 +23,22 @@ export const GetAllBlogPosts = async (
 }
 
 export const GetPostDetailAPI = async (postId: number | string) => {
-    const postNumId = parseInt(postId as string) // Fix user injection
+    const postNumId = Number(postId as string)
+    if (!Number.isSafeInteger(postNumId)) {
+        return null
+    }
     const res = await fetch(`${baseUrl}/open/post/detail/${postNumId}`)
+    if (!res.ok && res.status === 404) {
+        return null
+    }
     return await res.json() as PostDetailVO
 }
 
 export const GetAllTagsAPI = async (tagTypeEnum: TagTypeEnum) => {
     const res = await fetch(`${baseUrl}/open/tags`, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            type: tagTypeEnum
-        })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: tagTypeEnum })
     })
     return await res.json() as TagVO[]
 }

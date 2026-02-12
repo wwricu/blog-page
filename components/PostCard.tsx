@@ -8,9 +8,9 @@ export default function PostCard({ postDetailVO, index }: { postDetailVO: PostDe
     const hasCover = postDetailVO.cover?.url != null && postDetailVO.cover?.name != null
     return (
         <div className={
-            `flex justify-between p-0 w-full
-            rounded-lg sm:rounded-xl md:rounded-box bg-base-100 shadow-xl
-            max-sm:min-h-16 max-md:min-h-20 md:min-h-45 ${hasCover ? 'h-45' : ''}`
+            `flex justify-between p-0 min-w-2xs bg-base-100
+            max-sm:min-h-16 max-sm:rounded-lg sm:rounded-xl max-md:w-full max-md:min-h-20
+            md:rounded-box md:w-3xl ${hasCover ? 'md:h-45' : 'md:min-h-45'}`
         }>
             <div className={`flex flex-col flex-1 items-start min-w-0 max-sm:p-2 sm:p-4`}>
                 <Link className='w-full' href={`/detail/${postDetailVO.id}`}>

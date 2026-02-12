@@ -10,12 +10,18 @@ export const generateMetadata = async ({ params }: AsyncPathParams): Promise<Met
     const filter = (await params).filter
 
     const metadata: Metadata = {
-        title: `${filter} | wwr.icu`,
-        description: `Explore all posts organized by ${filter}`
+        title: `${filter} - wwr.icu`,
+        description: `Explore all posts organized by ${filter}`,
+        openGraph: {
+            siteName: 'wwr.icu',
+            title: filter,
+            description: 'wwr.icu',
+            url: `${process.env.NEXT_SITE_URL}/${filter}`
+        }
     }
 
     if (filter !== CategoriesURL && filter !== TagsUrl) {
-        metadata.title = `Page ${filter} | wwr.icu`
+        metadata.title = `Page ${filter} - wwr.icu`
         metadata.description = `Explore all posts on ${filter}th page `
     }
 

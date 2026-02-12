@@ -44,16 +44,12 @@ export default function Header() {
         return `${menuItemClassName} border-transparent font-semibold`
     }
 
-    const getIconStyle = (path: string | undefined = undefined) => {
-        if ((isModalOpen && path == null) || !isModalOpen && currentRoute === path) {
-            return `${iconClassNames} stroke-base-primary`
-        }
-        return `${iconClassNames} stroke-base-content`
-    }
+    const getIconStyle = (path: string | undefined = undefined)=>
+        `${iconClassNames} stroke-base-${(isModalOpen && path == null) || !isModalOpen && currentRoute === path ? 'primary' : 'content'}`
 
     return (
         <>
-            <div className='flex justify-between items-center sticky top-0 bg-base-100 shadow-xs h-10 overflow-auto'>
+            <div className='flex justify-between items-center sticky top-0 bg-base-100 shadow-xs h-10 overflow-x-auto overflow-y-clip'>
                 <div className='flex justify-start items-center h-full'>
                     {
                         headers.map(({url, label, Icon, iconClassName}) =>
@@ -75,37 +71,39 @@ export default function Header() {
                 </button>
             </div>
             <dialog className='modal' ref={modalRef} onClose={() => setIsModalOpen(false)} >
-                <div className="modal-box bg-base-100 max-h-screen">
-                    <div dangerouslySetInnerHTML={{__html: about}} className='min-h-48'/>
-                    <div className='border-t border-base-content/30 mt-6 mb-4'/>
-                    <div className='flex justify-around'>
-                        {
-                            [
-                                {title: 'Post', value: postCount},
-                                {title: 'Category', value: categoryCount},
-                                {title: 'Tag', value: tagCount},
-                            ].map(
-                                (stat) => (
-                                    <div key={stat.title} className='stat place-items-center'>
-                                        <div className="stat-title text-sm font-medium text-base-content/60">{stat.title}</div>
-                                        <div className="stat-value text-3xl font-normal text-base-content">{stat.value}</div>
-                                    </div>
+                <div className="modal-box bg-base-100 max-xs:p-2 overflow-x-auto">
+                    <div className="min-w-60">
+                        <div dangerouslySetInnerHTML={{__html: about}} className='min-h-48'/>
+                        <div className='border-t border-base-content/30 mt-6 mb-4'/>
+                        <div className='flex justify-around'>
+                            {
+                                [
+                                    {title: 'Post', value: postCount},
+                                    {title: 'Category', value: categoryCount},
+                                    {title: 'Tag', value: tagCount},
+                                ].map(
+                                    (stat) => (
+                                        <div key={stat.title} className='stat place-items-center max-sm:px-4'>
+                                            <div className="stat-title text-sm font-medium text-base-content/60">{stat.title}</div>
+                                            <div className="stat-value text-3xl font-normal text-base-content">{stat.value}</div>
+                                        </div>
+                                    )
                                 )
-                            )
-                        }
-                    </div>
-                    <div className='border-t border-base-content/30 mt-4 mb-6'/>
-                    <div className={`flex justify-between ${monospace.className}`}>
-                        <Link className='flex-1 mr-2' href='https://github.com/wwricu' target='_blank'>
-                            <button className='btn btn-active btn-primary btn-sm text-primary-content rounded w-full transition-colors hover:btn-accent hover:text-accent-content'>
-                                <GithubIcon className={`invert ${iconClassNames}`}/>GitHub
-                            </button>
-                        </Link>
-                        <Link className='flex-1 ml-2' href='mailto:me@wwr.icu'>
-                            <button className='btn btn-ghost text-base-content border-primary rounded-s btn-sm rounded w-full transition-colors hover:btn-accent hover:border-none'>
-                                <Mail className={`${iconClassNames} stroke-base-primary`}/>Mail me
-                            </button>
-                        </Link>
+                            }
+                        </div>
+                        <div className='border-t border-base-content/30 mt-4 mb-6'/>
+                        <div className={`flex justify-between ${monospace.className}`}>
+                            <Link className='flex-1 mr-2' href='https://github.com/wwricu' target='_blank'>
+                                <button className='btn btn-active btn-primary btn-sm text-primary-content rounded w-full transition-colors hover:btn-accent hover:text-accent-content'>
+                                    <GithubIcon className={`invert dark:invert-0 ${iconClassNames}`}/>GitHub
+                                </button>
+                            </Link>
+                            <Link className='flex-1 ml-2' href='mailto:me@wwr.icu'>
+                                <button className='btn btn-ghost text-base-content border-primary rounded-s btn-sm rounded w-full transition-colors hover:btn-accent hover:border-none'>
+                                    <Mail className={`${iconClassNames} stroke-base-primary`}/>Mail me
+                                </button>
+                            </Link>
+                        </div>
                     </div>
                 </div>
                 <form method="dialog" className="modal-backdrop">
