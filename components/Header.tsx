@@ -49,7 +49,7 @@ export default function Header() {
 
     return (
         <>
-            <div className='flex justify-between items-center sticky top-0 bg-base-100 shadow-xs h-10 overflow-x-auto overflow-y-clip'>
+            <div className='flex justify-between items-center sticky z-100 top-0 bg-base-100 shadow-xs h-10 overflow-x-auto overflow-y-clip'>
                 <div className='flex justify-start items-center h-full'>
                     {
                         headers.map(({url, label, Icon, iconClassName}) =>
