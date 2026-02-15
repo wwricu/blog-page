@@ -5,6 +5,7 @@ import {GetAllBlogPosts} from "@/common/api"
 import {CategoriesURL, PathParams, TagsUrl} from "@/common/common"
 import NotFound from "next/dist/client/components/builtin/not-found"
 import Pagination from "@/components/Pagination"
+import MobilePagination from "@/components/MobilePagination";
 
 export default async function PostView({ filter, name, index = '1' }: PathParams) {
     const apiParams: { index: number, category?: string, tag?: string } = { index: Number(index) }
@@ -53,10 +54,15 @@ export default async function PostView({ filter, name, index = '1' }: PathParams
                 )
             }
             <Pagination
-                className='max-sm:mt-1 max-sm:mb-2 sm:mt-2 sm:mb-4 md:mt-3 md:mb-6'
+                className='max-sm:hidden max-sm:mt-1 max-sm:mb-2 sm:mt-2 sm:mb-4 md:mt-3 md:mb-6'
                 current={postDetailPageVO.page_index}
                 total={postDetailPageVO.count}
                 baseUrl={ (filter && name) ? `/${filter}/${name}` : '/' }
+            />
+            <MobilePagination
+                className='sm:hidden'
+                category={apiParams.category}
+                tag={apiParams.tag}
             />
         </div>
     )
