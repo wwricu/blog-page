@@ -11,7 +11,7 @@ type PaginationProps = {
     tag?: string
     className?: string,
 }
-const buttonClassNames = 'btn btn-primary btn-sm btn-outline rounded-lg whitespace-nowrap py-0 my-2 hover:btn-soft'
+const buttonClassNames = 'btn btn-primary btn-sm btn-outline rounded-lg whitespace-nowrap py-0 mt-2 mb-3 hover:btn-soft'
 
 const useInfiniteScroll = (
     hasNextPage: boolean,
@@ -71,21 +71,26 @@ export default function MobilePagination({ baseCount = 10, category, tag, classN
                 active ?
                 postDetailVOList.map((postDetailVO, i) =>
                     <PostCard key={postDetailVO.id} index={baseCount + (current - 2) * pageSize + i} className={className} postDetailVO={postDetailVO}/>
-                ) :
-                <div className={`${buttonClassNames}  ${className}`} onTouchEnd={(e) => {
-                    e.preventDefault()
-                    updatePage()
-                    setActive(true)
-                }}>Show More</div>
+                ) : null
             }
-            {
-                <div className={`${buttonClassNames} ${active && current > pageCount ? '' : 'hidden'} ${className}`}
+            <div className={className}>
+                {
+                    !active && currentData.length > 0 ?
+                    (
+                        <div className={buttonClassNames} onTouchEnd={(e) => {
+                            e.preventDefault()
+                            updatePage()
+                            setActive(true)
+                        }}>Show More</div>
+                    ) : <div className='mb-px'/>
+                }
+                <div className={`${buttonClassNames} ${active && current > pageCount ? '' : 'hidden'}`}
                      onTouchEnd={(e) => {
                          e.preventDefault()
                          window.scrollTo({top: 0, behavior: 'smooth'})
                      }}
                 >Back to top</div>
-            }
+            </div>
         </>
     )
 }
