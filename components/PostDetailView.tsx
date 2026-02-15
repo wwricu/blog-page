@@ -1,7 +1,7 @@
 import {PostDetailVO} from "@/common/model"
 import React from "react"
 import {PostCategory, PostCreateTime, PostTagList} from "@/components/PostMeta"
-import NotFound from "next/dist/client/components/builtin/not-found";
+import NotFound from "next/dist/client/components/builtin/not-found"
 
 export default async function PostDetailView({ postDetailVO }: { postDetailVO: PostDetailVO | null }) {
     if (!postDetailVO) {
