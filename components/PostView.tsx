@@ -1,10 +1,11 @@
 import {PostDetailPageVO} from "@/common/model"
 import PostCard from "@/components/PostCard"
 import React from "react"
-import {BreadCrumb, Pagination} from "@/components/Common"
 import {GetAllBlogPosts} from "@/common/api"
 import {CategoriesURL, PathParams, TagsUrl} from "@/common/common"
 import NotFound from "next/dist/client/components/builtin/not-found"
+import Pagination from "@/components/Pagination"
+import MobilePagination from "@/components/MobilePagination";
 
 export default async function PostView({ filter, name, index = '1' }: PathParams) {
     const apiParams: { index: number, category?: string, tag?: string } = { index: Number(index) }
@@ -35,17 +36,33 @@ export default async function PostView({ filter, name, index = '1' }: PathParams
             sm:gap-y-2 sm:mt-2 sm:px-2
             md:p-0 md:gap-y-3 md:mt-3`
         }>
-            <BreadCrumb className='py-0 max-sm:pl-2 sm:pl-4' filter={filter} name={name}/>
+            {
+                (filter === CategoriesURL || filter === TagsUrl) && name ?
+                (
+                    <div className={`breadcrumbs py-0 min-w-2xs text-base-content/70 text-sm w-full max-sm:pl-2 sm:pl-4 max-md:w-full md:w-3xl`}>
+                        <ul>
+                            <li><a className='hover:text-primary' href={'/'}>Home</a></li>
+                            <li><a className='hover:text-primary' href={`/${filter}`}>{filter}</a></li>
+                            { name ? <li>{decodeURIComponent(name)}</li> : null }
+                        </ul>
+                    </div>
+                ) : null
+            }
             {
                 postDetailPageVO?.data?.map((postDetailVO, i) =>
                     <PostCard key={postDetailVO.id} index={i} postDetailVO={postDetailVO}/>
                 )
             }
             <Pagination
-                className='max-sm:mt-1 max-sm:mb-2 sm:mt-2 sm:mb-4 md:mt-3 md:mb-6'
+                className='max-sm:hidden max-sm:mt-1 max-sm:mb-2 sm:mt-2 sm:mb-4 md:mt-3 md:mb-6'
                 current={postDetailPageVO.page_index}
                 total={postDetailPageVO.count}
                 baseUrl={ (filter && name) ? `/${filter}/${name}` : '/' }
+            />
+            <MobilePagination
+                className='sm:hidden'
+                category={apiParams.category}
+                tag={apiParams.tag}
             />
         </div>
     )
