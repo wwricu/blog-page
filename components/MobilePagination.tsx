@@ -5,11 +5,19 @@ import {PostDetailVO} from "@/common/model"
 import {GetAllBlogPosts} from "@/common/api"
 import PostCard from "@/components/PostCard"
 
+type PaginationProps = {
+    baseCount?: number,
+    category?: string,
+    tag?: string
+    className?: string,
+}
+const buttonClassNames = 'btn btn-primary btn-sm btn-outline rounded-lg whitespace-nowrap py-0 my-2 hover:btn-soft'
 
 const useInfiniteScroll = (
     hasNextPage: boolean,
     onLoadMore: () => void,
     threshold: number = 100,
+    timeout: number = 100
 ) => {
     const isFetchingRef = useRef(false)
 
@@ -27,18 +35,16 @@ const useInfiniteScroll = (
                 isFetchingRef.current = true
                 onLoadMore()
 
-                setTimeout(() => {
-                    isFetchingRef.current = false
-                }, 50)
+                setTimeout(() => { isFetchingRef.current = false }, timeout)
             }
         }
 
-        window.addEventListener('scroll', handleScroll, {passive: true})
+        window.addEventListener('scroll', handleScroll, { passive: true })
         return () => window.removeEventListener('scroll', handleScroll)
     }, [hasNextPage, onLoadMore, threshold])
 }
 
-export default function MobilePagination({ baseCount = 10, category, tag }: { baseCount?: number, category?: string, tag?: string }) {
+export default function MobilePagination({ baseCount = 10, category, tag, className }: PaginationProps) {
     const pageSize = 10
 
     const [active, setActive] = useState(false)
@@ -49,31 +55,36 @@ export default function MobilePagination({ baseCount = 10, category, tag }: { ba
 
     const updatePage = () => {
         setPostDetailVOList([...postDetailVOList, ...currentData])
-        setCurrent(current + 1)
-        GetAllBlogPosts(current, pageSize, category, tag).then((postDetailPageVO) => {
+        GetAllBlogPosts(current + 1, pageSize, category, tag).then((postDetailPageVO) => {
             setPageCount(Math.ceil(postDetailPageVO.count / pageSize))
             setCurrentData(postDetailPageVO.data)
+            setCurrent(current + 1)
         })
     }
 
     useEffect(() => { updatePage() }, [])
-
-    useInfiniteScroll(active && current <= pageCount, () => { updatePage() })
+    useInfiniteScroll(active && current <= pageCount, () => { updatePage() }, 300)
 
     return (
         <>
             {
                 active ?
                 postDetailVOList.map((postDetailVO, i) =>
-                    <PostCard key={postDetailVO.id} index={baseCount + (current - 2) * pageSize + i} postDetailVO={postDetailVO}/>
+                    <PostCard key={postDetailVO.id} index={baseCount + (current - 2) * pageSize + i} className={className} postDetailVO={postDetailVO}/>
                 ) :
-                <div className='btn btn-primary btn-sm btn-outline rounded-lg whitespace-nowrap py-0 hover:btn-soft my-2' onClick={() => {
+                <div className={`${buttonClassNames}  ${className}`} onTouchEnd={(e) => {
+                    e.preventDefault()
                     updatePage()
                     setActive(true)
                 }}>Show More</div>
             }
             {
-                // active && current > pageCount ? <div className='my-2'>No more</div> : null
+                <div className={`${buttonClassNames} ${active && current > pageCount ? '' : 'hidden'} ${className}`}
+                     onTouchEnd={(e) => {
+                         e.preventDefault()
+                         window.scrollTo({top: 0, behavior: 'smooth'})
+                     }}
+                >Back to top</div>
             }
         </>
     )
