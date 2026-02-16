@@ -5,12 +5,13 @@ import {permanentRedirect} from "next/navigation"
 
 export const generateMetadata = async ({ params }: AsyncPathParams): Promise<Metadata> => {
     const { filter, name, index } = await params
+    const decodedName = decodeURIComponent(name!!)
     return {
-        title: `Page ${index} | ${name} - wwr.icu`,
-        description: `Page ${index} of posts under ${filter} ${name}`,
+        title: `Page ${index} | ${decodedName} - wwr.icu`,
+        description: `Page ${index} of posts under ${filter} ${decodedName}`,
         openGraph: {
             siteName: 'wwr.icu',
-            title: name,
+            title: decodedName,
             description: 'wwr.icu',
             url: `${process.env.NEXT_SITE_URL}/${filter}/${name}${index ? `/${index}` : ''}`
         }
