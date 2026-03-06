@@ -38,8 +38,8 @@ export default function PostCard({ postDetailVO, index, className }: { postDetai
                             quality={75}
                             width={240}
                             height={180}
-                            alt={postDetailVO.cover?.name!!}
-                            src={postDetailVO.cover?.url!!}
+                            alt={postDetailVO.cover!.name!}
+                            src={postDetailVO.cover!.url}
                             className='object-cover rounded-r-box h-full'
                         />
                         <div className='absolute inset-0 bg-black/40 dark:block hidden rounded-r-box'/>

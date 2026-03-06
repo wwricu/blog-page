@@ -4,7 +4,7 @@ import {Metadata} from "next"
 
 export const generateMetadata = async ({ params }: AsyncPathParams): Promise<Metadata> => {
     const { filter, name } = await params
-    const decodedName = decodeURIComponent(name!!)
+    const decodedName = decodeURIComponent(name!)
     return {
         title: `${decodedName} - wwr.icu`,
         description: `First page of posts under ${filter} ${decodedName}`,
