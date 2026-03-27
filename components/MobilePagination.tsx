@@ -41,7 +41,7 @@ const useInfiniteScroll = (
 
         window.addEventListener('scroll', handleScroll, { passive: true })
         return () => window.removeEventListener('scroll', handleScroll)
-    }, [hasNextPage, onLoadMore, threshold])
+    }, [hasNextPage, onLoadMore, threshold, timeout])
 }
 
 export default function MobilePagination({ baseCount = 10, category, tag, className }: PaginationProps) {
@@ -62,7 +62,7 @@ export default function MobilePagination({ baseCount = 10, category, tag, classN
         })
     }
 
-    useEffect(() => { updatePage() }, [])
+    useEffect(() => { updatePage() })
     useInfiniteScroll(active && current <= pageCount, () => { updatePage() }, 300)
 
     return (
