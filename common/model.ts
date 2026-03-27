@@ -1,25 +1,6 @@
-export enum PostResourceTypeEnum {
-    IMAGE = 'image',
-    COVER_IMAGE = 'cover',
-    COMMON = 'common'
-}
-
 export enum TagTypeEnum {
     POST_TAG = 'post_tag',
     POST_CAT = 'post_category'
-}
-
-export interface PostRequestRO {
-    page_index: number
-    page_size: number
-    tag_list?: string[]
-    cat_id?: string
-}
-
-export interface TagRequestRO {
-    page_index: number
-    page_size: number
-    type: TagTypeEnum
 }
 
 export interface TagVO {
@@ -34,7 +15,6 @@ export interface PostResourceVO {
     name: string
     key: string
     url: string
-    type: PostResourceTypeEnum
 }
 
 export interface PostDetailVO {
