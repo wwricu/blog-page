@@ -1,6 +1,6 @@
 'use client'
 
-import React, {useEffect, useRef, useState} from "react"
+import React, {useCallback, useEffect, useRef, useState} from "react"
 import {PostDetailVO} from "@/common/model"
 import {GetAllBlogPosts} from "@/common/api"
 import PostCard from "@/components/PostCard"
@@ -53,16 +53,16 @@ export default function MobilePagination({ baseCount = 10, category, tag, classN
     const [current, setCurrent] = useState(1)
     const [pageCount, setPageCount] = useState(0)
 
-    const updatePage = () => {
+    const updatePage = useCallback(() => {
         setPostDetailVOList([...postDetailVOList, ...currentData])
         GetAllBlogPosts(current + 1, pageSize, category, tag).then((postDetailPageVO) => {
             setPageCount(Math.ceil(postDetailPageVO.count / pageSize))
             setCurrentData(postDetailPageVO.data)
             setCurrent(current + 1)
         })
-    }
+    }, [postDetailVOList, currentData, current, category, tag])
 
-    useEffect(() => { updatePage() })
+    useEffect(() => { updatePage() }, [updatePage])
     useInfiniteScroll(active && current <= pageCount, () => { updatePage() }, 300)
 
     return (
