@@ -35,11 +35,7 @@ export const GetPostDetailAPI = async (postId: number | string) => {
 }
 
 export const GetAllTagsAPI = async (tagTypeEnum: TagTypeEnum) => {
-    const res = await fetch(`${baseUrl}/open/tags`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: tagTypeEnum })
-    })
+    const res = await fetch(`${baseUrl}/open/tags/${tagTypeEnum}`)
     return await res.json() as TagVO[]
 }
 
