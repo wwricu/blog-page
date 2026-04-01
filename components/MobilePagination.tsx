@@ -62,7 +62,9 @@ export default function MobilePagination({ baseCount = 10, category, tag, classN
         })
     }
 
-    useEffect(() => { updatePage() })
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(() => { updatePage() }, [])
     useInfiniteScroll(active && current <= pageCount, () => { updatePage() }, 300)
 
     return (
