@@ -21,12 +21,12 @@ export default function PostCard({ postDetailVO, index, className }: { postDetai
                         {postDetailVO.preview}
                     </p>
                 </Link>
-                <Link className='w-full flex-1' href={`/detail/${postDetailVO.id}`}/>
+                <Link className='w-full flex-1' href={`/detail/${postDetailVO.id}`} aria-label={postDetailVO.title}/>
                 <div className={`flex gap-y-1 gap-x-4 flex-wrap w-full`}>
                     <PostCreateTime createTime={postDetailVO?.create_time}/>
                     <PostCategory category={postDetailVO?.category}/>
                     <PostTagList tagList={postDetailVO?.tag_list}/>
-                    <Link className='flex-1' href={`/detail/${postDetailVO.id}`}/>
+                    <Link className='flex-1' href={`/detail/${postDetailVO.id}`} aria-label={postDetailVO.title}/>
                 </div>
             </div>
             {
