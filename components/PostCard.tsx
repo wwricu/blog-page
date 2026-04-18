@@ -8,7 +8,7 @@ export default function PostCard({ postDetailVO, index, className }: { postDetai
     const hasCover = postDetailVO.cover?.url != null && postDetailVO.cover?.name != null
     return (
         <div className={
-            `flex justify-between p-0 min-w-2xs bg-base-100 ${className} relative
+            `flex justify-between p-0 min-w-2xs bg-base-100 ${className} relative hover:shadow-lg transition hover:-translate-y-px
             max-sm:min-h-16 max-sm:rounded-lg sm:rounded-xl max-md:w-full max-md:min-h-20
             md:rounded-box md:w-3xl ${hasCover ? 'md:h-45' : 'md:min-h-45'}`
         }>
