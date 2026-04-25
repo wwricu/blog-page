@@ -3,6 +3,18 @@ import {AboutVO, PostDetailPageVO, PostDetailVO, TagTypeEnum, TagVO} from "@/com
 const publicBaseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? '/api'
 const baseUrl = process.env.NEXT_BASE_URL ?? publicBaseUrl
 
+const getForwardedHeaders = async (): Promise<Record<string, string>> => {
+    if (typeof window !== 'undefined') {
+        return {}
+    }
+    const {headers} = await import('next/headers')
+    const h = await headers()
+    return {
+        'X-Real-IP': h.get('X-Real-IP') || '',
+        'X-Forwarded-For': h.get('X-Forwarded-For') || ''
+    }
+}
+
 export const GetAllBlogPosts = async (
     pageIndex: number = 1,
     pageSize: number = 10,
@@ -11,7 +23,10 @@ export const GetAllBlogPosts = async (
 ) => {
     const res = await fetch(`${baseUrl}/open/post/all`, {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
+        headers: {
+            'Content-Type': 'application/json',
+            ...(await getForwardedHeaders()),
+        },
         body: JSON.stringify({
             page_index: pageIndex,
             page_size: pageSize,
@@ -27,7 +42,9 @@ export const GetPostDetailAPI = async (postId: number | string) => {
     if (!Number.isSafeInteger(postNumId)) {
         return null
     }
-    const res = await fetch(`${baseUrl}/open/post/detail/${postNumId}`)
+    const res = await fetch(`${baseUrl}/open/post/detail/${postNumId}`, {
+        headers: await getForwardedHeaders(),
+    })
     if (!res.ok && res.status === 404) {
         return null
     }
@@ -35,11 +52,15 @@ export const GetPostDetailAPI = async (postId: number | string) => {
 }
 
 export const GetAllTagsAPI = async (tagTypeEnum: TagTypeEnum) => {
-    const res = await fetch(`${baseUrl}/open/tags/${tagTypeEnum}`)
+    const res = await fetch(`${baseUrl}/open/tags/${tagTypeEnum}`, {
+        headers: await getForwardedHeaders(),
+    })
     return await res.json() as TagVO[]
 }
 
 export const GetAboutAPI = async () => {
-    const res = await fetch(`${baseUrl}/open/about`)
+    const res = await fetch(`${baseUrl}/open/about`, {
+        headers: await getForwardedHeaders(),
+    })
     return await res.json() as AboutVO
 }
