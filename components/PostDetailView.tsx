@@ -2,6 +2,7 @@ import {PostDetailVO} from "@/common/model"
 import React from "react"
 import {PostCategory, PostCreateTime, PostTagList} from "@/components/PostMeta"
 import NotFound from "next/dist/client/components/builtin/not-found"
+import ImageLightbox from "@/components/ImageLightbox"
 
 export default async function PostDetailView({ postDetailVO }: { postDetailVO: PostDetailVO | null }) {
     if (!postDetailVO) {
@@ -16,7 +17,7 @@ export default async function PostDetailView({ postDetailVO }: { postDetailVO: P
                 <PostCategory category={postDetailVO?.category}/>
                 <PostTagList tagList={postDetailVO?.tag_list}/>
             </div>
-            <div className='prose max-w-none! max-md:prose-sm text-base-content leading-relaxed' dangerouslySetInnerHTML={{__html: postDetailVO.content}}/>
+            <ImageLightbox html={postDetailVO.content}/>
         </div>
     )
 }
