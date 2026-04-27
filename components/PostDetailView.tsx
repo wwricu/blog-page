@@ -1,12 +1,12 @@
 import {PostDetailVO} from "@/common/model"
 import React from "react"
 import {PostCategory, PostCreateTime, PostTagList} from "@/components/PostMeta"
-import NotFound from "next/dist/client/components/builtin/not-found"
+import { notFound } from "next/navigation"
 import ImageLightbox from "@/components/ImageLightbox"
 
 export default async function PostDetailView({ postDetailVO }: { postDetailVO: PostDetailVO | null }) {
     if (!postDetailVO) {
-        return <NotFound/>
+        notFound()
     }
 
     return (
