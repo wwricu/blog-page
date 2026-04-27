@@ -13,7 +13,7 @@ export default async function TagView({ tagType }: {  tagType: TagTypeEnum }) {
                 <div key={tag.id} className='flex justify-between items-baseline min-w-2xs'>
                     <Link
                         className='link text-base-content/80 transition-colors hover:text-primary'
-                        href={`/${tagType === TagTypeEnum.POST_CAT ? CategoriesURL : TagsUrl}/${tag.name}`}
+                        href={`/${tagType === TagTypeEnum.POST_CAT ? CategoriesURL : TagsUrl}/${encodeURIComponent(tag.name)}`}
                     >
                         {tag.name}
                     </Link>
