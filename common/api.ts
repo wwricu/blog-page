@@ -1,7 +1,6 @@
 import {AboutVO, PostDetailPageVO, PostDetailVO, TagTypeEnum, TagVO} from "@/common/model"
 
-const publicBaseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? '/api'
-const baseUrl = process.env.NEXT_BASE_URL ?? publicBaseUrl
+const baseUrl = process.env.NEXT_BASE_URL ?? '/api'
 
 const getForwardedHeaders = async (): Promise<Record<string, string>> => {
     if (typeof window !== 'undefined') {
