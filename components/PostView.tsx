@@ -5,7 +5,9 @@ import {GetAllBlogPosts} from "@/common/api"
 import {CategoriesURL, PathParams, TagsUrl} from "@/common/common"
 import { notFound } from "next/navigation"
 import Pagination from "@/components/Pagination"
-import MobilePagination from "@/components/MobilePagination"
+import dynamic from 'next/dynamic'
+
+const MobilePagination = dynamic(() => import('@/components/MobilePagination'))
 
 export default async function PostView({ filter, name, index = '1' }: PathParams) {
     const apiParams: { index: number, category?: string, tag?: string } = { index: Number(index) }
