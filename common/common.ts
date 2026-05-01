@@ -1,4 +1,4 @@
-import {JetBrains_Mono, Noto_Sans} from "next/font/google";
+import {JetBrains_Mono, Noto_Sans} from "next/font/google"
 
 export type PathParams = {
     id?: string

@@ -46,18 +46,17 @@ export default function Header() {
     const [postCount, setPostCount] = useState<number>(0)
     const [categoryCount, setCategoryCount] = useState<number>(0)
     const [tagCount, setTagCount] = useState<number>(0)
-    const [currentRoute, setCurrentRoute] = useState<string>('')
     const modalRef = useRef<HTMLDialogElement>(null)
+    const currentRoute = pathname?.replace(/\/\[.*]/g, "") || '/'
 
     useEffect(() => {
-        setCurrentRoute(pathname?.replace(/\/\[.*]/g, "") || '/')
         GetAboutAPI().then((res) => {
             setAbout(res.content)
             setPostCount(res.post_count)
             setCategoryCount(res.category_count)
             setTagCount(res.tag_count)
         })
-    }, [pathname])
+    }, [])
 
     const getButtonStyle = (path: string | undefined = undefined) => {
         if ((isModalOpen && path == null) || !isModalOpen && currentRoute === path) {

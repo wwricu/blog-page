@@ -1,16 +1,9 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from "next"
+import withBundleAnalyzer from '@next/bundle-analyzer'
 
 const nextConfig: NextConfig = {
   output: 'standalone',
   reactStrictMode: true,
-  transpilePackages: [
-    "antd",
-    "@ant-design",
-    "rc-util",
-    "rc-pagination",
-    "rc-input",
-    "rc-picker",
-  ],
   images: {
     remotePatterns: [
       {
@@ -20,7 +13,15 @@ const nextConfig: NextConfig = {
         pathname: '**',
       },
     ],
-  }
-};
+  },
+ async rewrites() {
+    return [
+        {
+          source: '/api/:path*',
+          destination: `${process.env.NEXT_BASE_URL}/:path*`,
+        },
+      ]
+  },
+}
 
-export default nextConfig;
+export default withBundleAnalyzer({ enabled: process.env.ANALYZE === 'true' })(nextConfig)

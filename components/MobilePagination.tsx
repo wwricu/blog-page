@@ -16,10 +16,14 @@ const buttonClassNames = 'btn btn-primary btn-sm btn-outline rounded-lg whitespa
 const useInfiniteScroll = (
     hasNextPage: boolean,
     onLoadMore: () => void,
-    threshold: number = 100,
-    timeout: number = 100
+    threshold: number = 100
 ) => {
     const isFetchingRef = useRef(false)
+    const onLoadMoreRef = useRef(onLoadMore)
+
+    useEffect(() => {
+        onLoadMoreRef.current = onLoadMore
+    }, [onLoadMore])
 
     useEffect(() => {
         if (!hasNextPage) return
@@ -33,15 +37,13 @@ const useInfiniteScroll = (
 
             if (scrollHeight - scrollTop - clientHeight <= threshold) {
                 isFetchingRef.current = true
-                onLoadMore()
-
-                setTimeout(() => { isFetchingRef.current = false }, timeout)
+                onLoadMoreRef.current()
             }
         }
 
         window.addEventListener('scroll', handleScroll, { passive: true })
         return () => window.removeEventListener('scroll', handleScroll)
-    }, [hasNextPage, onLoadMore, threshold, timeout])
+    }, [hasNextPage, threshold])
 }
 
 export default function MobilePagination({ baseCount = 10, category, tag, className }: PaginationProps) {
@@ -50,29 +52,41 @@ export default function MobilePagination({ baseCount = 10, category, tag, classN
     const [active, setActive] = useState(false)
     const [postDetailVOList, setPostDetailVOList] = useState<PostDetailVO[]>([])
     const [currentData, setCurrentData] = useState<PostDetailVO[]>([])
-    const [current, setCurrent] = useState(1)
     const [pageCount, setPageCount] = useState(0)
+    const currentRef = useRef(1)
+    const currentDataRef = useRef<PostDetailVO[]>([])
+    const isFetchingRef = useRef(false)
+
+    useEffect(() => {
+        currentDataRef.current = currentData
+    }, [currentData])
 
     const updatePage = () => {
-        setPostDetailVOList([...postDetailVOList, ...currentData])
-        GetAllBlogPosts(current + 1, pageSize, category, tag).then((postDetailPageVO) => {
+        if (isFetchingRef.current) return
+        isFetchingRef.current = true
+
+        setPostDetailVOList(prev => [...prev, ...currentDataRef.current])
+
+        const nextPage = currentRef.current + 1
+        GetAllBlogPosts(nextPage, pageSize, category, tag).then((postDetailPageVO) => {
             setPageCount(Math.ceil(postDetailPageVO.count / pageSize))
             setCurrentData(postDetailPageVO.data)
-            setCurrent(current + 1)
+            currentRef.current = nextPage
+        }).finally(() => {
+            isFetchingRef.current = false
         })
     }
 
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => { updatePage() }, [])
-    useInfiniteScroll(active && current <= pageCount, () => { updatePage() }, 300)
+
+    useInfiniteScroll(active && currentRef.current <= pageCount, updatePage, 300)
 
     return (
         <>
             {
                 active ?
                 postDetailVOList.map((postDetailVO, i) =>
-                    <PostCard key={postDetailVO.id} index={baseCount + (current - 2) * pageSize + i} className={className} postDetailVO={postDetailVO}/>
+                    <PostCard key={postDetailVO.id} index={baseCount + (currentRef.current - 2) * pageSize + i} className={className} postDetailVO={postDetailVO}/>
                 ) : null
             }
             <div className={className}>
@@ -86,7 +100,7 @@ export default function MobilePagination({ baseCount = 10, category, tag, classN
                         }}>Show More</div>
                     ) : <div className='mb-px'/>
                 }
-                <div className={`${buttonClassNames} ${active && current > pageCount ? '' : 'hidden'}`}
+                <div className={`${buttonClassNames} ${active && currentRef.current > pageCount ? '' : 'hidden'}`}
                      onTouchEnd={(e) => {
                          e.preventDefault()
                          window.scrollTo({top: 0, behavior: 'smooth'})
