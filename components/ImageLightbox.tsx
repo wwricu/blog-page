@@ -1,28 +1,12 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
+import Image from 'next/image'
 
 export default function ImageLightbox({ html }: { html: string }) {
     const [activeSrc, setActiveSrc] = useState<string | null>(null)
-    const [showImg, setShowImg] = useState(false)
-    const displaySrc = useRef<string | null>(null)
-
-    useEffect(() => {
-        if (!activeSrc) return
-        const handleScroll = () => setActiveSrc(null)
-        window.addEventListener('scroll', handleScroll)
-        return () => window.removeEventListener('scroll', handleScroll)
-    }, [activeSrc])
-
-    useEffect(() => {
-        if (activeSrc) {
-            displaySrc.current = activeSrc
-            setShowImg(true)
-        } else {
-            const timer = setTimeout(() => setShowImg(false), 700)
-            return () => clearTimeout(timer)
-        }
-    }, [activeSrc])
+    const [activeAlt, setActiveAlt] = useState<string>('preview')
+    const dialogRef = useRef<HTMLDialogElement>(null)
 
     return (
         <>
@@ -32,22 +16,31 @@ export default function ImageLightbox({ html }: { html: string }) {
                 onClick={(e) => {
                     if (e.target instanceof HTMLImageElement) {
                         setActiveSrc(e.target.src)
+                        setActiveAlt(e.target.alt)
+                        dialogRef.current?.showModal()
                     }
                 }}
             />
-            <div
-                className={`fixed inset-0 z-50 flex items-center justify-center bg-black/80 cursor-zoom-out transition-opacity duration-700 ${activeSrc ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
-                onClick={() => setActiveSrc(null)}
+            <dialog
+                ref={dialogRef}
+                className='modal'
+                onClose={() => setActiveSrc(null)}
             >
-                {showImg && (
-                    <img
-                        src={displaySrc.current || undefined}
-                        alt='preview'
-                        className={`max-w-[90vw] max-h-[90vh] object-contain transition-all duration-700 ${activeSrc ? 'scale-100 opacity-100' : 'scale-95 opacity-0'}`}
-                        onClick={() => setActiveSrc(null)}
-                    />
-                )}
-            </div>
+                <div className='modal-box w-[90vw] h-[85vh] max-w-none p-0 bg-transparent shadow-none overflow-hidden'>
+                    {activeSrc && (
+                        <Image
+                            src={activeSrc}
+                            alt={activeAlt}
+                            fill
+                            className='object-contain cursor-zoom-out'
+                            onClick={() => dialogRef.current?.close()}
+                        />
+                    )}
+                </div>
+                <form method='dialog' className='modal-backdrop'>
+                    <button>close</button>
+                </form>
+            </dialog>
         </>
     )
 }

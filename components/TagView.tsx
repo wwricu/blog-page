@@ -1,6 +1,6 @@
 import {TagTypeEnum, TagVO} from "@/common/model"
 import Link from "next/link"
-import React from "react";
+import React from "react"
 import {GetAllTagsAPI} from "@/common/api"
 import {CategoriesURL, TagsUrl} from "@/common/common"
 
