@@ -8,7 +8,7 @@ export default function PostCard({ postDetailVO, index, className }: { postDetai
     const hasCover = postDetailVO.cover?.url != null && postDetailVO.cover?.name != null
     return (
         <div className={
-            `${className} flex justify-between px-1 min-w-2xs bg-base-100 rounded-lg
+            `${className} flex justify-between pl-1 min-w-2xs bg-base-100 rounded-lg
             relative hover:shadow-lg transition hover:-translate-y-px
             max-sm:min-h-16 max-md:w-full md:w-3xl ${hasCover ? 'md:h-36' : 'md:min-h-36'}`
         }>
@@ -31,18 +31,18 @@ export default function PostCard({ postDetailVO, index, className }: { postDetai
             </div>
             {
                 hasCover ? (
-                    <Link className="relative w-48 h-36 max-md:hidden" href={`/detail/${postDetailVO.id}`}>
+                    <Link className="relative w-72 h-36 max-md:hidden" href={`/detail/${postDetailVO.id}`}>
                         <Image
                             // TODO: WHY preload & priority not work
                             priority={ index < 3 }
                             loading={ index < 3 ? 'eager' : 'lazy' }
                             fetchPriority={ index < 3 ? 'high' : 'auto' }
                             quality={75}
-                            width={192}
+                            width={288}
                             height={144}
                             alt={postDetailVO.cover!.name!}
                             src={postDetailVO.cover!.url}
-                            className='object-cover rounded-r-box h-full'
+                            className='object-cover rounded-r-lg h-full'
                         />
                         <div className='absolute inset-0 bg-black/40 dark:block hidden rounded-r-box'/>
                     </Link>
