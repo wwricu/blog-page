@@ -72,7 +72,7 @@ export default function Pagination({ current = 1, total, pageSize = 10, baseUrl,
                         <Link
                             key={i}
                             href={value === '...' ? '' : getUrl(value.toString())}
-                            className={`join-item btn btn-outline border-base-300 text-base-content max-md:btn-sm md:btn-md ${status}`}
+                            className={`join-item btn btn-outline border-base-300 text-base-content btn-sm ${status}`}
                         >
                             {value}
                         </Link>

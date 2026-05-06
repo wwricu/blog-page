@@ -26,14 +26,15 @@ export default function ImageLightbox({ html }: { html: string }) {
                 className='modal'
                 onClose={() => setActiveSrc(null)}
             >
-                <div className='modal-box w-[90vw] h-[85vh] max-w-none p-0 bg-transparent shadow-none overflow-hidden'>
+                <div 
+                    className='modal-box w-[90vw] h-[85vh] max-w-none p-0 bg-transparent shadow-none overflow-hidden flex items-center justify-center'
+                    onClick={() => dialogRef.current?.close()}
+                >
                     {activeSrc && (
-                        <Image
+                        <img
                             src={activeSrc}
                             alt={activeAlt}
-                            fill
-                            className='object-contain cursor-zoom-out'
-                            onClick={() => dialogRef.current?.close()}
+                            className='max-w-full max-h-full object-contain cursor-zoom-out'
                         />
                     )}
                 </div>

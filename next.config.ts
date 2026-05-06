@@ -12,6 +12,12 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '**',
       },
+      {
+        protocol: 'https',
+        hostname: '**.wwr.icu',
+        port: '',
+        pathname: '**',
+      },
     ],
   },
  async rewrites() {
