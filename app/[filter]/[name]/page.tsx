@@ -18,5 +18,6 @@ export const generateMetadata = async ({ params }: AsyncPathParams): Promise<Met
 }
 
 export default async function FilterPostPage({ params }: AsyncPathParams) {
-    return PostView(await params)
+    const { filter, name } = await params
+    return <PostView filter={filter} name={name} />
 }

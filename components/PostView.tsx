@@ -3,16 +3,18 @@ import PostCard from "@/components/PostCard"
 import React from "react"
 import {GetAllBlogPosts} from "@/common/api"
 import {CategoriesURL, PathParams, TagsUrl} from "@/common/common"
-import NotFound from "next/dist/client/components/builtin/not-found"
+import { notFound } from "next/navigation"
 import Pagination from "@/components/Pagination"
-import MobilePagination from "@/components/MobilePagination";
+import dynamic from 'next/dynamic'
+
+const MobilePagination = dynamic(() => import('@/components/MobilePagination'))
 
 export default async function PostView({ filter, name, index = '1' }: PathParams) {
     const apiParams: { index: number, category?: string, tag?: string } = { index: Number(index) }
     const pageSize = 10
 
     if (!Number.isSafeInteger(apiParams.index) || apiParams.index <= 0) {
-        return <NotFound/>
+        notFound()
     }
 
     if (filter === CategoriesURL) {
@@ -20,13 +22,13 @@ export default async function PostView({ filter, name, index = '1' }: PathParams
     } else if (filter === TagsUrl) {
         apiParams.tag = name ? decodeURIComponent(name) : undefined
     } else if (filter || name) {
-        return <NotFound/>
+        notFound()
     }
 
     const postDetailPageVO: PostDetailPageVO = await GetAllBlogPosts(apiParams.index, pageSize, apiParams.category, apiParams.tag)
     const pageCount = Math.ceil(postDetailPageVO.count / pageSize)
     if (postDetailPageVO.page_index > pageCount) {
-        return <NotFound/>
+        notFound()
     }
 
     return (
