@@ -3,8 +3,8 @@ import {AboutVO, PostDetailPageVO, PostDetailVO, TagTypeEnum, TagVO} from "@/com
 const baseUrl = process.env.NEXT_BASE_URL ?? '/api'
 
 const api_key_headers = {
-    'x-api-key-id': process.env.NEXT_API_KEY_ID || '',
-    'x-api-key': process.env.NEXT_API_KEY || '',
+  ...(process.env.NEXT_API_KEY_ID && { 'x-api-key-id': process.env.NEXT_API_KEY_ID }),
+  ...(process.env.NEXT_API_KEY && { 'x-api-key': process.env.NEXT_API_KEY }),
 }
 
 const get = async<T> (url: string) => {
