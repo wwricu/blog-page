@@ -28,10 +28,10 @@ export const GetAllBlogPosts = async (
     tag: string | undefined = undefined
 ) => {
     return await post<PostDetailPageVO>('/open/post/all', {
-            page_index: pageIndex,
-            page_size: pageSize,
-            category: category,
-            tag_list: tag ? [tag] : undefined,
+        page_index: pageIndex,
+        page_size: pageSize,
+        category: category,
+        tag_list: tag ? [tag] : undefined,
     })
 }
 
@@ -40,7 +40,7 @@ export const GetPostDetailAPI = async (postId: number | string) => {
     if (!Number.isSafeInteger(postNumId)) {
         return null
     }
-    return await get<PostDetailVO>(`${baseUrl}/open/post/detail/${postNumId}`)
+    return await get<PostDetailVO>(`/open/post/detail/${postNumId}`)
 }
 
 export const GetAllTagsAPI = async (tagTypeEnum: TagTypeEnum) => {
