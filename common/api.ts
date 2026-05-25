@@ -40,6 +40,18 @@ export const GetAllBlogPosts = async (
     })
 }
 
+export const SearchBlogPosts = async (
+    keyword: string,
+    pageIndex: number = 1,
+    pageSize: number = 10,
+) => {
+    return await post<PostDetailPageVO>('/open/post/search', {
+        keyword: keyword,
+        page_index: pageIndex,
+        page_size: pageSize,
+    })
+}
+
 export const GetPostDetailAPI = async (postId: number | string) => {
     const postNumId = Number(postId as string)
     if (!Number.isSafeInteger(postNumId)) {

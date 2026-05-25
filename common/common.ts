@@ -5,6 +5,8 @@ export type PathParams = {
     filter?: string
     name?: string
     index?: string
+    keyword?: string
+    page?: string
     className?: string
 }
 
@@ -14,6 +16,7 @@ export type AsyncPathParams = {
 
 export const TagsUrl = 'tags'
 export const CategoriesURL = 'categories'
+export const SearchUrl = 'search'
 export const iconClassNames = 'inline stroke-2 w-3.75 h-3.75'
 
 export const sansSerif = Noto_Sans({

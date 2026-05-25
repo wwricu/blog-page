@@ -91,7 +91,7 @@ export default function MobilePagination({ baseCount = 10, category, tag, classN
             }
             <div className={className}>
                 {
-                    !active && currentData.length > 0 ?
+                    !active && currentData?.length > 0 ?
                     (
                         <div className={buttonClassNames} onTouchEnd={(e) => {
                             e.preventDefault()
