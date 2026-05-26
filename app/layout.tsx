@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic'
 
 const Footer = () => {
     return (
-        <div className='flex flex-col justify-between items-center bg-base-100 text-base-content/70 overflow-x-auto max-md:h-10 md:h-12'>
+        <div className='lg:hidden flex flex-col justify-between items-center bg-base-100 text-base-content/70 overflow-x-auto max-md:h-10 md:h-12'>
             <div className='w-full border-t border-base-300'/>
                 <div className='text-sm text-center min-w-2xs'>
                     wwr.icu {new Date().getFullYear()}

@@ -9,6 +9,7 @@ export const generateMetadata = async ({ params }: AsyncPathParams): Promise<Met
     return {
         title: `Search: ${decoded} - wwr.icu`,
         description: `Search results for ${decoded}`,
+        robots: { index: false, follow: true },
         openGraph: {
             siteName: 'wwr.icu',
             title: decoded,
