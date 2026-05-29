@@ -4,9 +4,10 @@ import React from 'react'
 import Link from 'next/link'
 import {PostCategory, PostCreateTime, PostTagList} from "@/components/PostMeta"
 
-export default function PostCard({ postDetailVO, index, className, previewHtml }: { postDetailVO: PostPreviewVO, index: number, className?: string, previewHtml?: string }) {
+export default function PostCard({ postDetailVO, index, className, snippetHtml }: { postDetailVO: PostPreviewVO, index: number, className?: string, snippetHtml?: string }) {
     const hasCover = postDetailVO.cover?.url != null && postDetailVO.cover?.name != null
-    const previewClass = `text-base-content/70 line-clamp-2 font-normal max-h-16 min-h-0 text-sm ${hasCover ? 'mt-2' : 'my-2'} max-sm:text-xs [&_mark]:bg-warning/40 [&_mark]:text-base-content [&_mark]:rounded-sm [&_mark]:px-0.5`
+    const previewClass = `text-base-content/70 ${snippetHtml ? 'line-clamp-1' : 'line-clamp-2 max-h-16'} font-normal min-h-0 text-sm ${hasCover ? 'mt-2' : 'my-2'} max-sm:text-xs`
+    const snippetClass = `text-base-content/60 line-clamp-1 font-normal text-sm max-sm:text-xs italic mb-2 [&_mark]:bg-warning/40 [&_mark]:text-base-content [&_mark]:rounded-sm [&_mark]:px-0.5`
     return (
         <div className={
             `${className} flex justify-between pl-1 min-w-2xs bg-base-100 rounded-lg
@@ -19,11 +20,10 @@ export default function PostCard({ postDetailVO, index, className, previewHtml }
                     <h4 className='text-base-content font-medium line-clamp-1 transition-colors hover:text-primary sm:text-lg'>
                         {postDetailVO.title}
                     </h4>
-                    {previewHtml ? (
-                        <p className={previewClass} dangerouslySetInnerHTML={{__html: previewHtml}}/>
-                    ) : (
-                        <p className={previewClass}>{postDetailVO.preview}</p>
-                    )}
+                    <p className={previewClass}>{postDetailVO.preview}</p>
+                    {snippetHtml ? (
+                        <p className={snippetClass} dangerouslySetInnerHTML={{__html: snippetHtml}}/>
+                    ) : null}
                 </Link>
                 <Link className='w-full flex-1' href={`/detail/${postDetailVO.id}`} aria-label={postDetailVO.title}/>
                 <div className={`flex gap-y-1 gap-x-4 flex-wrap w-full`}>

@@ -39,7 +39,7 @@ export default async function SearchPostView({ keyword }: PathParams) {
             </div>
             {
                 hits?.map((hit, i) =>
-                    <PostCard key={hit.id} index={i} postDetailVO={hit} previewHtml={hit.snippet ? highlight(hit.snippet, decodedKeyword) : undefined}/>
+                    <PostCard key={hit.id} index={i} postDetailVO={hit} snippetHtml={hit.snippet ? highlight(hit.snippet, decodedKeyword) : undefined}/>
                 )
             }
             {
