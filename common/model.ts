@@ -36,6 +36,10 @@ export interface PostDetailPageVO {
     data: PostDetailVO[]
 }
 
+export interface PostSearchHitVO extends PostDetailVO {
+    snippet?: string
+}
+
 export interface AboutVO {
     content: string
     post_count: number

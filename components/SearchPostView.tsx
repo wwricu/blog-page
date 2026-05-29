@@ -4,17 +4,15 @@ import {PathParams, SearchUrl} from "@/common/common"
 import {notFound} from "next/navigation"
 import PostCard from "@/components/PostCard"
 
-const SEARCH_LIMIT = 30
-
 export default async function SearchPostView({ keyword }: PathParams) {
     const decodedKeyword = keyword ? decodeURIComponent(keyword) : ''
     if (!decodedKeyword.trim()) {
         notFound()
     }
 
-    const page = await SearchBlogPosts(decodedKeyword, 1, SEARCH_LIMIT)
-    const shownCount = page.data?.length ?? 0
-    const truncated = page.count > SEARCH_LIMIT
+    const hits = await SearchBlogPosts(decodedKeyword)
+    const shownCount = hits?.length ?? 0
+    const truncated = shownCount >= 30
 
     return (
         <div className={`
@@ -31,8 +29,8 @@ export default async function SearchPostView({ keyword }: PathParams) {
                 </ul>
             </div>
             {
-                page.data?.map((postDetailVO, i) =>
-                    <PostCard key={postDetailVO.id} index={i} postDetailVO={postDetailVO}/>
+                hits?.map((hit, i) =>
+                    <PostCard key={hit.id} index={i} postDetailVO={hit}/>
                 )
             }
             {
@@ -45,7 +43,7 @@ export default async function SearchPostView({ keyword }: PathParams) {
             {
                 truncated ? (
                     <div className='text-base-content/50 text-xs text-center py-4 mb-4 max-md:w-full md:w-3xl'>
-                        Showing top {SEARCH_LIMIT} of {page.count} results · refine your keyword for fewer matches
+                        Showing up to 30 results · refine your keyword for fewer matches
                     </div>
                 ) : null
             }
