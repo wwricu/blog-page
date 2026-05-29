@@ -4,6 +4,15 @@ import {PathParams, SearchUrl} from "@/common/common"
 import {notFound} from "next/navigation"
 import PostCard from "@/components/PostCard"
 
+const escapeHtml = (s: string) => s.replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c] as string))
+
+const highlight = (text: string, keyword: string): string => {
+    const escaped = escapeHtml(text)
+    const tokens = keyword.split(/\s+/).filter(Boolean).map(t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+    if (!tokens.length) return escaped
+    return escaped.replace(new RegExp(`(${tokens.join('|')})`, 'gi'), '<mark>$1</mark>')
+}
+
 export default async function SearchPostView({ keyword }: PathParams) {
     const decodedKeyword = keyword ? decodeURIComponent(keyword) : ''
     if (!decodedKeyword.trim()) {
@@ -30,7 +39,7 @@ export default async function SearchPostView({ keyword }: PathParams) {
             </div>
             {
                 hits?.map((hit, i) =>
-                    <PostCard key={hit.id} index={i} postDetailVO={hit}/>
+                    <PostCard key={hit.id} index={i} postDetailVO={hit} previewHtml={hit.snippet ? highlight(hit.snippet, decodedKeyword) : undefined}/>
                 )
             }
             {
