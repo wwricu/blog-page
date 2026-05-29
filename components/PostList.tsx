@@ -1,4 +1,4 @@
-import {PostDetailPageVO} from "@/common/model"
+import {PostPreviewPageVO} from "@/common/model"
 import PostCard from "@/components/PostCard"
 import React from "react"
 import Pagination from "@/components/Pagination"
@@ -12,7 +12,7 @@ type MobilePaginationParams = {
 }
 
 type PostListProps = {
-    page: PostDetailPageVO
+    page: PostPreviewPageVO
     pageSize: number
     baseUrl: string
     breadcrumb?: React.ReactNode

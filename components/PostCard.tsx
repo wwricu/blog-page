@@ -1,10 +1,10 @@
-import {PostDetailVO} from '@/common/model'
+import {PostPreviewVO} from '@/common/model'
 import Image from 'next/image'
 import React from 'react'
 import Link from 'next/link'
 import {PostCategory, PostCreateTime, PostTagList} from "@/components/PostMeta"
 
-export default function PostCard({ postDetailVO, index, className }: { postDetailVO: PostDetailVO, index: number, className?: string }) {
+export default function PostCard({ postDetailVO, index, className }: { postDetailVO: PostPreviewVO, index: number, className?: string }) {
     const hasCover = postDetailVO.cover?.url != null && postDetailVO.cover?.name != null
     return (
         <div className={
