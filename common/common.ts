@@ -19,6 +19,15 @@ export const CategoriesURL = 'categories'
 export const SearchUrl = 'search'
 export const iconClassNames = 'inline stroke-2 w-3.75 h-3.75'
 
+const escapeHtml = (s: string) => s.replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c] as string))
+
+export const highlightKeyword = (text: string, keyword: string): string => {
+    const escaped = escapeHtml(text)
+    const tokens = keyword.split(/\s+/).filter(Boolean).map(t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+    if (!tokens.length) return escaped
+    return escaped.replace(new RegExp(`(${tokens.join('|')})`, 'gi'), '<mark>$1</mark>')
+}
+
 export const sansSerif = Noto_Sans({
     subsets: ['latin', 'latin-ext', 'greek', 'cyrillic'],
     // font-light, font-normal, font-medium, font-semibold, font-bold
