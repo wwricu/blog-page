@@ -1,9 +1,10 @@
 'use client'
 
-import React, {useEffect, useState} from "react"
-import {House, List, Mail, Moon, Search, Sun, Tags} from "lucide-react"
+import React, {useEffect, useRef, useState} from "react"
+import {House, Info, List, Mail, Moon, Search, Sun, Tags} from "lucide-react"
 import Link from "next/link"
 import {usePathname, useRouter, useSearchParams} from "next/navigation"
+import {GetAboutAPI} from "@/common/api"
 import {SearchUrl} from "@/common/common"
 
 const navItems = [
@@ -33,6 +34,12 @@ export default function Sidebar() {
     const router = useRouter()
     const [keyword, setKeyword] = useState('')
     const [theme, setTheme] = useState<string | null>(null)
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [about, setAbout] = useState<string>('')
+    const [postCount, setPostCount] = useState<number>(0)
+    const [categoryCount, setCategoryCount] = useState<number>(0)
+    const [tagCount, setTagCount] = useState<number>(0)
+    const modalRef = useRef<HTMLDialogElement>(null)
 
     useEffect(() => {
         const saved = localStorage.getItem('theme')
@@ -43,6 +50,15 @@ export default function Sidebar() {
             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
             setTheme(prefersDark ? DARK_THEME : LIGHT_THEME)
         }
+    }, [])
+
+    useEffect(() => {
+        GetAboutAPI().then((res) => {
+            setAbout(res.content)
+            setPostCount(res.post_count)
+            setCategoryCount(res.category_count)
+            setTagCount(res.tag_count)
+        })
     }, [])
 
     useEffect(() => {
@@ -109,11 +125,26 @@ export default function Sidebar() {
                                     : 'text-base-content/70 hover:bg-base-200/60 hover:text-base-content'}`}
                         >
                             {active && <span className='absolute left-0 top-1.5 bottom-1.5 w-0.5 bg-primary rounded-full'/>}
-                            <Icon className={`w-4 h-4 ${iconClassName ?? ''} ${active ? 'stroke-base-content' : 'stroke-base-content/60 group-hover:stroke-base-content'}`}/>
+                            <Icon className={`w-4 h-4 ${iconClassName ?? ''} ${active ? 'stroke-base-content' : 'stroke-base-content/60 group-hover:stroke-base-content'}`} />
                             {label}
                         </Link>
                     )
                 })}
+                <button
+                    type='button'
+                    onClick={() => {
+                        modalRef?.current?.showModal()
+                        setIsModalOpen(true)
+                    }}
+                    className={`group relative flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors
+                        ${isModalOpen
+                            ? 'bg-base-200 text-base-content'
+                            : 'text-base-content/70 hover:bg-base-200/60 hover:text-base-content'}`}
+                >
+                    {isModalOpen && <span className='absolute left-0 top-1.5 bottom-1.5 w-0.5 bg-primary rounded-full'/>}
+                    <Info className={`w-4 h-4 ${isModalOpen ? 'stroke-base-content' : 'stroke-base-content/60 group-hover:stroke-base-content'}`} />
+                    About
+                </button>
             </nav>
 
             <div className='mt-auto px-4 py-4 border-t border-base-content/10 flex items-center justify-between text-xs text-base-content/50'>
@@ -127,24 +158,49 @@ export default function Sidebar() {
                     >
                         {theme === DARK_THEME ? <Sun className='w-4 h-4'/> : <Moon className='w-4 h-4'/>}
                     </button>
-                    <Link
-                        href='https://github.com/wwricu'
-                        target='_blank'
-                        rel='noopener noreferrer'
-                        className='inline-flex items-center justify-center w-7 h-7 rounded-md hover:bg-base-200 hover:text-base-content transition-colors'
-                        aria-label='GitHub'
-                    >
-                        <GithubIcon className='w-4 h-4'/>
-                    </Link>
-                    <Link
-                        href='mailto:me@wwr.icu'
-                        className='inline-flex items-center justify-center w-7 h-7 rounded-md hover:bg-base-200 hover:text-base-content transition-colors'
-                        aria-label='Mail'
-                    >
-                        <Mail className='w-4 h-4'/>
-                    </Link>
                 </div>
             </div>
+
+            <dialog className='modal' ref={modalRef} onClose={() => setIsModalOpen(false)}>
+                <div className="modal-box bg-base-100 max-xs:p-2 overflow-x-auto">
+                    <div className="min-w-60">
+                        <div dangerouslySetInnerHTML={{__html: about}} className='min-h-48'/>
+                        <div className='border-t border-base-content/30 mt-6 mb-4'/>
+                        <div className='flex justify-around'>
+                            {
+                                [
+                                    {title: 'Post', value: postCount},
+                                    {title: 'Category', value: categoryCount},
+                                    {title: 'Tag', value: tagCount},
+                                ].map(
+                                    (stat) => (
+                                        <div key={stat.title} className='stat place-items-center max-sm:px-4'>
+                                            <div className="stat-title text-sm font-medium text-base-content/60">{stat.title}</div>
+                                            <div className="stat-value text-3xl font-normal text-base-content">{stat.value}</div>
+                                        </div>
+                                    )
+                                )
+                            }
+                        </div>
+                        <div className='border-t border-base-content/30 mt-4 mb-6'/>
+                        <div className='flex justify-between'>
+                            <Link className='flex-1 mr-2' href='https://github.com/wwricu' target='_blank'>
+                                <button className='btn btn-active btn-primary btn-sm text-primary-content rounded w-full transition-colors hover:btn-accent hover:text-accent-content'>
+                                    <GithubIcon className='w-4 h-4'/>GitHub
+                                </button>
+                            </Link>
+                            <Link className='flex-1 ml-2' href='mailto:me@wwr.icu'>
+                                <button className='btn btn-ghost text-base-content border-primary rounded-s btn-sm rounded w-full transition-colors hover:btn-accent hover:border-none'>
+                                    <Mail className='w-4 h-4 stroke-base-primary'/>Mail me
+                                </button>
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+                <form method="dialog" className="modal-backdrop">
+                    <button>close</button>
+                </form>
+            </dialog>
         </aside>
     )
 }
