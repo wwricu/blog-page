@@ -30,7 +30,7 @@ export default async function SearchPostView({ keyword }: PathParams) {
             </div>
             {
                 hits?.map((hit, i) =>
-                    <SearchPostCard key={hit.id} index={i} hit={hit} keyword={decodedKeyword}/>
+                    <SearchPostCard key={hit.id} index={i} hit={hit}/>
                 )
             }
             {

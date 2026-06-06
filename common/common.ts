@@ -6,7 +6,6 @@ export type PathParams = {
     name?: string
     index?: string
     keyword?: string
-    page?: string
     className?: string
 }
 
@@ -26,6 +25,11 @@ export const highlightKeyword = (text: string, keyword: string): string => {
     const tokens = keyword.split(/\s+/).filter(Boolean).map(t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
     if (!tokens.length) return escaped
     return escaped.replace(new RegExp(`(${tokens.join('|')})`, 'gi'), '<mark>$1</mark>')
+}
+
+export const convertMarkersToHtml = (text: string | null | undefined): string => {
+    if (!text) return ''
+    return text.replace(/\x01/g, '<mark>').replace(/\x02/g, '</mark>')
 }
 
 export const sansSerif = Noto_Sans({

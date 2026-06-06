@@ -54,7 +54,7 @@ export default function Sidebar() {
     const submitSearch = () => {
         const trimmed = keyword.trim()
         if (!trimmed) return
-        router.push(`/${SearchUrl}/${encodeURIComponent(trimmed)}`)
+        router.push(`/${SearchUrl}?keyword=${encodeURIComponent(trimmed)}`)
     }
 
     const isActive = (url: string) => {

@@ -1,5 +1,5 @@
 import {PostSearchVO} from '@/common/model'
-import {highlightKeyword} from '@/common/common'
+import {convertMarkersToHtml} from '@/common/common'
 import Image from 'next/image'
 import React from 'react'
 import Link from 'next/link'
@@ -7,11 +7,11 @@ import {PostCategory, PostCreateTime, PostTagList} from "@/components/PostMeta"
 
 const markStyle = '[&_mark]:bg-warning/40 [&_mark]:text-base-content [&_mark]:font-medium [&_mark]:rounded-sm [&_mark]:px-0.5'
 
-export default function SearchPostCard({ hit, keyword, index }: { hit: PostSearchVO, keyword: string, index: number }) {
+export default function SearchPostCard({ hit, index }: { hit: PostSearchVO, index: number }) {
     const hasCover = hit.cover?.url != null && hit.cover?.name != null
-    const titleHtml = highlightKeyword(hit.title ?? '', keyword)
-    const previewHtml = highlightKeyword(hit.preview ?? '', keyword)
-    const snippetHtml = hit.snippet ? highlightKeyword(hit.snippet, keyword) : null
+    const titleHtml = convertMarkersToHtml(hit.title ?? '')
+    const previewHtml = convertMarkersToHtml(hit.preview ?? '')
+    const snippetHtml = convertMarkersToHtml(hit.snippet ?? null)
     const detailUrl = `/detail/${hit.id}`
     return (
         <div className={
