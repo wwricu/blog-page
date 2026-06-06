@@ -3,7 +3,7 @@
 import React, {useEffect, useState} from "react"
 import {House, List, Mail, Moon, Search, Sun, Tags} from "lucide-react"
 import Link from "next/link"
-import {usePathname, useRouter} from "next/navigation"
+import {usePathname, useRouter, useSearchParams} from "next/navigation"
 import {SearchUrl} from "@/common/common"
 
 const navItems = [
@@ -29,6 +29,7 @@ const GithubIcon = ({className = ''}: { className?: string }) => (
 
 export default function Sidebar() {
     const pathname = usePathname() || '/'
+    const searchParams = useSearchParams()
     const router = useRouter()
     const [keyword, setKeyword] = useState('')
     const [theme, setTheme] = useState<string | null>(null)
@@ -43,6 +44,17 @@ export default function Sidebar() {
             setTheme(prefersDark ? DARK_THEME : LIGHT_THEME)
         }
     }, [])
+
+    useEffect(() => {
+        if (pathname.startsWith('/search')) {
+            const keywordParam = searchParams.get('keyword')
+            if (keywordParam) {
+                setKeyword(decodeURIComponent(keywordParam))
+            }
+        } else {
+            setKeyword('')
+        }
+    }, [pathname, searchParams])
 
     const toggleTheme = () => {
         const next = theme === DARK_THEME ? LIGHT_THEME : DARK_THEME
