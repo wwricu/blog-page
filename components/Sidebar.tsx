@@ -11,6 +11,7 @@ const navItems = [
     {url: '/', label: 'Home', Icon: House},
     {url: '/categories', label: 'Categories', Icon: List},
     {url: '/tags', label: 'Tags', Icon: Tags, iconClassName: 'transform scale-x-[-1]'},
+    {url: null, label: 'About', Icon: Info, isButton: true},
 ]
 
 const LIGHT_THEME = 'fantasy'
@@ -113,12 +114,32 @@ export default function Sidebar() {
             </form>
 
             <nav className='flex flex-col gap-0.5 px-2 mt-5'>
-                {navItems.map(({url, label, Icon, iconClassName}) => {
-                    const active = isActive(url)
+                {navItems.map(({url, label, Icon, iconClassName, isButton}) => {
+                    if (isButton) {
+                        return (
+                            <button
+                                key={label}
+                                type='button'
+                                onClick={() => {
+                                    modalRef?.current?.showModal()
+                                    setIsModalOpen(true)
+                                }}
+                                className={`group relative flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors w-full
+                                    ${isModalOpen
+                                        ? 'bg-base-200 text-base-content'
+                                        : 'text-base-content/70 hover:bg-base-200/60 hover:text-base-content'}`}
+                            >
+                                {isModalOpen && <span className='absolute left-0 top-1.5 bottom-1.5 w-0.5 bg-primary rounded-full'/>}
+                                <Icon className={`w-4 h-4 ${iconClassName ?? ''} ${isModalOpen ? 'stroke-base-content' : 'stroke-base-content/60 group-hover:stroke-base-content'}`} />
+                                {label}
+                            </button>
+                        )
+                    }
+                    const active = isActive(url || '')
                     return (
                         <Link
                             key={url}
-                            href={url}
+                            href={url || '/'}
                             className={`group relative flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors
                                 ${active
                                     ? 'bg-base-200 text-base-content'
@@ -130,21 +151,6 @@ export default function Sidebar() {
                         </Link>
                     )
                 })}
-                <button
-                    type='button'
-                    onClick={() => {
-                        modalRef?.current?.showModal()
-                        setIsModalOpen(true)
-                    }}
-                    className={`group relative flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors
-                        ${isModalOpen
-                            ? 'bg-base-200 text-base-content'
-                            : 'text-base-content/70 hover:bg-base-200/60 hover:text-base-content'}`}
-                >
-                    {isModalOpen && <span className='absolute left-0 top-1.5 bottom-1.5 w-0.5 bg-primary rounded-full'/>}
-                    <Info className={`w-4 h-4 ${isModalOpen ? 'stroke-base-content' : 'stroke-base-content/60 group-hover:stroke-base-content'}`} />
-                    About
-                </button>
             </nav>
 
             <div className='mt-auto px-4 py-4 border-t border-base-content/10 flex items-center justify-between text-xs text-base-content/50'>
@@ -158,6 +164,22 @@ export default function Sidebar() {
                     >
                         {theme === DARK_THEME ? <Sun className='w-4 h-4'/> : <Moon className='w-4 h-4'/>}
                     </button>
+                    <Link
+                        href='https://github.com/wwricu'
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        className='inline-flex items-center justify-center w-7 h-7 rounded-md hover:bg-base-200 hover:text-base-content transition-colors'
+                        aria-label='GitHub'
+                    >
+                        <GithubIcon className='w-4 h-4'/>
+                    </Link>
+                    <Link
+                        href='mailto:me@wwr.icu'
+                        className='inline-flex items-center justify-center w-7 h-7 rounded-md hover:bg-base-200 hover:text-base-content transition-colors'
+                        aria-label='Mail'
+                    >
+                        <Mail className='w-4 h-4'/>
+                    </Link>
                 </div>
             </div>
 
