@@ -1,15 +1,16 @@
-import {PostDetailVO} from '@/common/model'
+import {PostPreviewVO} from '@/common/model'
 import Image from 'next/image'
 import React from 'react'
 import Link from 'next/link'
 import {PostCategory, PostCreateTime, PostTagList} from "@/components/PostMeta"
 
-export default function PostCard({ postDetailVO, index, className }: { postDetailVO: PostDetailVO, index: number, className?: string }) {
+export default function PostCard({ postDetailVO, index, className }: { postDetailVO: PostPreviewVO, index: number, className?: string }) {
     const hasCover = postDetailVO.cover?.url != null && postDetailVO.cover?.name != null
     return (
         <div className={
             `${className} flex justify-between pl-1 min-w-2xs bg-base-100 rounded-lg
             relative hover:shadow-lg transition hover:-translate-y-px
+            before:absolute before:left-0 before:top-3 before:bottom-3 before:w-0.5 before:bg-primary before:rounded-full before:opacity-0 hover:before:opacity-100 before:transition-opacity
             max-sm:min-h-16 max-md:w-full md:w-3xl ${hasCover ? 'md:h-36' : 'md:min-h-36'}`
         }>
             <div className={`flex flex-col flex-1 items-start min-w-0 max-sm:p-2 sm:p-4`}>

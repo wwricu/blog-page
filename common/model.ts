@@ -17,11 +17,10 @@ export interface PostResourceVO {
     url: string
 }
 
-export interface PostDetailVO {
+export interface PostPreviewVO {
     id: number
     title: string
     cover?: PostResourceVO
-    content: string
     preview: string
     category?: TagVO
     tag_list: TagVO[]
@@ -29,11 +28,19 @@ export interface PostDetailVO {
     update_time: string
 }
 
-export interface PostDetailPageVO {
+export interface PostDetailVO extends PostPreviewVO {
+    content: string
+}
+
+export interface PostPreviewPageVO {
     page_index: number
     page_size: number
     count: number
-    data: PostDetailVO[]
+    data: PostPreviewVO[]
+}
+
+export interface PostSearchVO extends PostPreviewVO {
+    snippet?: string
 }
 
 export interface AboutVO {

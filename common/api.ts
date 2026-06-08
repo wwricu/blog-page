@@ -1,4 +1,4 @@
-import {AboutVO, PostDetailPageVO, PostDetailVO, TagTypeEnum, TagVO} from "@/common/model"
+import {AboutVO, PostPreviewPageVO, PostDetailVO, PostSearchVO, TagTypeEnum, TagVO} from "@/common/model"
 
 const baseUrl = process.env.NEXT_BASE_URL ?? '/api'
 
@@ -32,12 +32,17 @@ export const GetAllBlogPosts = async (
     category: string | undefined = undefined,
     tag: string | undefined = undefined
 ) => {
-    return await post<PostDetailPageVO>('/open/post/all', {
+    return await post<PostPreviewPageVO>('/open/post/all', {
         page_index: pageIndex,
         page_size: pageSize,
         category: category,
         tag_list: tag ? [tag] : undefined,
     })
+}
+
+export const SearchBlogPosts = async (keyword: string) => {
+    const qs = new URLSearchParams({keyword}).toString()
+    return await get<PostSearchVO[]>(`/open/post/search?${qs}`)
 }
 
 export const GetPostDetailAPI = async (postId: number | string) => {

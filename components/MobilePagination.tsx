@@ -1,7 +1,7 @@
 'use client'
 
 import React, {useEffect, useRef, useState} from "react"
-import {PostDetailVO} from "@/common/model"
+import {PostPreviewVO} from "@/common/model"
 import {GetAllBlogPosts} from "@/common/api"
 import PostCard from "@/components/PostCard"
 
@@ -50,11 +50,11 @@ export default function MobilePagination({ baseCount = 10, category, tag, classN
     const pageSize = 10
 
     const [active, setActive] = useState(false)
-    const [postDetailVOList, setPostDetailVOList] = useState<PostDetailVO[]>([])
-    const [currentData, setCurrentData] = useState<PostDetailVO[]>([])
+    const [postDetailVOList, setPostDetailVOList] = useState<PostPreviewVO[]>([])
+    const [currentData, setCurrentData] = useState<PostPreviewVO[]>([])
     const [pageCount, setPageCount] = useState(0)
     const currentRef = useRef(1)
-    const currentDataRef = useRef<PostDetailVO[]>([])
+    const currentDataRef = useRef<PostPreviewVO[]>([])
     const isFetchingRef = useRef(false)
 
     useEffect(() => {
@@ -91,7 +91,7 @@ export default function MobilePagination({ baseCount = 10, category, tag, classN
             }
             <div className={className}>
                 {
-                    !active && currentData.length > 0 ?
+                    !active && currentData?.length > 0 ?
                     (
                         <div className={buttonClassNames} onTouchEnd={(e) => {
                             e.preventDefault()
