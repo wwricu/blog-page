@@ -5,7 +5,7 @@ import {House, Info, Mail, List, Tags} from 'lucide-react'
 import {GetAboutAPI} from "@/common/api"
 import {usePathname} from "next/navigation"
 import Link from "next/link"
-import {iconClassNames, monospace} from "@/common/common"
+import {IconClassNames, monospace} from "@/common/common"
 
 const menuItemClassName = `btn btn-sm btn-ghost rounded-none border-0 shadow-none h-full text-base-content
                            border-b-2 pt-0.5 hover:bg-primary/10 max-sm:pl-2`
@@ -66,7 +66,7 @@ export default function Header() {
     }
 
     const getIconStyle = (path: string | undefined = undefined)=>
-        `${iconClassNames} stroke-base-${(isModalOpen && path == null) || !isModalOpen && currentRoute === path ? 'primary' : 'content'}`
+        `${IconClassNames} stroke-base-${(isModalOpen && path == null) || !isModalOpen && currentRoute === path ? 'primary' : 'content'}`
 
     return (
         <>
@@ -116,12 +116,12 @@ export default function Header() {
                         <div className={`flex justify-between ${monospace.className}`}>
                             <Link className='flex-1 mr-2' href='https://github.com/wwricu' target='_blank'>
                                 <button className='btn btn-active btn-primary btn-sm text-primary-content rounded w-full transition-colors hover:btn-accent hover:text-accent-content'>
-                                    <GithubIcon className={`invert dark:invert-0 ${iconClassNames}`}/>GitHub
+                                    <GithubIcon className={`invert dark:invert-0 ${IconClassNames}`}/>GitHub
                                 </button>
                             </Link>
                             <Link className='flex-1 ml-2' href='mailto:me@wwr.icu'>
                                 <button className='btn btn-ghost text-base-content border-primary rounded-s btn-sm rounded w-full transition-colors hover:btn-accent hover:border-none'>
-                                    <Mail className={`${iconClassNames} stroke-base-primary`}/>Mail me
+                                    <Mail className={`${IconClassNames} stroke-base-primary`}/>Mail me
                                 </button>
                             </Link>
                         </div>

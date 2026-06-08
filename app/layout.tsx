@@ -2,7 +2,7 @@ import React from "react"
 import '@/styles/globals.css'
 import Header from "@/components/Header"
 import {sansSerif} from "@/common/common"
-import Sidebar from "@/components/Sidebar";
+import Sidebar from "@/components/Sidebar"
 
 export const dynamic = 'force-dynamic'
 

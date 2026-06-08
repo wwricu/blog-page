@@ -5,7 +5,7 @@ import {House, Info, List, Mail, Moon, Search, Sun, Tags} from "lucide-react"
 import Link from "next/link"
 import {usePathname, useRouter, useSearchParams} from "next/navigation"
 import {GetAboutAPI} from "@/common/api"
-import {SearchUrl} from "@/common/common"
+import {DarkTheme, LightTheme, SearchUrl} from "@/common/common"
 
 const navItems = [
     {url: '/', label: 'Home', Icon: House},
@@ -13,9 +13,6 @@ const navItems = [
     {url: '/tags', label: 'Tags', Icon: Tags, iconClassName: 'transform scale-x-[-1]'},
     {url: null, label: 'About', Icon: Info, isButton: true},
 ]
-
-const LIGHT_THEME = 'fantasy'
-const DARK_THEME = 'abyss'
 
 const GithubIcon = ({className = ''}: { className?: string }) => (
     <svg
@@ -44,12 +41,12 @@ export default function Sidebar() {
 
     useEffect(() => {
         const saved = localStorage.getItem('theme')
-        if (saved === LIGHT_THEME || saved === DARK_THEME) {
+        if (saved === LightTheme || saved === DarkTheme) {
             document.documentElement.setAttribute('data-theme', saved)
             setTheme(saved)
         } else {
             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-            setTheme(prefersDark ? DARK_THEME : LIGHT_THEME)
+            setTheme(prefersDark ? DarkTheme : LightTheme)
         }
     }, [])
 
@@ -74,7 +71,7 @@ export default function Sidebar() {
     }, [pathname, searchParams])
 
     const toggleTheme = () => {
-        const next = theme === DARK_THEME ? LIGHT_THEME : DARK_THEME
+        const next = theme === DarkTheme ? LightTheme : DarkTheme
         document.documentElement.setAttribute('data-theme', next)
         localStorage.setItem('theme', next)
         setTheme(next)
@@ -106,7 +103,7 @@ export default function Sidebar() {
                     <input
                         type='text'
                         className='grow min-w-0 bg-transparent text-sm text-base-content placeholder:text-base-content/40 outline-none'
-                        placeholder='Search posts...'
+                        placeholder='Search...'
                         value={keyword}
                         onChange={(e) => setKeyword(e.target.value)}
                     />
@@ -162,7 +159,7 @@ export default function Sidebar() {
                         className='inline-flex items-center justify-center w-7 h-7 rounded-md hover:bg-base-200 hover:text-base-content transition-colors'
                         aria-label='Toggle theme'
                     >
-                        {theme === DARK_THEME ? <Sun className='w-4 h-4'/> : <Moon className='w-4 h-4'/>}
+                        {theme === DarkTheme ? <Sun className='w-4 h-4'/> : <Moon className='w-4 h-4'/>}
                     </button>
                     <Link
                         href='https://github.com/wwricu'
