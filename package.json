@@ -1,6 +1,6 @@
 {
   "name": "blog-page",
-  "version": "5.0.0",
+  "version": "5.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -10,21 +10,21 @@
   },
   "dependencies": {
     "lucide-react": "^1.14.0",
-    "next": "^16.2.5",
+    "next": "^16.2.6",
     "react": "^19.2.6"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@next/bundle-analyzer": "^16.2.5",
-    "@tailwindcss/postcss": "^4.2.4",
+    "@next/bundle-analyzer": "^16.2.6",
+    "@tailwindcss/postcss": "^4.3.0",
     "@tailwindcss/typography": "^0.5.19",
     "@types/node": "^24",
     "@types/react": "^19.2.6",
     "daisyui": "^5.5.19",
     "eslint": "^9",
-    "eslint-config-next": "^16.2.5",
-    "postcss": "^8.5.10",
-    "tailwindcss": "^4.2.4",
+    "eslint-config-next": "^16.2.6",
+    "postcss": "^8.5.14",
+    "tailwindcss": "^4.3.0",
     "typescript": "^5"
   }
 }

@@ -42,7 +42,7 @@ export const generateMetadata = async ({ params }: AsyncPathParams): Promise<Met
             authors: 'wwr',
             publishedTime: postDetailVO.create_time,
             modifiedTime: postDetailVO.create_time,
-            tags: postDetailVO.tag_list.map(tag => tag.name),
+            tags: postDetailVO.tag_list?.map(tag => tag.name),
         }
     }
 }

@@ -5,6 +5,7 @@ export type PathParams = {
     filter?: string
     name?: string
     index?: string
+    keyword?: string
     className?: string
 }
 
@@ -14,7 +15,16 @@ export type AsyncPathParams = {
 
 export const TagsUrl = 'tags'
 export const CategoriesURL = 'categories'
-export const iconClassNames = 'inline stroke-2 w-3.75 h-3.75'
+export const SearchUrl = 'search'
+export const IconClassNames = 'inline stroke-2 w-3.75 h-3.75'
+export const LightTheme = 'fantasy'
+export const DarkTheme = 'abyss'
+
+
+export const convertMarkersToHtml = (text: string | null | undefined): string => {
+    if (!text) return ''
+    return text.replace(/\x01/g, '<mark>').replace(/\x02/g, '</mark>')
+}
 
 export const sansSerif = Noto_Sans({
     subsets: ['latin', 'latin-ext', 'greek', 'cyrillic'],
