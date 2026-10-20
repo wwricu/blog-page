@@ -2,7 +2,6 @@ import {AboutVO, PostPreviewPageVO, PostDetailVO, PostSearchVO, TagTypeEnum, Tag
 
 const baseUrl = process.env.NEXT_BASE_URL ?? '/api'
 
-
 const getForwardedHeaders = async (): Promise<Record<string, string>> => {
     if (typeof window !== 'undefined') {
         return {}
@@ -12,19 +11,26 @@ const getForwardedHeaders = async (): Promise<Record<string, string>> => {
     return forwarded ? {'X-Forwarded-For': forwarded} : {}
 }
 
-const get = async<T> (url: string) => {
-    const res = await fetch(`${baseUrl}${url}`, {headers: await getForwardedHeaders()})
+const request = async <T>(url: string, init: RequestInit = {}): Promise<T> => {
+    const res = await fetch(`${baseUrl}${url}`, {
+        ...init,
+        headers: {...await getForwardedHeaders(), ...init.headers},
+    })
+    if (!res.ok) {
+        // FastAPI errors carry a 'detail' field; gateways may return non-JSON bodies
+        const body = await res.json().catch(() => null) as {detail?: string} | null
+        throw new Error(body?.detail ?? `${res.status} ${res.statusText} for ${url}`)
+    }
     return await res.json() as T
 }
 
-const post = async<T> (url: string, body: any) => {
-    const res = await fetch(`${baseUrl}${url}`, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json', ...await getForwardedHeaders()},
-        body: JSON.stringify(body)
-    })
-    return await res.json() as T
-}
+const get = async <T>(url: string) => await request<T>(url)
+
+const post = async <T>(url: string, body: unknown) => await request<T>(url, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(body),
+})
 
 export const GetAllBlogPosts = async (
     pageIndex: number = 1,
@@ -50,7 +56,15 @@ export const GetPostDetailAPI = async (postId: number | string) => {
     if (!Number.isSafeInteger(postNumId)) {
         return null
     }
-    return await get<PostDetailVO>(`/open/post/detail/${postNumId}`)
+    const url = `/open/post/detail/${postNumId}`
+    const res = await fetch(`${baseUrl}${url}`, {headers: await getForwardedHeaders()})
+    if (res.status === 404) {
+        return null
+    }
+    if (!res.ok) {
+        throw new Error(`${res.status} ${res.statusText} for ${url}`)
+    }
+    return await res.json() as PostDetailVO
 }
 
 export const GetAllTagsAPI = async (tagTypeEnum: TagTypeEnum) => {
@@ -58,5 +72,5 @@ export const GetAllTagsAPI = async (tagTypeEnum: TagTypeEnum) => {
 }
 
 export const GetAboutAPI = async () => {
-    return await get<AboutVO>(`/open/about`)
+    return await get<AboutVO>('/open/about')
 }
