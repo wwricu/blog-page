@@ -1,7 +1,6 @@
 'use client'
 
 import { useRef, useState } from 'react'
-import Image from 'next/image'
 
 export default function ImageLightbox({ html }: { html: string }) {
     const [activeSrc, setActiveSrc] = useState<string | null>(null)
@@ -31,6 +30,9 @@ export default function ImageLightbox({ html }: { html: string }) {
                     onClick={() => dialogRef.current?.close()}
                 >
                     {activeSrc && (
+                        // Full-size source is arbitrary remote HTML content; next/image cannot
+                        // optimize unknown URLs here, and the dialog image is not crawled/indexed
+                        // eslint-disable-next-line @next/next/no-img-element
                         <img
                             src={activeSrc}
                             alt={activeAlt}

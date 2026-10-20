@@ -23,8 +23,8 @@ export default async function PostView({ filter, name, index = '1' }: PathParams
     }
 
     const page = await GetAllBlogPosts(pageIndex, pageSize, category, tag)
-    const pageCount = Math.ceil(page.count / pageSize)
-    if (page.page_index > pageCount) {
+    const pageCount = Math.ceil((page.count ?? 0) / pageSize)
+    if (pageCount > 0 && page.page_index > pageCount) {
         notFound()
     }
 

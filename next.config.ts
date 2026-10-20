@@ -21,6 +21,10 @@ const nextConfig: NextConfig = {
     ],
   },
  async rewrites() {
+    // Without NEXT_BASE_URL the client-side '/api' fallback would proxy to itself; skip the rewrite
+    if (!process.env.NEXT_BASE_URL) {
+      return []
+    }
     return [
         {
           source: '/api/:path*',
