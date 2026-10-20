@@ -67,11 +67,23 @@ export default function Pagination({ current = 1, total, pageSize = 10, baseUrl,
         <div className={`join ${className}`}>
             {
                 getButtonValues().map((value, i) => {
+                    if (value === '...') {
+                        // Ellipsis placeholder: not a link, hidden from assistive tech
+                        return (
+                            <span
+                                key={i}
+                                aria-hidden='true'
+                                className='join-item btn btn-outline border-base-300 text-base-content btn-sm btn-ghost pointer-events-none'
+                            >
+                                …
+                            </span>
+                        )
+                    }
                     const status = value === current ? 'btn-active btn-primary text-primary-content' : 'btn-ghost'
                     return (
                         <Link
                             key={i}
-                            href={value === '...' ? '' : getUrl(value.toString())}
+                            href={getUrl(value.toString())}
                             className={`join-item btn btn-outline border-base-300 text-base-content btn-sm ${status}`}
                         >
                             {value}
