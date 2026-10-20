@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import React from "react"
+import {notFound} from "next/navigation"
 import PostView from "@/components/PostView"
 
 export const metadata: Metadata = {
@@ -9,8 +10,12 @@ export const metadata: Metadata = {
     },
 }
 
-export const dynamic = 'force-dynamic'
+export const generateStaticParams = () => []
 
-export default async function Page() {
+export default async function Page({params}: {params: Promise<{slug?: string[]}>}) {
+    const {slug} = await params
+    if (slug?.length) {
+        notFound()
+    }
     return <PostView/>
 }

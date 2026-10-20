@@ -8,7 +8,7 @@
 import React, {useEffect, useState} from "react"
 import {House, Info, List, Mail, Moon, Search, Sun, Tags} from "lucide-react"
 import Link from "next/link"
-import {usePathname, useRouter, useSearchParams} from "next/navigation"
+import {usePathname, useRouter} from "next/navigation"
 import {DarkTheme, LightTheme, SearchUrl} from "@/common/common"
 import AboutDialog from "@/components/AboutDialog"
 import GithubIcon from "@/components/GithubIcon"
@@ -22,7 +22,6 @@ const navItems = [
 
 export default function Sidebar() {
     const pathname = usePathname() || '/'
-    const searchParams = useSearchParams()
     const router = useRouter()
     const [keyword, setKeyword] = useState('')
     const [theme, setTheme] = useState<string | null>(null)
@@ -40,15 +39,19 @@ export default function Sidebar() {
     }, [])
 
     useEffect(() => {
-        if (pathname.startsWith('/search')) {
-            const keywordParam = searchParams.get('keyword')
-            if (keywordParam) {
-                setKeyword(decodeURIComponent(keywordParam))
+        const syncFromUrl = () => {
+            if (!window.location.pathname.startsWith(`/${SearchUrl}`)) {
+                setKeyword('')
+                return
             }
-        } else {
-            setKeyword('')
+            // URLSearchParams.get() already percent-decodes, so a second decode would corrupt (or
+            // throw on) keywords containing a literal '%'
+            setKeyword(new URLSearchParams(window.location.search).get('keyword') ?? '')
         }
-    }, [pathname, searchParams])
+        syncFromUrl()
+        window.addEventListener('popstate', syncFromUrl)
+        return () => window.removeEventListener('popstate', syncFromUrl)
+    }, [pathname])
 
     const toggleTheme = () => {
         const next = theme === DarkTheme ? LightTheme : DarkTheme

@@ -5,7 +5,7 @@ import Header from "@/components/Header"
 import {sansSerif, SiteUrl} from "@/common/common"
 import Sidebar from "@/components/Sidebar"
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 300
 
 // Site-wide metadata defaults; pages only override title/description/openGraph.url
 export const metadata: Metadata = {

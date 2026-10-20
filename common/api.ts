@@ -2,22 +2,9 @@ import {AboutVO, PostPreviewPageVO, PostDetailVO, PostSearchVO, TagTypeEnum, Tag
 
 const baseUrl = process.env.NEXT_BASE_URL ?? '/api'
 
-const getForwardedHeaders = async (): Promise<Record<string, string>> => {
-    if (typeof window !== 'undefined') {
-        return {}
-    }
-    const {headers} = await import('next/headers')
-    const forwarded = (await headers()).get('X-Forwarded-For')
-    return forwarded ? {'X-Forwarded-For': forwarded} : {}
-}
-
 const request = async <T>(url: string, init: RequestInit = {}): Promise<T> => {
-    const res = await fetch(`${baseUrl}${url}`, {
-        ...init,
-        headers: {...await getForwardedHeaders(), ...init.headers},
-    })
+    const res = await fetch(`${baseUrl}${url}`, init)
     if (!res.ok) {
-        // FastAPI errors carry a 'detail' field; gateways may return non-JSON bodies
         const body = await res.json().catch(() => null) as {detail?: string} | null
         throw new Error(body?.detail ?? `${res.status} ${res.statusText} for ${url}`)
     }
@@ -57,7 +44,9 @@ export const GetPostDetailAPI = async (postId: number | string) => {
         return null
     }
     const url = `/open/post/detail/${postNumId}`
-    const res = await fetch(`${baseUrl}${url}`, {headers: await getForwardedHeaders()})
+    // 404 means 'draft or gone', which this page renders as a soft not-found rather than an error,
+    // so it needs the raw response instead of the throwing helper
+    const res = await fetch(`${baseUrl}${url}`)
     if (res.status === 404) {
         return null
     }

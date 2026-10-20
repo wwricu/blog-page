@@ -47,6 +47,8 @@ export const generateMetadata = async ({ params }: AsyncPathParams): Promise<Met
     }
 }
 
+export const generateStaticParams = () => []
+
 export default async function PostDetailPage({ params }: AsyncPathParams) {
     const postId = (await params).id
     const postDetailVO = await GetPostDetailAPI(postId!)

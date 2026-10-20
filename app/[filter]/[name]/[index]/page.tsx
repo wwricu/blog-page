@@ -13,6 +13,8 @@ export const generateMetadata = async ({ params }: AsyncPathParams): Promise<Met
     }
 }
 
+export const generateStaticParams = () => []
+
 export default async function PostPage({ params }: AsyncPathParams) {
     const { filter, name, index } = await params
     if (index === '1') {
