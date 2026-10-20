@@ -7,14 +7,9 @@ export const generateMetadata = async ({ params }: AsyncPathParams): Promise<Met
     const { filter, name, index } = await params
     const decodedName = decodeURIComponent(name!)
     return {
-        title: `Page ${index} | ${decodedName} - wwr.icu`,
+        title: `Page ${index} | ${decodedName}`,
         description: `Page ${index} of posts under ${filter} ${decodedName}`,
-        openGraph: {
-            siteName: 'wwr.icu',
-            title: decodedName,
-            description: 'wwr.icu',
-            url: `${process.env.NEXT_SITE_URL}/${filter}/${name}${index ? `/${index}` : ''}`
-        }
+        openGraph: { url: `/${filter}/${name}/${index}` },
     }
 }
 

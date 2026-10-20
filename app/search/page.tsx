@@ -6,15 +6,11 @@ export const generateMetadata = async ({ searchParams }: { searchParams: Promise
     const { keyword } = await searchParams
     const decoded = keyword ? decodeURIComponent(keyword) : ''
     return {
-        title: `Search: ${decoded} - wwr.icu`,
+        title: `Search: ${decoded}`,
         description: `Search results for ${decoded}`,
+        // Search results are transient duplicates; keep them out of the index
         robots: { index: false, follow: true },
-        openGraph: {
-            siteName: 'wwr.icu',
-            title: decoded,
-            description: 'wwr.icu',
-            url: `${process.env.NEXT_SITE_URL}/search?keyword=${keyword}`
-        }
+        openGraph: { url: `/search?keyword=${encodeURIComponent(decoded)}` },
     }
 }
 
