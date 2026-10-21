@@ -1,23 +1,47 @@
 import {PostDetailVO} from "@/common/model"
 import React from "react"
+import Image from "next/image"
 import {PostCategory, PostCreateTime, PostTagList} from "@/components/PostMeta"
 import { notFound } from "next/navigation"
 import ImageLightbox from "@/components/ImageLightbox"
+import {estimateReadMinutes} from "@/common/common"
 
 export default async function PostDetailView({ postDetailVO }: { postDetailVO: PostDetailVO | null }) {
     if (!postDetailVO) {
         notFound()
     }
+    const hasCover = postDetailVO.cover?.url != null && postDetailVO.cover?.name != null
+    const readMinutes = estimateReadMinutes(postDetailVO.content)
 
     return (
-        <div className='flex-1 bg-base-100 shadow-xl max-sm:p-2 max-md:p-4 max-md:w-full md:w-3xl md:p-6'>
-            <h1 className='text-base-content text-2xl font-medium font-title'>{postDetailVO.title}</h1>
-            <div className='flex items-center max-sm:gap-1 max-sm:my-2 sm:gap-2 sm:my-4 md:my-6 flex-wrap'>
-                <PostCreateTime createTime={postDetailVO?.create_time}/>
-                <PostCategory category={postDetailVO?.category}/>
-                <PostTagList tagList={postDetailVO?.tag_list}/>
+        <article className='flex-1 w-full max-md:w-full md:w-3xl bg-base-100 px-3 sm:px-4 py-6 sm:py-8'>
+            <header className='pb-5 border-b border-base-200'>
+                <h1 className='text-base-content text-2xl sm:text-[28px] font-semibold tracking-tight'>
+                    {postDetailVO.title}
+                </h1>
+                <div className='mt-3 flex items-center flex-wrap gap-x-3 gap-y-1'>
+                    <PostCreateTime createTime={postDetailVO?.create_time}/>
+                    <PostCategory category={postDetailVO?.category}/>
+                    <PostTagList tagList={postDetailVO?.tag_list}/>
+                    <span className='text-sm text-base-content/45 tabular-nums'>{readMinutes} min read</span>
+                </div>
+            </header>
+            {
+                hasCover ? (
+                    <Image
+                        priority
+                        quality={80}
+                        width={1024}
+                        height={400}
+                        alt={postDetailVO.cover!.name!}
+                        src={postDetailVO.cover!.url}
+                        className='mt-6 w-full h-52 sm:h-72 object-cover rounded-xl ring-1 ring-base-200'
+                    />
+                ) : null
+            }
+            <div className='pt-6'>
+                <ImageLightbox html={postDetailVO.content}/>
             </div>
-            <ImageLightbox html={postDetailVO.content}/>
-        </div>
+        </article>
     )
 }
