@@ -24,9 +24,9 @@ export default function PostList({ page, pageSize, baseUrl, breadcrumb, mobile }
     return (
         <div className={`
             flex flex-col items-center w-full overflow-x-auto
-            max-sm:gap-y-1 max-sm:px-1 max-sm:mt-1
-            sm:gap-y-2 sm:mt-2 sm:px-2
-            md:p-0 md:gap-y-3 md:mt-3`
+            max-sm:px-1 max-sm:mt-1
+            sm:mt-2 sm:px-2
+            md:mt-3 md:p-0`
         }>
             {
                 breadcrumb ?

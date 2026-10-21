@@ -18,9 +18,9 @@ export default async function SearchPostView({ keyword }: PathParams) {
     return (
         <div className={`
             flex flex-col items-center w-full overflow-x-auto
-            max-sm:gap-y-1 max-sm:px-1 max-sm:mt-1
-            sm:gap-y-2 sm:mt-2 sm:px-2
-            md:p-0 md:gap-y-3 md:mt-3`
+            max-sm:px-1 max-sm:mt-1
+            sm:mt-2 sm:px-2
+            md:mt-3 md:p-0`
         }>
             <div className='breadcrumbs py-0 min-w-2xs text-base-content/70 text-sm w-full max-sm:pl-2 sm:pl-4 max-md:w-full md:w-3xl'>
                 <ul>
