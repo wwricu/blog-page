@@ -23,17 +23,17 @@ export default function Header() {
 
     const getButtonStyle = (path: string | undefined = undefined) => {
         if ((isModalOpen && path == null) || !isModalOpen && currentRoute === path) {
-            return `${menuItemClassName} border-primary text-primary font-bold`
+            return `${menuItemClassName} border-primary text-primary font-semibold`
         }
-        return `${menuItemClassName} border-transparent font-semibold`
+        return `${menuItemClassName} border-transparent font-normal text-base-content/70`
     }
 
     const getIconStyle = (path: string | undefined = undefined)=>
-        `${IconClassNames} stroke-base-${(isModalOpen && path == null) || !isModalOpen && currentRoute === path ? 'primary' : 'content'}`
+        `${IconClassNames} ${(isModalOpen && path == null) || !isModalOpen && currentRoute === path ? 'stroke-primary' : 'stroke-base-content/70'}`
 
     return (
         <>
-            <div className='flex justify-between items-center sticky z-100 top-0 bg-base-100 shadow-xs h-9 overflow-x-auto overflow-y-clip'>
+            <div className='flex justify-between items-center sticky z-100 top-0 bg-base-100 border-b border-base-300 h-9 overflow-x-auto overflow-y-clip'>
                 <div className='flex justify-start items-center h-full'>
                     {
                         headers.map(({url, label, Icon, iconClassName}) =>

@@ -72,17 +72,17 @@ export default function Sidebar() {
     }
 
     return (
-        <aside className='max-lg:hidden sticky top-0 left-0 h-svh w-60 shrink-0 flex flex-col bg-base-100 border-r border-base-content/10'>
+        <aside className='max-lg:hidden sticky top-0 left-0 h-svh w-60 shrink-0 flex flex-col bg-base-200 border-r border-base-300'>
             <Link href='/' className='block px-5 pt-6 pb-5'>
-                <h1 className='text-xl font-bold text-base-content tracking-tight leading-none'>
+                <h1 className='text-[17px] font-semibold text-base-content tracking-tight leading-none'>
                     wwr<span className='text-primary'>.</span>icu
                 </h1>
                 <p className='text-xs text-base-content/50 mt-1.5'>A nonsense site</p>
             </Link>
 
             <form onSubmit={(e) => { e.preventDefault(); submitSearch() }} className='px-4'>
-                <label className='flex items-center gap-2 px-3 h-9 rounded-lg bg-base-200/60 ring-1 ring-transparent focus-within:bg-base-100 focus-within:ring-base-content/15 transition'>
-                    <Search className='w-4 h-4 stroke-base-content/50 shrink-0'/>
+                <label className='flex items-center gap-2 px-3 h-9 rounded-lg bg-base-100 ring-1 ring-base-300 focus-within:ring-primary/50 transition'>
+                    <Search className='w-4 h-4 stroke-base-content/45 shrink-0'/>
                     <input
                         type='text'
                         className='grow min-w-0 bg-transparent text-sm text-base-content placeholder:text-base-content/40 outline-none'
@@ -95,48 +95,37 @@ export default function Sidebar() {
 
             <nav className='flex flex-col gap-0.5 px-2 mt-5'>
                 {navItems.map(({url, label, Icon, iconClassName, isButton}) => {
+                    const active = isButton ? isModalOpen : isActive(url || '')
+                    const itemClass = `group flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors w-full
+                        ${active
+                            ? 'bg-base-100 text-base-content ring-1 ring-base-300'
+                            : 'text-base-content/65 hover:bg-base-100/70 hover:text-base-content'}`
+                    const iconClass = `w-4 h-4 ${iconClassName ?? ''} ${active ? 'stroke-primary' : 'stroke-base-content/50 group-hover:stroke-base-content'}`
+
                     if (isButton) {
                         return (
-                            <button
-                                key={label}
-                                type='button'
-                                onClick={() => setIsModalOpen(true)}
-                                className={`group relative flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors w-full
-                                    ${isModalOpen
-                                        ? 'bg-base-200 text-base-content'
-                                        : 'text-base-content/70 hover:bg-base-200/60 hover:text-base-content'}`}
-                            >
-                                {isModalOpen && <span className='absolute left-0 top-1.5 bottom-1.5 w-0.5 bg-primary rounded-full'/>}
-                                <Icon className={`w-4 h-4 ${iconClassName ?? ''} ${isModalOpen ? 'stroke-base-content' : 'stroke-base-content/60 group-hover:stroke-base-content'}`} />
+                            <button key={label} type='button' onClick={() => setIsModalOpen(true)} className={itemClass}>
+                                <Icon className={iconClass}/>
                                 {label}
                             </button>
                         )
                     }
-                    const active = isActive(url || '')
                     return (
-                        <Link
-                            key={url}
-                            href={url || '/'}
-                            className={`group relative flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors
-                                ${active
-                                    ? 'bg-base-200 text-base-content'
-                                    : 'text-base-content/70 hover:bg-base-200/60 hover:text-base-content'}`}
-                        >
-                            {active && <span className='absolute left-0 top-1.5 bottom-1.5 w-0.5 bg-primary rounded-full'/>}
-                            <Icon className={`w-4 h-4 ${iconClassName ?? ''} ${active ? 'stroke-base-content' : 'stroke-base-content/60 group-hover:stroke-base-content'}`} />
+                        <Link key={url} href={url || '/'} className={itemClass}>
+                            <Icon className={iconClass}/>
                             {label}
                         </Link>
                     )
                 })}
             </nav>
 
-            <div className='mt-auto px-4 py-4 border-t border-base-content/10 flex items-center justify-between text-xs text-base-content/50'>
+            <div className='mt-auto px-4 py-4 border-t border-base-300 flex items-center justify-between text-xs text-base-content/45'>
                 <span>© {new Date().getFullYear()} wwr</span>
                 <div className='flex items-center gap-1'>
                     <button
                         type='button'
                         onClick={toggleTheme}
-                        className='inline-flex items-center justify-center w-7 h-7 rounded-md hover:bg-base-200 hover:text-base-content transition-colors'
+                        className='inline-flex items-center justify-center w-7 h-7 rounded-md hover:bg-base-100 hover:text-base-content transition-colors'
                         aria-label='Toggle theme'
                     >
                         {theme === DarkTheme ? <Sun className='w-4 h-4'/> : <Moon className='w-4 h-4'/>}
@@ -145,14 +134,14 @@ export default function Sidebar() {
                         href='https://github.com/wwricu'
                         target='_blank'
                         rel='noopener noreferrer'
-                        className='inline-flex items-center justify-center w-7 h-7 rounded-md hover:bg-base-200 hover:text-base-content transition-colors'
+                        className='inline-flex items-center justify-center w-7 h-7 rounded-md hover:bg-base-100 hover:text-base-content transition-colors'
                         aria-label='GitHub'
                     >
                         <GithubIcon className='w-4 h-4'/>
                     </Link>
                     <Link
                         href='mailto:me@wwr.icu'
-                        className='inline-flex items-center justify-center w-7 h-7 rounded-md hover:bg-base-200 hover:text-base-content transition-colors'
+                        className='inline-flex items-center justify-center w-7 h-7 rounded-md hover:bg-base-100 hover:text-base-content transition-colors'
                         aria-label='Mail'
                     >
                         <Mail className='w-4 h-4'/>

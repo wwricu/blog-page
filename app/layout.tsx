@@ -22,26 +22,22 @@ export const metadata: Metadata = {
 
 const Footer = () => {
     return (
-        <div className='lg:hidden flex flex-col justify-between items-center bg-base-100 text-base-content/70 overflow-x-auto max-md:h-10 md:h-12'>
-            <div className='w-full border-t border-base-300'/>
-                <div className='text-sm text-center min-w-2xs'>
-                    wwr.icu {new Date().getFullYear()}
-                </div>
-            <div/>
-        </div>
+        <footer className='lg:hidden w-full shrink-0 border-t border-base-300 py-4 text-center text-xs text-base-content/45'>
+            wwr.icu {new Date().getFullYear()}
+        </footer>
     )
 }
 
 export default function RootLayout({children}: { children: React.ReactNode }) {
     return (
-        <html lang="zh-CN">
-            <body className={`flex flex-col min-h-screen bg-base-200 ${sansSerif.className}`}>
+        <html lang="zh-CN" className={sansSerif.variable}>
+            <body className='flex flex-col min-h-screen bg-base-200'>
                 <div className='lg:hidden'>
                     <Header/>
                 </div>
                 <div className='flex w-full flex-1'>
                     <Sidebar/>
-                    <div className='flex flex-col flex-1 min-w-0'>
+                    <div className='flex flex-col flex-1 min-w-0 bg-base-100'>
                         <main className='flex flex-col flex-1 items-center'>{children}</main>
                         <Footer/>
                     </div>
