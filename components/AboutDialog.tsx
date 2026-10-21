@@ -42,25 +42,18 @@ export default function AboutDialog({ open, onClose }: AboutDialogProps) {
 
     return (
         <dialog className='modal' ref={dialogRef} onClose={onClose}>
-            <div className='modal-box bg-base-100 w-full max-w-md rounded-2xl p-0 shadow-xl'>
-                <div className='flex items-start justify-between gap-4 px-6 pt-6'>
-                    <div>
-                        <h2 className='text-lg font-bold text-base-content tracking-tight leading-none'>
-                            wwr<span className='text-primary'>.</span>icu
-                        </h2>
-                        <p className='text-xs text-base-content/50 mt-1.5'>A nonsense site</p>
-                    </div>
-                    <button
-                        type='button'
-                        aria-label='Close'
-                        onClick={() => dialogRef.current?.close()}
-                        className='btn btn-ghost btn-sm btn-circle -mt-1 -mr-1 text-base-content/40 hover:text-base-content'
-                    >
-                        <X className='w-4 h-4'/>
-                    </button>
-                </div>
+            <div className='modal-box bg-base-100 relative w-full max-w-md rounded-2xl p-0 shadow-xl'>
+                {/* The about body carries its own heading, so the modal only owns the close affordance */}
+                <button
+                    type='button'
+                    aria-label='Close'
+                    onClick={() => dialogRef.current?.close()}
+                    className='btn btn-ghost btn-sm btn-circle absolute right-2.5 top-2.5 z-10 text-base-content/40 hover:text-base-content'
+                >
+                    <X className='w-4 h-4'/>
+                </button>
                 <div
-                    className='prose prose-sm max-w-none max-h-60 overflow-y-auto px-6 pt-4 empty:hidden text-base-content/90'
+                    className='prose prose-sm max-w-none max-h-60 overflow-y-auto px-6 pt-6 empty:hidden text-base-content/90'
                     dangerouslySetInnerHTML={{__html: about?.content ?? ''}}
                 />
                 <div className='grid grid-cols-3 divide-x divide-base-content/10 mx-6 my-5 rounded-lg bg-base-200/50'>
