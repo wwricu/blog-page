@@ -81,7 +81,7 @@ export default function Sidebar() {
             </Link>
 
             <form onSubmit={(e) => { e.preventDefault(); submitSearch() }} className='px-4'>
-                <label className='flex items-center gap-2 px-3 h-9 rounded-lg bg-base-100 ring-1 ring-base-300 focus-within:ring-primary/50 transition'>
+                <label className='flex items-center gap-2 px-3 h-9 rounded-lg bg-base-300/50 transition-colors focus-within:bg-base-100 focus-within:ring-1 focus-within:ring-primary/40'>
                     <Search className='w-4 h-4 stroke-base-content/45 shrink-0'/>
                     <input
                         type='text'
@@ -98,8 +98,8 @@ export default function Sidebar() {
                     const active = isButton ? isModalOpen : isActive(url || '')
                     const itemClass = `group flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors w-full
                         ${active
-                            ? 'bg-base-100 text-base-content ring-1 ring-base-300'
-                            : 'text-base-content/65 hover:bg-base-100/70 hover:text-base-content'}`
+                            ? 'bg-base-300/60 text-base-content'
+                            : 'text-base-content/65 hover:bg-base-300/35 hover:text-base-content'}`
                     const iconClass = `w-4 h-4 ${iconClassName ?? ''} ${active ? 'stroke-primary' : 'stroke-base-content/50 group-hover:stroke-base-content'}`
 
                     if (isButton) {
@@ -125,7 +125,7 @@ export default function Sidebar() {
                     <button
                         type='button'
                         onClick={toggleTheme}
-                        className='inline-flex items-center justify-center w-7 h-7 rounded-md hover:bg-base-100 hover:text-base-content transition-colors'
+                        className='inline-flex items-center justify-center w-7 h-7 rounded-md hover:bg-base-300/60 hover:text-base-content transition-colors'
                         aria-label='Toggle theme'
                     >
                         {theme === DarkTheme ? <Sun className='w-4 h-4'/> : <Moon className='w-4 h-4'/>}
@@ -134,14 +134,14 @@ export default function Sidebar() {
                         href='https://github.com/wwricu'
                         target='_blank'
                         rel='noopener noreferrer'
-                        className='inline-flex items-center justify-center w-7 h-7 rounded-md hover:bg-base-100 hover:text-base-content transition-colors'
+                        className='inline-flex items-center justify-center w-7 h-7 rounded-md hover:bg-base-300/60 hover:text-base-content transition-colors'
                         aria-label='GitHub'
                     >
                         <GithubIcon className='w-4 h-4'/>
                     </Link>
                     <Link
                         href='mailto:me@wwr.icu'
-                        className='inline-flex items-center justify-center w-7 h-7 rounded-md hover:bg-base-100 hover:text-base-content transition-colors'
+                        className='inline-flex items-center justify-center w-7 h-7 rounded-md hover:bg-base-300/60 hover:text-base-content transition-colors'
                         aria-label='Mail'
                     >
                         <Mail className='w-4 h-4'/>
