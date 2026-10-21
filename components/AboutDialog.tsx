@@ -2,7 +2,7 @@
 
 import React, {useEffect, useRef, useState} from 'react'
 import Link from 'next/link'
-import {Mail} from 'lucide-react'
+import {Mail, X} from 'lucide-react'
 import {GetAboutAPI} from '@/common/api'
 import {AboutVO} from '@/common/model'
 import {IconClassNames, monospace} from '@/common/common'
@@ -42,39 +42,54 @@ export default function AboutDialog({ open, onClose }: AboutDialogProps) {
 
     return (
         <dialog className='modal' ref={dialogRef} onClose={onClose}>
-            <div className='modal-box bg-base-100 max-xs:p-2 overflow-x-auto'>
-                <div className='min-w-60'>
-                    <div dangerouslySetInnerHTML={{__html: about?.content ?? ''}} className='min-h-48'/>
-                    <div className='border-t border-base-content/30 mt-6 mb-4'/>
-                    <div className='flex justify-around'>
-                        {
-                            [
-                                {title: 'Post', value: about?.post_count ?? 0},
-                                {title: 'Category', value: about?.category_count ?? 0},
-                                {title: 'Tag', value: about?.tag_count ?? 0},
-                            ].map(
-                                (stat) => (
-                                    <div key={stat.title} className='stat place-items-center max-sm:px-4'>
-                                        <div className='stat-title text-sm font-medium text-base-content/60'>{stat.title}</div>
-                                        <div className='stat-value text-3xl font-normal text-base-content'>{stat.value}</div>
-                                    </div>
-                                )
+            <div className='modal-box bg-base-100 w-full max-w-md rounded-2xl p-0 shadow-xl'>
+                <div className='flex items-start justify-between gap-4 px-6 pt-6'>
+                    <div>
+                        <h2 className='text-lg font-bold text-base-content tracking-tight leading-none'>
+                            wwr<span className='text-primary'>.</span>icu
+                        </h2>
+                        <p className='text-xs text-base-content/50 mt-1.5'>A nonsense site</p>
+                    </div>
+                    <button
+                        type='button'
+                        aria-label='Close'
+                        onClick={() => dialogRef.current?.close()}
+                        className='btn btn-ghost btn-sm btn-circle -mt-1 -mr-1 text-base-content/40 hover:text-base-content'
+                    >
+                        <X className='w-4 h-4'/>
+                    </button>
+                </div>
+                <div
+                    className='prose prose-sm max-w-none max-h-60 overflow-y-auto px-6 pt-4 empty:hidden text-base-content/90'
+                    dangerouslySetInnerHTML={{__html: about?.content ?? ''}}
+                />
+                <div className='grid grid-cols-3 divide-x divide-base-content/10 mx-6 my-5 rounded-lg bg-base-200/50'>
+                    {
+                        [
+                            {title: 'Posts', value: about?.post_count ?? 0},
+                            {title: 'Categories', value: about?.category_count ?? 0},
+                            {title: 'Tags', value: about?.tag_count ?? 0},
+                        ].map(
+                            (stat) => (
+                                <div key={stat.title} className='py-3 text-center'>
+                                    <div className='text-[10px] uppercase tracking-wider text-base-content/45'>{stat.title}</div>
+                                    <div className='text-lg font-medium text-base-content tabular-nums'>{stat.value}</div>
+                                </div>
                             )
-                        }
-                    </div>
-                    <div className='border-t border-base-content/30 mt-4 mb-6'/>
-                    <div className={`flex justify-between ${monospace.className}`}>
-                        <Link className='flex-1 mr-2' href='https://github.com/wwricu' target='_blank' rel='noopener noreferrer'>
-                            <button className='btn btn-active btn-primary btn-sm text-primary-content rounded w-full transition-colors hover:btn-accent hover:text-accent-content'>
-                                <GithubIcon className={IconClassNames}/>GitHub
-                            </button>
-                        </Link>
-                        <Link className='flex-1 ml-2' href='mailto:me@wwr.icu'>
-                            <button className='btn btn-ghost text-base-content border-primary rounded-s btn-sm rounded w-full transition-colors hover:btn-accent hover:border-none'>
-                                <Mail className={`${IconClassNames} stroke-base-primary`}/>Mail me
-                            </button>
-                        </Link>
-                    </div>
+                        )
+                    }
+                </div>
+                <div className={`flex gap-2 px-6 pb-6 ${monospace.className}`}>
+                    <Link className='flex-1' href='https://github.com/wwricu' target='_blank' rel='noopener noreferrer'>
+                        <button className='btn btn-ghost btn-sm w-full rounded-lg border border-base-300 text-base-content/80 gap-1.5 transition-colors hover:border-primary/40 hover:text-primary'>
+                            <GithubIcon className={IconClassNames}/>GitHub
+                        </button>
+                    </Link>
+                    <Link className='flex-1' href='mailto:me@wwr.icu'>
+                        <button className='btn btn-ghost btn-sm w-full rounded-lg border border-base-300 text-base-content/80 gap-1.5 transition-colors hover:border-primary/40 hover:text-primary'>
+                            <Mail className={IconClassNames}/>Mail me
+                        </button>
+                    </Link>
                 </div>
             </div>
             <form method='dialog' className='modal-backdrop'>

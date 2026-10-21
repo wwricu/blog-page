@@ -43,7 +43,7 @@ export default async function PostView({ filter, name, index = '1' }: PathParams
             pageSize={pageSize}
             baseUrl={baseUrl}
             breadcrumb={breadcrumb}
-            mobile={{ category, tag }}
+            mobile={{ category, tag, pageIndex }}
         />
     )
 }

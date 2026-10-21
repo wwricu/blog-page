@@ -9,6 +9,7 @@ const MobilePagination = dynamic(() => import('@/components/MobilePagination'))
 type MobilePaginationParams = {
     category?: string
     tag?: string
+    pageIndex: number
 }
 
 type PostListProps = {
@@ -53,6 +54,7 @@ export default function PostList({ page, pageSize, baseUrl, breadcrumb, mobile }
                         className='sm:hidden'
                         category={mobile.category}
                         tag={mobile.tag}
+                        pageIndex={mobile.pageIndex}
                     />
                 ) : null
             }
