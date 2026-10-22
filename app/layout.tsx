@@ -37,7 +37,7 @@ export default function RootLayout({children}: { children: React.ReactNode }) {
                 </div>
                 <div className='flex w-full flex-1'>
                     <Sidebar/>
-                    <div className='flex flex-col flex-1 min-w-0 bg-base-100'>
+                    <div className='flex flex-col flex-1 min-w-0 bg-base-200'>
                         <main className='flex flex-col flex-1 items-center'>{children}</main>
                         <Footer/>
                     </div>

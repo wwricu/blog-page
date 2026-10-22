@@ -17,7 +17,7 @@ export default async function SearchPostView({ keyword }: PathParams) {
 
     return (
         <div className={`
-            flex flex-col items-center w-full overflow-x-auto
+            flex flex-col items-center gap-3 w-full overflow-x-auto
             max-sm:px-1 max-sm:mt-1
             sm:mt-2 sm:px-2
             md:mt-3 md:p-0`
@@ -36,7 +36,7 @@ export default async function SearchPostView({ keyword }: PathParams) {
             }
             {
                 shownCount === 0 ? (
-                    <div className='text-base-content/60 text-sm py-8 text-center max-md:w-full md:w-3xl'>
+                    <div className='rounded-xl bg-base-100 ring-1 ring-base-300 text-base-content/70 text-sm py-8 text-center max-md:w-full md:w-3xl'>
                         No matching posts. Try different keywords.
                     </div>
                 ) : null

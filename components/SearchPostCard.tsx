@@ -15,8 +15,8 @@ export default function SearchPostCard({ hit, index }: { hit: PostSearchVO, inde
     const detailUrl = `/detail/${hit.id}`
     return (
         <div className={
-            `group min-w-2xs w-full border-b border-base-300 bg-base-100 px-4 py-5
-            transition-colors hover:bg-base-200/60 max-sm:px-3 max-md:w-full md:w-3xl`
+            `group min-w-2xs w-full rounded-xl bg-base-100 ring-1 ring-base-300 px-4 py-5
+            transition-shadow hover:shadow-sm hover:ring-base-content/25 max-sm:px-3 max-md:w-full md:w-3xl`
         }>
             <div className='flex items-center justify-between gap-4'>
                 <div className='flex flex-col flex-1 items-start min-w-0'>

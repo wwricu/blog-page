@@ -23,11 +23,19 @@ type PostListProps = {
 export default function PostList({ page, pageSize, baseUrl, breadcrumb, mobile }: PostListProps) {
     return (
         <div className={`
-            flex flex-col items-center w-full overflow-x-auto
+            flex flex-col items-center gap-3 w-full overflow-x-auto
             max-sm:px-1 max-sm:mt-1
             sm:mt-2 sm:px-2
             md:mt-3 md:p-0`
         }>
+            {
+                breadcrumb ? null : (
+                    <div className='flex items-baseline justify-between min-w-2xs w-full max-sm:pl-2 sm:pl-4 max-md:w-full md:w-3xl px-1'>
+                        <h1 className='text-xs font-medium uppercase tracking-wider text-base-content/60'>Latest</h1>
+                        <span className='text-xs tabular-nums text-base-content/45'>{page.count} posts</span>
+                    </div>
+                )
+            }
             {
                 breadcrumb ?
                 (
@@ -42,7 +50,7 @@ export default function PostList({ page, pageSize, baseUrl, breadcrumb, mobile }
                 )
             }
             <Pagination
-                className='max-sm:hidden max-sm:mt-1 max-sm:mb-2 sm:mt-2 sm:mb-4 md:mt-3 md:mb-6'
+                className='max-sm:hidden mb-2'
                 current={page.page_index}
                 total={page.count}
                 pageSize={pageSize}

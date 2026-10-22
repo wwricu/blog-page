@@ -13,8 +13,8 @@ type PaginationProps = {
     tag?: string
     className?: string,
 }
-const buttonClassNames = 'btn btn-ghost btn-sm rounded-full border border-base-300 text-base-content/70 gap-1.5 whitespace-nowrap py-0 mt-2 mb-3 hover:border-primary/40 hover:text-primary'
-
+// Same surface as the list cards so the pager reads as the last row, not a floating pill
+const buttonClassNames = 'flex w-full cursor-pointer items-center justify-center gap-1.5 rounded-xl bg-base-100 py-3 text-sm font-medium text-base-content/70 ring-1 ring-base-300 transition-shadow hover:shadow-sm hover:text-primary'
 const useInfiniteScroll = (enabled: boolean, onBottom: () => void, threshold: number = 100) => {
     // Keep the latest callback so the listener never runs on a stale closure
     const onBottomRef = useRef(onBottom)
@@ -75,7 +75,7 @@ export default function MobilePagination({ pageIndex = 1, category, tag, classNa
                     <PostCard key={`${postDetailVO.id}-${i}`} index={pageIndex * pageSize + i} className={className} postDetailVO={postDetailVO}/>
                 )
             }
-            <div className={className}>
+            <div className={`w-full ${className}`}>
                 {
                     !exhausted ?
                     (
