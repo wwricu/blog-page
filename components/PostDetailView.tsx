@@ -15,7 +15,7 @@ export default async function PostDetailView({ postDetailVO }: { postDetailVO: P
 
     return (
         <article className='flex-1 w-full max-md:w-full md:w-3xl bg-base-100 px-3 sm:px-4 py-6 sm:py-8'>
-            <header className='pb-5 border-b border-base-200'>
+            <header className='pb-5 border-b border-base-300'>
                 <h1 className='text-base-content text-2xl sm:text-[28px] font-semibold tracking-tight'>
                     {postDetailVO.title}
                 </h1>
@@ -23,7 +23,7 @@ export default async function PostDetailView({ postDetailVO }: { postDetailVO: P
                     <PostCreateTime createTime={postDetailVO?.create_time}/>
                     <PostCategory category={postDetailVO?.category}/>
                     <PostTagList tagList={postDetailVO?.tag_list}/>
-                    <span className='text-sm text-base-content/45 tabular-nums'>{readMinutes} min read</span>
+                    <span className='text-sm text-base-content/60 tabular-nums'>{readMinutes} min read</span>
                 </div>
             </header>
             {
@@ -35,7 +35,7 @@ export default async function PostDetailView({ postDetailVO }: { postDetailVO: P
                         height={400}
                         alt={postDetailVO.cover!.name!}
                         src={postDetailVO.cover!.url}
-                        className='mt-6 w-full h-52 sm:h-72 object-cover rounded-xl ring-1 ring-base-200'
+                        className='mt-6 w-full h-52 sm:h-72 object-cover rounded-xl ring-1 ring-base-300'
                     />
                 ) : null
             }

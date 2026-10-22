@@ -15,10 +15,10 @@ export default function SearchPostCard({ hit, index }: { hit: PostSearchVO, inde
     const detailUrl = `/detail/${hit.id}`
     return (
         <div className={
-            `group min-w-2xs w-full border-b border-base-200 bg-base-100 px-4 py-6
-            transition-colors hover:bg-base-200/40 max-sm:px-3 max-md:w-full md:w-3xl`
+            `group min-w-2xs w-full border-b border-base-300 bg-base-100 px-4 py-5
+            transition-colors hover:bg-base-200/60 max-sm:px-3 max-md:w-full md:w-3xl`
         }>
-            <div className='flex justify-between gap-4'>
+            <div className='flex items-center justify-between gap-4'>
                 <div className='flex flex-col flex-1 items-start min-w-0'>
                     <Link className='w-full' href={detailUrl}>
                         <h4
@@ -26,12 +26,11 @@ export default function SearchPostCard({ hit, index }: { hit: PostSearchVO, inde
                             dangerouslySetInnerHTML={{__html: titleHtml}}
                         />
                         <p
-                            className={`text-base-content/60 line-clamp-2 font-normal text-sm leading-6 mt-1.5 max-sm:text-xs ${markStyle}`}
+                            className={`text-base-content/70 line-clamp-2 font-normal text-sm leading-6 mt-1.5 max-sm:text-xs ${markStyle}`}
                             dangerouslySetInnerHTML={{__html: previewHtml}}
                         />
                     </Link>
-                    <Link className='w-full flex-1' href={detailUrl} aria-label={hit.title}/>
-                    <div className='flex gap-y-1 gap-x-3 flex-wrap w-full'>
+                    <div className='mt-1.5 flex gap-y-1 gap-x-3 flex-wrap w-full'>
                         <PostCreateTime createTime={hit?.create_time}/>
                         <PostCategory category={hit?.category}/>
                         <PostTagList tagList={hit?.tag_list}/>
@@ -39,30 +38,30 @@ export default function SearchPostCard({ hit, index }: { hit: PostSearchVO, inde
                     </div>
                 </div>
                 {hasCover ? (
-                    <Link className='relative w-64 self-stretch max-md:hidden' href={detailUrl}>
+                    <Link className='relative w-52 h-28 shrink-0 max-md:hidden' href={detailUrl}>
                         <Image
                             priority={ index < 3 }
                             loading={ index < 3 ? 'eager' : 'lazy' }
                             fetchPriority={ index < 3 ? 'high' : 'auto' }
                             quality={75}
-                            width={256}
-                            height={128}
+                            width={208}
+                            height={112}
                             alt={hit.cover!.name!}
                             src={hit.cover!.url}
-                            className='object-cover w-full h-full rounded-lg ring-1 ring-base-200'
+                            className='object-cover w-full h-full rounded-lg ring-1 ring-base-300'
                         />
                         <div className='absolute inset-0 bg-black/40 dark:block hidden rounded-lg'/>
                     </Link>
                 ) : null}
             </div>
             {snippetHtml ? (
-                <Link href={detailUrl} className='block mt-4 pt-4 border-t border-base-200 group/snippet' aria-label={hit.title}>
+                <Link href={detailUrl} className='block mt-4 pt-4 border-t border-base-300 group/snippet' aria-label={hit.title}>
                     <div className='flex items-start gap-2.5'>
                         <span className='shrink-0 text-[10px] tracking-wider font-semibold text-primary/80 uppercase px-1.5 py-0.5 rounded bg-primary/10 mt-0.5 transition-colors group-hover/snippet:bg-primary/20'>
                             Match
                         </span>
                         <p
-                            className={`flex-1 min-w-0 text-base-content/60 line-clamp-2 text-xs leading-relaxed italic ${markStyle}`}
+                            className={`flex-1 min-w-0 text-base-content/70 line-clamp-2 text-xs leading-relaxed italic ${markStyle}`}
                             dangerouslySetInnerHTML={{__html: snippetHtml}}
                         />
                     </div>

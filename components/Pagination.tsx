@@ -11,7 +11,7 @@ type PaginationProps = {
 }
 
 const itemClass = 'flex h-8 min-w-8 items-center justify-center rounded-md px-1 text-sm transition-colors'
-const inactiveClass = 'text-base-content/60 hover:bg-base-200 hover:text-base-content'
+const inactiveClass = 'text-base-content/70 hover:bg-base-300/50 hover:text-base-content'
 const activeClass = 'bg-primary/10 text-primary font-medium ring-1 ring-primary/25'
 
 export default function Pagination({ current = 1, total, pageSize = 10, baseUrl, className }: PaginationProps) {
