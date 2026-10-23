@@ -18,38 +18,35 @@ export default function SearchPostCard({ hit, index }: { hit: PostSearchVO, inde
             `group min-w-2xs w-full rounded-xl bg-base-100 ring-1 ring-base-300 px-4 py-5
             transition-shadow hover:shadow-sm hover:ring-base-content/25 max-sm:px-3 max-md:w-full md:w-3xl`
         }>
-            <div className='flex items-center justify-between gap-4'>
+            <div className='flex items-center justify-between gap-4 md:h-24'>
+                {/* Same fixed line budget as PostCard: title / 2-line preview / meta */}
                 <div className='flex flex-col flex-1 items-start min-w-0'>
-                    {/* Same title-row meta placement as PostCard, so the two lists read alike */}
-                    <div className='flex w-full flex-wrap items-baseline justify-between gap-x-4 gap-y-1'>
-                        <Link className='min-w-0 max-w-full' href={detailUrl}>
-                            <h4
-                                className={`text-base-content text-[17px] font-semibold tracking-tight line-clamp-1 transition-colors group-hover:text-primary ${markStyle}`}
-                                dangerouslySetInnerHTML={{__html: titleHtml}}
-                            />
-                        </Link>
-                        <div className='flex gap-y-1 gap-x-3 flex-wrap shrink-0'>
-                            <PostCreateTime createTime={hit?.create_time}/>
-                            <PostCategory category={hit?.category}/>
-                            <PostTagList tagList={hit?.tag_list}/>
-                        </div>
-                    </div>
-                    <Link className='w-full mt-1.5' href={detailUrl} aria-label={hit.title}>
+                    <Link className='w-full' href={detailUrl}>
+                        <h4
+                            className={`text-base-content text-[17px] font-semibold tracking-tight leading-6 line-clamp-1 transition-colors group-hover:text-primary ${markStyle}`}
+                            dangerouslySetInnerHTML={{__html: titleHtml}}
+                        />
                         <p
-                            className={`text-base-content/70 line-clamp-2 font-normal text-sm leading-6 max-sm:text-xs ${markStyle}`}
+                            className={`text-base-content/70 font-normal leading-6 text-sm line-clamp-1 max-sm:text-xs ${markStyle}`}
                             dangerouslySetInnerHTML={{__html: previewHtml}}
                         />
                     </Link>
+                    <div className='flex gap-x-3 gap-y-1 w-full flex-nowrap overflow-hidden'>
+                        <PostCreateTime createTime={hit?.create_time}/>
+                        <PostCategory category={hit?.category}/>
+                        <PostTagList tagList={hit?.tag_list}/>
+                        <Link className='flex-1' href={detailUrl} aria-label={hit.title}/>
+                    </div>
                 </div>
                 {hasCover ? (
-                    <Link className='relative w-52 h-28 shrink-0 max-md:hidden' href={detailUrl}>
+                    <Link className='relative w-52 h-24 shrink-0 max-md:hidden' href={detailUrl}>
                         <Image
                             priority={ index < 3 }
                             loading={ index < 3 ? 'eager' : 'lazy' }
                             fetchPriority={ index < 3 ? 'high' : 'auto' }
                             quality={75}
                             width={208}
-                            height={112}
+                            height={96}
                             alt={hit.cover!.name!}
                             src={hit.cover!.url}
                             className='object-cover w-full h-full rounded-lg ring-1 ring-base-300'

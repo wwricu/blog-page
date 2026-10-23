@@ -12,31 +12,29 @@ export default function PostCard({ postDetailVO, index, className }: { postDetai
         <div className={
             `${className} group flex items-center justify-between gap-4 min-w-2xs w-full rounded-xl
             bg-base-100 ring-1 ring-base-300 px-4 py-5 transition-shadow hover:shadow-sm hover:ring-base-content/25
-            max-sm:min-h-16 max-sm:px-3 max-md:w-full md:w-3xl`
+            max-sm:min-h-16 max-sm:px-3 max-md:w-full md:h-28 md:py-0 md:w-3xl`
         }>
+            {/* One line each for title, preview and meta inside a fixed-height row: the text block
+                is then identical in every card, with or without a thumbnail */}
             <div className='flex flex-col flex-1 items-start min-w-0'>
-                {/* Meta rides the title row so the right side is never empty, with or without a thumbnail */}
-                <div className='flex w-full flex-wrap items-baseline justify-between gap-x-4 gap-y-1'>
-                    <Link className='min-w-0 max-w-full' href={detailHref}>
-                        <h4 className='text-base-content text-[17px] font-semibold tracking-tight line-clamp-1 transition-colors group-hover:text-primary'>
-                            {postDetailVO.title}
-                        </h4>
-                    </Link>
-                    <div className='flex gap-y-1 gap-x-3 flex-wrap shrink-0'>
-                        <PostCreateTime createTime={postDetailVO?.create_time}/>
-                        <PostCategory category={postDetailVO?.category}/>
-                        <PostTagList tagList={postDetailVO?.tag_list}/>
-                    </div>
-                </div>
-                <Link className='w-full mt-1.5' href={detailHref} aria-label={postDetailVO.title}>
-                    <p className='text-base-content/70 line-clamp-2 font-normal text-sm leading-6 max-sm:text-xs'>
+                <Link className='w-full' href={detailHref}>
+                    <h4 className='text-base-content text-[17px] font-semibold tracking-tight leading-6 line-clamp-1 transition-colors group-hover:text-primary'>
+                        {postDetailVO.title}
+                    </h4>
+                    <p className='text-base-content/70 font-normal leading-6 text-sm line-clamp-1 max-sm:text-xs'>
                         {postDetailVO.preview}
                     </p>
                 </Link>
+                <div className='flex gap-x-3 gap-y-1 w-full flex-nowrap overflow-hidden'>
+                    <PostCreateTime createTime={postDetailVO?.create_time}/>
+                    <PostCategory category={postDetailVO?.category}/>
+                    <PostTagList tagList={postDetailVO?.tag_list}/>
+                    <Link className='flex-1' href={detailHref} aria-label={postDetailVO.title}/>
+                </div>
             </div>
             {
                 hasCover ? (
-                    <Link className="relative w-52 h-28 shrink-0 max-md:hidden" href={detailHref}>
+                    <Link className="relative w-52 h-24 shrink-0 max-md:hidden" href={detailHref}>
                         <Image
                             // TODO: WHY preload & priority not work
                             priority={ index < 3 }
@@ -44,7 +42,7 @@ export default function PostCard({ postDetailVO, index, className }: { postDetai
                             fetchPriority={ index < 3 ? 'high' : 'auto' }
                             quality={75}
                             width={208}
-                            height={112}
+                            height={96}
                             alt={postDetailVO.cover!.name!}
                             src={postDetailVO.cover!.url}
                             className='object-cover w-full h-full rounded-lg ring-1 ring-base-300'
