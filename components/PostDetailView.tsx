@@ -1,6 +1,5 @@
 import {PostDetailVO} from "@/common/model"
 import React from "react"
-import Image from "next/image"
 import {PostCategory, PostCreateTime, PostTagList} from "@/components/PostMeta"
 import { notFound } from "next/navigation"
 import ImageLightbox from "@/components/ImageLightbox"
@@ -26,21 +25,11 @@ export default async function PostDetailView({ postDetailVO }: { postDetailVO: P
                     <span className='text-sm text-base-content/60 tabular-nums'>{readMinutes} min read</span>
                 </div>
             </header>
-            {
-                hasCover ? (
-                    <Image
-                        priority
-                        quality={80}
-                        width={1024}
-                        height={400}
-                        alt={postDetailVO.cover!.name!}
-                        src={postDetailVO.cover!.url}
-                        className='mt-6 w-full h-52 sm:h-72 object-cover rounded-xl ring-1 ring-base-300'
-                    />
-                ) : null
-            }
             <div className='pt-6'>
-                <ImageLightbox html={postDetailVO.content}/>
+                <ImageLightbox
+                    html={postDetailVO.content}
+                    cover={hasCover ? { url: postDetailVO.cover!.url!, name: postDetailVO.cover!.name! } : null}
+                />
             </div>
         </article>
     )

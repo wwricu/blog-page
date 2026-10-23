@@ -1,22 +1,46 @@
 'use client'
 
+import Image from 'next/image'
 import { useRef, useState } from 'react'
 
-export default function ImageLightbox({ html }: { html: string }) {
+export default function ImageLightbox({ html, cover }: { html: string, cover?: { url: string, name: string } | null }) {
     const [activeSrc, setActiveSrc] = useState<string | null>(null)
     const [activeAlt, setActiveAlt] = useState<string>('preview')
     const dialogRef = useRef<HTMLDialogElement>(null)
 
+    const show = (src: string, alt: string) => {
+        setActiveSrc(src)
+        setActiveAlt(alt)
+        dialogRef.current?.showModal()
+    }
+
     return (
         <>
+            {cover ? (
+                // The card crops the cover to a banner, so let a click open the uncropped original
+                <button
+                    type='button'
+                    onClick={() => show(cover.url, cover.name)}
+                    aria-label={`View full cover: ${cover.name}`}
+                    className='mb-6 block w-full cursor-zoom-in p-0 text-left'
+                >
+                    <Image
+                        priority
+                        quality={80}
+                        width={1024}
+                        height={400}
+                        alt={cover.name}
+                        src={cover.url}
+                        className='w-full h-52 sm:h-72 object-cover rounded-xl ring-1 ring-base-300'
+                    />
+                </button>
+            ) : null}
             <div
                 className='prose max-w-none! max-md:prose-sm text-base-content leading-relaxed [&_img]:cursor-zoom-in'
                 dangerouslySetInnerHTML={{ __html: html }}
                 onClick={(e) => {
                     if (e.target instanceof HTMLImageElement) {
-                        setActiveSrc(e.target.src)
-                        setActiveAlt(e.target.alt)
-                        dialogRef.current?.showModal()
+                        show(e.target.src, e.target.alt)
                     }
                 }}
             />
