@@ -20,22 +20,26 @@ export default function SearchPostCard({ hit, index }: { hit: PostSearchVO, inde
         }>
             <div className='flex items-center justify-between gap-4'>
                 <div className='flex flex-col flex-1 items-start min-w-0'>
-                    <Link className='w-full' href={detailUrl}>
-                        <h4
-                            className={`text-base-content text-[17px] font-semibold tracking-tight line-clamp-1 transition-colors group-hover:text-primary ${markStyle}`}
-                            dangerouslySetInnerHTML={{__html: titleHtml}}
-                        />
+                    {/* Same title-row meta placement as PostCard, so the two lists read alike */}
+                    <div className='flex w-full flex-wrap items-baseline justify-between gap-x-4 gap-y-1'>
+                        <Link className='min-w-0 max-w-full' href={detailUrl}>
+                            <h4
+                                className={`text-base-content text-[17px] font-semibold tracking-tight line-clamp-1 transition-colors group-hover:text-primary ${markStyle}`}
+                                dangerouslySetInnerHTML={{__html: titleHtml}}
+                            />
+                        </Link>
+                        <div className='flex gap-y-1 gap-x-3 flex-wrap shrink-0'>
+                            <PostCreateTime createTime={hit?.create_time}/>
+                            <PostCategory category={hit?.category}/>
+                            <PostTagList tagList={hit?.tag_list}/>
+                        </div>
+                    </div>
+                    <Link className='w-full mt-1.5' href={detailUrl} aria-label={hit.title}>
                         <p
-                            className={`text-base-content/70 line-clamp-2 font-normal text-sm leading-6 mt-1.5 max-sm:text-xs ${markStyle}`}
+                            className={`text-base-content/70 line-clamp-2 font-normal text-sm leading-6 max-sm:text-xs ${markStyle}`}
                             dangerouslySetInnerHTML={{__html: previewHtml}}
                         />
                     </Link>
-                    <div className='mt-1.5 flex gap-y-1 gap-x-3 flex-wrap w-full'>
-                        <PostCreateTime createTime={hit?.create_time}/>
-                        <PostCategory category={hit?.category}/>
-                        <PostTagList tagList={hit?.tag_list}/>
-                        <Link className='flex-1' href={detailUrl} aria-label={hit.title}/>
-                    </div>
                 </div>
                 {hasCover ? (
                     <Link className='relative w-52 h-28 shrink-0 max-md:hidden' href={detailUrl}>

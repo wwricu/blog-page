@@ -19,13 +19,13 @@ export default async function TagView({ tagType }: {  tagType: TagTypeEnum }) {
                             tags.map((tag: TagVO) => (
                                 <Link
                                     key={tag.id}
-                                    className='group min-w-40 flex-1 basis-40 rounded-xl bg-base-100 px-4 py-5 ring-1 ring-base-300 transition-shadow hover:shadow-sm hover:ring-base-content/25'
+                                    className='group flex min-w-40 flex-1 basis-40 items-baseline justify-between gap-3 rounded-xl bg-base-100 px-4 py-4 ring-1 ring-base-300 transition-shadow hover:shadow-sm hover:ring-base-content/25'
                                     href={`/${isCategory ? CategoriesURL : TagsUrl}/${encodeURIComponent(tag.name)}`}
                                 >
-                                    <span className='block text-base-content text-sm font-medium break-words transition-colors group-hover:text-primary'>
+                                    <span className='min-w-0 text-base-content text-sm font-medium break-words transition-colors group-hover:text-primary'>
                                         {tag.name}
                                     </span>
-                                    <span className='mt-2 block text-xs tabular-nums text-base-content/60 transition-colors group-hover:text-primary/70'>
+                                    <span className='shrink-0 text-xs tabular-nums text-base-content/60 transition-colors group-hover:text-primary/70'>
                                         {tag.count} {tag.count === 1 ? 'post' : 'posts'}
                                     </span>
                                 </Link>
