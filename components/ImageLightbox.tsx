@@ -36,7 +36,7 @@ export default function ImageLightbox({ html, cover }: { html: string, cover?: {
                 </button>
             ) : null}
             <div
-                className='prose max-w-none! max-md:prose-sm text-base-content leading-relaxed [&_img]:cursor-zoom-in'
+                className='prose max-w-none! max-md:prose-sm text-base-content/90 leading-relaxed [&_img]:cursor-zoom-in'
                 dangerouslySetInnerHTML={{ __html: html }}
                 onClick={(e) => {
                     if (e.target instanceof HTMLImageElement) {

@@ -77,15 +77,15 @@ export default function Sidebar() {
                 <h1 className='text-[17px] font-semibold text-base-content tracking-tight leading-none'>
                     wwr<span className='text-primary'>.</span>icu
                 </h1>
-                <p className='text-xs text-base-content/50 mt-1.5'>A nonsense site</p>
+                <p className='text-xs text-base-content/60 mt-1.5'>A nonsense site</p>
             </Link>
 
             <form onSubmit={(e) => { e.preventDefault(); submitSearch() }} className='px-4'>
                 <label className='flex items-center gap-2 px-3 h-9 rounded-lg bg-base-300/50 transition-colors focus-within:bg-base-100 focus-within:ring-1 focus-within:ring-primary/40'>
-                    <Search className='w-4 h-4 stroke-base-content/45 shrink-0'/>
+                    <Search className='w-4 h-4 stroke-base-content/60 shrink-0'/>
                     <input
                         type='text'
-                        className='grow min-w-0 bg-transparent text-sm text-base-content placeholder:text-base-content/40 outline-none'
+                        className='grow min-w-0 bg-transparent text-sm text-base-content placeholder:text-base-content/55 outline-none'
                         placeholder='Search...'
                         value={keyword}
                         onChange={(e) => setKeyword(e.target.value)}
@@ -99,8 +99,8 @@ export default function Sidebar() {
                     const itemClass = `group flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors w-full
                         ${active
                             ? 'bg-base-300/60 text-base-content'
-                            : 'text-base-content/65 hover:bg-base-300/35 hover:text-base-content'}`
-                    const iconClass = `w-4 h-4 ${iconClassName ?? ''} ${active ? 'stroke-primary' : 'stroke-base-content/50 group-hover:stroke-base-content'}`
+                            : 'text-base-content/85 hover:bg-base-300/35 hover:text-base-content'}`
+                    const iconClass = `w-4 h-4 ${iconClassName ?? ''} ${active ? 'stroke-primary' : 'stroke-base-content/70 group-hover:stroke-base-content'}`
 
                     if (isButton) {
                         return (
@@ -119,7 +119,7 @@ export default function Sidebar() {
                 })}
             </nav>
 
-            <div className='mt-auto px-4 py-4 border-t border-base-300 flex items-center justify-between text-xs text-base-content/45'>
+            <div className='mt-auto px-4 py-4 border-t border-base-300 flex items-center justify-between text-xs text-base-content/55'>
                 <span>© {new Date().getFullYear()} wwr</span>
                 <div className='flex items-center gap-1'>
                     <button

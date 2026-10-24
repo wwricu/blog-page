@@ -25,11 +25,11 @@ export default function Header() {
         if ((isModalOpen && path == null) || !isModalOpen && currentRoute === path) {
             return `${menuItemClassName} border-primary text-primary font-semibold`
         }
-        return `${menuItemClassName} border-transparent font-normal text-base-content/70`
+        return `${menuItemClassName} border-transparent font-normal text-base-content/85`
     }
 
     const getIconStyle = (path: string | undefined = undefined)=>
-        `${IconClassNames} ${(isModalOpen && path == null) || !isModalOpen && currentRoute === path ? 'stroke-primary' : 'stroke-base-content/70'}`
+        `${IconClassNames} ${(isModalOpen && path == null) || !isModalOpen && currentRoute === path ? 'stroke-primary' : 'stroke-base-content/80'}`
 
     return (
         <>
