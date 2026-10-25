@@ -28,8 +28,10 @@ const nextConfig: NextConfig = {
     }
     return [
         {
-          source: '/api/:path*',
-          destination: `${process.env.NEXT_BASE_URL}/:path*`,
+          // Only the open group is reachable through this proxy; a visitor cannot turn blog-page
+          // into a bridge to /admin/*, and neither can this app by building the wrong URL.
+          source: '/api/open/:path*',
+          destination: `${process.env.NEXT_BASE_URL}/open/:path*`,
         },
       ]
   },
