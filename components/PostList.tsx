@@ -30,9 +30,9 @@ export default function PostList({ page, pageSize, baseUrl, breadcrumb, mobile }
         }>
             {
                 breadcrumb ? null : (
-                    <div className='flex items-baseline justify-between min-w-2xs w-full max-sm:pl-2 sm:pl-4 max-md:w-full md:w-3xl px-1'>
-                        <h1 className='text-xs font-medium uppercase tracking-wider text-base-content/60'>Latest</h1>
-                        <span className='text-xs tabular-nums text-base-content/45'>{page.count} posts</span>
+                    <div className='flex items-baseline gap-2 min-w-2xs w-full max-sm:pl-2 sm:pl-4 max-md:w-full md:w-3xl mb-2'>
+                        <h1 className='text-xl font-semibold tracking-tight text-base-content'>Latest posts</h1>
+                        <span className='text-sm tabular-nums text-base-content/55'>{page.count}</span>
                     </div>
                 )
             }
