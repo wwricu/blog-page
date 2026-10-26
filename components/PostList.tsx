@@ -24,22 +24,24 @@ export default function PostList({ page, pageSize, baseUrl, breadcrumb, mobile }
     return (
         <div className={`
             flex flex-col items-center gap-3 w-full overflow-x-auto
-            max-sm:px-1 max-sm:mt-1
-            sm:mt-2 sm:px-2
-            md:mt-3 md:p-0`
+            max-sm:px-1 max-sm:mt-2
+            sm:mt-4 sm:px-2
+            md:mt-6 md:p-0`
         }>
             {
                 breadcrumb ? null : (
-                    <div className='flex items-baseline gap-2 min-w-2xs w-full max-sm:pl-2 sm:pl-4 max-md:w-full md:w-3xl mb-2'>
-                        <h1 className='text-xl font-semibold tracking-tight text-base-content'>Latest posts</h1>
-                        <span className='text-sm tabular-nums text-base-content/55'>{page.count}</span>
+                    <div className='min-w-2xs w-full max-sm:pl-3 sm:pl-4 max-md:w-full md:w-3xl pb-2 mb-2 border-b border-base-300'>
+                        <div className='flex items-baseline justify-between gap-3'>
+                            <h1 className='text-xl font-semibold tracking-tight text-base-content'>Latest posts</h1>
+                            <span className='text-sm tabular-nums text-base-content/55'>{page.count}</span>
+                        </div>
                     </div>
                 )
             }
             {
                 breadcrumb ?
                 (
-                    <div className={`breadcrumbs py-0 min-w-2xs text-base-content/70 text-sm w-full max-sm:pl-2 sm:pl-4 max-md:w-full md:w-3xl`}>
+                    <div className={`breadcrumbs py-0 min-w-2xs text-base-content/70 text-sm w-full max-sm:pl-3 sm:pl-4 max-md:w-full md:w-3xl`}>
                         {breadcrumb}
                     </div>
                 ) : null
