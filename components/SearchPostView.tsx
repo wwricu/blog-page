@@ -22,7 +22,7 @@ export default async function SearchPostView({ keyword }: PathParams) {
             sm:mt-2 sm:px-2
             md:mt-3 md:p-0`
         }>
-            <div className='breadcrumbs py-0 min-w-2xs text-base-content/70 text-sm w-full max-sm:pl-2 sm:pl-4 max-md:w-full md:w-3xl'>
+            <div className='breadcrumbs py-0 min-w-2xs text-base-content/70 text-sm w-full max-sm:pl-3 sm:pl-4 max-md:w-full md:w-3xl'>
                 <ul>
                     <li><a className='hover:text-primary' href={'/'}>Home</a></li>
                     <li>{SearchUrl}</li>

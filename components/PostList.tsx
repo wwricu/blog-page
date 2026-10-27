@@ -30,7 +30,7 @@ export default function PostList({ page, pageSize, baseUrl, breadcrumb, mobile }
         }>
             {
                 breadcrumb ? null : (
-                    <div className='flex items-baseline justify-between min-w-2xs w-full max-sm:pl-2 sm:pl-4 max-md:w-full md:w-3xl px-1'>
+                    <div className='flex items-baseline gap-2 min-w-2xs w-full max-sm:pl-3 sm:pl-4 max-md:w-full md:w-3xl mb-2'>
                         <h1 className='text-xs font-medium uppercase tracking-wider text-base-content/60'>Latest</h1>
                         <span className='text-xs tabular-nums text-base-content/45'>{page.count} posts</span>
                     </div>
@@ -39,7 +39,7 @@ export default function PostList({ page, pageSize, baseUrl, breadcrumb, mobile }
             {
                 breadcrumb ?
                 (
-                    <div className={`breadcrumbs py-0 min-w-2xs text-base-content/70 text-sm w-full max-sm:pl-2 sm:pl-4 max-md:w-full md:w-3xl`}>
+                    <div className={`breadcrumbs py-0 min-w-2xs text-base-content/70 text-sm w-full max-sm:pl-3 sm:pl-4 max-md:w-full md:w-3xl`}>
                         {breadcrumb}
                     </div>
                 ) : null
