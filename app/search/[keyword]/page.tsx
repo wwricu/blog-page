@@ -4,6 +4,7 @@ import {notFound, permanentRedirect} from "next/navigation"
 // Legacy path-style search URLs are canonicalized to the /search?keyword= route
 export default async function SearchPage({ params }: AsyncPathParams) {
     const { keyword } = await params
+    // This route is rendered dynamically, so its params arrive still percent-encoded
     const decoded = keyword ? decodeURIComponent(keyword) : ''
     if (!decoded.trim()) {
         notFound()

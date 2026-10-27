@@ -4,10 +4,9 @@ import {Metadata} from "next"
 
 export const generateMetadata = async ({ params }: AsyncPathParams): Promise<Metadata> => {
     const { filter, name } = await params
-    const decodedName = decodeURIComponent(name!)
     return {
-        title: decodedName,
-        description: `First page of posts under ${filter} ${decodedName}`,
+        title: name,
+        description: `First page of posts under ${filter} ${name}`,
         openGraph: { url: `/${filter}/${name}` },
     }
 }

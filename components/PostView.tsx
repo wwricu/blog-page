@@ -15,9 +15,9 @@ export default async function PostView({ filter, name, index = '1' }: PathParams
     let category: string | undefined
     let tag: string | undefined
     if (filter === CategoriesURL) {
-        category = name ? decodeURIComponent(name) : undefined
+        category = name
     } else if (filter === TagsUrl) {
-        tag = name ? decodeURIComponent(name) : undefined
+        tag = name
     } else if (filter || name) {
         notFound()
     }
@@ -33,7 +33,7 @@ export default async function PostView({ filter, name, index = '1' }: PathParams
         <ul>
             <li><a className='hover:text-primary' href={'/'}>Home</a></li>
             <li><a className='hover:text-primary' href={`/${filter}`}>{filter}</a></li>
-            <li>{decodeURIComponent(name)}</li>
+            <li>{name}</li>
         </ul>
     ) : null
 

@@ -6,12 +6,12 @@ import SearchPostCard from "@/components/SearchPostCard"
 import {PostSearchVO} from "@/common/model"
 
 export default async function SearchPostView({ keyword }: PathParams) {
-    const decodedKeyword = keyword ? decodeURIComponent(keyword) : ''
-    if (!decodedKeyword.trim()) {
+    const term = keyword ?? ''
+    if (!term.trim()) {
         notFound()
     }
 
-    const hits: PostSearchVO[] = await SearchBlogPosts(decodedKeyword).catch(() => [])
+    const hits: PostSearchVO[] = await SearchBlogPosts(term).catch(() => [])
     const shownCount = hits?.length ?? 0
     const truncated = shownCount >= 30
 
@@ -26,7 +26,7 @@ export default async function SearchPostView({ keyword }: PathParams) {
                 <ul>
                     <li><a className='hover:text-primary' href={'/'}>Home</a></li>
                     <li>{SearchUrl}</li>
-                    <li>{decodedKeyword}</li>
+                    <li>{term}</li>
                 </ul>
             </div>
             {
