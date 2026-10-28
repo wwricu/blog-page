@@ -3,13 +3,16 @@ import React from "react"
 import {PostCategory, PostCreateTime, PostTagList} from "@/components/PostMeta"
 import { notFound } from "next/navigation"
 import ImageLightbox from "@/components/ImageLightbox"
+import PostCover from "@/components/PostCover"
 import {estimateReadMinutes} from "@/common/common"
 
 export default async function PostDetailView({ postDetailVO }: { postDetailVO: PostDetailVO | null }) {
     if (!postDetailVO) {
         notFound()
     }
-    const hasCover = postDetailVO.cover?.url != null && postDetailVO.cover?.name != null
+    const coverUrl = postDetailVO.cover?.url
+    const coverName = postDetailVO.cover?.name
+    const cover = coverUrl && coverName ? { url: coverUrl, name: coverName } : null
     const readMinutes = estimateReadMinutes(postDetailVO.content)
 
     return (
@@ -22,14 +25,12 @@ export default async function PostDetailView({ postDetailVO }: { postDetailVO: P
                     <PostCreateTime createTime={postDetailVO?.create_time}/>
                     <PostCategory category={postDetailVO?.category}/>
                     <PostTagList tagList={postDetailVO?.tag_list}/>
-                    <span className='text-sm text-base-content/60 tabular-nums'>{readMinutes} min read</span>
+                    <span className='ml-auto text-sm text-base-content/60 tabular-nums'>{readMinutes} min read</span>
                 </div>
+                {cover ? <PostCover url={cover.url} name={cover.name}/> : null}
             </header>
             <div className='pt-6'>
-                <ImageLightbox
-                    html={postDetailVO.content}
-                    cover={hasCover ? { url: postDetailVO.cover!.url!, name: postDetailVO.cover!.name! } : null}
-                />
+                <ImageLightbox html={postDetailVO.content}/>
             </div>
         </article>
     )
