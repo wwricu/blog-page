@@ -1,28 +1,12 @@
-import SearchPostView from "@/components/SearchPostView"
-import {AsyncPathParams, SearchUrl} from "@/common/common"
-import {Metadata} from "next"
-import {notFound} from "next/navigation"
+import {AsyncPathParams} from "@/common/common"
+import {notFound, permanentRedirect} from "next/navigation"
 
-export const generateMetadata = async ({ params }: AsyncPathParams): Promise<Metadata> => {
-    const { keyword } = await params
-    const decoded = keyword ? decodeURIComponent(keyword) : ''
-    return {
-        title: `Search: ${decoded} - wwr.icu`,
-        description: `Search results for ${decoded}`,
-        robots: { index: false, follow: true },
-        openGraph: {
-            siteName: 'wwr.icu',
-            title: decoded,
-            description: 'wwr.icu',
-            url: `${process.env.NEXT_SITE_URL}/${SearchUrl}/${keyword}`
-        }
-    }
-}
-
+// Legacy path-style search URLs are canonicalized to the /search?keyword= route
 export default async function SearchPage({ params }: AsyncPathParams) {
     const { keyword } = await params
-    if (!keyword || !decodeURIComponent(keyword).trim()) {
+    const decoded = keyword ? decodeURIComponent(keyword) : ''
+    if (!decoded.trim()) {
         notFound()
     }
-    return <SearchPostView keyword={keyword} />
+    permanentRedirect(`/search?keyword=${encodeURIComponent(decoded)}`)
 }

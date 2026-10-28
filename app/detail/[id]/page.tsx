@@ -22,17 +22,17 @@ export const generateMetadata = async ({ params }: AsyncPathParams): Promise<Met
     }
 
     return {
-        title: `${postDetailVO.title} - wwr.icu`,
+        title: postDetailVO.title,
         description: postDetailVO.preview,
         openGraph: {
-            siteName: 'wwr.icu',
+            // Keep the bare post title (no site suffix) for share cards
             title: postDetailVO.title,
-            description: postDetailVO.preview,
-            url: `${process.env.NEXT_SITE_URL}/detail/${postDetailVO.id}`,
+            url: `/detail/${postDetailVO.id}`,
             images: postDetailVO.cover && [
                 {
                     url: postDetailVO?.cover?.url,
                     alt: postDetailVO?.cover?.name,
+                    // Explicit size advertised for WeChat share cards, which require width/height
                     width: 240,
                     height: 180,
                 }
@@ -41,11 +41,13 @@ export const generateMetadata = async ({ params }: AsyncPathParams): Promise<Met
             type: 'article',
             authors: 'wwr',
             publishedTime: postDetailVO.create_time,
-            modifiedTime: postDetailVO.create_time,
+            modifiedTime: postDetailVO.update_time || postDetailVO.create_time,
             tags: postDetailVO.tag_list?.map(tag => tag.name),
         }
     }
 }
+
+export const generateStaticParams = () => []
 
 export default async function PostDetailPage({ params }: AsyncPathParams) {
     const postId = (await params).id

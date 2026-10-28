@@ -13,99 +13,80 @@ type PaginationProps = {
 }
 const buttonClassNames = 'btn btn-primary btn-sm btn-outline rounded-lg whitespace-nowrap py-0 mt-2 mb-3 hover:btn-soft'
 
-const useInfiniteScroll = (
-    hasNextPage: boolean,
-    onLoadMore: () => void,
-    threshold: number = 100
-) => {
-    const isFetchingRef = useRef(false)
-    const onLoadMoreRef = useRef(onLoadMore)
+const useInfiniteScroll = (enabled: boolean, onBottom: () => void, threshold: number = 100) => {
+    // Keep the latest callback so the listener never runs on a stale closure
+    const onBottomRef = useRef(onBottom)
+    useEffect(() => { onBottomRef.current = onBottom }, [onBottom])
 
     useEffect(() => {
-        onLoadMoreRef.current = onLoadMore
-    }, [onLoadMore])
-
-    useEffect(() => {
-        if (!hasNextPage) return
-
+        if (!enabled) return
         const handleScroll = () => {
-            if (isFetchingRef.current) return
-
-            const scrollHeight = document.documentElement.scrollHeight
-            const scrollTop = window.scrollY
-            const clientHeight = window.innerHeight
-
-            if (scrollHeight - scrollTop - clientHeight <= threshold) {
-                isFetchingRef.current = true
-                onLoadMoreRef.current()
+            const { scrollHeight } = document.documentElement
+            if (scrollHeight - window.scrollY - window.innerHeight <= threshold) {
+                onBottomRef.current()
             }
         }
-
         window.addEventListener('scroll', handleScroll, { passive: true })
         return () => window.removeEventListener('scroll', handleScroll)
-    }, [hasNextPage, threshold])
+    }, [enabled, threshold])
 }
 
 export default function MobilePagination({ baseCount = 10, category, tag, className }: PaginationProps) {
     const pageSize = 10
 
     const [active, setActive] = useState(false)
-    const [postDetailVOList, setPostDetailVOList] = useState<PostPreviewVO[]>([])
-    const [currentData, setCurrentData] = useState<PostPreviewVO[]>([])
-    const [pageCount, setPageCount] = useState(0)
-    const currentRef = useRef(1)
-    const currentDataRef = useRef<PostPreviewVO[]>([])
-    const isFetchingRef = useRef(false)
+    const [items, setItems] = useState<PostPreviewVO[]>([])
+    const [loading, setLoading] = useState(false)
+    // Reached the last page (short page) or the backend failed: stop asking
+    const [exhausted, setExhausted] = useState(false)
+    // Last rendered page; page 1 comes from SSR
+    const pageRef = useRef(1)
+    // Synchronous guard: state updates are async, quick successive triggers must not overlap fetches
+    const loadingRef = useRef(false)
 
-    useEffect(() => {
-        currentDataRef.current = currentData
-    }, [currentData])
+    const loadNext = () => {
+        if (loadingRef.current || exhausted) return
+        loadingRef.current = true
+        setLoading(true)
 
-    const updatePage = () => {
-        if (isFetchingRef.current) return
-        isFetchingRef.current = true
-
-        setPostDetailVOList(prev => [...prev, ...currentDataRef.current])
-
-        const nextPage = currentRef.current + 1
-        GetAllBlogPosts(nextPage, pageSize, category, tag).then((postDetailPageVO) => {
-            setPageCount(Math.ceil(postDetailPageVO.count / pageSize))
-            setCurrentData(postDetailPageVO.data)
-            currentRef.current = nextPage
+        GetAllBlogPosts(pageRef.current + 1, pageSize, category, tag).then((postDetailPageVO) => {
+            const data = postDetailPageVO.data ?? []
+            pageRef.current += 1
+            setItems(prev => [...prev, ...data])
+            if (data.length < pageSize) {
+                setExhausted(true)
+            }
+        }).catch(() => {
+            setExhausted(true)
         }).finally(() => {
-            isFetchingRef.current = false
+            loadingRef.current = false
+            setLoading(false)
         })
     }
 
-    useEffect(() => { updatePage() }, [])
-
-    useInfiniteScroll(active && currentRef.current <= pageCount, updatePage, 300)
+    useInfiniteScroll(active && !exhausted, loadNext, 300)
 
     return (
         <>
             {
-                active ?
-                postDetailVOList.map((postDetailVO, i) =>
-                    <PostCard key={postDetailVO.id} index={baseCount + (currentRef.current - 2) * pageSize + i} className={className} postDetailVO={postDetailVO}/>
-                ) : null
+                items.map((postDetailVO, i) =>
+                    <PostCard key={`${postDetailVO.id}-${i}`} index={baseCount + i} className={className} postDetailVO={postDetailVO}/>
+                )
             }
             <div className={className}>
                 {
-                    !active && currentData?.length > 0 ?
+                    !exhausted ?
                     (
-                        <div className={buttonClassNames} onTouchEnd={(e) => {
-                            e.preventDefault()
-                            updatePage()
-                            setActive(true)
-                        }}>Show More</div>
+                        <button type='button' className={buttonClassNames} disabled={loading}
+                                onClick={() => { setActive(true); loadNext() }}>
+                            {loading ? 'Loading...' : 'Show More'}
+                        </button>
+                    ) : active ?
+                    (
+                        <button type='button' className={buttonClassNames}
+                                onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>Back to top</button>
                     ) : <div className='mb-px'/>
                 }
-                <div className={`${buttonClassNames} ${active && currentRef.current > pageCount ? '' : 'hidden'}`}
-                     onTouchEnd={(e) => {
-                         e.preventDefault()
-                         window.scrollTo({top: 0, behavior: 'smooth'})
-                     }}
-                >Back to top</div>
             </div>
         </>
     )

@@ -8,25 +8,22 @@ import {permanentRedirect} from "next/navigation"
 
 export const generateMetadata = async ({ params }: AsyncPathParams): Promise<Metadata> => {
     const filter = (await params).filter
+    const isPagedHome = filter !== CategoriesURL && filter !== TagsUrl
 
-    const metadata: Metadata = {
-        title: `${filter} - wwr.icu`,
-        description: `Explore all posts organized by ${filter}`,
-        openGraph: {
-            siteName: 'wwr.icu',
-            title: filter,
-            description: 'wwr.icu',
-            url: `${process.env.NEXT_SITE_URL}/${filter}`
+    return isPagedHome
+        ? {
+            title: `Page ${filter}`,
+            description: `Explore all posts on ${filter}th page`,
+            openGraph: { url: `/${filter}` },
         }
-    }
-
-    if (filter !== CategoriesURL && filter !== TagsUrl) {
-        metadata.title = `Page ${filter} - wwr.icu`
-        metadata.description = `Explore all posts on ${filter}th page `
-    }
-
-    return metadata
+        : {
+            title: `${filter}`,
+            description: `Explore all posts organized by ${filter}`,
+            openGraph: { url: `/${filter}` },
+        }
 }
+
+export const generateStaticParams = () => []
 
 export default async function FilterPage({ params }: AsyncPathParams) {
     const filter = (await params)?.filter

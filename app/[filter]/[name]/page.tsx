@@ -6,16 +6,13 @@ export const generateMetadata = async ({ params }: AsyncPathParams): Promise<Met
     const { filter, name } = await params
     const decodedName = decodeURIComponent(name!)
     return {
-        title: `${decodedName} - wwr.icu`,
+        title: decodedName,
         description: `First page of posts under ${filter} ${decodedName}`,
-        openGraph: {
-            siteName: 'wwr.icu',
-            title: decodedName,
-            description: 'wwr.icu',
-            url: `${process.env.NEXT_SITE_URL}/${filter}/${name}`
-        }
+        openGraph: { url: `/${filter}/${name}` },
     }
 }
+
+export const generateStaticParams = () => []
 
 export default async function FilterPostPage({ params }: AsyncPathParams) {
     const { filter, name } = await params

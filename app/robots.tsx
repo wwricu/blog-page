@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next'
+import {SiteUrl} from '@/common/common'
 
 export default function robots(): MetadataRoute.Robots {
     return {
@@ -12,6 +13,6 @@ export default function robots(): MetadataRoute.Robots {
                 disallow: '/',
             }
         ],
-        // sitemap: 'https://acme.com/sitemap.xml',
+        sitemap: `${SiteUrl}/sitemap.xml`,
     }
 }

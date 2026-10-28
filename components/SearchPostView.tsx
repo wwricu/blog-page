@@ -3,6 +3,7 @@ import {SearchBlogPosts} from "@/common/api"
 import {PathParams, SearchUrl} from "@/common/common"
 import {notFound} from "next/navigation"
 import SearchPostCard from "@/components/SearchPostCard"
+import {PostSearchVO} from "@/common/model"
 
 export default async function SearchPostView({ keyword }: PathParams) {
     const decodedKeyword = keyword ? decodeURIComponent(keyword) : ''
@@ -10,7 +11,7 @@ export default async function SearchPostView({ keyword }: PathParams) {
         notFound()
     }
 
-    const hits = await SearchBlogPosts(decodedKeyword)
+    const hits: PostSearchVO[] = await SearchBlogPosts(decodedKeyword).catch(() => [])
     const shownCount = hits?.length ?? 0
     const truncated = shownCount >= 30
 
