@@ -1,5 +1,6 @@
 import {PostPreviewPageVO} from "@/common/model"
 import PostCard from "@/components/PostCard"
+import PostLead from "@/components/PostLead"
 import React from "react"
 import Pagination from "@/components/Pagination"
 import dynamic from 'next/dynamic'
@@ -21,6 +22,11 @@ type PostListProps = {
 }
 
 export default function PostList({ page, pageSize, baseUrl, breadcrumb, mobile }: PostListProps) {
+    // The newest post opens the unfiltered first page: a wide card with its cover gives the column
+    // an opening that a label row could not, and filtered or paged views keep the plain list
+    const lead = !breadcrumb && page.page_index === 1 ? page.data?.[0] : undefined
+    const posts = lead ? (page.data ?? []).slice(1) : (page.data ?? [])
+
     return (
         <div className={`
             flex flex-col items-center gap-3 w-full overflow-x-auto
@@ -37,7 +43,10 @@ export default function PostList({ page, pageSize, baseUrl, breadcrumb, mobile }
                 ) : null
             }
             {
-                page?.data?.map((postDetailVO, i) =>
+                lead ? <PostLead postDetailVO={lead}/> : null
+            }
+            {
+                posts.map((postDetailVO, i) =>
                     <PostCard key={postDetailVO.id} index={i} postDetailVO={postDetailVO}/>
                 )
             }
