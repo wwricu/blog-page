@@ -8,13 +8,13 @@ export default function PostCover({ url, name }: { url: string, name: string }) 
 
     return (
         <>
-            {/* Bleeds to the card edges so the cover reads as the article's masthead rather
-                than as the first picture of the body; a click still opens the uncropped original */}
+            {/* Sits above the title like the lead card's picture, so the cover opens the card
+                instead of interrupting the text; a click still opens the uncropped original */}
             <button
                 type='button'
                 onClick={() => show(url, name)}
                 aria-label={`View full cover: ${name}`}
-                className='-mx-3 sm:-mx-4 mt-5 block w-[calc(100%+1.5rem)] sm:w-[calc(100%+2rem)] cursor-zoom-in p-0 text-left'
+                className='mb-6 sm:mb-8 block w-full cursor-zoom-in p-0 text-left'
             >
                 <Image
                     priority
@@ -23,7 +23,7 @@ export default function PostCover({ url, name }: { url: string, name: string }) 
                     height={400}
                     alt={name}
                     src={url}
-                    className='w-full h-52 sm:h-72 object-cover'
+                    className='w-full h-52 sm:h-72 object-cover rounded-xl ring-1 ring-base-300'
                 />
             </button>
             {dialog}
