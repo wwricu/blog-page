@@ -21,7 +21,8 @@ export const PostCategory = ({ category }: { category?: TagVO }) => {
     return (
         <Link
             href={`/categories/${encodeURIComponent(category.name)}`}
-            className='text-sm font-medium text-primary transition-colors hover:text-primary/75'
+            className='self-center shrink-0 rounded-md bg-primary/10 px-1.5 text-sm font-medium leading-5 text-primary
+                transition-colors hover:bg-primary hover:text-primary-content'
         >
             {category.name}
         </Link>
