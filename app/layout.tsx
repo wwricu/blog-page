@@ -5,6 +5,7 @@ import Header from "@/components/Header"
 import {sansSerif, SiteUrl} from "@/common/common"
 import Sidebar from "@/components/Sidebar"
 import SidebarBrowse from "@/components/SidebarBrowse"
+import {Analytics} from "@vercel/analytics/next"
 
 export const revalidate = 300
 
@@ -45,6 +46,8 @@ export default function RootLayout({children}: { children: React.ReactNode }) {
                         <Footer/>
                     </div>
                 </div>
+                {/* Cookie-less first-party beacon; mode 'auto' keeps it silent in dev */}
+                <Analytics/>
             </body>
         </html>
     )
