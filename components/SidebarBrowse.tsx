@@ -8,8 +8,8 @@ import {TagTypeEnum, TagVO} from '@/common/model'
 /* Native details/summary: collapsing needs no client state, and because the sidebar lives in
    the root layout the chosen state survives client-side navigation (a reload reopens). */
 const Group = ({ title, tags, base }: { title: string, tags: TagVO[], base: string }) => (
-    <details open className='pt-4 first:pt-0'>
-        <summary className='flex cursor-pointer select-none list-none items-center gap-1 px-5 pb-1.5 text-[11px] font-medium tracking-wider text-base-content/45 uppercase transition-colors hover:text-base-content/70 [&::-webkit-details-marker]:hidden'>
+    <details open className='pt-5 first:pt-0'>
+        <summary className='flex cursor-pointer select-none list-none items-center gap-1 px-5 pb-2 text-[11px] font-medium tracking-wider text-base-content/45 uppercase transition-colors hover:text-base-content/70 [&::-webkit-details-marker]:hidden'>
             <ChevronRight className='w-3 h-3 shrink-0'/>
             {title}
         </summary>
@@ -48,7 +48,7 @@ export default async function SidebarBrowse() {
     if (!categories.length && !tags.length) return null
 
     return (
-        <div className='pb-4'>
+        <div className='pb-5'>
             {categories.length ? <Group title='Categories' tags={categories} base={CategoriesURL}/> : null}
             {tags.length ? <Group title='Tags' tags={tags} base={TagsUrl}/> : null}
         </div>

@@ -80,7 +80,9 @@ export default function Sidebar({children}: { children?: React.ReactNode }) {
                 <p className='text-xs text-base-content/60 mt-1.5'>A nonsense site</p>
             </Link>
 
-            <form onSubmit={(e) => { e.preventDefault(); submitSearch() }} className='px-4'>
+            {/* One vertical rhythm down the column: 20px between zones, 2px inside a list, and a
+                single 8px gutter so the search field, nav rows and footer share one width */}
+            <form onSubmit={(e) => { e.preventDefault(); submitSearch() }} className='px-2'>
                 <label className='flex items-center gap-2 px-3 h-9 rounded-lg bg-base-300/50 transition-colors focus-within:bg-base-100 focus-within:ring-1 focus-within:ring-primary/40'>
                     <Search className='w-4 h-4 stroke-base-content/60 shrink-0'/>
                     <input
@@ -121,11 +123,11 @@ export default function Sidebar({children}: { children?: React.ReactNode }) {
 
             {/* Taxonomy lists keep the column from ending in dead space; they scroll on their own
                 so a long list can never push the footer off screen */}
-            <div className='mt-2 min-h-0 flex-1 overflow-y-auto'>
+            <div className='mt-5 min-h-0 flex-1 overflow-y-auto'>
                 {children}
             </div>
 
-            <div className='mt-auto px-4 py-4 border-t border-base-300 flex items-center justify-between text-xs text-base-content/55'>
+            <div className='mt-auto px-2 pl-5 py-4 border-t border-base-300 flex items-center justify-between text-xs text-base-content/55'>
                 <span>© {new Date().getFullYear()} wwr</span>
                 <div className='flex items-center gap-1'>
                     <button
