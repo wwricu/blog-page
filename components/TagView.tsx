@@ -19,7 +19,7 @@ export default async function TagView({ tagType }: {  tagType: TagTypeEnum }) {
                             tags.map((tag: TagVO) => (
                                 <Link
                                     key={tag.id}
-                                    className='group flex min-w-40 flex-1 basis-40 flex-col gap-1 rounded-xl bg-base-100 px-4 py-5 ring-1 ring-base-300 transition-shadow hover:shadow-sm hover:ring-base-content/25'
+                                    className='group flex min-w-40 flex-1 basis-40 flex-col gap-1 rounded-xl bg-base-100 px-4 py-5 ring-1 ring-base-300/70 transition-shadow hover:shadow-sm hover:ring-base-content/25'
                                     href={`/${isCategory ? CategoriesURL : TagsUrl}/${encodeURIComponent(tag.name)}`}
                                 >
                                     <span className='min-w-0 text-base-content text-base font-semibold tracking-tight break-words transition-colors group-hover:text-primary'>
@@ -33,7 +33,7 @@ export default async function TagView({ tagType }: {  tagType: TagTypeEnum }) {
                         }
                     </div>
                 ) : (
-                    <p className='text-base-content/70 text-sm text-center py-10 rounded-xl bg-base-100 ring-1 ring-base-300'>Nothing here yet.</p>
+                    <p className='text-base-content/70 text-sm text-center py-10 rounded-xl bg-base-100 ring-1 ring-base-300/70'>Nothing here yet.</p>
                 )
             }
         </div>

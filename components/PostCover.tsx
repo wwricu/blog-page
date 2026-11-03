@@ -23,7 +23,7 @@ export default function PostCover({ url, name }: { url: string, name: string }) 
                     height={400}
                     alt={name}
                     src={url}
-                    className='w-full h-52 sm:h-72 object-cover rounded-xl ring-1 ring-base-300'
+                    className='w-full h-52 sm:h-72 object-cover rounded-xl'
                 />
             </button>
             {dialog}

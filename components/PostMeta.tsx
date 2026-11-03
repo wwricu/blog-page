@@ -7,7 +7,7 @@ export const PostCreateTime = ({ createTime }: { createTime?: string }) => {
         return null
     }
     return (
-        <span className='text-sm text-base-content/60 tabular-nums'>
+        <span className='text-sm text-base-content/70 tabular-nums'>
             {createTime.slice(0, 10)}
         </span>
     )
@@ -21,7 +21,7 @@ export const PostCategory = ({ category }: { category?: TagVO }) => {
     return (
         <Link
             href={`/categories/${encodeURIComponent(category.name)}`}
-            className='self-center shrink-0 rounded-md bg-primary/10 px-1.5 text-sm font-medium leading-5 text-primary
+            className='self-center shrink-0 rounded-md bg-primary/10 px-1.5 text-xs font-medium leading-5 tracking-wide text-primary
                 transition-colors hover:bg-primary hover:text-primary-content'
         >
             {category.name}
@@ -40,7 +40,7 @@ export const PostTagList = ({ tagList }: { tagList?: TagVO[] }) => {
                     <Link
                         key={tag.id}
                         href={`/tags/${encodeURIComponent(tag.name)}`}
-                        className='text-sm text-base-content/65 transition-colors hover:text-primary'
+                        className='text-sm text-base-content/70 transition-colors hover:text-primary'
                     >
                         #{tag.name}
                     </Link>

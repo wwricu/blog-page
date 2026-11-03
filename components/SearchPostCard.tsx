@@ -15,7 +15,7 @@ export default function SearchPostCard({ hit, index }: { hit: PostSearchVO, inde
     const detailUrl = `/detail/${hit.id}`
     return (
         <div className={
-            `group min-w-2xs w-full rounded-xl bg-base-100 ring-1 ring-base-300 px-4 py-5
+            `group min-w-2xs w-full rounded-xl bg-base-100 ring-1 ring-base-300/70 px-4 py-5
             transition-shadow hover:shadow-sm hover:ring-base-content/25 max-sm:px-3 max-md:w-full md:w-3xl`
         }>
             <div className='flex items-center justify-between gap-4 md:h-24'>
@@ -49,7 +49,7 @@ export default function SearchPostCard({ hit, index }: { hit: PostSearchVO, inde
                             height={96}
                             alt={hit.cover!.name!}
                             src={hit.cover!.url}
-                            className='object-cover w-full h-full rounded-lg ring-1 ring-base-300'
+                            className='object-cover w-full h-full rounded-lg'
                         />
                         <div className='absolute inset-0 bg-black/40 dark:block hidden rounded-lg'/>
                     </Link>
