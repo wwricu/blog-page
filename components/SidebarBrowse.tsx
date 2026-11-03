@@ -15,13 +15,18 @@ const Group = ({ title, tags, base }: { title: string, tags: TagVO[], base: stri
         </summary>
         <nav className='flex flex-col gap-0.5 px-2'>
             {tags.map(tag => (
+                /* Same row grammar as the primary nav: 36px, icon slot, label, hover fill. The
+                   dot stands in for the nav's icon so both lists read as one family. */
                 <Link
                     key={tag.id}
                     href={`/${base}/${encodeURIComponent(tag.name)}`}
-                    className='group flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm text-base-content/75 transition-colors hover:bg-base-300/35 hover:text-base-content'
+                    className='group flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-base-content/85 transition-colors hover:bg-base-300/35 hover:text-base-content'
                 >
+                    <span className='flex w-4 shrink-0 justify-center'>
+                        <span className='w-1.5 h-1.5 rounded-full bg-base-content/35 transition-colors group-hover:bg-base-content/55'/>
+                    </span>
                     <span className='truncate'>{tag.name}</span>
-                    <span className='ml-auto shrink-0 text-xs tabular-nums text-base-content/40 transition-colors group-hover:text-base-content/60'>
+                    <span className='ml-auto shrink-0 text-xs font-normal tabular-nums text-base-content/40 transition-colors group-hover:text-base-content/60'>
                         {tag.count}
                     </span>
                 </Link>
