@@ -1,14 +1,18 @@
 import React from 'react'
 import Link from 'next/link'
+import {ChevronRight} from 'lucide-react'
 import {GetAllTagsAPI} from '@/common/api'
 import {CategoriesURL, TagsUrl} from '@/common/common'
 import {TagTypeEnum, TagVO} from '@/common/model'
 
+/* Native details/summary: collapsing needs no client state, and because the sidebar lives in
+   the root layout the chosen state survives client-side navigation (a reload reopens). */
 const Group = ({ title, tags, base }: { title: string, tags: TagVO[], base: string }) => (
-    <>
-        <p className='px-5 pb-1.5 pt-4 text-[11px] font-medium tracking-wider text-base-content/45 uppercase first:pt-0'>
+    <details open className='pt-4 first:pt-0'>
+        <summary className='flex cursor-pointer select-none list-none items-center gap-1 px-5 pb-1.5 text-[11px] font-medium tracking-wider text-base-content/45 uppercase transition-colors hover:text-base-content/70 [&::-webkit-details-marker]:hidden'>
+            <ChevronRight className='w-3 h-3 shrink-0'/>
             {title}
-        </p>
+        </summary>
         <nav className='flex flex-col gap-0.5 px-2'>
             {tags.map(tag => (
                 <Link
@@ -23,7 +27,7 @@ const Group = ({ title, tags, base }: { title: string, tags: TagVO[], base: stri
                 </Link>
             ))}
         </nav>
-    </>
+    </details>
 )
 
 /* Fills the space the nav leaves behind with something that is also a shortcut: every
