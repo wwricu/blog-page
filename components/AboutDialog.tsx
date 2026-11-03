@@ -53,7 +53,7 @@ export default function AboutDialog({ open, onClose }: AboutDialogProps) {
                     <X className='w-4 h-4'/>
                 </button>
                 <div
-                    className='prose prose-sm max-w-none max-h-60 overflow-y-auto px-6 pt-6 empty:hidden text-base-content/90'
+                    className='prose prose-sm max-w-none max-h-60 overflow-y-auto px-6 pt-6 empty:hidden'
                     dangerouslySetInnerHTML={{__html: about?.content ?? ''}}
                 />
                 <div className='grid grid-cols-3 divide-x divide-base-content/10 mx-6 my-5 rounded-lg bg-base-200/50'>

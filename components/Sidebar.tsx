@@ -20,7 +20,7 @@ const navItems = [
     {url: null, label: 'About', Icon: Info, isButton: true},
 ]
 
-export default function Sidebar() {
+export default function Sidebar({children}: { children?: React.ReactNode }) {
     const pathname = usePathname() || '/'
     const router = useRouter()
     const [keyword, setKeyword] = useState('')
@@ -118,6 +118,12 @@ export default function Sidebar() {
                     )
                 })}
             </nav>
+
+            {/* Taxonomy lists keep the column from ending in dead space; they scroll on their own
+                so a long list can never push the footer off screen */}
+            <div className='mt-2 min-h-0 flex-1 overflow-y-auto'>
+                {children}
+            </div>
 
             <div className='mt-auto px-4 py-4 border-t border-base-300 flex items-center justify-between text-xs text-base-content/55'>
                 <span>© {new Date().getFullYear()} wwr</span>

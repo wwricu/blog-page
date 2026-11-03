@@ -34,7 +34,7 @@ export default function PostCard({ postDetailVO, index, className }: { postDetai
             </div>
             {
                 hasCover ? (
-                    <Link className="relative w-52 h-24 shrink-0 max-md:hidden" href={detailHref}>
+                    <Link className="relative w-52 h-24 shrink-0 max-md:hidden overflow-hidden rounded-lg" href={detailHref}>
                         <Image
                             // TODO: WHY preload & priority not work
                             priority={ index < 3 }
@@ -45,9 +45,9 @@ export default function PostCard({ postDetailVO, index, className }: { postDetai
                             height={96}
                             alt={postDetailVO.cover!.name!}
                             src={postDetailVO.cover!.url}
-                            className='object-cover w-full h-full rounded-lg'
+                            className='object-cover w-full h-full transition-transform duration-500 ease-out group-hover:scale-[1.03]'
                         />
-                        <div className='absolute inset-0 bg-black/40 dark:block hidden rounded-lg'/>
+                        <div className='absolute inset-0 bg-black/40 dark:block hidden'/>
                     </Link>
                 ) : null
             }

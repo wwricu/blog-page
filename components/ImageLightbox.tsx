@@ -8,7 +8,7 @@ export default function ImageLightbox({ html }: { html: string }) {
     return (
         <>
             <div
-                className='prose max-w-none! max-md:prose-sm text-base-content/90 leading-relaxed [&_img]:cursor-zoom-in'
+                className='prose max-w-none! max-md:prose-sm leading-relaxed [&_img]:cursor-zoom-in'
                 dangerouslySetInnerHTML={{ __html: html }}
                 onClick={(e) => {
                     if (e.target instanceof HTMLImageElement) {

@@ -39,7 +39,7 @@ export default function SearchPostCard({ hit, index }: { hit: PostSearchVO, inde
                     </div>
                 </div>
                 {hasCover ? (
-                    <Link className='relative w-52 h-24 shrink-0 max-md:hidden' href={detailUrl}>
+                    <Link className='relative w-52 h-24 shrink-0 max-md:hidden overflow-hidden rounded-lg' href={detailUrl}>
                         <Image
                             priority={ index < 3 }
                             loading={ index < 3 ? 'eager' : 'lazy' }
@@ -49,16 +49,16 @@ export default function SearchPostCard({ hit, index }: { hit: PostSearchVO, inde
                             height={96}
                             alt={hit.cover!.name!}
                             src={hit.cover!.url}
-                            className='object-cover w-full h-full rounded-lg'
+                            className='object-cover w-full h-full transition-transform duration-500 ease-out group-hover:scale-[1.03]'
                         />
-                        <div className='absolute inset-0 bg-black/40 dark:block hidden rounded-lg'/>
+                        <div className='absolute inset-0 bg-black/40 dark:block hidden'/>
                     </Link>
                 ) : null}
             </div>
             {snippetHtml ? (
                 <Link href={detailUrl} className='block mt-4 pt-4 border-t border-base-300 group/snippet' aria-label={hit.title}>
                     <div className='flex items-start gap-2.5'>
-                        <span className='shrink-0 text-[10px] tracking-wider font-semibold text-primary/80 uppercase px-1.5 py-0.5 rounded bg-primary/10 mt-0.5 transition-colors group-hover/snippet:bg-primary/20'>
+                        <span className='shrink-0 text-[10px] tracking-wider font-semibold text-primary uppercase px-1.5 py-0.5 rounded-md bg-primary/10 mt-0.5 transition-colors group-hover/snippet:bg-primary/20'>
                             Match
                         </span>
                         <p

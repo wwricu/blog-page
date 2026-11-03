@@ -4,6 +4,7 @@ import '@/styles/globals.css'
 import Header from "@/components/Header"
 import {sansSerif, SiteUrl} from "@/common/common"
 import Sidebar from "@/components/Sidebar"
+import SidebarBrowse from "@/components/SidebarBrowse"
 
 export const revalidate = 300
 
@@ -36,7 +37,9 @@ export default function RootLayout({children}: { children: React.ReactNode }) {
                     <Header/>
                 </div>
                 <div className='flex w-full flex-1'>
-                    <Sidebar/>
+                    <Sidebar>
+                        <SidebarBrowse/>
+                    </Sidebar>
                     <div className='flex flex-col flex-1 min-w-0 bg-base-200'>
                         <main className='flex flex-col flex-1 items-center'>{children}</main>
                         <Footer/>
