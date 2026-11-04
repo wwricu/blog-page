@@ -6,13 +6,12 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 
 import React, {useEffect, useState} from "react"
-import {Info, Mail, Moon, Search, Sun} from "lucide-react"
+import {Info, Moon, Search, Sun} from "lucide-react"
 import Link from "next/link"
 import {usePathname, useRouter} from "next/navigation"
 import {DarkTheme, LightTheme, SearchUrl} from "@/common/common"
 import {SiteVO} from "@/common/model"
 import AboutDialog from "@/components/AboutDialog"
-import GithubIcon from "@/components/GithubIcon"
 
 export default function Sidebar({site, children}: { site: SiteVO, children?: React.ReactNode }) {
     const pathname = usePathname() || '/'
@@ -91,36 +90,20 @@ export default function Sidebar({site, children}: { site: SiteVO, children?: Rea
                 <div className='flex items-center gap-1'>
                     <button
                         type='button'
-                        onClick={() => setIsModalOpen(true)}
-                        className='inline-flex items-center justify-center w-7 h-7 rounded-md hover:bg-base-300/60 hover:text-base-content transition-colors'
-                        aria-label='About'
-                    >
-                        <Info className='w-4 h-4'/>
-                    </button>
-                    <button
-                        type='button'
                         onClick={toggleTheme}
                         className='inline-flex items-center justify-center w-7 h-7 rounded-md hover:bg-base-300/60 hover:text-base-content transition-colors'
                         aria-label='Toggle theme'
                     >
                         {theme === DarkTheme ? <Sun className='w-4 h-4'/> : <Moon className='w-4 h-4'/>}
                     </button>
-                    <Link
-                        href='https://github.com/wwricu'
-                        target='_blank'
-                        rel='noopener noreferrer'
+                    <button
+                        type='button'
+                        onClick={() => setIsModalOpen(true)}
                         className='inline-flex items-center justify-center w-7 h-7 rounded-md hover:bg-base-300/60 hover:text-base-content transition-colors'
-                        aria-label='GitHub'
+                        aria-label='About'
                     >
-                        <GithubIcon className='w-4 h-4'/>
-                    </Link>
-                    <Link
-                        href='mailto:me@wwr.icu'
-                        className='inline-flex items-center justify-center w-7 h-7 rounded-md hover:bg-base-300/60 hover:text-base-content transition-colors'
-                        aria-label='Mail'
-                    >
-                        <Mail className='w-4 h-4'/>
-                    </Link>
+                        <Info className='w-4 h-4'/>
+                    </button>
                 </div>
             </div>
 
