@@ -34,7 +34,7 @@ export default function PostLead({ postDetailVO }: { postDetailVO: PostPreviewVO
                     <h2 className='text-base-content text-[19px] font-semibold tracking-tight leading-7 line-clamp-2 sm:text-[21px] transition-colors group-hover:text-primary'>
                         {postDetailVO.title}
                     </h2>
-                    <p className='mt-1 text-base-content/70 font-normal leading-6 text-sm line-clamp-2'>
+                    <p className='mt-1 text-base-content/70 font-normal leading-5 text-[13px] line-clamp-2'>
                         {postDetailVO.preview}
                     </p>
                 </Link>

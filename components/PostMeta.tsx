@@ -7,7 +7,7 @@ export const PostCreateTime = ({ createTime }: { createTime?: string }) => {
         return null
     }
     return (
-        <span className='text-sm text-base-content/70 tabular-nums'>
+        <span className='text-[13px] text-base-content/70 tabular-nums'>
             {createTime.slice(0, 10)}
         </span>
     )
@@ -40,7 +40,7 @@ export const PostTagList = ({ tagList }: { tagList?: TagVO[] }) => {
                     <Link
                         key={tag.id}
                         href={`/tags/${encodeURIComponent(tag.name)}`}
-                        className='text-sm text-base-content/70 transition-colors hover:text-primary'
+                        className='text-[13px] text-base-content/70 transition-colors hover:text-primary'
                     >
                         #{tag.name}
                     </Link>

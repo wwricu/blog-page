@@ -29,7 +29,7 @@ export default function PostList({ page, pageSize, baseUrl, breadcrumb, mobile }
 
     return (
         <div className={`
-            flex flex-col items-center gap-3 w-full overflow-x-auto
+            flex flex-col items-center gap-4 w-full overflow-x-auto
             max-sm:px-1 max-sm:mt-3
             sm:mt-4 sm:px-2
             md:mt-5 md:p-0`
