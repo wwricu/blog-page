@@ -10,6 +10,7 @@ import {House, Info, List, Mail, Moon, Search, Sun, Tags} from "lucide-react"
 import Link from "next/link"
 import {usePathname, useRouter} from "next/navigation"
 import {DarkTheme, LightTheme, SearchUrl} from "@/common/common"
+import {SiteVO} from "@/common/model"
 import AboutDialog from "@/components/AboutDialog"
 import GithubIcon from "@/components/GithubIcon"
 
@@ -20,7 +21,7 @@ const navItems = [
     {url: null, label: 'About', Icon: Info, isButton: true},
 ]
 
-export default function Sidebar({children}: { children?: React.ReactNode }) {
+export default function Sidebar({site, children}: { site: SiteVO, children?: React.ReactNode }) {
     const pathname = usePathname() || '/'
     const router = useRouter()
     const [keyword, setKeyword] = useState('')
@@ -75,9 +76,9 @@ export default function Sidebar({children}: { children?: React.ReactNode }) {
         <aside className='max-lg:hidden sticky top-0 left-0 h-svh w-60 shrink-0 flex flex-col bg-base-200 border-r border-base-300'>
             <Link href='/' className='block px-5 pt-6 pb-5'>
                 <h1 className='text-[17px] font-semibold text-base-content tracking-tight leading-none'>
-                    wwr<span className='text-primary'>.</span>icu
+                    {site.title}
                 </h1>
-                <p className='text-xs text-base-content/60 mt-1.5'>A nonsense site</p>
+                <p className='text-xs text-base-content/60 mt-1.5'>{site.tagline}</p>
             </Link>
 
             <form onSubmit={(e) => { e.preventDefault(); submitSearch() }} className='px-2'>
@@ -153,7 +154,7 @@ export default function Sidebar({children}: { children?: React.ReactNode }) {
                 </div>
             </div>
 
-            <AboutDialog open={isModalOpen} onClose={() => setIsModalOpen(false)}/>
+            <AboutDialog open={isModalOpen} onClose={() => setIsModalOpen(false)} site={site}/>
         </aside>
     )
 }

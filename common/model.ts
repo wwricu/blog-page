@@ -43,7 +43,9 @@ export interface PostSearchVO extends PostPreviewVO {
     snippet?: string
 }
 
-export interface AboutVO {
+export interface SiteVO {
+    title: string
+    tagline: string
     content: string
     post_count: number
     category_count: number

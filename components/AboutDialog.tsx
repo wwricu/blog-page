@@ -1,22 +1,21 @@
 'use client'
 
-import React, {useEffect, useRef, useState} from 'react'
+import React, {useEffect, useRef} from 'react'
 import Link from 'next/link'
 import {Mail, X} from 'lucide-react'
-import {GetAboutAPI} from '@/common/api'
-import {AboutVO} from '@/common/model'
+import {SiteVO} from '@/common/model'
 import {IconClassNames, monospace} from '@/common/common'
 import GithubIcon from '@/components/GithubIcon'
 
 type AboutDialogProps = {
     open: boolean
     onClose: () => void
+    site: SiteVO
 }
 
 // Shared About modal for the mobile Header and the desktop Sidebar
-export default function AboutDialog({ open, onClose }: AboutDialogProps) {
+export default function AboutDialog({ open, onClose, site }: AboutDialogProps) {
     const dialogRef = useRef<HTMLDialogElement>(null)
-    const [about, setAbout] = useState<AboutVO | null>(null)
 
     useEffect(() => {
         const dialog = dialogRef.current
@@ -29,16 +28,6 @@ export default function AboutDialog({ open, onClose }: AboutDialogProps) {
             dialog.close()
         }
     }, [open])
-
-    useEffect(() => {
-        if (!open || about) {
-            return
-        }
-        GetAboutAPI().then(setAbout).catch(() => {
-            // Keep the dialog usable with empty content; the error surfaces in console
-            setAbout({content: '', post_count: 0, category_count: 0, tag_count: 0})
-        })
-    }, [open, about])
 
     return (
         <dialog className='modal' ref={dialogRef} onClose={onClose}>
@@ -54,14 +43,14 @@ export default function AboutDialog({ open, onClose }: AboutDialogProps) {
                 </button>
                 <div
                     className='prose prose-sm max-w-none max-h-60 overflow-y-auto px-6 pt-6 empty:hidden'
-                    dangerouslySetInnerHTML={{__html: about?.content ?? ''}}
+                    dangerouslySetInnerHTML={{__html: site.content}}
                 />
                 <div className='grid grid-cols-3 divide-x divide-base-content/10 mx-6 my-5 rounded-lg bg-base-200/50'>
                     {
                         [
-                            {title: 'Posts', value: about?.post_count ?? 0},
-                            {title: 'Categories', value: about?.category_count ?? 0},
-                            {title: 'Tags', value: about?.tag_count ?? 0},
+                            {title: 'Posts', value: site.post_count},
+                            {title: 'Categories', value: site.category_count},
+                            {title: 'Tags', value: site.tag_count},
                         ].map(
                             (stat) => (
                                 <div key={stat.title} className='py-3 text-center'>

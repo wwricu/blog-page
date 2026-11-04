@@ -1,4 +1,4 @@
-import {AboutVO, PostPreviewPageVO, PostDetailVO, PostSearchVO, TagTypeEnum, TagVO} from "@/common/model"
+import {SiteVO, PostPreviewPageVO, PostDetailVO, PostSearchVO, TagTypeEnum, TagVO} from "@/common/model"
 
 const baseUrl = process.env.NEXT_BASE_URL ?? '/api'
 
@@ -60,6 +60,6 @@ export const GetAllTagsAPI = async (tagTypeEnum: TagTypeEnum) => {
     return await get<TagVO[]>(`/open/tags/${tagTypeEnum}`)
 }
 
-export const GetAboutAPI = async () => {
-    return await get<AboutVO>('/open/about')
+export const GetSiteAPI = async () => {
+    return await request<SiteVO>('/open/about', {next: {revalidate: 300}})
 }

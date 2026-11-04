@@ -5,6 +5,7 @@ import {House, Info, List, Tags} from 'lucide-react'
 import {usePathname} from "next/navigation"
 import Link from "next/link"
 import {IconClassNames} from "@/common/common"
+import {SiteVO} from "@/common/model"
 import AboutDialog from "@/components/AboutDialog"
 
 const menuItemClassName = `btn btn-sm btn-ghost rounded-none border-0 shadow-none h-full text-base-content
@@ -16,7 +17,7 @@ const headers = [
     { url: '/tags', label: 'Tag', Icon: Tags, iconClassName: 'relative top-[0.75px] transform scale-x-[-1]'},
 ]
 
-export default function Header() {
+export default function Header({site}: { site: SiteVO }) {
     const pathname = usePathname()
     const [isModalOpen, setIsModalOpen] = useState(false)
     const currentRoute = pathname?.replace(/\/\[.*]/g, "") || '/'
@@ -51,7 +52,7 @@ export default function Header() {
                     <Info className={getIconStyle()}/>About
                 </button>
             </div>
-            <AboutDialog open={isModalOpen} onClose={() => setIsModalOpen(false)}/>
+            <AboutDialog open={isModalOpen} onClose={() => setIsModalOpen(false)} site={site}/>
         </>
     )
 }
