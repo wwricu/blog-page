@@ -8,8 +8,6 @@ export default function PostCover({ url, name }: { url: string, name: string }) 
 
     return (
         <>
-            {/* Sits above the title like the lead card's picture, so the cover opens the card
-                instead of interrupting the text; a click still opens the uncropped original */}
             <button
                 type='button'
                 onClick={() => show(url, name)}

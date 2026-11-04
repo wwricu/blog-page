@@ -46,7 +46,6 @@ export default function RootLayout({children}: { children: React.ReactNode }) {
                         <Footer/>
                     </div>
                 </div>
-                {/* Cookie-less first-party beacon; mode 'auto' keeps it silent in dev */}
                 <Analytics/>
             </body>
         </html>

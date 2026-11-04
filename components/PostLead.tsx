@@ -29,8 +29,6 @@ export default function PostLead({ postDetailVO }: { postDetailVO: PostPreviewVO
                     </Link>
                 ) : null
             }
-            {/* Kept to a reading measure: at the card's full width a preview line ran past 50 CJK
-                characters, which is what made the block under the cover look unbalanced */}
             <div className='flex flex-col flex-1 px-4 py-5 sm:px-5 sm:py-6 md:max-w-2xl'>
                 <Link className='w-full' href={detailHref}>
                     <h2 className='text-base-content text-[19px] font-semibold tracking-tight leading-7 line-clamp-2 sm:text-[21px] transition-colors group-hover:text-primary'>

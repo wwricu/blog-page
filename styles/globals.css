@@ -88,8 +88,6 @@
   width: 100%;
 }
 
-/* Article body: point the typography palette at the theme tokens the cards already use, so
-   prose follows the active daisyUI theme instead of the plugin's fixed gray scale. */
 .prose {
   --tw-prose-body: color-mix(in oklab, var(--color-base-content) 88%, transparent);
   --tw-prose-headings: var(--color-base-content);
@@ -117,8 +115,6 @@
   border-radius: var(--radius-box);
 }
 
-/* Inline code: the plugin's backticks read as noise next to the category chip, so drop them
-   and use the same quiet background instead */
 .prose :where(code):not(:where(pre code))::before,
 .prose :where(code):not(:where(pre code))::after {
   content: none;
@@ -131,8 +127,6 @@
   padding: 0.125rem 0.375rem;
 }
 
-/* Sidebar disclosures: the chevron tracks the native open state, which no utility variant
-   reaches because it lives on the <details> ancestor */
 details > summary > svg {
   transition: rotate 0.2s ease;
 }

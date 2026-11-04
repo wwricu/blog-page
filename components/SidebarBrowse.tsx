@@ -5,8 +5,6 @@ import {GetAllTagsAPI} from '@/common/api'
 import {CategoriesURL, TagsUrl} from '@/common/common'
 import {TagTypeEnum, TagVO} from '@/common/model'
 
-/* Native details/summary: collapsing needs no client state, and because the sidebar lives in
-   the root layout the chosen state survives client-side navigation (a reload reopens). */
 const Group = ({ title, tags, base }: { title: string, tags: TagVO[], base: string }) => (
     <details open className='pt-5 first:pt-0'>
         <summary className='flex cursor-pointer select-none list-none items-center gap-1 px-5 pb-2 text-[11px] font-medium tracking-wider text-base-content/45 uppercase transition-colors hover:text-base-content/70 [&::-webkit-details-marker]:hidden'>
@@ -15,8 +13,6 @@ const Group = ({ title, tags, base }: { title: string, tags: TagVO[], base: stri
         </summary>
         <nav className='flex flex-col gap-0.5 px-2'>
             {tags.map(tag => (
-                /* Same row grammar as the primary nav: 36px, icon slot, label, hover fill. The
-                   dot stands in for the nav's icon so both lists read as one family. */
                 <Link
                     key={tag.id}
                     href={`/${base}/${encodeURIComponent(tag.name)}`}
@@ -35,9 +31,6 @@ const Group = ({ title, tags, base }: { title: string, tags: TagVO[], base: stri
     </details>
 )
 
-/* Fills the space the nav leaves behind with something that is also a shortcut: every
-   category and tag with its post count. Rendered by the layout, so it shares the page's
-   ISR window instead of adding a request per visit. */
 export default async function SidebarBrowse() {
     let categories: TagVO[] = []
     let tags: TagVO[] = []
@@ -47,7 +40,6 @@ export default async function SidebarBrowse() {
             GetAllTagsAPI(TagTypeEnum.POST_TAG),
         ])
     } catch {
-        // Navigation still works without the lists
         return null
     }
     if (!categories.length && !tags.length) return null
