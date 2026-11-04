@@ -6,20 +6,13 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 
 import React, {useEffect, useState} from "react"
-import {House, Info, List, Mail, Moon, Search, Sun, Tags} from "lucide-react"
+import {Info, Mail, Moon, Search, Sun} from "lucide-react"
 import Link from "next/link"
 import {usePathname, useRouter} from "next/navigation"
 import {DarkTheme, LightTheme, SearchUrl} from "@/common/common"
 import {SiteVO} from "@/common/model"
 import AboutDialog from "@/components/AboutDialog"
 import GithubIcon from "@/components/GithubIcon"
-
-const navItems = [
-    {url: '/', label: 'Home', Icon: House},
-    {url: '/categories', label: 'Categories', Icon: List},
-    {url: '/tags', label: 'Tags', Icon: Tags, iconClassName: 'transform scale-x-[-1]'},
-    {url: null, label: 'About', Icon: Info, isButton: true},
-]
 
 export default function Sidebar({site, children}: { site: SiteVO, children?: React.ReactNode }) {
     const pathname = usePathname() || '/'
@@ -67,11 +60,6 @@ export default function Sidebar({site, children}: { site: SiteVO, children?: Rea
         router.push(`/${SearchUrl}?keyword=${encodeURIComponent(trimmed)}`)
     }
 
-    const isActive = (url: string) => {
-        if (url === '/') return pathname === '/'
-        return pathname === url || pathname.startsWith(`${url}/`)
-    }
-
     return (
         <aside className='max-lg:hidden sticky top-0 left-0 h-svh w-60 shrink-0 flex flex-col bg-base-200 border-r border-base-300'>
             <Link href='/' className='block px-5 pt-6 pb-5'>
@@ -94,32 +82,6 @@ export default function Sidebar({site, children}: { site: SiteVO, children?: Rea
                 </label>
             </form>
 
-            <nav className='flex flex-col gap-0.5 px-2 mt-5'>
-                {navItems.map(({url, label, Icon, iconClassName, isButton}) => {
-                    const active = isButton ? isModalOpen : isActive(url || '')
-                    const itemClass = `group flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors w-full
-                        ${active
-                            ? 'bg-base-300/60 text-base-content'
-                            : 'text-base-content/85 hover:bg-base-300/35 hover:text-base-content'}`
-                    const iconClass = `w-4 h-4 ${iconClassName ?? ''} ${active ? 'stroke-primary' : 'stroke-base-content/70 group-hover:stroke-base-content'}`
-
-                    if (isButton) {
-                        return (
-                            <button key={label} type='button' onClick={() => setIsModalOpen(true)} className={itemClass}>
-                                <Icon className={iconClass}/>
-                                {label}
-                            </button>
-                        )
-                    }
-                    return (
-                        <Link key={url} href={url || '/'} className={itemClass}>
-                            <Icon className={iconClass}/>
-                            {label}
-                        </Link>
-                    )
-                })}
-            </nav>
-
             <div className='mt-5 min-h-0 flex-1 overflow-y-auto'>
                 {children}
             </div>
@@ -127,6 +89,14 @@ export default function Sidebar({site, children}: { site: SiteVO, children?: Rea
             <div className='mt-auto px-2 pl-5 py-4 border-t border-base-300 flex items-center justify-between text-xs text-base-content/55'>
                 <span>© {new Date().getFullYear()} wwr</span>
                 <div className='flex items-center gap-1'>
+                    <button
+                        type='button'
+                        onClick={() => setIsModalOpen(true)}
+                        className='inline-flex items-center justify-center w-7 h-7 rounded-md hover:bg-base-300/60 hover:text-base-content transition-colors'
+                        aria-label='About'
+                    >
+                        <Info className='w-4 h-4'/>
+                    </button>
                     <button
                         type='button'
                         onClick={toggleTheme}
