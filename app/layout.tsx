@@ -11,9 +11,9 @@ import {SiteVO} from "@/common/model"
 
 export const revalidate = 300
 
-const defaultSite: SiteVO = {
-    title: 'wwr.icu',
-    tagline: 'A nonsense site',
+const emptySite: SiteVO = {
+    title: '',
+    tagline: '',
     content: '',
     post_count: 0,
     category_count: 0,
@@ -22,25 +22,22 @@ const defaultSite: SiteVO = {
 
 const loadSite = cache(async (): Promise<SiteVO> => {
     try {
-        const site = await GetSiteAPI()
-        return {...site, title: site.title || defaultSite.title, tagline: site.tagline || defaultSite.tagline}
+        return await GetSiteAPI()
     } catch {
-        return defaultSite
+        return emptySite
     }
 })
 
 // Site-wide metadata; pages only override title/description/openGraph.url
 export async function generateMetadata(): Promise<Metadata> {
     const site = await loadSite()
+    const title = [site.title, site.tagline].filter(Boolean).join(' - ')
     return {
         metadataBase: new URL(SiteUrl),
-        title: {
-            default: `${site.title} - ${site.tagline}`,
-            template: `%s - ${site.title}`,
-        },
-        description: site.tagline,
+        title: title ? {default: title, template: site.title ? `%s - ${site.title}` : '%s'} : undefined,
+        description: site.tagline || undefined,
         openGraph: {
-            siteName: site.title,
+            siteName: site.title || undefined,
         },
     }
 }
