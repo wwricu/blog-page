@@ -15,7 +15,7 @@ export default function SearchPostCard({ hit, index }: { hit: PostSearchVO, inde
     const detailUrl = `/detail/${hit.id}`
     return (
         <div className={
-            `group min-w-2xs w-full rounded-xl bg-base-100 ring-1 ring-base-300/70 px-5 py-5
+            `group min-w-2xs w-full rounded-xl bg-base-100 ring-1 ring-base-300/70 px-4 py-5
             transition-shadow hover:shadow-sm hover:ring-base-content/25 max-sm:px-3 max-md:w-full md:w-3xl`
         }>
             <div className='flex items-center justify-between gap-4 md:h-24'>
@@ -27,11 +27,11 @@ export default function SearchPostCard({ hit, index }: { hit: PostSearchVO, inde
                             dangerouslySetInnerHTML={{__html: titleHtml}}
                         />
                         <p
-                            className={`mt-0.5 text-base-content/70 font-normal leading-5 text-[13px] line-clamp-1 max-sm:text-xs ${markStyle}`}
+                            className={`text-base-content/70 font-normal leading-6 text-sm line-clamp-1 max-sm:text-xs ${markStyle}`}
                             dangerouslySetInnerHTML={{__html: previewHtml}}
                         />
                     </Link>
-                    <div className='mt-1 flex gap-x-3 gap-y-1 w-full flex-nowrap overflow-hidden'>
+                    <div className='flex gap-x-3 gap-y-1 w-full flex-nowrap overflow-hidden'>
                         <PostCreateTime createTime={hit?.create_time}/>
                         <PostCategory category={hit?.category}/>
                         <PostTagList tagList={hit?.tag_list}/>
