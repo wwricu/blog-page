@@ -1,5 +1,4 @@
 import {PostSearchVO} from '@/common/model'
-import {convertMarkersToHtml} from '@/common/common'
 import Image from 'next/image'
 import React from 'react'
 import Link from 'next/link'
@@ -9,9 +8,6 @@ const markStyle = '[&_mark]:bg-warning/40 [&_mark]:text-base-content [&_mark]:fo
 
 export default function SearchPostCard({ hit, index }: { hit: PostSearchVO, index: number }) {
     const hasCover = hit.cover?.url != null && hit.cover?.name != null
-    const titleHtml = convertMarkersToHtml(hit.title ?? '')
-    const previewHtml = convertMarkersToHtml(hit.preview ?? '')
-    const snippetHtml = convertMarkersToHtml(hit.snippet ?? null)
     const detailUrl = `/detail/${hit.id}`
     return (
         <div className={
@@ -23,13 +19,11 @@ export default function SearchPostCard({ hit, index }: { hit: PostSearchVO, inde
                 <div className='flex flex-col flex-1 items-start min-w-0'>
                     <Link className='w-full' href={detailUrl}>
                         <h4
-                            className={`text-base-content text-[17px] font-semibold tracking-tight leading-6 line-clamp-1 transition-colors group-hover:text-primary ${markStyle}`}
-                            dangerouslySetInnerHTML={{__html: titleHtml}}
-                        />
+                            className='text-base-content text-[17px] font-semibold tracking-tight leading-6 line-clamp-1 transition-colors group-hover:text-primary'
+                        >{hit.title}</h4>
                         <p
-                            className={`text-base-content/70 font-normal leading-6 text-sm line-clamp-1 max-sm:text-xs ${markStyle}`}
-                            dangerouslySetInnerHTML={{__html: previewHtml}}
-                        />
+                            className='text-base-content/70 font-normal leading-6 text-sm line-clamp-1 max-sm:text-xs'
+                        >{hit.preview}</p>
                     </Link>
                     <div className='flex gap-x-3 gap-y-1 w-full flex-nowrap overflow-hidden'>
                         <PostCreateTime createTime={hit?.create_time}/>
@@ -55,7 +49,7 @@ export default function SearchPostCard({ hit, index }: { hit: PostSearchVO, inde
                     </Link>
                 ) : null}
             </div>
-            {snippetHtml ? (
+            {hit.snippet ? (
                 <Link href={detailUrl} className='block mt-4 pt-4 border-t border-base-300 group/snippet' aria-label={hit.title}>
                     <div className='flex items-start gap-2.5'>
                         <span className='shrink-0 text-[10px] tracking-wider font-semibold text-primary uppercase px-1.5 py-0.5 rounded-md bg-primary/10 mt-0.5 transition-colors group-hover/snippet:bg-primary/20'>
@@ -63,7 +57,7 @@ export default function SearchPostCard({ hit, index }: { hit: PostSearchVO, inde
                         </span>
                         <p
                             className={`flex-1 min-w-0 text-base-content/70 line-clamp-2 text-xs leading-relaxed italic ${markStyle}`}
-                            dangerouslySetInnerHTML={{__html: snippetHtml}}
+                            dangerouslySetInnerHTML={{__html: hit.snippet}}
                         />
                     </div>
                 </Link>

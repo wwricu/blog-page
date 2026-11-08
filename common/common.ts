@@ -24,11 +24,6 @@ export const LightTheme = 'paper'
 export const DarkTheme = 'night'
 
 
-export const convertMarkersToHtml = (text: string | null | undefined): string => {
-    if (!text) return ''
-    return text.replace(/\x01/g, '<mark>').replace(/\x02/g, '</mark>')
-}
-
 // Reading time: CJK is counted per character, Latin per word (~2 characters each)
 export const estimateReadMinutes = (html: string | null | undefined): number => {
     if (!html) return 0
