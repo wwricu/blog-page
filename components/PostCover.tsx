@@ -12,7 +12,7 @@ export default function PostCover({ url, name }: { url: string, name: string }) 
                 type='button'
                 onClick={() => show(url, name)}
                 aria-label={`View full cover: ${name}`}
-                className='mb-6 sm:mb-8 block w-full cursor-zoom-in p-0 text-left'
+                className='block w-full cursor-zoom-in p-0 text-left'
             >
                 <Image
                     priority
@@ -21,7 +21,7 @@ export default function PostCover({ url, name }: { url: string, name: string }) 
                     height={400}
                     alt={name}
                     src={url}
-                    className='w-full h-52 sm:h-72 object-cover rounded-xl'
+                    className='w-full h-52 sm:h-72 object-cover'
                 />
             </button>
             {dialog}
