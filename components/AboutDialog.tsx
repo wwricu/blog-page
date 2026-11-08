@@ -62,15 +62,13 @@ export default function AboutDialog({ open, onClose, site }: AboutDialogProps) {
                     }
                 </div>
                 <div className={`flex gap-2 px-6 pb-6 ${monospace.className}`}>
-                    <Link className='flex-1' href='https://github.com/wwricu' target='_blank' rel='noopener noreferrer'>
-                        <button className='btn btn-ghost btn-sm w-full rounded-lg border border-base-300 text-base-content/80 gap-1.5 transition-colors hover:border-primary/40 hover:text-primary'>
-                            <GithubIcon className={IconClassNames}/>GitHub
-                        </button>
+                    <Link className='btn btn-ghost btn-sm flex-1 rounded-lg border border-base-300 text-base-content/80 gap-1.5 transition-colors hover:border-primary/40 hover:text-primary'
+                          href='https://github.com/wwricu' target='_blank' rel='noopener noreferrer'>
+                        <GithubIcon className={IconClassNames}/>GitHub
                     </Link>
-                    <Link className='flex-1' href='mailto:me@wwr.icu'>
-                        <button className='btn btn-ghost btn-sm w-full rounded-lg border border-base-300 text-base-content/80 gap-1.5 transition-colors hover:border-primary/40 hover:text-primary'>
-                            <Mail className={IconClassNames}/>Mail me
-                        </button>
+                    <Link className='btn btn-ghost btn-sm flex-1 rounded-lg border border-base-300 text-base-content/80 gap-1.5 transition-colors hover:border-primary/40 hover:text-primary'
+                          href='mailto:me@wwr.icu'>
+                        <Mail className={IconClassNames}/>Mail me
                     </Link>
                 </div>
             </div>
