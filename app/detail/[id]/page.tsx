@@ -30,7 +30,7 @@ export const generateMetadata = async ({ params }: AsyncPathParams): Promise<Met
             images: postDetailVO.cover && [
                 {
                     url: postDetailVO?.cover?.url,
-                    alt: postDetailVO?.cover?.name,
+                    alt: postDetailVO?.cover?.name ?? undefined,
                 }
             ],
 

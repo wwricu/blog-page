@@ -7,7 +7,7 @@ import {PostCategory, PostCreateTime, PostTagList} from "@/components/PostMeta"
 const markStyle = '[&_mark]:bg-warning/40 [&_mark]:text-base-content [&_mark]:font-medium [&_mark]:rounded-sm [&_mark]:px-0.5'
 
 export default function SearchPostCard({ hit, index }: { hit: PostSearchVO, index: number }) {
-    const hasCover = hit.cover?.url != null && hit.cover?.name != null
+    const hasCover = hit.cover?.url != null
     const detailUrl = `/detail/${hit.id}`
     return (
         <div className={
@@ -41,7 +41,7 @@ export default function SearchPostCard({ hit, index }: { hit: PostSearchVO, inde
                             quality={75}
                             width={208}
                             height={96}
-                            alt={hit.cover!.name!}
+                            alt={hit.cover!.name ?? hit.title}
                             src={hit.cover!.url}
                             className='object-cover w-full h-full transition-transform duration-500 ease-out group-hover:scale-[1.03]'
                         />

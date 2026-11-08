@@ -5,7 +5,7 @@ import Link from 'next/link'
 import {PostCategory, PostCreateTime, PostTagList} from "@/components/PostMeta"
 
 export default function PostLead({ postDetailVO }: { postDetailVO: PostPreviewVO }) {
-    const hasCover = postDetailVO.cover?.url != null && postDetailVO.cover?.name != null
+    const hasCover = postDetailVO.cover?.url != null
     const detailHref = `/detail/${postDetailVO.id}`
 
     return (
@@ -22,7 +22,7 @@ export default function PostLead({ postDetailVO }: { postDetailVO: PostPreviewVO
                             quality={80}
                             width={1024}
                             height={400}
-                            alt={postDetailVO.cover!.name!}
+                            alt={postDetailVO.cover!.name ?? postDetailVO.title}
                             src={postDetailVO.cover!.url}
                             className='object-cover w-full h-full transition-transform duration-500 ease-out group-hover:scale-[1.02]'
                         />

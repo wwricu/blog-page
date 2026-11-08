@@ -5,7 +5,7 @@ import Link from 'next/link'
 import {PostCategory, PostCreateTime, PostTagList} from "@/components/PostMeta"
 
 export default function PostCard({ postDetailVO, index, className }: { postDetailVO: PostPreviewVO, index: number, className?: string }) {
-    const hasCover = postDetailVO.cover?.url != null && postDetailVO.cover?.name != null
+    const hasCover = postDetailVO.cover?.url != null
     const detailHref = `/detail/${postDetailVO.id}`
 
     return (
@@ -42,7 +42,7 @@ export default function PostCard({ postDetailVO, index, className }: { postDetai
                             quality={75}
                             width={208}
                             height={96}
-                            alt={postDetailVO.cover!.name!}
+                            alt={postDetailVO.cover!.name ?? postDetailVO.title}
                             src={postDetailVO.cover!.url}
                             className='object-cover w-full h-full transition-transform duration-500 ease-out group-hover:scale-[1.03]'
                         />

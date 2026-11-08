@@ -5,8 +5,9 @@ const baseUrl = process.env.NEXT_BASE_URL ?? '/api'
 const request = async <T>(url: string, init: RequestInit = {}): Promise<T> => {
     const res = await fetch(`${baseUrl}${url}`, init)
     if (!res.ok) {
-        const body = await res.json().catch(() => null) as {detail?: string} | null
-        throw new Error(body?.detail ?? `${res.status} ${res.statusText} for ${url}`)
+        const body = await res.json().catch(() => null) as {detail?: string | {msg?: string}[]} | null
+        const detail = Array.isArray(body?.detail) ? body.detail.map(item => item.msg).join('; ') : body?.detail
+        throw new Error(detail ?? `${res.status} ${res.statusText} for ${url}`)
     }
     return await res.json() as T
 }

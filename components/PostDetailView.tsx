@@ -12,7 +12,7 @@ export default async function PostDetailView({ postDetailVO }: { postDetailVO: P
     }
     const coverUrl = postDetailVO.cover?.url
     const coverName = postDetailVO.cover?.name
-    const cover = coverUrl && coverName ? { url: coverUrl, name: coverName } : null
+    const cover = coverUrl ? { url: coverUrl, name: coverName ?? postDetailVO.title } : null
     const readMinutes = estimateReadMinutes(postDetailVO.content)
 
     return (

@@ -12,7 +12,7 @@ export interface TagVO {
 
 export interface PostResourceVO {
     id: number
-    name: string
+    name: string | null
     key: string
     url: string
 }
