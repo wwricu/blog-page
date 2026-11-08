@@ -11,9 +11,9 @@
   name: "paper";
   default: true;
   color-scheme: light;
-  --color-base-100: oklch(98.7% 0.003 85);
-  --color-base-200: oklch(95.5% 0.007 85);
-  --color-base-300: oklch(90.5% 0.011 85);
+  --color-base-100: oklch(97.8% 0.008 84);
+  --color-base-200: oklch(94.6% 0.014 82);
+  --color-base-300: oklch(89.4% 0.019 80);
   --color-base-content: oklch(26% 0.015 62);
   --color-primary: oklch(45% 0.11 254);
   --color-primary-content: oklch(98% 0.01 254);
