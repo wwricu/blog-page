@@ -2,7 +2,6 @@ import type { NextConfig } from "next"
 import withBundleAnalyzer from '@next/bundle-analyzer'
 
 const nextConfig: NextConfig = {
-  output: 'standalone',
   reactStrictMode: true,
   expireTime: 30 * 24 * 60 * 60,
   images: {

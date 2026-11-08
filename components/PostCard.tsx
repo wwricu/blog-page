@@ -36,7 +36,6 @@ export default function PostCard({ postDetailVO, index, className }: { postDetai
                 hasCover ? (
                     <Link className="relative w-52 h-24 shrink-0 max-md:hidden overflow-hidden rounded-lg" href={detailHref}>
                         <Image
-                            // TODO: WHY preload & priority not work
                             priority={ index < 3 }
                             loading={ index < 3 ? 'eager' : 'lazy' }
                             fetchPriority={ index < 3 ? 'high' : 'auto' }

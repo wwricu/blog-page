@@ -25,16 +25,12 @@ export const generateMetadata = async ({ params }: AsyncPathParams): Promise<Met
         title: postDetailVO.title,
         description: postDetailVO.preview,
         openGraph: {
-            // Keep the bare post title (no site suffix) for share cards
             title: postDetailVO.title,
             url: `/detail/${postDetailVO.id}`,
             images: postDetailVO.cover && [
                 {
                     url: postDetailVO?.cover?.url,
                     alt: postDetailVO?.cover?.name,
-                    // Explicit size advertised for WeChat share cards, which require width/height
-                    width: 240,
-                    height: 180,
                 }
             ],
 

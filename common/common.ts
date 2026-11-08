@@ -6,7 +6,6 @@ export type PathParams = {
     name?: string
     index?: string
     keyword?: string
-    className?: string
 }
 
 export type AsyncPathParams = {

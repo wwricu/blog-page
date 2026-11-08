@@ -11,8 +11,6 @@ const request = async <T>(url: string, init: RequestInit = {}): Promise<T> => {
     return await res.json() as T
 }
 
-const get = async <T>(url: string) => await request<T>(url)
-
 const post = async <T>(url: string, body: unknown) => await request<T>(url, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
@@ -35,7 +33,7 @@ export const GetAllBlogPosts = async (
 
 export const SearchBlogPosts = async (keyword: string) => {
     const qs = new URLSearchParams({keyword}).toString()
-    return await get<PostSearchVO[]>(`/open/post/search?${qs}`)
+    return await request<PostSearchVO[]>(`/open/post/search?${qs}`)
 }
 
 export const GetPostDetailAPI = async (postId: number | string) => {
@@ -57,7 +55,7 @@ export const GetPostDetailAPI = async (postId: number | string) => {
 }
 
 export const GetAllTagsAPI = async (tagTypeEnum: TagTypeEnum) => {
-    return await get<TagVO[]>(`/open/tags/${tagTypeEnum}`)
+    return await request<TagVO[]>(`/open/tags/${tagTypeEnum}`)
 }
 
 export const GetSiteAPI = async () => {
