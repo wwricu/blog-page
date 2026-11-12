@@ -16,12 +16,10 @@ const activeClass = 'bg-primary/10 text-primary font-medium ring-1 ring-primary/
 
 export default function Pagination({ current = 1, total, pageSize = 10, baseUrl, className }: PaginationProps) {
     const pageCount = Math.ceil(total / pageSize)
-    // A single page has nothing to page through; the bar would be an empty frame under the list
     if (total <= 0 || current <= 0 || current > pageCount || pageCount <= 1) {
         return null
     }
 
-    // First and last pages are always shown, plus the neighbours of the current one; anything skipped becomes a single ellipsis
     const pages: (number | '...')[] = [1]
     const from = Math.max(2, current - 1)
     const to = Math.min(pageCount - 1, current + 1)
@@ -66,7 +64,6 @@ export default function Pagination({ current = 1, total, pageSize = 10, baseUrl,
             <div className='flex items-center gap-1'>
                 {
                     pages.map((page, i) => page === '...' ? (
-                        // Ellipsis placeholder: not a link, hidden from assistive tech
                         <span key={i} aria-hidden='true' className={`${itemClass} text-base-content/30`}>…</span>
                     ) : (
                         <Link

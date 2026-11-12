@@ -24,9 +24,9 @@ export default async function PostDetailView({ postDetailVO }: { postDetailVO: P
                         {postDetailVO.title}
                     </h1>
                     <div className='mt-3 flex items-center flex-wrap gap-x-3 gap-y-1'>
-                        <PostCreateTime createTime={postDetailVO?.create_time}/>
-                        <PostCategory category={postDetailVO?.category}/>
-                        <PostTagList tagList={postDetailVO?.tag_list}/>
+                        <PostCreateTime createTime={postDetailVO.create_time}/>
+                        <PostCategory category={postDetailVO.category}/>
+                        <PostTagList tagList={postDetailVO.tag_list}/>
                         <span className='ml-auto text-sm text-base-content/55 tabular-nums'>{readMinutes} min read</span>
                     </div>
                 </header>

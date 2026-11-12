@@ -1,9 +1,8 @@
 import PostView from "@/components/PostView"
-import {AsyncPathParams} from "@/common/common"
 import {Metadata} from "next"
 import {permanentRedirect} from "next/navigation"
 
-export const generateMetadata = async ({ params }: AsyncPathParams): Promise<Metadata> => {
+export const generateMetadata = async ({ params }: PageProps<'/[filter]/[name]/[index]'>): Promise<Metadata> => {
     const { filter, name, index } = await params
     return {
         title: `Page ${index} | ${name}`,
@@ -14,10 +13,9 @@ export const generateMetadata = async ({ params }: AsyncPathParams): Promise<Met
 
 export const generateStaticParams = () => []
 
-export default async function PostPage({ params }: AsyncPathParams) {
+export default async function PostPage({ params }: PageProps<'/[filter]/[name]/[index]'>) {
     const { filter, name, index } = await params
     if (index === '1') {
-        // This is safe for next.js matches only non-none strings as path params
         permanentRedirect(`/${filter}/${name}`)
     }
 

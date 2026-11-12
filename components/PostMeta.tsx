@@ -2,18 +2,13 @@ import React from "react"
 import Link from "next/link"
 import {TagVO} from "@/common/model"
 
-export const PostCreateTime = ({ createTime }: { createTime?: string }) => {
-    if (!createTime) {
-        return null
-    }
-    return (
-        <span className='text-sm text-base-content/70 tabular-nums'>
-            {createTime.slice(0, 10)}
-        </span>
-    )
-}
+export const PostCreateTime = ({ createTime }: { createTime: string }) => (
+    <span className='text-sm text-base-content/70 tabular-nums'>
+        {createTime.slice(0, 10)}
+    </span>
+)
 
-export const PostCategory = ({ category }: { category?: TagVO }) => {
+export const PostCategory = ({ category }: { category: TagVO | null }) => {
     if (!category) {
         return null
     }
@@ -29,8 +24,8 @@ export const PostCategory = ({ category }: { category?: TagVO }) => {
     )
 }
 
-export const PostTagList = ({ tagList }: { tagList?: TagVO[] }) => {
-    if (!tagList || tagList.length === 0) {
+export const PostTagList = ({ tagList }: { tagList: TagVO[] }) => {
+    if (tagList.length === 0) {
         return null
     }
     return (

@@ -4,7 +4,6 @@ import {notFound} from "next/navigation"
 import PostView from "@/components/PostView"
 
 export const metadata: Metadata = {
-    // Title/description/openGraph come from the root layout defaults
     alternates: {
         canonical: '/',
     },

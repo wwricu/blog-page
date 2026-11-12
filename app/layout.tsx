@@ -1,36 +1,17 @@
-import React, {cache} from "react"
+import React from "react"
 import type { Metadata } from "next"
 import '@/styles/globals.css'
 import Header from "@/components/Header"
-import {sansSerif, SiteUrl} from "@/common/common"
+import {DarkTheme, LightTheme, sansSerif, SiteUrl} from "@/common/common"
 import Sidebar from "@/components/Sidebar"
 import SidebarBrowse from "@/components/SidebarBrowse"
 import {Analytics} from "@vercel/analytics/next"
 import {GetSiteAPI} from "@/common/api"
-import {SiteVO} from "@/common/model"
 
 export const revalidate = 300
 
-const emptySite: SiteVO = {
-    title: '',
-    tagline: '',
-    content: '',
-    post_count: 0,
-    category_count: 0,
-    tag_count: 0,
-}
-
-const loadSite = cache(async (): Promise<SiteVO> => {
-    try {
-        return await GetSiteAPI()
-    } catch {
-        return emptySite
-    }
-})
-
-// Site-wide metadata; pages only override title/description/openGraph.url
 export async function generateMetadata(): Promise<Metadata> {
-    const site = await loadSite()
+    const site = await GetSiteAPI()
     const title = [site.title, site.tagline].filter(Boolean).join(' - ')
     return {
         metadataBase: new URL(SiteUrl),
@@ -51,9 +32,12 @@ const Footer = ({title}: { title: string }) => {
 }
 
 export default async function RootLayout({children}: { children: React.ReactNode }) {
-    const site = await loadSite()
+    const site = await GetSiteAPI()
     return (
         <html lang="zh-CN" className={sansSerif.variable}>
+            <head>
+                <script dangerouslySetInnerHTML={{__html: `try{const t=localStorage.getItem('theme');if(t==='${LightTheme}'||t==='${DarkTheme}')document.documentElement.dataset.theme=t}catch{}`}}/>
+            </head>
             <body className='flex flex-col min-h-screen bg-base-200'>
                 <div className='lg:hidden'>
                     <Header site={site}/>

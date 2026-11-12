@@ -1,11 +1,11 @@
-import React from "react"
 import {GetAllBlogPosts, GetAllTagsAPI} from "@/common/api"
-import {CategoriesURL, PathParams, TagsUrl} from "@/common/common"
+import {CategoriesURL, TagsUrl} from "@/common/common"
 import {notFound} from "next/navigation"
+import Link from "next/link"
 import PostList from "@/components/PostList"
 import {TagTypeEnum} from "@/common/model"
 
-export default async function PostView({ filter, name, index = '1' }: PathParams) {
+export default async function PostView({ filter, name, index = '1' }: { filter?: string, name?: string, index?: string }) {
     const pageSize = 10
     const pageIndex = Number(index)
 
@@ -13,16 +13,10 @@ export default async function PostView({ filter, name, index = '1' }: PathParams
         notFound()
     }
 
-    // Dynamic route params arrive still percent-encoded, so the name has to be decoded before it
-    // reaches the API, the breadcrumb or the pager; a malformed escape is left for the 404s below
     let decodedName = name
-    if (name) {
-        try {
-            decodedName = decodeURIComponent(name)
-        } catch {
-            decodedName = name
-        }
-    }
+    try {
+        decodedName = name ? decodeURIComponent(name) : name
+    } catch { decodedName = name }
 
     let category: string | undefined
     let tag: string | undefined
@@ -36,20 +30,16 @@ export default async function PostView({ filter, name, index = '1' }: PathParams
 
     const [page, categories] = await Promise.all([
         GetAllBlogPosts(pageIndex, pageSize, category, tag),
-        // The backend answers an unknown category with the whole list instead of an empty page,
-        // so the name has to be checked against the categories the site actually exposes
         category ? GetAllTagsAPI(TagTypeEnum.POST_CAT) : Promise.resolve(null),
     ])
     if (category && !categories?.some((item) => item.name === category)) {
         notFound()
     }
-    // Unknown or empty tags and empty categories have nothing to show; an empty list frame reads
-    // like a broken page, so they go to the same 404 as a missing detail
-    if (decodedName && (page.count ?? 0) === 0) {
+    if (decodedName && page.count === 0) {
         notFound()
     }
 
-    const pageCount = Math.ceil((page.count ?? 0) / pageSize)
+    const pageCount = Math.ceil(page.count / pageSize)
     if (pageCount > 0 && page.page_index > pageCount) {
         notFound()
     }
@@ -57,8 +47,8 @@ export default async function PostView({ filter, name, index = '1' }: PathParams
     const baseUrl = (filter && decodedName) ? `/${filter}/${encodeURIComponent(decodedName)}` : '/'
     const breadcrumb = ((filter === CategoriesURL || filter === TagsUrl) && decodedName) ? (
         <ul>
-            <li><a className='hover:text-primary' href={'/'}>Home</a></li>
-            <li><a className='hover:text-primary' href={`/${filter}`}>{filter}</a></li>
+            <li><Link className='hover:text-primary' href='/'>Home</Link></li>
+            <li><Link className='hover:text-primary' href={`/${filter}`}>{filter}</Link></li>
             <li>{decodedName}</li>
         </ul>
     ) : null

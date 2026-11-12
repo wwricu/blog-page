@@ -1,19 +1,10 @@
-import React from "react"
 import {SearchBlogPosts} from "@/common/api"
-import {PathParams, SearchUrl} from "@/common/common"
-import {notFound} from "next/navigation"
+import {SearchUrl} from "@/common/common"
+import Link from "next/link"
 import SearchPostCard from "@/components/SearchPostCard"
-import {PostSearchVO} from "@/common/model"
 
-export default async function SearchPostView({ keyword }: PathParams) {
-    const term = keyword ?? ''
-    if (!term.trim()) {
-        notFound()
-    }
-
-    const hits: PostSearchVO[] = await SearchBlogPosts(term).catch(() => [])
-    const shownCount = hits?.length ?? 0
-    const truncated = shownCount >= 30
+export default async function SearchPostView({ keyword }: { keyword: string }) {
+    const hits = await SearchBlogPosts(keyword)
 
     return (
         <div className={`
@@ -24,25 +15,25 @@ export default async function SearchPostView({ keyword }: PathParams) {
         }>
             <div className='breadcrumbs py-0 min-w-2xs text-base-content/70 text-sm w-full max-sm:pl-3 sm:pl-4 max-md:w-full md:w-3xl'>
                 <ul>
-                    <li><a className='hover:text-primary' href={'/'}>Home</a></li>
+                    <li><Link className='hover:text-primary' href={'/'}>Home</Link></li>
                     <li>{SearchUrl}</li>
-                    <li>{term}</li>
+                    <li>{keyword}</li>
                 </ul>
             </div>
             {
-                hits?.map((hit, i) =>
+                hits.map((hit, i) =>
                     <SearchPostCard key={hit.id} index={i} hit={hit}/>
                 )
             }
             {
-                shownCount === 0 ? (
+                hits.length === 0 ? (
                     <div className='rounded-xl bg-base-100 ring-1 ring-base-300 text-base-content/70 text-sm py-8 text-center max-md:w-full md:w-3xl'>
                         No matching posts. Try different keywords.
                     </div>
                 ) : null
             }
             {
-                truncated ? (
+                hits.length >= 30 ? (
                     <div className='text-base-content/50 text-xs text-center py-4 mb-4 max-md:w-full md:w-3xl'>
                         Showing up to 30 results · refine your keyword for fewer matches
                     </div>

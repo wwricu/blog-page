@@ -1,8 +1,5 @@
 'use client'
 
-/* The sidebar intentionally syncs external systems into React state after mount and on
-   navigation: the theme (localStorage + OS preference) and the URL search keyword.
-   Deferring these would either break hydration or duplicate the state sources. */
 /* eslint-disable react-hooks/set-state-in-effect */
 
 import React, {useEffect, useState} from "react"
@@ -22,13 +19,8 @@ export default function Sidebar({site, children}: { site: SiteVO, children?: Rea
 
     useEffect(() => {
         const saved = localStorage.getItem('theme')
-        if (saved === LightTheme || saved === DarkTheme) {
-            document.documentElement.setAttribute('data-theme', saved)
-            setTheme(saved)
-        } else {
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-            setTheme(prefersDark ? DarkTheme : LightTheme)
-        }
+        setTheme(saved === LightTheme || saved === DarkTheme ? saved
+            : window.matchMedia('(prefers-color-scheme: dark)').matches ? DarkTheme : LightTheme)
     }, [])
 
     useEffect(() => {
@@ -37,8 +29,6 @@ export default function Sidebar({site, children}: { site: SiteVO, children?: Rea
                 setKeyword('')
                 return
             }
-            // URLSearchParams.get() already percent-decodes, so a second decode would corrupt (or
-            // throw on) keywords containing a literal '%'
             setKeyword(new URLSearchParams(window.location.search).get('keyword') ?? '')
         }
         syncFromUrl()
@@ -73,6 +63,7 @@ export default function Sidebar({site, children}: { site: SiteVO, children?: Rea
                     <Search className='w-4 h-4 stroke-base-content/60 shrink-0'/>
                     <input
                         type='text'
+                        maxLength={128}
                         className='grow min-w-0 bg-transparent text-sm text-base-content placeholder:text-base-content/55 outline-none'
                         placeholder='Search...'
                         value={keyword}

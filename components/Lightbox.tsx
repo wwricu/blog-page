@@ -24,8 +24,6 @@ export function useLightbox() {
                 onClick={() => dialogRef.current?.close()}
             >
                 {activeSrc && (
-                    // Full-size source is arbitrary remote HTML content; next/image cannot
-                    // optimize unknown URLs here, and the dialog image is not crawled/indexed
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
                         src={activeSrc}

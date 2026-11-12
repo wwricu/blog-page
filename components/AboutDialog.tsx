@@ -13,7 +13,6 @@ type AboutDialogProps = {
     site: SiteVO
 }
 
-// Shared About modal for the mobile Header and the desktop Sidebar
 export default function AboutDialog({ open, onClose, site }: AboutDialogProps) {
     const dialogRef = useRef<HTMLDialogElement>(null)
 
@@ -32,7 +31,6 @@ export default function AboutDialog({ open, onClose, site }: AboutDialogProps) {
     return (
         <dialog className='modal' ref={dialogRef} onClose={onClose}>
             <div className='modal-box bg-base-100 relative w-full max-w-md rounded-2xl p-0 shadow-xl'>
-                {/* The about body carries its own heading, so the modal only owns the close affordance */}
                 <button
                     type='button'
                     aria-label='Close'

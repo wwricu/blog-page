@@ -22,10 +22,8 @@ type PostListProps = {
 }
 
 export default function PostList({ page, pageSize, baseUrl, breadcrumb, mobile }: PostListProps) {
-    // The newest post opens the unfiltered first page: a wide card with its cover gives the column
-    // an opening that a label row could not, and filtered or paged views keep the plain list
-    const lead = !breadcrumb && page.page_index === 1 ? page.data?.[0] : undefined
-    const posts = lead ? (page.data ?? []).slice(1) : (page.data ?? [])
+    const lead = !breadcrumb && page.page_index === 1 ? page.data[0] : undefined
+    const posts = lead ? page.data.slice(1) : page.data
 
     return (
         <div className={`
@@ -60,6 +58,7 @@ export default function PostList({ page, pageSize, baseUrl, breadcrumb, mobile }
             {
                 mobile ? (
                     <MobilePagination
+                        key={`${mobile.category}/${mobile.tag}/${mobile.pageIndex}`}
                         className='sm:hidden'
                         category={mobile.category}
                         tag={mobile.tag}

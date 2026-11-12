@@ -20,9 +20,9 @@ export interface PostResourceVO {
 export interface PostPreviewVO {
     id: number
     title: string
-    cover?: PostResourceVO
+    cover: PostResourceVO | null
     preview: string
-    category?: TagVO
+    category: TagVO | null
     tag_list: TagVO[]
     create_time: string
     update_time: string
@@ -40,7 +40,7 @@ export interface PostPreviewPageVO {
 }
 
 export interface PostSearchVO extends PostPreviewVO {
-    snippet?: string
+    snippet: string | null
 }
 
 export interface SiteVO {

@@ -43,8 +43,6 @@ export const GetPostDetailAPI = async (postId: number | string) => {
         return null
     }
     const url = `/open/post/detail/${postNumId}`
-    // 404 means 'draft or gone', which this page renders as a soft not-found rather than an error,
-    // so it needs the raw response instead of the throwing helper
     const res = await fetch(`${baseUrl}${url}`)
     if (res.status === 404) {
         return null

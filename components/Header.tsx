@@ -22,17 +22,16 @@ export default function Header({site}: { site: SiteVO }) {
     const router = useRouter()
     const searchRef = useRef<HTMLDialogElement>(null)
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const currentRoute = pathname?.replace(/\/\[.*]/g, "") || '/'
+    const [term, setTerm] = useState('')
+    const currentRoute = pathname || '/'
+    const isActive = (path?: string) => isModalOpen ? path == null
+        : path != null && (path === '/' ? currentRoute === '/' : currentRoute === path || currentRoute.startsWith(`${path}/`))
 
-    const getButtonStyle = (path: string | undefined = undefined) => {
-        if ((isModalOpen && path == null) || !isModalOpen && currentRoute === path) {
-            return `${menuItemClassName} border-primary text-primary font-semibold`
-        }
-        return `${menuItemClassName} border-transparent font-normal text-base-content/85`
-    }
+    const getButtonStyle = (path?: string) =>
+        `${menuItemClassName} ${isActive(path) ? 'border-primary text-primary font-semibold' : 'border-transparent font-normal text-base-content/85'}`
 
-    const getIconStyle = (path: string | undefined = undefined)=>
-        `${IconClassNames} ${(isModalOpen && path == null) || !isModalOpen && currentRoute === path ? 'stroke-primary' : 'stroke-base-content/80'}`
+    const getIconStyle = (path?: string) =>
+        `${IconClassNames} ${isActive(path) ? 'stroke-primary' : 'stroke-base-content/80'}`
 
     return (
         <>
@@ -41,7 +40,7 @@ export default function Header({site}: { site: SiteVO }) {
                     {
                         headers.map(({url, label, Icon, iconClassName}) =>
                             <Link key={url} href={url} className={getButtonStyle(url)}>
-                                <Icon className={`${getIconStyle(url)} ${iconClassName}`}/>
+                                <Icon className={`${getIconStyle(url)} ${iconClassName ?? ''}`}/>
                                 {label}
                             </Link>
                         )
@@ -50,7 +49,7 @@ export default function Header({site}: { site: SiteVO }) {
                 <div className='flex items-center h-full'>
                     <button
                         className={getButtonStyle(`/${SearchUrl}`)}
-                        onClick={() => searchRef.current?.showModal()}
+                        onClick={() => { setTerm(new URLSearchParams(window.location.search).get('keyword') ?? ''); searchRef.current?.showModal() }}
                     >
                         <Search className={getIconStyle(`/${SearchUrl}`)}/>Search
                     </button>
@@ -68,7 +67,7 @@ export default function Header({site}: { site: SiteVO }) {
                         className='flex items-center gap-2'
                         onSubmit={(e) => {
                             e.preventDefault()
-                            const keyword = new FormData(e.currentTarget).get('keyword')?.toString().trim()
+                            const keyword = term.trim()
                             if (!keyword) return
                             searchRef.current?.close()
                             router.push(`/${SearchUrl}?keyword=${encodeURIComponent(keyword)}`)
@@ -79,6 +78,9 @@ export default function Header({site}: { site: SiteVO }) {
                             <input
                                 type='text'
                                 name='keyword'
+                                maxLength={128}
+                                value={term}
+                                onChange={(e) => setTerm(e.target.value)}
                                 placeholder='Search...'
                                 className='grow min-w-0 bg-transparent text-sm text-base-content placeholder:text-base-content/55 outline-none'
                             />

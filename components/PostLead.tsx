@@ -39,9 +39,9 @@ export default function PostLead({ postDetailVO }: { postDetailVO: PostPreviewVO
                     </p>
                 </Link>
                 <div className='mt-2 flex gap-x-3 gap-y-1 w-full flex-nowrap overflow-hidden'>
-                    <PostCreateTime createTime={postDetailVO?.create_time}/>
-                    <PostCategory category={postDetailVO?.category}/>
-                    <PostTagList tagList={postDetailVO?.tag_list}/>
+                    <PostCreateTime createTime={postDetailVO.create_time}/>
+                    <PostCategory category={postDetailVO.category}/>
+                    <PostTagList tagList={postDetailVO.tag_list}/>
                 </div>
             </div>
         </div>

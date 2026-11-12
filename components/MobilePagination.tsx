@@ -7,16 +7,13 @@ import {GetAllBlogPosts} from "@/common/api"
 import PostCard from "@/components/PostCard"
 
 type PaginationProps = {
-    // Page already rendered by the server; the client keeps appending from the next one
     pageIndex?: number,
     category?: string,
     tag?: string
     className?: string,
 }
-// Same surface as the list cards so the pager reads as the last row, not a floating pill
 const buttonClassNames = 'flex w-full cursor-pointer items-center justify-center gap-1.5 rounded-xl bg-base-100 py-3 text-sm font-medium text-base-content/70 ring-1 ring-base-300 transition-shadow hover:shadow-sm hover:text-primary'
 const useInfiniteScroll = (enabled: boolean, onBottom: () => void, threshold: number = 100) => {
-    // Keep the latest callback so the listener never runs on a stale closure
     const onBottomRef = useRef(onBottom)
     useEffect(() => { onBottomRef.current = onBottom }, [onBottom])
 
@@ -39,11 +36,9 @@ export default function MobilePagination({ pageIndex = 1, category, tag, classNa
     const [active, setActive] = useState(false)
     const [items, setItems] = useState<PostPreviewVO[]>([])
     const [loading, setLoading] = useState(false)
-    // Reached the last page (short page) or the backend failed: stop asking
     const [exhausted, setExhausted] = useState(false)
-    // Last rendered page; the server may have rendered any page, not only the first
+    const [failed, setFailed] = useState(false)
     const pageRef = useRef(pageIndex)
-    // Synchronous guard: state updates are async, quick successive triggers must not overlap fetches
     const loadingRef = useRef(false)
 
     const loadNext = () => {
@@ -52,21 +47,20 @@ export default function MobilePagination({ pageIndex = 1, category, tag, classNa
         setLoading(true)
 
         GetAllBlogPosts(pageRef.current + 1, pageSize, category, tag).then((postDetailPageVO) => {
-            const data = postDetailPageVO.data ?? []
+            const data = postDetailPageVO.data
             pageRef.current += 1
             setItems(prev => [...prev, ...data])
+            setFailed(false)
             if (data.length < pageSize) {
                 setExhausted(true)
             }
-        }).catch(() => {
-            setExhausted(true)
-        }).finally(() => {
+        }).catch(() => setFailed(true)).finally(() => {
             loadingRef.current = false
             setLoading(false)
         })
     }
 
-    useInfiniteScroll(active && !exhausted, loadNext, 300)
+    useInfiniteScroll(active && !exhausted && !failed, loadNext, 300)
 
     return (
         <>
@@ -81,7 +75,7 @@ export default function MobilePagination({ pageIndex = 1, category, tag, classNa
                     (
                         <button type='button' className={buttonClassNames} disabled={loading}
                                 onClick={() => { setActive(true); loadNext() }}>
-                            {loading ? 'Loading...' : <>Show more <ChevronDown className='w-3.5 h-3.5'/></>}
+                            {loading ? 'Loading...' : failed ? 'Failed to load · Tap to retry' : <>Show more <ChevronDown className='w-3.5 h-3.5'/></>}
                         </button>
                     ) : active ?
                     (
