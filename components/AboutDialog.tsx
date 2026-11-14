@@ -52,7 +52,7 @@ export default function AboutDialog({ open, onClose, site }: AboutDialogProps) {
                         ].map(
                             (stat) => (
                                 <div key={stat.title} className='py-3 text-center'>
-                                    <div className='text-[10px] uppercase tracking-wider text-base-content/45'>{stat.title}</div>
+                                    <div className='text-[10px] uppercase tracking-wider text-base-content/70'>{stat.title}</div>
                                     <div className='text-lg font-medium text-base-content tabular-nums'>{stat.value}</div>
                                 </div>
                             )

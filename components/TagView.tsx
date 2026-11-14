@@ -10,8 +10,8 @@ export default async function TagView({ tagType }: {  tagType: TagTypeEnum }) {
     const tags: TagVO[] = await GetAllTagsAPI(tagType)
 
     return (
-        <div className='w-full max-md:w-full md:w-3xl max-sm:px-1 sm:px-2 md:px-0 max-sm:mt-3 sm:mt-4 md:mt-5 mb-4 md:mb-6'>
-            <h1 className='text-base-content/60 text-xs font-medium uppercase tracking-wider pb-3'>{title}</h1>
+        <div className='w-full max-md:w-full md:w-3xl md:max-w-full max-sm:px-1 sm:px-2 md:px-2 max-sm:mt-3 sm:mt-4 md:mt-5 mb-4 md:mb-6'>
+            <h1 className='text-base-content/70 text-xs font-medium uppercase tracking-wider pb-3'>{title}</h1>
             {
                 tags.length ? (
                     <div className='flex flex-wrap gap-3'>
@@ -25,7 +25,7 @@ export default async function TagView({ tagType }: {  tagType: TagTypeEnum }) {
                                     <span className='min-w-0 text-base-content text-base font-semibold tracking-tight break-words transition-colors group-hover:text-primary'>
                                         {tag.name}
                                     </span>
-                                    <span className='text-xs tabular-nums text-base-content/55 transition-colors group-hover:text-primary/70'>
+                                    <span className='text-xs tabular-nums text-base-content/70 transition-colors group-hover:text-primary/70'>
                                         {tag.count} {tag.count === 1 ? 'post' : 'posts'}
                                     </span>
                                 </Link>

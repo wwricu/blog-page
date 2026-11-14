@@ -22,7 +22,7 @@ export default async function SearchPostView({ keyword }: { keyword: string }) {
                 </div>
                 {
                     hits.length > 0 ? (
-                        <span className='shrink-0 text-xs text-base-content/50 tabular-nums'>
+                        <span className='shrink-0 text-xs text-base-content/70 tabular-nums'>
                             {hits.length} {hits.length === 1 ? 'result' : 'results'}
                         </span>
                     ) : null
@@ -37,13 +37,13 @@ export default async function SearchPostView({ keyword }: { keyword: string }) {
                 hits.length === 0 ? (
                     <div className='rounded-xl bg-base-100 ring-1 ring-base-300/70 px-6 py-14 text-center max-md:w-full md:w-3xl'>
                         <p className='text-sm font-medium text-base-content/80'>No matches for “{keyword}”.</p>
-                        <p className='mt-1 text-xs text-base-content/55'>Try a different keyword.</p>
+                        <p className='mt-1 text-xs text-base-content/70'>Try a different keyword.</p>
                     </div>
                 ) : null
             }
             {
                 hits.length >= 30 ? (
-                    <p className='py-2 text-center text-xs text-base-content/50 max-md:w-full md:w-3xl'>
+                    <p className='py-2 text-center text-xs text-base-content/70 max-md:w-full md:w-3xl'>
                         Showing the first 30 matches.
                     </p>
                 ) : null

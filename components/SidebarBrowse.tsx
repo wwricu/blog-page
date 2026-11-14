@@ -7,7 +7,7 @@ import {TagTypeEnum, TagVO} from '@/common/model'
 
 const Group = ({ title, tags, base }: { title: string, tags: TagVO[], base: string }) => (
     <details open className='pt-5 first:pt-0'>
-        <summary className='flex cursor-pointer select-none list-none items-center gap-1 px-5 pb-2 text-[11px] font-medium tracking-wider text-base-content/45 uppercase transition-colors hover:text-base-content/70 [&::-webkit-details-marker]:hidden'>
+        <summary className='flex cursor-pointer select-none list-none items-center gap-1 px-5 pb-2 text-[11px] font-medium tracking-wider text-base-content/70 uppercase transition-colors hover:text-base-content [&::-webkit-details-marker]:hidden'>
             <ChevronRight className='w-3 h-3 shrink-0'/>
             {title}
         </summary>

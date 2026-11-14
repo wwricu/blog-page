@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 const Footer = ({title}: { title: string }) => {
     return (
-        <footer className='lg:hidden w-full shrink-0 border-t border-base-300 py-4 text-center text-xs text-base-content/45'>
+        <footer className='lg:hidden w-full shrink-0 border-t border-base-300 py-4 text-center text-xs text-base-content/70'>
             {title} {new Date().getFullYear()}
         </footer>
     )
