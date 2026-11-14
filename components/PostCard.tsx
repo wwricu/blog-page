@@ -3,7 +3,9 @@ import Link from 'next/link'
 import {PostCategory, PostCreateTime, PostTagList} from "@/components/PostMeta"
 import PostThumbnail from "@/components/PostThumbnail"
 
-export default function PostCard({ postDetailVO, index, className = '' }: { postDetailVO: PostPreviewVO, index: number, className?: string }) {
+const markStyle = '[&_mark]:bg-primary/10 [&_mark]:text-primary [&_mark]:font-medium [&_mark]:rounded-sm [&_mark]:px-0.5'
+
+export default function PostCard({ postDetailVO, index, className = '', snippet }: { postDetailVO: PostPreviewVO, index: number, className?: string, snippet?: string }) {
     const detailHref = `/detail/${postDetailVO.id}`
 
     return (
@@ -17,9 +19,12 @@ export default function PostCard({ postDetailVO, index, className = '' }: { post
                     <h4 className='text-base-content text-[17px] font-semibold tracking-tight leading-6 line-clamp-1 transition-colors group-hover:text-primary'>
                         {postDetailVO.title}
                     </h4>
-                    <p className='text-base-content/70 font-normal leading-6 text-sm line-clamp-1 max-sm:text-xs'>
-                        {postDetailVO.preview}
-                    </p>
+                    {snippet ? (
+                        <p className={`text-base-content/80 font-normal leading-6 text-sm line-clamp-1 max-sm:text-xs ${markStyle}`}
+                           dangerouslySetInnerHTML={{__html: snippet}}/>
+                    ) : (
+                        <p className='text-base-content/70 font-normal leading-6 text-sm line-clamp-1 max-sm:text-xs'>{postDetailVO.preview}</p>
+                    )}
                 </Link>
                 <div className='flex gap-x-3 gap-y-1 w-full flex-nowrap overflow-hidden'>
                     <PostCreateTime createTime={postDetailVO.create_time}/>
