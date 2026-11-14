@@ -7,10 +7,10 @@ export default async function SearchPostView({ keyword }: { keyword: string }) {
 
     return (
         <div className={`
-            flex flex-col items-center gap-3 w-full overflow-x-auto
+            flex flex-col items-center gap-3 w-full overflow-x-auto pb-2
             max-sm:px-1 max-sm:mt-3
             sm:mt-4 sm:px-2
-            md:mt-5 md:p-0`
+            md:mt-5 md:px-0`
         }>
             <div className='flex items-center justify-between gap-3 min-w-2xs w-full max-sm:px-3 sm:px-4 max-md:w-full md:w-3xl'>
                 <div className='breadcrumbs py-0 min-w-0 text-base-content/70 text-sm'>
