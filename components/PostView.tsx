@@ -51,6 +51,11 @@ export default async function PostView({ filter, name, index = '1' }: { filter?:
             <li><Link className='hover:text-primary' href={`/${filter}`}>{filter}</Link></li>
             <li>{decodedName}</li>
         </ul>
+    ) : pageIndex > 1 ? (
+        <ul>
+            <li><Link className='hover:text-primary' href='/'>Home</Link></li>
+            <li>Page {pageIndex}</li>
+        </ul>
     ) : null
 
     return (
