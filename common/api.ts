@@ -18,12 +18,7 @@ const post = async <T>(url: string, body: unknown) => await request<T>(url, {
     body: JSON.stringify(body),
 })
 
-export const GetAllBlogPosts = async (
-    pageIndex: number = 1,
-    pageSize: number = 10,
-    category: string | undefined = undefined,
-    tag: string | undefined = undefined
-) => {
+export const GetAllBlogPosts = async (pageIndex = 1, pageSize = 10, category?: string, tag?: string) => {
     return await post<PostPreviewPageVO>('/open/post/all', {
         page_index: pageIndex,
         page_size: pageSize,
