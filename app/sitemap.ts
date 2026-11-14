@@ -14,12 +14,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         { url: `${siteUrl}/${TagsUrl}`, lastModified: now, changeFrequency: 'weekly', priority: 0.5 },
     ]
 
-    const page = await GetAllBlogPosts(1, 1000)
-    const posts: MetadataRoute.Sitemap = (page?.data ?? []).map((post) => ({
-        url: `${siteUrl}/detail/${post.id}`,
-        lastModified: post.update_time || post.create_time || now,
-        changeFrequency: 'monthly',
-        priority: 0.8,
-    }))
+    const posts: MetadataRoute.Sitemap = []
+    // the service caps page_size at 100, so asking for more silently drops the tail
+    for (let pageIndex = 1; ; pageIndex++) {
+        const page = await GetAllBlogPosts(pageIndex, 100)
+        const entries: MetadataRoute.Sitemap = page.data.map((post) => ({
+            url: `${siteUrl}/detail/${post.id}`,
+            lastModified: post.update_time || post.create_time || now,
+            changeFrequency: 'monthly',
+            priority: 0.8,
+        }))
+        posts.push(...entries)
+        if (!entries.length || posts.length >= page.count) break
+    }
     return [...staticPages, ...posts]
 }
