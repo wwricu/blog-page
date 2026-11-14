@@ -10,7 +10,7 @@ export default async function TagView({ tagType }: {  tagType: TagTypeEnum }) {
     const tags: TagVO[] = await GetAllTagsAPI(tagType)
 
     return (
-        <div className='w-full max-md:w-full md:w-3xl max-sm:px-1 sm:px-2 md:px-0 mt-1 sm:mt-2 md:mt-3 mb-4 md:mb-6'>
+        <div className='w-full max-md:w-full md:w-3xl max-sm:px-1 sm:px-2 md:px-0 max-sm:mt-3 sm:mt-4 md:mt-5 mb-4 md:mb-6'>
             <h1 className='text-base-content/60 text-xs font-medium uppercase tracking-wider pl-4 pb-3'>{title}</h1>
             {
                 tags.length ? (
