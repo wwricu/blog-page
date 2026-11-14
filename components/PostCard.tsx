@@ -3,7 +3,7 @@ import Link from 'next/link'
 import {PostCategory, PostCreateTime, PostTagList} from "@/components/PostMeta"
 import PostThumbnail from "@/components/PostThumbnail"
 
-const markStyle = '[&_mark]:bg-primary/10 [&_mark]:text-primary [&_mark]:font-medium [&_mark]:rounded-sm [&_mark]:px-0.5'
+const markStyle = '[&_mark]:bg-primary/20 [&_mark]:text-primary [&_mark]:font-medium [&_mark]:rounded-sm [&_mark]:px-0.5'
 
 export default function PostCard({ postDetailVO, index, className = '', snippet }: { postDetailVO: PostPreviewVO, index: number, className?: string, snippet?: string }) {
     const detailHref = `/detail/${postDetailVO.id}`
