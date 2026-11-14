@@ -13,8 +13,8 @@ const menuItemClassName = `btn btn-sm btn-ghost rounded-none border-0 shadow-non
 
 const headers = [
     { url: '/', label: 'Home', Icon: House },
-    { url: '/categories', label: 'Category', Icon: List },
-    { url: '/tags', label: 'Tag', Icon: Tags, iconClassName: 'relative top-[0.75px] transform scale-x-[-1]'},
+    { url: '/categories', label: 'Categories', Icon: List },
+    { url: '/tags', label: 'Tags', Icon: Tags, iconClassName: 'relative top-[0.75px] transform scale-x-[-1]'},
 ]
 
 export default function Header({site}: { site: SiteVO }) {

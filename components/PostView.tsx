@@ -48,7 +48,7 @@ export default async function PostView({ filter, name, index = '1' }: { filter?:
     const breadcrumb = ((filter === CategoriesURL || filter === TagsUrl) && decodedName) ? (
         <ul>
             <li><Link className='hover:text-primary' href='/'>Home</Link></li>
-            <li><Link className='hover:text-primary' href={`/${filter}`}>{filter}</Link></li>
+            <li><Link className='hover:text-primary' href={`/${filter}`}>{filter === CategoriesURL ? 'Categories' : 'Tags'}</Link></li>
             <li>{decodedName}</li>
         </ul>
     ) : pageIndex > 1 ? (
