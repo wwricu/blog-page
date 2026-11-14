@@ -18,9 +18,9 @@ export default function PostCard({ postDetailVO, index, className = '', snippet 
             <Link href={detailHref} aria-label={postDetailVO.title} className='absolute inset-0 rounded-xl focus-visible:ring-2 focus-visible:ring-primary/60'/>
             <div className='flex flex-col flex-1 items-start min-w-0'>
                 <div className='w-full'>
-                    <h4 className='text-base-content text-[17px] font-semibold tracking-tight leading-6 line-clamp-1 transition-colors group-hover:text-primary'>
+                    <h3 className='text-base-content text-[17px] font-semibold tracking-tight leading-6 line-clamp-1 transition-colors group-hover:text-primary'>
                         {postDetailVO.title}
-                    </h4>
+                    </h3>
                     {snippet ? (
                         <p className={`text-base-content/80 font-normal leading-6 text-sm line-clamp-1 max-sm:text-xs ${markStyle}`}
                            dangerouslySetInnerHTML={{__html: snippet}}/>
