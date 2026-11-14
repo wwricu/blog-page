@@ -16,7 +16,7 @@ export const PostCategory = ({ category }: { category: TagVO | null }) => {
     return (
         <Link
             href={`/categories/${encodeURIComponent(category.name)}`}
-            className='self-center shrink-0 rounded-md bg-primary/10 px-1.5 text-xs font-medium leading-5 tracking-wide text-primary
+            className='relative self-center shrink-0 rounded-md bg-primary/10 px-1.5 text-xs font-medium leading-5 tracking-wide text-primary
                 transition-colors hover:bg-primary hover:text-primary-content'
         >
             {category.name}
@@ -35,7 +35,7 @@ export const PostTagList = ({ tagList }: { tagList: TagVO[] }) => {
                     <Link
                         key={tag.id}
                         href={`/tags/${encodeURIComponent(tag.name)}`}
-                        className='text-sm text-base-content/70 transition-colors hover:text-primary'
+                        className='relative text-sm text-base-content/70 transition-colors hover:text-primary'
                     >
                         #{tag.name}
                     </Link>

@@ -10,10 +10,12 @@ export default function PostLead({ postDetailVO }: { postDetailVO: PostPreviewVO
 
     return (
         <div className={
-            `group flex flex-col min-w-2xs w-full overflow-hidden rounded-xl mb-1
+            `group relative flex flex-col min-w-2xs w-full overflow-hidden rounded-xl mb-1
             bg-base-100 ring-1 ring-base-300/70 transition-shadow hover:shadow-sm hover:ring-base-content/25
             max-md:w-full md:w-3xl`
         }>
+            {/* whole-card link; category/tag links sit above it via relative */}
+            <Link href={detailHref} aria-label={postDetailVO.title} className='absolute inset-0 focus-visible:ring-2 focus-visible:ring-primary/60'/>
             {
                 hasCover ? (
                     <Link href={detailHref} aria-label={postDetailVO.title} className='relative block w-full aspect-[5/2] overflow-hidden'>
@@ -30,14 +32,14 @@ export default function PostLead({ postDetailVO }: { postDetailVO: PostPreviewVO
                 ) : null
             }
             <div className='flex flex-col flex-1 px-4 py-5 sm:px-5 sm:py-6 md:max-w-2xl'>
-                <Link className='w-full' href={detailHref}>
+                <div className='w-full'>
                     <h2 className='text-base-content text-[19px] font-semibold tracking-tight leading-7 line-clamp-2 sm:text-[21px] transition-colors group-hover:text-primary'>
                         {postDetailVO.title}
                     </h2>
                     <p className='mt-1 text-base-content/70 font-normal leading-6 text-sm line-clamp-2'>
                         {postDetailVO.preview}
                     </p>
-                </Link>
+                </div>
                 <div className='mt-2 flex gap-x-3 gap-y-1 w-full flex-nowrap overflow-hidden'>
                     <PostCreateTime createTime={postDetailVO.create_time}/>
                     <PostCategory category={postDetailVO.category}/>

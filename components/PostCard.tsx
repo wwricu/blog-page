@@ -10,12 +10,14 @@ export default function PostCard({ postDetailVO, index, className = '', snippet 
 
     return (
         <div className={
-            `${className} group flex items-center justify-between gap-4 min-w-2xs w-full rounded-xl
+            `${className} group relative flex items-center justify-between gap-4 min-w-2xs w-full rounded-xl
             bg-base-100 ring-1 ring-base-300/70 px-4 py-5 transition-shadow hover:shadow-sm hover:ring-base-content/25
             max-sm:min-h-16 max-sm:px-3 max-md:w-full md:h-28 md:py-0 md:w-3xl`
         }>
+            {/* whole-card link; category/tag links sit above it via relative */}
+            <Link href={detailHref} aria-label={postDetailVO.title} className='absolute inset-0 rounded-xl focus-visible:ring-2 focus-visible:ring-primary/60'/>
             <div className='flex flex-col flex-1 items-start min-w-0'>
-                <Link className='w-full' href={detailHref}>
+                <div className='w-full'>
                     <h4 className='text-base-content text-[17px] font-semibold tracking-tight leading-6 line-clamp-1 transition-colors group-hover:text-primary'>
                         {postDetailVO.title}
                     </h4>
@@ -25,7 +27,7 @@ export default function PostCard({ postDetailVO, index, className = '', snippet 
                     ) : (
                         <p className='text-base-content/70 font-normal leading-6 text-sm line-clamp-1 max-sm:text-xs'>{postDetailVO.preview}</p>
                     )}
-                </Link>
+                </div>
                 <div className='flex gap-x-3 gap-y-1 w-full flex-nowrap overflow-hidden'>
                     <PostCreateTime createTime={postDetailVO.create_time}/>
                     <PostCategory category={postDetailVO.category}/>
