@@ -32,9 +32,7 @@ export default function Pagination({ current = 1, total, pageSize = 10, baseUrl,
     if (to < pageCount - 1) {
         pages.push('...')
     }
-    if (pageCount > 1) {
-        pages.push(pageCount)
-    }
+    pages.push(pageCount)
 
     const getUrl = (page: number) => page === 1
         ? baseUrl
