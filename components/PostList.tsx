@@ -30,7 +30,7 @@ export default function PostList({ page, pageSize, baseUrl, breadcrumb, mobile }
             flex flex-col items-center gap-3 w-full overflow-x-auto
             max-sm:px-1 max-sm:mt-3 max-sm:pb-3
             sm:mt-4 sm:px-2
-            md:mt-5 md:p-0`
+            md:mt-5 md:px-2 md:[&>*]:max-w-full`
         }>
             {
                 breadcrumb ?
