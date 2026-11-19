@@ -35,7 +35,7 @@ export default function Header({site}: { site: SiteVO }) {
 
     return (
         <>
-            <h1 className='sr-only'>{site.title}</h1>
+            <div className='sr-only'>{site.title}</div>
             <div className='flex justify-between items-center sticky z-100 top-0 bg-base-200 border-b border-base-300 h-9 overflow-x-auto overflow-y-clip'>
                 <div className='flex justify-start items-center h-full'>
                     {

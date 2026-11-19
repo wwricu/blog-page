@@ -52,9 +52,9 @@ export default function Sidebar({site, children}: { site: SiteVO, children?: Rea
     return (
         <aside className='max-lg:hidden sticky top-0 left-0 h-svh w-60 shrink-0 flex flex-col bg-base-200 border-r border-base-300'>
             <Link href='/' className='block px-5 pt-6 pb-5'>
-                <h1 className='text-[17px] font-semibold text-base-content tracking-tight leading-none'>
+                <div className='text-[17px] font-semibold text-base-content tracking-tight leading-none'>
                     {site.title}
-                </h1>
+                </div>
                 <p className='text-xs text-base-content/60 mt-1.5'>{site.tagline}</p>
             </Link>
 
