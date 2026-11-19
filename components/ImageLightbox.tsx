@@ -29,7 +29,7 @@ export default function ImageLightbox({ html }: { html: string }) {
                 dangerouslySetInnerHTML={{ __html: html }}
                 onClick={(e) => open(e.target)}
                 onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
+                    if ((e.key === 'Enter' || e.key === ' ') && e.target instanceof HTMLImageElement) {
                         e.preventDefault()
                         open(e.target)
                     }
