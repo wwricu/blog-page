@@ -3,7 +3,7 @@ import {JetBrains_Mono, Noto_Sans} from "next/font/google"
 export const TagsUrl = 'tags'
 export const CategoriesURL = 'categories'
 export const SearchUrl = 'search'
-export const SiteUrl = process.env.NEXT_SITE_URL || 'https://wwr.icu'
+export const SiteUrl = process.env.SITE_URL || 'https://wwr.icu'
 export const IconClassNames = 'inline stroke-2 w-3.75 h-3.75'
 export const LightTheme = 'paper'
 export const DarkTheme = 'night'

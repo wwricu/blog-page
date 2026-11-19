@@ -15,13 +15,13 @@ const nextConfig: NextConfig = {
     ],
   },
  async rewrites() {
-    if (!process.env.NEXT_BASE_URL) {
+    if (!process.env.API_URL) {
       return []
     }
     return [
         {
           source: '/api/open/:path*',
-          destination: `${process.env.NEXT_BASE_URL}/open/:path*`,
+          destination: `${process.env.API_URL}/open/:path*`,
         },
       ]
   },

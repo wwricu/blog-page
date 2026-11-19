@@ -1,6 +1,6 @@
 import {SiteVO, PostPreviewPageVO, PostDetailVO, PostSearchVO, TagTypeEnum, TagVO} from "@/common/model"
 
-const baseUrl = process.env.NEXT_BASE_URL ?? '/api'
+const baseUrl = process.env.API_URL ?? '/api'
 
 const request = async <T>(url: string, init: RequestInit = {}): Promise<T> => {
     const res = await fetch(`${baseUrl}${url}`, init)
