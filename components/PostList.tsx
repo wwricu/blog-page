@@ -1,5 +1,6 @@
 import {PostPreviewPageVO} from "@/common/model"
 import PostCard from "@/components/PostCard"
+import PostLead from "@/components/PostLead"
 import React from "react"
 import Pagination from "@/components/Pagination"
 import dynamic from 'next/dynamic'
@@ -9,6 +10,7 @@ const MobilePagination = dynamic(() => import('@/components/MobilePagination'))
 type MobilePaginationParams = {
     category?: string
     tag?: string
+    pageIndex: number
 }
 
 type PostListProps = {
@@ -20,28 +22,34 @@ type PostListProps = {
 }
 
 export default function PostList({ page, pageSize, baseUrl, breadcrumb, mobile }: PostListProps) {
+    const lead = !breadcrumb && page.page_index === 1 ? page.data[0] : undefined
+    const posts = lead ? page.data.slice(1) : page.data
+
     return (
         <div className={`
-            flex flex-col items-center w-full overflow-x-auto
-            max-sm:gap-y-1 max-sm:px-1 max-sm:mt-1
-            sm:gap-y-2 sm:mt-2 sm:px-2
-            md:p-0 md:gap-y-3 md:mt-3`
+            flex flex-col items-center gap-3 w-full overflow-x-auto
+            max-sm:px-1 max-sm:mt-3 max-sm:pb-3
+            sm:mt-4 sm:px-2
+            md:mt-5 md:px-2 md:[&>*]:max-w-full`
         }>
             {
                 breadcrumb ?
                 (
-                    <div className={`breadcrumbs py-0 min-w-2xs text-base-content/70 text-sm w-full max-sm:pl-2 sm:pl-4 max-md:w-full md:w-3xl`}>
+                    <div className={`breadcrumbs py-0 min-w-2xs text-base-content/70 text-sm w-full max-sm:pl-3 sm:pl-4 max-md:w-full md:w-3xl`}>
                         {breadcrumb}
                     </div>
                 ) : null
             }
             {
-                page?.data?.map((postDetailVO, i) =>
+                lead ? <PostLead postDetailVO={lead}/> : null
+            }
+            {
+                posts.map((postDetailVO, i) =>
                     <PostCard key={postDetailVO.id} index={i} postDetailVO={postDetailVO}/>
                 )
             }
             <Pagination
-                className='max-sm:hidden max-sm:mt-1 max-sm:mb-2 sm:mt-2 sm:mb-4 md:mt-3 md:mb-6'
+                className='max-sm:hidden mb-2'
                 current={page.page_index}
                 total={page.count}
                 pageSize={pageSize}
@@ -50,9 +58,11 @@ export default function PostList({ page, pageSize, baseUrl, breadcrumb, mobile }
             {
                 mobile ? (
                     <MobilePagination
+                        key={`${mobile.category}/${mobile.tag}/${mobile.pageIndex}`}
                         className='sm:hidden'
                         category={mobile.category}
                         tag={mobile.tag}
+                        pageIndex={mobile.pageIndex}
                     />
                 ) : null
             }

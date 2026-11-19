@@ -1,19 +1,19 @@
 import {TagTypeEnum} from "@/common/model"
 import TagView from "@/components/TagView"
-import {AsyncPathParams, CategoriesURL, TagsUrl} from "@/common/common"
+import {CategoriesURL, TagsUrl} from "@/common/common"
 import React from "react"
 import PostView from "@/components/PostView"
 import {Metadata} from "next"
 import {permanentRedirect} from "next/navigation"
 
-export const generateMetadata = async ({ params }: AsyncPathParams): Promise<Metadata> => {
+export const generateMetadata = async ({ params }: PageProps<'/[filter]'>): Promise<Metadata> => {
     const filter = (await params).filter
     const isPagedHome = filter !== CategoriesURL && filter !== TagsUrl
 
     return isPagedHome
         ? {
             title: `Page ${filter}`,
-            description: `Explore all posts on ${filter}th page`,
+            description: `Explore all posts on page ${filter}`,
             openGraph: { url: `/${filter}` },
         }
         : {
@@ -25,8 +25,8 @@ export const generateMetadata = async ({ params }: AsyncPathParams): Promise<Met
 
 export const generateStaticParams = () => []
 
-export default async function FilterPage({ params }: AsyncPathParams) {
-    const filter = (await params)?.filter
+export default async function FilterPage({ params }: PageProps<'/[filter]'>) {
+    const filter = (await params).filter
 
     if (filter === CategoriesURL) {
         return <TagView tagType={TagTypeEnum.POST_CAT} />

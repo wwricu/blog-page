@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
         rules: [
             {
                 userAgent: '*',
-                disallow: ['/_next/', '/api/', '/search'],
+                disallow: ['/api/', '/search'],
             },
             {
                 userAgent: 'Baiduspider',

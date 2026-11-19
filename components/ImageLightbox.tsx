@@ -1,49 +1,41 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
+import { useLightbox } from '@/components/Lightbox'
 
 export default function ImageLightbox({ html }: { html: string }) {
-    const [activeSrc, setActiveSrc] = useState<string | null>(null)
-    const [activeAlt, setActiveAlt] = useState<string>('preview')
-    const dialogRef = useRef<HTMLDialogElement>(null)
+    const { show, dialog } = useLightbox()
+    const ref = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+        ref.current?.querySelectorAll('img').forEach(img => {
+            img.tabIndex = 0
+            img.setAttribute('role', 'button')
+            img.setAttribute('aria-label', img.alt ? `View image: ${img.alt}` : 'View image')
+        })
+    }, [html])
+
+    const open = (target: EventTarget | null) => {
+        if (target instanceof HTMLImageElement) {
+            show(target.src, target.alt)
+        }
+    }
 
     return (
         <>
             <div
-                className='prose max-w-none! max-md:prose-sm text-base-content leading-relaxed [&_img]:cursor-zoom-in'
+                ref={ref}
+                className='prose max-w-none! max-md:prose-sm leading-relaxed [&_img]:cursor-zoom-in [&_img]:focus-visible:outline-2 [&_img]:focus-visible:outline-offset-2 [&_img]:focus-visible:outline-primary'
                 dangerouslySetInnerHTML={{ __html: html }}
-                onClick={(e) => {
-                    if (e.target instanceof HTMLImageElement) {
-                        setActiveSrc(e.target.src)
-                        setActiveAlt(e.target.alt)
-                        dialogRef.current?.showModal()
+                onClick={(e) => open(e.target)}
+                onKeyDown={(e) => {
+                    if ((e.key === 'Enter' || e.key === ' ') && e.target instanceof HTMLImageElement) {
+                        e.preventDefault()
+                        open(e.target)
                     }
                 }}
             />
-            <dialog
-                ref={dialogRef}
-                className='modal'
-                onClose={() => setActiveSrc(null)}
-            >
-                <div 
-                    className='modal-box w-[90vw] h-[85vh] max-w-none p-0 bg-transparent shadow-none overflow-hidden flex items-center justify-center'
-                    onClick={() => dialogRef.current?.close()}
-                >
-                    {activeSrc && (
-                        // Full-size source is arbitrary remote HTML content; next/image cannot
-                        // optimize unknown URLs here, and the dialog image is not crawled/indexed
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                            src={activeSrc}
-                            alt={activeAlt}
-                            className='max-w-full max-h-full object-contain cursor-zoom-out'
-                        />
-                    )}
-                </div>
-                <form method='dialog' className='modal-backdrop'>
-                    <button>close</button>
-                </form>
-            </dialog>
+            {dialog}
         </>
     )
 }

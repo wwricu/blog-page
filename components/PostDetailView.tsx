@@ -3,21 +3,37 @@ import React from "react"
 import {PostCategory, PostCreateTime, PostTagList} from "@/components/PostMeta"
 import { notFound } from "next/navigation"
 import ImageLightbox from "@/components/ImageLightbox"
+import PostCover from "@/components/PostCover"
+import {estimateReadMinutes} from "@/common/common"
 
 export default async function PostDetailView({ postDetailVO }: { postDetailVO: PostDetailVO | null }) {
     if (!postDetailVO) {
         notFound()
     }
+    const coverUrl = postDetailVO.cover?.url
+    const coverName = postDetailVO.cover?.name
+    const cover = coverUrl ? { url: coverUrl, name: coverName ?? postDetailVO.title } : null
+    const readMinutes = estimateReadMinutes(postDetailVO.content)
 
     return (
-        <div className='flex-1 bg-base-100 shadow-xl max-sm:p-2 max-md:p-4 max-md:w-full md:w-3xl md:p-6'>
-            <h1 className='text-base-content text-2xl font-medium font-title'>{postDetailVO.title}</h1>
-            <div className='flex items-center max-sm:gap-1 max-sm:my-2 sm:gap-2 sm:my-4 md:my-6 flex-wrap'>
-                <PostCreateTime createTime={postDetailVO?.create_time}/>
-                <PostCategory category={postDetailVO?.category}/>
-                <PostTagList tagList={postDetailVO?.tag_list}/>
+        <article className='flex-1 w-full max-md:w-full md:w-3xl max-sm:m-1 sm:m-2 md:m-3 overflow-hidden rounded-xl bg-base-100 ring-1 ring-base-300/70'>
+            {cover ? <PostCover url={cover.url} name={cover.name}/> : null}
+            <div className='px-3 sm:px-4 pt-6 pb-6 sm:pt-8 sm:pb-8'>
+                <header className='pb-5 border-b border-base-300/70'>
+                    <h1 className='text-base-content text-2xl sm:text-[28px] font-semibold tracking-tight'>
+                        {postDetailVO.title}
+                    </h1>
+                    <div className='mt-3 flex items-center flex-wrap gap-x-3 gap-y-1'>
+                        <PostCreateTime createTime={postDetailVO.create_time}/>
+                        <PostCategory category={postDetailVO.category}/>
+                        <PostTagList tagList={postDetailVO.tag_list}/>
+                        <span className='ml-auto text-sm text-base-content/70 tabular-nums'>{readMinutes} min read</span>
+                    </div>
+                </header>
+                <div className='pt-6'>
+                    <ImageLightbox html={postDetailVO.content}/>
+                </div>
             </div>
-            <ImageLightbox html={postDetailVO.content}/>
-        </div>
+        </article>
     )
 }

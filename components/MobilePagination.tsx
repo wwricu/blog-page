@@ -1,20 +1,19 @@
 'use client'
 
 import React, {useEffect, useRef, useState} from "react"
+import {ChevronDown} from "lucide-react"
 import {PostPreviewVO} from "@/common/model"
 import {GetAllBlogPosts} from "@/common/api"
 import PostCard from "@/components/PostCard"
 
 type PaginationProps = {
-    baseCount?: number,
+    pageIndex?: number,
     category?: string,
     tag?: string
     className?: string,
 }
-const buttonClassNames = 'btn btn-primary btn-sm btn-outline rounded-lg whitespace-nowrap py-0 mt-2 mb-3 hover:btn-soft'
-
+const buttonClassNames = 'flex w-full cursor-pointer items-center justify-center gap-1.5 rounded-xl bg-base-100 py-3 text-sm font-medium text-base-content/70 ring-1 ring-base-300 transition-shadow hover:shadow-sm hover:text-primary'
 const useInfiniteScroll = (enabled: boolean, onBottom: () => void, threshold: number = 100) => {
-    // Keep the latest callback so the listener never runs on a stale closure
     const onBottomRef = useRef(onBottom)
     useEffect(() => { onBottomRef.current = onBottom }, [onBottom])
 
@@ -31,17 +30,15 @@ const useInfiniteScroll = (enabled: boolean, onBottom: () => void, threshold: nu
     }, [enabled, threshold])
 }
 
-export default function MobilePagination({ baseCount = 10, category, tag, className }: PaginationProps) {
+export default function MobilePagination({ pageIndex = 1, category, tag, className }: PaginationProps) {
     const pageSize = 10
 
     const [active, setActive] = useState(false)
     const [items, setItems] = useState<PostPreviewVO[]>([])
     const [loading, setLoading] = useState(false)
-    // Reached the last page (short page) or the backend failed: stop asking
     const [exhausted, setExhausted] = useState(false)
-    // Last rendered page; page 1 comes from SSR
-    const pageRef = useRef(1)
-    // Synchronous guard: state updates are async, quick successive triggers must not overlap fetches
+    const [failed, setFailed] = useState(false)
+    const pageRef = useRef(pageIndex)
     const loadingRef = useRef(false)
 
     const loadNext = () => {
@@ -50,36 +47,35 @@ export default function MobilePagination({ baseCount = 10, category, tag, classN
         setLoading(true)
 
         GetAllBlogPosts(pageRef.current + 1, pageSize, category, tag).then((postDetailPageVO) => {
-            const data = postDetailPageVO.data ?? []
+            const data = postDetailPageVO.data
             pageRef.current += 1
             setItems(prev => [...prev, ...data])
+            setFailed(false)
             if (data.length < pageSize) {
                 setExhausted(true)
             }
-        }).catch(() => {
-            setExhausted(true)
-        }).finally(() => {
+        }).catch(() => setFailed(true)).finally(() => {
             loadingRef.current = false
             setLoading(false)
         })
     }
 
-    useInfiniteScroll(active && !exhausted, loadNext, 300)
+    useInfiniteScroll(active && !exhausted && !failed, loadNext, 300)
 
     return (
         <>
             {
                 items.map((postDetailVO, i) =>
-                    <PostCard key={`${postDetailVO.id}-${i}`} index={baseCount + i} className={className} postDetailVO={postDetailVO}/>
+                    <PostCard key={`${postDetailVO.id}-${i}`} index={pageIndex * pageSize + i} className={className} postDetailVO={postDetailVO}/>
                 )
             }
-            <div className={className}>
+            <div className={`w-full ${className}`}>
                 {
                     !exhausted ?
                     (
                         <button type='button' className={buttonClassNames} disabled={loading}
                                 onClick={() => { setActive(true); loadNext() }}>
-                            {loading ? 'Loading...' : 'Show More'}
+                            {loading ? 'Loading...' : failed ? 'Failed to load · Tap to retry' : <>Show more <ChevronDown className='w-3.5 h-3.5'/></>}
                         </button>
                     ) : active ?
                     (

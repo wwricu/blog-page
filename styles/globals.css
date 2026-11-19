@@ -1,11 +1,141 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+
+/* Built-in themes are off: the two palettes below replace them and would only fight. */
 @plugin "daisyui" {
-  themes: fantasy --default, abyss --prefersdark;
+  themes: false;
+}
+
+/* Warm paper canvas, ink-blue accent used sparingly. */
+@plugin "daisyui/theme" {
+  name: "paper";
+  default: true;
+  color-scheme: light;
+  --color-base-100: oklch(97.8% 0.008 84);
+  --color-base-200: oklch(94.6% 0.014 82);
+  --color-base-300: oklch(89.4% 0.019 80);
+  --color-base-content: oklch(26% 0.015 62);
+  --color-primary: oklch(45% 0.11 254);
+  --color-primary-content: oklch(98% 0.01 254);
+  --color-secondary: oklch(62% 0.09 42);
+  --color-secondary-content: oklch(98% 0.015 42);
+  --color-accent: oklch(70% 0.09 175);
+  --color-accent-content: oklch(26% 0.04 175);
+  --color-neutral: oklch(33% 0.014 62);
+  --color-neutral-content: oklch(96% 0.005 85);
+  --color-info: oklch(62% 0.11 240);
+  --color-info-content: oklch(98% 0.01 240);
+  --color-success: oklch(58% 0.12 155);
+  --color-success-content: oklch(98% 0.01 155);
+  --color-warning: oklch(74% 0.14 78);
+  --color-warning-content: oklch(30% 0.05 78);
+  --color-error: oklch(56% 0.19 22);
+  --color-error-content: oklch(98% 0.01 22);
+  --radius-selector: 0.5rem;
+  --radius-field: 0.5rem;
+  --radius-box: 0.75rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+/* Same hue relationships, pulled down to a warm charcoal so dark mode is not pure black. */
+@plugin "daisyui/theme" {
+  name: "night";
+  prefersdark: true;
+  color-scheme: dark;
+  --color-base-100: oklch(21% 0.008 72);
+  --color-base-200: oklch(17.5% 0.008 72);
+  --color-base-300: oklch(28% 0.01 72);
+  --color-base-content: oklch(89% 0.006 85);
+  --color-primary: oklch(72% 0.1 254);
+  --color-primary-content: oklch(22% 0.04 254);
+  --color-secondary: oklch(74% 0.09 42);
+  --color-secondary-content: oklch(24% 0.04 42);
+  --color-accent: oklch(76% 0.09 175);
+  --color-accent-content: oklch(24% 0.04 175);
+  --color-neutral: oklch(92% 0.005 85);
+  --color-neutral-content: oklch(22% 0.008 72);
+  --color-info: oklch(72% 0.1 240);
+  --color-info-content: oklch(22% 0.04 240);
+  --color-success: oklch(72% 0.12 155);
+  --color-success-content: oklch(22% 0.05 155);
+  --color-warning: oklch(80% 0.13 78);
+  --color-warning-content: oklch(28% 0.05 78);
+  --color-error: oklch(66% 0.17 22);
+  --color-error-content: oklch(22% 0.05 22);
+  --radius-selector: 0.5rem;
+  --radius-field: 0.5rem;
+  --radius-box: 0.75rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+/* next/font only ships Latin subsets, so name the CJK faces the browser should fall back to */
+@theme {
+  --font-sans: var(--font-noto, "Noto Sans"), "Segoe UI", "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", system-ui, sans-serif;
 }
 
 .prose table {
   display: block;
   overflow-x: auto;
   width: 100%;
+}
+
+.prose {
+  --tw-prose-body: color-mix(in oklab, var(--color-base-content) 88%, transparent);
+  --tw-prose-headings: var(--color-base-content);
+  --tw-prose-lead: var(--color-base-content);
+  --tw-prose-links: var(--color-primary);
+  --tw-prose-bold: var(--color-base-content);
+  --tw-prose-counters: color-mix(in oklab, var(--color-base-content) 55%, transparent);
+  --tw-prose-bullets: color-mix(in oklab, var(--color-base-content) 35%, transparent);
+  --tw-prose-hr: var(--color-base-300);
+  --tw-prose-quotes: var(--color-base-content);
+  --tw-prose-quote-borders: color-mix(in oklab, var(--color-primary) 45%, transparent);
+  --tw-prose-captions: color-mix(in oklab, var(--color-base-content) 55%, transparent);
+  --tw-prose-code: var(--color-base-content);
+  --tw-prose-pre-code: var(--color-base-content);
+  --tw-prose-pre-bg: var(--color-base-200);
+  --tw-prose-th-borders: var(--color-base-300);
+  --tw-prose-td-borders: var(--color-base-300);
+  [data-theme='night'] & [style*='color'] { color: inherit !important }
+}
+
+.prose :where(h2, h3, h4):not(:where(.not-prose *)) {
+  letter-spacing: -0.015em;
+}
+
+.prose :where(img):not(:where(.not-prose *)) {
+  border-radius: var(--radius-box);
+}
+
+.prose :where(code):not(:where(pre code))::before,
+.prose :where(code):not(:where(pre code))::after {
+  content: none;
+}
+
+.prose :where(code):not(:where(pre code)) {
+  background: color-mix(in oklab, var(--color-base-content) 7%, transparent);
+  border-radius: 0.375rem;
+  font-weight: 400;
+  padding: 0.125rem 0.375rem;
+}
+
+details > summary > svg {
+  transition: rotate 0.2s ease;
+}
+
+details[open] > summary > svg {
+  rotate: 90deg;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--color-primary) 18%, transparent);
 }

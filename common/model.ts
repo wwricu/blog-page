@@ -12,7 +12,7 @@ export interface TagVO {
 
 export interface PostResourceVO {
     id: number
-    name: string
+    name: string | null
     key: string
     url: string
 }
@@ -20,9 +20,9 @@ export interface PostResourceVO {
 export interface PostPreviewVO {
     id: number
     title: string
-    cover?: PostResourceVO
+    cover: PostResourceVO | null
     preview: string
-    category?: TagVO
+    category: TagVO | null
     tag_list: TagVO[]
     create_time: string
     update_time: string
@@ -40,10 +40,12 @@ export interface PostPreviewPageVO {
 }
 
 export interface PostSearchVO extends PostPreviewVO {
-    snippet?: string
+    snippet: string | null
 }
 
-export interface AboutVO {
+export interface SiteVO {
+    title: string
+    tagline: string
     content: string
     post_count: number
     category_count: number
