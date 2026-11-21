@@ -3,7 +3,7 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 
 import React, {useEffect, useState} from "react"
-import {Info, Moon, Search, Sun} from "lucide-react"
+import {Info, Moon, Search, Sun, SunMoon} from "lucide-react"
 import Link from "next/link"
 import {usePathname, useRouter} from "next/navigation"
 import {DarkTheme, LightTheme, SearchUrl} from "@/common/common"
@@ -14,13 +14,12 @@ export default function Sidebar({site, children}: { site: SiteVO, children?: Rea
     const pathname = usePathname() || '/'
     const router = useRouter()
     const [keyword, setKeyword] = useState('')
-    const [theme, setTheme] = useState<string | null>(null)
+    const [theme, setTheme] = useState<string | null>(null)  // null follows the system theme
     const [isModalOpen, setIsModalOpen] = useState(false)
 
     useEffect(() => {
         const saved = localStorage.getItem('theme')
-        setTheme(saved === LightTheme || saved === DarkTheme ? saved
-            : window.matchMedia('(prefers-color-scheme: dark)').matches ? DarkTheme : LightTheme)
+        setTheme(saved === LightTheme || saved === DarkTheme ? saved : null)
     }, [])
 
     useEffect(() => {
@@ -36,12 +35,19 @@ export default function Sidebar({site, children}: { site: SiteVO, children?: Rea
         return () => window.removeEventListener('popstate', syncFromUrl)
     }, [pathname])
 
-    const toggleTheme = () => {
-        const next = theme === DarkTheme ? LightTheme : DarkTheme
-        document.documentElement.setAttribute('data-theme', next)
-        localStorage.setItem('theme', next)
+    const cycleTheme = () => {
+        const next = theme === null ? LightTheme : theme === DarkTheme ? null : DarkTheme
+        if (next) {
+            document.documentElement.setAttribute('data-theme', next)
+            localStorage.setItem('theme', next)
+        } else {
+            document.documentElement.removeAttribute('data-theme')
+            localStorage.removeItem('theme')
+        }
         setTheme(next)
     }
+
+    const themeLabel = theme === null ? 'Theme: follow system' : theme === DarkTheme ? 'Theme: dark' : 'Theme: light'
 
     const submitSearch = () => {
         const trimmed = keyword.trim()
@@ -81,11 +87,12 @@ export default function Sidebar({site, children}: { site: SiteVO, children?: Rea
                 <div className='flex items-center gap-1'>
                     <button
                         type='button'
-                        onClick={toggleTheme}
+                        onClick={cycleTheme}
                         className='inline-flex items-center justify-center w-7 h-7 rounded-md hover:bg-base-300/60 hover:text-base-content transition-colors'
-                        aria-label='Toggle theme'
+                        aria-label={themeLabel}
+                        title={themeLabel}
                     >
-                        {theme === DarkTheme ? <Sun className='w-4 h-4'/> : <Moon className='w-4 h-4'/>}
+                        {theme === null ? <SunMoon className='w-4 h-4'/> : theme === DarkTheme ? <Moon className='w-4 h-4'/> : <Sun className='w-4 h-4'/>}
                     </button>
                     <button
                         type='button'
