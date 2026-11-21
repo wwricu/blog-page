@@ -12,7 +12,7 @@ on:
       - '**.csv'
       - '**.gitignore'
 jobs:
-  github:
+  build:
     runs-on: ubuntu-latest
     permissions:
       contents: read
