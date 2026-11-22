@@ -82,8 +82,8 @@ export default function Sidebar({site, children}: { site: SiteVO, children?: Rea
                 {children}
             </div>
 
-            <div className='mt-auto px-2 pl-5 py-4 border-t border-base-300 flex items-center justify-between text-xs text-base-content/55'>
-                <span>© {new Date().getFullYear()}</span>
+            <div className='mt-auto px-2 pl-5 py-4 border-t border-base-300 flex items-center justify-between text-xs text-base-content/70'>
+                <span>© {new Date().getFullYear()} {site.title}</span>
                 <div className='flex items-center gap-1'>
                     <button
                         type='button'
